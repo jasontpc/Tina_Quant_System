@@ -1,39 +1,54 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "generated": "2026-04-22",
   "patterns": [
     {
+      "name": "VIF_Extreme_Risk",
+      "description": "VIF 極高風險區 (<1.2)",
+      "condition": "VIF < 1.2",
+      "action": "強制禁入",
+      "note": "Q1 2026 佔81.1%失敗"
+    },
+    {
+      "name": "VIF_Watch_Zone",
+      "description": "VIF 觀察區 (1.2-1.5)",
+      "condition": "1.2 <= VIF < 1.5",
+      "action": "僅限大型權值股，Score需>80",
+      "note": "僅允許2330、3017等大型權值"
+    },
+    {
+      "name": "VIF_Standard",
+      "description": "VIF 標準起漲區 (1.5-2.5)",
+      "condition": "1.5 <= VIF < 2.5",
+      "action": "正式進場",
+      "note": "v3.12 核心獲利區"
+    },
+    {
+      "name": "VIF_Strong_Breakout",
+      "description": "VIF 強勢爆發區 (>2.5)",
+      "condition": "VIF >= 2.5",
+      "action": "重倉/加碼",
+      "note": "籌碼熱絡，波段連續性最強"
+    },
+    {
       "name": "High_RSI_Entry",
-      "description": "RSI過熱進場 (>65)",
+      "description": "RSI過熱進場 (>=65)",
       "condition": "RSI>=65",
-      "avoid_when": ["RSI>65", "追高風險高"],
+      "action": "降低部位或觀望",
       "note": "Q1 2026 佔51.2%失敗"
     },
     {
       "name": "High_MA20_Bias",
       "description": "偏離MA20過大 (>6%)",
       "condition": "Bias_MA20 > 6",
-      "avoid_when": ["偏離月線>6%", "磁吸效應強"],
+      "action": "禁止進場",
       "note": "Q1 2026 佔56.7%失敗"
-    },
-    {
-      "name": "Low_VIF",
-      "description": "量能不足 (VIF<1.5)",
-      "condition": "VIF<1.5",
-      "avoid_when": ["VIF<1.5", "量能不足"],
-      "note": "Q1 2026 佔81.1%失敗"
-    },
-    {
-      "name": "Day1_Pump_Reversal",
-      "description": "第一天漲停後第二天反轉",
-      "condition": "VIF<1.5 AND ATR<30",
-      "avoid_when": ["VIF<1.5", "量能不足", "隔日大幅低開"]
     },
     {
       "name": "Low_ATR_Warning",
       "description": "ATR過低，波動不足",
       "condition": "ATR<30",
-      "minimum": 30,
+      "action": "禁止進場",
       "note": "ATR<30 不符合進場條件"
     },
     {
@@ -43,6 +58,27 @@
       "reason": "Q1 2026 勝率0-23%"
     }
   ],
+  "vif_tiers": {
+    "hard_minimum": 1.2,
+    "watch_zone": {
+      "min": 1.2,
+      "max": 1.5,
+      "action": "score>80 only, large_cap_only"
+    },
+    "standard_zone": {
+      "min": 1.5,
+      "max": 2.5
+    },
+    "breakout_zone": {
+      "min": 2.5,
+      "action": "heavy_position"
+    }
+  },
+  "vif_scoring": {
+    "1.2_to_1.5": 5,
+    "1.5_to_2.0": 10,
+    "above_2.0": 15
+  },
   "risk_management": {
     "max_loss_per_trade": -10,
     "stop_loss_atr_multiple": 2,
@@ -58,8 +94,15 @@
     "minimum_atr": 30,
     "maximum_rsi": 65,
     "maximum_ma20_bias": 6,
-    "minimum_vif": 1.5,
+    "minimum_vif": 1.2,
     "trend": "above_ma20"
+  },
+  "stock_vif_custom": {
+    "2330": {"vif_min": 1.2, "note": "台積電，大型權值"},
+    "3017": {"vif_min": 1.2, "note": "奇鋐，大型AI權值"},
+    "3665": {"vif_min": 1.5, "note": "贸聯，需量能確認"},
+    "2308": {"vif_min": 1.2, "note": "台達電，大型權值"},
+    "2345": {"vif_min": 1.2, "note": "智邦，網通"}
   },
   "exit_rules": {
     "trailing_stop": {
