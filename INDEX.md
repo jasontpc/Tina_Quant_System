@@ -1,6 +1,6 @@
 # Tina 運維開發聯隊 - 完整索引與日誌
 
-## 📅 更新日期: 2026-04-22 15:39
+## 📅 更新日期: 2026-04-22 15:46
 
 ---
 
@@ -19,7 +19,7 @@ Tina_Quant_System/
 │   └── monitor_rules.json     監控規則
 │
 ├── 📂 strategies/             策略模組
-│   └── (保留 v3.12 邏輯)
+│   └── filters.py            v3.13 過濾器 (未使用)
 │
 ├── 📂 backtest/              回測系統
 │   ├── v3_12_top50.py       v3.12 回測腳本
@@ -30,6 +30,17 @@ Tina_Quant_System/
 │   ├── watchlist.json        觀察名單 (25檔)
 │   └── loss_rules.json       虧損規則
 │
+├── 📂 utils/                 通用工具 (NEW)
+│   ├── __init__.py           工具函數
+│   ├── README.md             使用說明
+│   └── (日誌/日期/技術指標/通知)
+│
+├── 📂 logs/                  日誌目錄 (NEW)
+│   ├── README.md             日誌說明
+│   ├── trade.log             交易紀錄
+│   ├── system.log            系統錯誤
+│   └── api.log               API 呼叫
+│
 ├── 📂 reports/               報告存档
 │   └── Q1_2025_BACKTEST_REPORT.md
 │
@@ -39,7 +50,8 @@ Tina_Quant_System/
     ├── INDEX.md              本索引
     ├── WORK_INDEX.md         工作追蹤
     ├── COMMIT_CONVENTION.md   Git 規範
-    └── GITHUB_SETUP.md       GitHub 指南
+    ├── GITHUB_SETUP.md       GitHub 指南
+    └── .env.example           環境變數範本 (NEW)
 ```
 
 ---
@@ -64,18 +76,14 @@ Tina_Quant_System/
 |:----:|:-----|:-----|
 | 14:20 | 系統清理 238→153 個腳本 | SRE |
 | 14:25 | Tina_Quant_System 資料夾建立 | Architect |
-| 14:27 | SQLite VACUUM 優化 | SRE |
-| 14:27 | Rate Limiter 加入 | SRE |
-| 14:27 | loss_rules.json 生成 | SRE |
-| 14:30 | API Gateway 建立 | SRE |
-| 14:32 | Git 安裝完成 | - |
+| 14:30 | API Gateway + Rate Limiter | SRE |
 | 14:46 | Git 初始化完成 | SRE |
 | 14:52 | GitHub Remote 設定完成 | SRE |
 | 14:52 | v3.13 三道防火牆實作 | Quant |
-| 15:22 | v3.13 Q1 高壓回測執行 | Backtester |
-| 15:28 | Q1 回測結果出爐 | Backtester |
+| 15:28 | Q1 高壓回測完成 | Backtester |
 | 15:31 | v3.13 捨棄，維持 v3.12 | Architect |
-| 15:39 | 索引重整、更新日誌 | Architect |
+| 15:39 | 索引重整完成 | Architect |
+| 15:46 | 新增 logs/ + utils/ 目錄 | SRE |
 
 ---
 
@@ -125,13 +133,30 @@ Tina_Quant_System/
 
 ---
 
-## 📌 代辦事項
+## 📌 新增功能 (15:46)
 
-| # | 任務 | 負責 | 優先 | 狀態 |
-|:--|:-----|:-----|:----:|:----:|
-| 1 | 自動化排程設定 | SRE | P2 | ⏳ |
-| 2 | 持倉時間分析 | Backtester | P2 | ⏳ |
+### logs/ - 日誌目錄
+
+| 檔案 | 說明 |
+|:-----|:-----|
+| `trade.log` | 交易紀錄 |
+| `system.log` | 系統錯誤 |
+| `api.log` | API 呼叫 |
+
+### utils/ - 通用工具
+
+| 函數 | 說明 |
+|:-----|:-----|
+| `get_trade_logger()` | 交易紀錄日誌器 |
+| `get_system_logger()` | 系統錯誤日誌器 |
+| `calc_rsi()`, `calc_atr()` | 技術指標計算 |
+| `send_telegram_message()` | Telegram 通知 |
+| `get_twse_trading_days()` | 台股交易日 |
+
+### .env.example - 環境變數
+
+存放敏感資訊（Token、API Key、資金設定）
 
 ---
 
-**最後更新: 2026-04-22 15:39**
+**最後更新: 2026-04-22 15:46**
