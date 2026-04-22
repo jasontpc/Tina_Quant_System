@@ -1,5 +1,5 @@
 {
-  "version": "2.2.0",
+  "version": "2.3.0",
   "generated": "2026-04-22",
   "patterns": [
     {
@@ -45,7 +45,7 @@
   "entry_conditions": {
     "minimum_score": 72,
     "minimum_atr": 25,
-    "maximum_rsi": 68,
+    "maximum_rsi": 65,
     "maximum_ma20_bias": 99,
     "minimum_vif": 0,
     "institutional_days": 3,
