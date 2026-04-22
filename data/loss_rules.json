@@ -1,26 +1,26 @@
 {
-  "version": "4.1.0",
+  "version": "4.2.0",
   "generated": "2026-04-23",
-  "note": "Top100精選股票池，v2.4.0為基礎",
+  "note": "近1年回測版本, Top100股票池, RSI<65, ATR>=30, 法人3天",
   "patterns": [
     {
       "name": "High_RSI_Entry",
-      "description": "RSI過熱進場 (>=70)",
-      "condition": "RSI>=70",
+      "description": "RSI過熱進場 (>=65)",
+      "condition": "RSI>=65",
       "action": "禁止進場",
-      "note": "RSI>=70 失敗率較高"
+      "note": "RSI>=65 失敗率較高"
     },
     {
       "name": "Low_ATR_Warning",
       "description": "ATR過低，波動不足",
-      "condition": "ATR<20",
+      "condition": "ATR<30",
       "action": "禁止進場",
-      "note": "ATR<0.5% 不符合進場條件"
+      "note": "ATR<30 不符合進場條件"
     },
     {
       "name": "Blacklist_Stocks",
       "description": "黑名單股票",
-      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "2408", "3443", "6446", "6669"],
+      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "2408", "3443", "6446", "6669", "2597"],
       "reason": "Q1 勝率0-33%, 迭代優化確認排除"
     }
   ],
@@ -45,8 +45,8 @@
   },
   "entry_conditions": {
     "minimum_score": 72,
-    "minimum_atr": 0.5,
-    "maximum_rsi": 70,
+    "minimum_atr": 30,
+    "maximum_rsi": 65,
     "maximum_ma20_bias": 99,
     "minimum_vif": 0,
     "institutional_days": 3,

@@ -1,0 +1,162 @@
+[
+  {
+    "version": "v4.2.0",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 0.5,
+      "min_vif": 0.5,
+      "inst_days": 3,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 463,
+      "wins": 207,
+      "losses": 256,
+      "wr": 44.70842332613391,
+      "avg": 1.005764879887446,
+      "max_win": 56.62656460566208,
+      "max_loss": -23.66659930666515
+    },
+    "timestamp": "2026-04-23 00:28"
+  },
+  {
+    "version": "v4.2.1",
+    "params": {
+      "max_rsi": 72,
+      "min_atr": 0.5,
+      "min_vif": 0.5,
+      "inst_days": 3,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 493,
+      "wins": 222,
+      "losses": 271,
+      "wr": 45.030425963488845,
+      "avg": 0.9686330563862331,
+      "max_win": 56.62656460566208,
+      "max_loss": -23.66659930666515
+    },
+    "timestamp": "2026-04-23 00:28"
+  },
+  {
+    "version": "v4.2.2",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 0.5,
+      "inst_days": 3,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 523,
+      "wins": 242,
+      "losses": 281,
+      "wr": 46.27151051625239,
+      "avg": 1.0821101895226892,
+      "max_win": 56.62656460566208,
+      "max_loss": -23.66659930666515
+    },
+    "timestamp": "2026-04-23 00:28"
+  },
+  {
+    "version": "v4.2.3",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 0.8,
+      "inst_days": 3,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 402,
+      "wins": 174,
+      "losses": 228,
+      "wr": 43.28358208955223,
+      "avg": 0.4551265473839395,
+      "max_win": 56.62656460566208,
+      "max_loss": -23.66659930666515
+    },
+    "timestamp": "2026-04-23 00:28"
+  },
+  {
+    "version": "v4.2.4",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 0.5,
+      "inst_days": 2,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 463,
+      "wins": 213,
+      "losses": 250,
+      "wr": 46.00431965442765,
+      "avg": 0.9244101459157532,
+      "max_win": 56.14091255881569,
+      "max_loss": -23.66659930666515
+    },
+    "timestamp": "2026-04-23 00:28"
+  },
+  {
+    "version": "v4.2.5",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 0.5,
+      "inst_days": 1,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 410,
+      "wins": 191,
+      "losses": 219,
+      "wr": 46.58536585365854,
+      "avg": 1.0431193132861074,
+      "max_win": 56.14091255881569,
+      "max_loss": -22.116666666666667
+    },
+    "timestamp": "2026-04-23 00:28"
+  },
+  {
+    "version": "v4.2.6",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 0.5,
+      "inst_days": 0,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 675,
+      "wins": 291,
+      "losses": 384,
+      "wr": 43.111111111111114,
+      "avg": 0.4931351655303167,
+      "max_win": 56.62656460566208,
+      "max_loss": -24.109305424270737
+    },
+    "timestamp": "2026-04-23 00:29"
+  },
+  {
+    "version": "v4.2.7",
+    "params": {
+      "max_rsi": 72,
+      "min_atr": 0.5,
+      "min_vif": 0.5,
+      "inst_days": 2,
+      "inst_min": 1
+    },
+    "result": {
+      "total": 434,
+      "wins": 194,
+      "losses": 240,
+      "wr": 44.70046082949309,
+      "avg": 0.791968335737692,
+      "max_win": 44.52607655502391,
+      "max_loss": -23.66659930666515
+    },
+    "timestamp": "2026-04-23 00:29"
+  }
+]
