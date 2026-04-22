@@ -1,18 +1,26 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "generated": "2026-04-22",
   "patterns": [
+    {
+      "name": "High_RSI_Entry",
+      "description": "RSI過熱進場 (>65)",
+      "condition": "RSI>=65",
+      "avoid_when": ["RSI>65", "追高風險高"],
+      "note": "v3.12 止血方案：RSI 65-78 佔42.8%失敗"
+    },
+    {
+      "name": "High_MA20_Bias",
+      "description": "偏離MA20過大 (>6%)",
+      "condition": "Bias_MA20 > 6",
+      "avoid_when": ["偏離月線>6%", "磁吸效應強"],
+      "note": "v3.12 止血方案：偏離>8%佔38.2%失敗"
+    },
     {
       "name": "Day1_Pump_Reversal",
       "description": "第一天漲停後第二天反轉",
       "condition": "VIF<1.5 AND ATR<30",
       "avoid_when": ["VIF<1.5", "量能不足", "隔日大幅低開"]
-    },
-    {
-      "name": "High_RSI_Entry",
-      "description": "RSI>78 進場過熱",
-      "condition": "RSI>=78",
-      "avoid_when": ["RSI>78", "偏離MA20>15%"]
     },
     {
       "name": "Low_ATR_Warning",
@@ -22,36 +30,28 @@
       "note": "ATR<30 不符合進場條件"
     },
     {
-      "name": "Low_PF_Warning",
-      "description": "歷史Profit Factor過低",
-      "condition": "PF<1.2",
-      "action": "進場需更嚴格VIF校驗 (VIF>2.0)",
-      "pf_thresholds": {
-        "excellent": 1.5,
-        "good": 1.2,
-        "warning": 1.0,
-        "danger": 0.5
-      }
-    },
-    {
       "name": "Blacklist_Stocks",
-      "description": "黑名單股票 (Q1 2026 0%勝率)",
-      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "1590", "2308"],
-      "reason": "歷史表現不佳或Q1 2026勝率0%"
+      "description": "黑名單股票",
+      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "2408"],
+      "reason": "2408佔40%極端虧損；其餘Q1勝率0%"
     }
   ],
   "risk_management": {
     "max_loss_per_trade": -10,
     "stop_loss_atr_multiple": 2,
     "max_portfolio_concentration": 30,
-    "max_positions": 5
+    "max_positions": 5,
+    "gap_down_exit": {
+      "threshold": -4,
+      "action": "無視指標立即清倉"
+    }
   },
   "entry_conditions": {
     "minimum_score": 72,
     "minimum_atr": 30,
-    "maximum_rsi": 78,
-    "trend": "above_ma20",
-    "pf_minimum": 1.2
+    "maximum_rsi": 65,
+    "maximum_ma20_bias": 6,
+    "trend": "above_ma20"
   },
   "exit_rules": {
     "trailing_stop": {
