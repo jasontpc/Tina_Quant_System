@@ -77,7 +77,7 @@ def calculate_target_shares(ticker, price, base_capital, history_pf=None, max_po
         ticker: 股票代碼
         price: 現價
         base_capital: 單筆基礎金額 (TWD)
-        history_pf: 歷史 PF 值
+        history_pf: 歷史 PF 值 (預設 0.5 = 最保守)
         max_positions: 最大持有檔數
     
     Returns:
@@ -102,12 +102,16 @@ def calculate_target_shares(ticker, price, base_capital, history_pf=None, max_po
                 'reason': f"黑名單: {item.get('reason', 'N/A')}"
             }
     
+    # 如果沒有 PF 資料，預設最保守的 50%
+    if history_pf is None:
+        history_pf = 0.5  # 新股預設最保守
+    
     # 計算乘數
     multiplier = get_multiplier(history_pf)
     risk_cap = get_risk_cap(history_pf)
     
     # PF < 1.0 禁止進場
-    if history_pf is not None and history_pf < 1.0:
+    if history_pf < 1.0:
         return {
             'shares': 0,
             'amount': 0,
