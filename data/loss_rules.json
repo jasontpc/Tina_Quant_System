@@ -1,20 +1,20 @@
 {
-  "version": "2.1.0",
+  "version": "2.2.0",
   "generated": "2026-04-22",
   "patterns": [
     {
       "name": "High_RSI_Entry",
-      "description": "RSI過熱進場 (>=65)",
-      "condition": "RSI>=65",
+      "description": "RSI過熱進場 (>=68)",
+      "condition": "RSI>=68",
       "action": "禁止進場",
-      "note": "Q1 2026 佔51.2%失敗"
+      "note": "RSI 68-78 佔較高失敗率"
     },
     {
       "name": "Low_ATR_Warning",
       "description": "ATR過低，波動不足",
-      "condition": "ATR<30",
+      "condition": "ATR<25",
       "action": "禁止進場",
-      "note": "ATR<30 不符合進場條件"
+      "note": "ATR<25 不符合進場條件"
     },
     {
       "name": "Blacklist_Stocks",
@@ -27,28 +27,10 @@
     "enabled": true,
     "lookback_days": 3,
     "requirement": "任一法人(外资/投信) 3天內至少1天買超",
-    "note": "法人篩選可將勝率從73.6%提升至81.5%"
+    "note": "法人篩選可將勝率提升至73.9%"
   },
   "vif_tiers": {
-    "hard_minimum": 0,
-    "watch_zone": {
-      "min": 1.2,
-      "max": 1.5,
-      "action": "score>80 only, large_cap_only"
-    },
-    "standard_zone": {
-      "min": 1.5,
-      "max": 2.5
-    },
-    "breakout_zone": {
-      "min": 2.5,
-      "action": "heavy_position"
-    }
-  },
-  "vif_scoring": {
-    "1.2_to_1.5": 5,
-    "1.5_to_2.0": 10,
-    "above_2.0": 15
+    "hard_minimum": 0
   },
   "risk_management": {
     "max_loss_per_trade": -10,
@@ -62,8 +44,8 @@
   },
   "entry_conditions": {
     "minimum_score": 72,
-    "minimum_atr": 30,
-    "maximum_rsi": 65,
+    "minimum_atr": 25,
+    "maximum_rsi": 68,
     "maximum_ma20_bias": 99,
     "minimum_vif": 0,
     "institutional_days": 3,
