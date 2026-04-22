@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "generated": "2026-04-22",
   "patterns": [
     {
@@ -22,10 +22,22 @@
       "note": "ATR<30 不符合進場條件"
     },
     {
+      "name": "Low_PF_Warning",
+      "description": "歷史Profit Factor過低",
+      "condition": "PF<1.2",
+      "action": "進場需更嚴格VIF校驗 (VIF>2.0)",
+      "pf_thresholds": {
+        "excellent": 1.5,
+        "good": 1.2,
+        "warning": 1.0,
+        "danger": 0.5
+      }
+    },
+    {
       "name": "Blacklist_Stocks",
       "description": "黑名單股票",
-      "codes": ["1590", "2308"],
-      "reason": "歷史表現不佳或流動性問題"
+      "codes": ["1590", "2308", "2615"],
+      "reason": "歷史表現不佳、流動性問題或PF過低"
     }
   ],
   "risk_management": {
@@ -38,7 +50,8 @@
     "minimum_score": 72,
     "minimum_atr": 30,
     "maximum_rsi": 78,
-    "trend": "above_ma20"
+    "trend": "above_ma20",
+    "pf_minimum": 1.2
   },
   "exit_rules": {
     "trailing_stop": {

@@ -1,0 +1,34 @@
+{
+  "blacklist": [
+    {
+      "symbol": "2615",
+      "name": "長榮航",
+      "reason": "PF=0.42，航運股波動大，與v3.12策略不合",
+      "date_added": "2026-04-22",
+      "hard_reject": true
+    },
+    {
+      "symbol": "1590",
+      "name": "亞德客-KY",
+      "reason": "PF=1.27，表現低於平均水平",
+      "date_added": "2026-04-22",
+      "hard_reject": false,
+      "conditions": "需要 VIF > 2.0 確認"
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "reason": "PF=0.75，牛皮股特性，盈虧比倒置",
+      "date_added": "2026-04-22",
+      "hard_reject": false,
+      "conditions": "暫停進場，等待策略調整"
+    }
+  ],
+  "pf_thresholds": {
+    "excellent": 1.5,
+    "good": 1.2,
+    "warning": 1.0,
+    "danger": 0.5
+  },
+  "notes": "黑名單會在所有掃描任務中自動跳過"
+}
