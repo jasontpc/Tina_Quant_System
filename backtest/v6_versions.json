@@ -1,0 +1,236 @@
+[
+  {
+    "version": "Ver. 6.0",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 370,
+      "wins": 241,
+      "losses": 123,
+      "wr": 65.14,
+      "avg": NaN,
+      "pf": 3.47,
+      "mdd": -18.24
+    },
+    "timestamp": "2026-04-23 00:48"
+  },
+  {
+    "version": "Ver. 6.1: +Trend",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 230,
+      "wins": 171,
+      "losses": 55,
+      "wr": 74.35,
+      "avg": NaN,
+      "pf": 6.06,
+      "mdd": -18.24
+    },
+    "timestamp": "2026-04-23 00:48"
+  },
+  {
+    "version": "Ver. 6.0",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 370,
+      "wins": 241,
+      "losses": 123,
+      "wr": 65.14,
+      "avg": NaN,
+      "pf": 3.47,
+      "mdd": -18.24
+    },
+    "timestamp": "2026-04-23 00:50"
+  },
+  {
+    "version": "Ver. 6.1: +Trend",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 230,
+      "wins": 171,
+      "losses": 55,
+      "wr": 74.35,
+      "avg": NaN,
+      "pf": 6.06,
+      "mdd": -18.24
+    },
+    "timestamp": "2026-04-23 00:50"
+  },
+  {
+    "version": "Ver. 6.2: +KDJ",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": true,
+      "macd_filter": false
+    },
+    "result": {},
+    "timestamp": "2026-04-23 00:50"
+  },
+  {
+    "version": "Ver. 6.3: +MACD",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": true
+    },
+    "result": {
+      "total": 257,
+      "wins": 162,
+      "losses": 89,
+      "wr": 63.04,
+      "avg": NaN,
+      "pf": 2.58,
+      "mdd": -18.24
+    },
+    "timestamp": "2026-04-23 00:50"
+  },
+  {
+    "version": "Ver. 6.4: RSI<72",
+    "params": {
+      "max_rsi": 72,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 401,
+      "wins": 262,
+      "losses": 133,
+      "wr": 65.34,
+      "avg": NaN,
+      "pf": 3.52,
+      "mdd": -18.24
+    },
+    "timestamp": "2026-04-23 00:51"
+  },
+  {
+    "version": "Ver. 6.5: RSI<75",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 30,
+      "inst_days": 3,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 442,
+      "wins": 288,
+      "losses": 148,
+      "wr": 65.16,
+      "avg": NaN,
+      "pf": 3.28,
+      "mdd": -22.12
+    },
+    "timestamp": "2026-04-23 00:51"
+  },
+  {
+    "version": "Ver. 6.6: Inst2d",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 2,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 306,
+      "wins": 198,
+      "losses": 102,
+      "wr": 64.71,
+      "avg": NaN,
+      "pf": 3.71,
+      "mdd": -14.94
+    },
+    "timestamp": "2026-04-23 00:51"
+  },
+  {
+    "version": "Ver. 6.7: Inst1d",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 1,
+      "inst_min": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 276,
+      "wins": 183,
+      "losses": 87,
+      "wr": 66.3,
+      "avg": NaN,
+      "pf": 3.95,
+      "mdd": -14.94
+    },
+    "timestamp": "2026-04-23 00:51"
+  },
+  {
+    "version": "Ver. 6.8: NoInst",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 30,
+      "inst_days": 0,
+      "inst_min": 0,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false
+    },
+    "result": {
+      "total": 428,
+      "wins": 274,
+      "losses": 146,
+      "wr": 64.02,
+      "avg": NaN,
+      "pf": 3.38,
+      "mdd": -18.24
+    },
+    "timestamp": "2026-04-23 00:52"
+  }
+]
