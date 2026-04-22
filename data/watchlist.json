@@ -360,11 +360,11 @@
       "symbol": "2317.TW",
       "name": "2317 鴻海",
       "type": "AI 伺服器",
-      "weight": 1,
+      "weight": 0,
       "initial": 0,
       "monthly": 0,
-      "status": "hold",
-      "currentPrice": 211.0,
+      "status": "watch",
+      "currentPrice": 221.0,
       "entryTargets": [
         {
           "price": 200,
@@ -400,8 +400,11 @@
         "sharpe": 0.24,
         "strategy": "標準RSI"
       },
-      "change": 3.5,
-      "lastUpdate": "2026-04-22 11:04"
+      "change": 4.74,
+      "lastUpdate": "2026-04-22 16:13",
+      "sold": true,
+      "soldPrice": 221,
+      "soldDate": "2026-04-22"
     },
     {
       "symbol": "00631L.TW",
