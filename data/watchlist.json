@@ -450,11 +450,11 @@
       "symbol": "3017.TW",
       "name": "3017 奇鋐",
       "type": "AI 伺服器",
-      "weight": 0,
+      "weight": 5,
       "initial": 0,
       "monthly": 0,
       "status": "hold",
-      "currentPrice": 2565.0,
+      "currentPrice": 2695.0,
       "entryTargets": [
         {
           "price": 2700,
@@ -486,7 +486,9 @@
         }
       },
       "entryPrice": 2605,
-      "change": 75.0,
+      "shares": 5,
+      "cost": 13025,
+      "change": 450.0,
       "lastUpdate": "2026-04-22 11:04"
     },
     {
