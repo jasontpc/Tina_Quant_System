@@ -454,6 +454,11 @@
       "initial": 0,
       "monthly": 0,
       "status": "hold",
+      "vifConfig": {
+        "vif_min": 1.2,
+        "vif_warning": 1.5,
+        "note": "3017 股性活潑，VIF 可較低但需 warnings"
+      },
       "currentPrice": 2695.0,
       "entryTargets": [
         {
@@ -523,6 +528,11 @@
         "winRate": 86.7,
         "avgReturn": 7.2,
         "signals": 30
+      },
+      "vifConfig": {
+        "vif_min": 1.5,
+        "vif_warning": 2.0,
+        "note": "3665 需要較高 VIF，VIF>=1.5 時勝率顯著提升"
       }
     },
     {
@@ -696,9 +706,14 @@
       }
     }
   ],
-  "lastUpdate": "2026-04-21",
+  "lastUpdate": "2026-04-22",
   "marketStatus": "OVERBOUGHT",
-  "notes": "觀察名單：回測修正RSI門檻，等待買入區間",
+  "vifGlobal": {
+    "default_vif_min": 1.2,
+    "default_vif_warning": 1.5,
+    "strategy": "warning_not_forbidden",
+    "note": "VIF < vif_min 發送警告但不禁區進場"
+  },
   "alertSettings": {
     "enabled": true,
     "notifyOnBuySignal": true,
