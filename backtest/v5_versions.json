@@ -1,0 +1,162 @@
+[
+  {
+    "version": "v5.0",
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 0.5,
+      "min_vif": 1.0,
+      "inst_days": 3,
+      "macd_bull": false,
+      "conservative_mode": true
+    },
+    "results": {
+      "top50": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "top51_200": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "all": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:16"
+  },
+  {
+    "version": "v5.1",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 1.0,
+      "inst_days": 3,
+      "macd_bull": false,
+      "conservative_mode": true
+    },
+    "results": {
+      "top50": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "top51_200": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "all": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:16"
+  },
+  {
+    "version": "v5.2",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 1.0,
+      "inst_days": 3,
+      "macd_bull": true,
+      "conservative_mode": true
+    },
+    "results": {
+      "top50": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "top51_200": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "all": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:16"
+  },
+  {
+    "version": "v5.3",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 1.5,
+      "inst_days": 3,
+      "macd_bull": true,
+      "conservative_mode": true
+    },
+    "results": {
+      "top50": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "top51_200": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "all": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:16"
+  },
+  {
+    "version": "v5.4",
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "min_vif": 1.3,
+      "inst_days": 3,
+      "macd_bull": true,
+      "conservative_mode": true
+    },
+    "results": {
+      "top50": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "top51_200": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      },
+      "all": {
+        "signals": 0,
+        "wr": 0,
+        "avg": 0,
+        "wins": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:16"
+  }
+]

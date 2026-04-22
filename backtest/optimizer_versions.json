@@ -1,0 +1,106 @@
+[
+  {
+    "version": 1,
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 0.5,
+      "inst_days": 3,
+      "macd_pos": false,
+      "kdj_buy": false
+    },
+    "result": {
+      "total": 654,
+      "wins": 294,
+      "losses": 360,
+      "wr": 44.95412844036697,
+      "avg_ret": 0.9256373387288142,
+      "max_loss": -23.66659930666515,
+      "fail_attrs": {
+        "high_rsi": 72,
+        "low_atr": 12,
+        "low_vr": 174,
+        "macd_neg": 52,
+        "kdj_overbought": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:07"
+  },
+  {
+    "version": 2,
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 0.5,
+      "inst_days": 3,
+      "macd_pos": true,
+      "kdj_buy": false
+    },
+    "result": {
+      "total": 534,
+      "wins": 226,
+      "losses": 308,
+      "wr": 42.32209737827715,
+      "avg_ret": 0.3282972512282622,
+      "max_loss": -23.66659930666515,
+      "fail_attrs": {
+        "high_rsi": 69,
+        "low_atr": 11,
+        "low_vr": 135,
+        "macd_neg": 0,
+        "kdj_overbought": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:08"
+  },
+  {
+    "version": 3,
+    "params": {
+      "max_rsi": 70,
+      "min_atr": 0.5,
+      "inst_days": 3,
+      "macd_pos": false,
+      "kdj_buy": true
+    },
+    "result": {
+      "total": 654,
+      "wins": 294,
+      "losses": 360,
+      "wr": 44.95412844036697,
+      "avg_ret": 0.9256373387288142,
+      "max_loss": -23.66659930666515,
+      "fail_attrs": {
+        "high_rsi": 72,
+        "low_atr": 12,
+        "low_vr": 174,
+        "macd_neg": 52,
+        "kdj_overbought": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:08"
+  },
+  {
+    "version": 4,
+    "params": {
+      "max_rsi": 75,
+      "min_atr": 0.5,
+      "inst_days": 3,
+      "macd_pos": false,
+      "kdj_buy": true
+    },
+    "result": {
+      "total": 734,
+      "wins": 337,
+      "losses": 397,
+      "wr": 45.91280653950954,
+      "avg_ret": 0.9751378310975501,
+      "max_loss": -23.66659930666515,
+      "fail_attrs": {
+        "high_rsi": 109,
+        "low_atr": 13,
+        "low_vr": 186,
+        "macd_neg": 53,
+        "kdj_overbought": 0
+      }
+    },
+    "timestamp": "2026-04-23 00:08"
+  }
+]

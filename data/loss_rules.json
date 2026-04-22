@@ -1,6 +1,7 @@
 {
-  "version": "2.4.0",
-  "generated": "2026-04-22",
+  "version": "4.1.0",
+  "generated": "2026-04-23",
+  "note": "Top100精選股票池，v2.4.0為基礎",
   "patterns": [
     {
       "name": "High_RSI_Entry",
@@ -14,7 +15,7 @@
       "description": "ATR過低，波動不足",
       "condition": "ATR<20",
       "action": "禁止進場",
-      "note": "ATR<20 不符合進場條件"
+      "note": "ATR<0.5% 不符合進場條件"
     },
     {
       "name": "Blacklist_Stocks",
@@ -44,7 +45,7 @@
   },
   "entry_conditions": {
     "minimum_score": 72,
-    "minimum_atr": 20,
+    "minimum_atr": 0.5,
     "maximum_rsi": 70,
     "maximum_ma20_bias": 99,
     "minimum_vif": 0,

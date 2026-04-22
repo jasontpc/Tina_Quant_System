@@ -1,0 +1,146 @@
+# -*- coding: utf-8 -*-
+"""
+v5.1 - 修復版 分層過濾系統
+"""
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+import warnings
+warnings.filterwarnings('ignore')
+import yfinance as yf
+yf.suppress_errors=True
+import numpy as np
+import sqlite3
+import pandas as pd
+import time
+
+DB = 'skills/stock-analyzer/scripts/tina_master.db'
+
+TOP50 = ['2330','2454','3034','2002','1301','1326','1216','2610','2891','2881',
+    '5871','6505','3665','3017','2345','6230','3583','2360','6139','3189',
+    '2308','2474','3033','3338','3702','4938','5880','6770','8046','8454',
+    '8478','8499','3711','4961','2379','2451','2201','2207','2231','2352',
+    '2353','2354','2356','2371','2373','2376','2383','2385','2392','2393',
+    '2401','2402','2404','2412','2420','2423','2425','2426','2427','2428']
+
+BLACKLIST = ['2615', '1590', '2382', '2317', '2303', '3008', '3231', '2408', '3443', '6446', '6669']
+TOP50 = [s for s in TOP50 if s not in BLACKLIST]
+
+def load_inst():
+    inst = {}
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
+    cur.execute('SELECT symbol, date, foreign_net, trust_net FROM MarketData')
+    for sym, date, f, t in cur.fetchall():
+        if sym not in inst: inst[sym] = {}
+        inst[sym][date] = (f or 0, t or 0)
+    conn.close()
+    return inst
+
+def rsi(p):
+    d = np.diff(p)
+    g = np.where(d > 0, d, 0)
+    l = np.where(d > 0, 0, -d)
+    ag = np.mean(g[-14:])
+    al = np.mean(l[-14:])
+    return 100 - (100 / (1 + ag / al)) if al != 0 else 50
+
+def calc_atr_pct(h, i):
+    high = list(h['High'].iloc[max(0,i-14):i+1])
+    low = list(h['Low'].iloc[max(0,i-14):i+1])
+    close = list(h['Close'].iloc[max(0,i-14):i+1])
+    tr = [max(high[j]-low[j], abs(high[j]-close[j-1]), abs(low[j]-close[j-1])) for j in range(1, len(high))]
+    atr = np.mean(tr[-14:]) if len(tr) >= 14 else 30
+    return (atr / close[-1]) * 100
+
+def backtest_top50(params, inst_map, start='2026-01-01', end='2026-03-31'):
+    all_trades = []
+    for code in TOP50:
+        try:
+            h = yf.Ticker(code+'.TW').history(start=start, end=end)
+            if len(h) < 26: continue
+            cl, vol = list(h['Close']), list(h['Volume'])
+            
+            for i in range(25, len(cl)-6):
+                rs = rsi(cl[:i+1])
+                ma20 = np.mean(cl[i-19:i+1])
+                atr_pct = calc_atr_pct(h, i)
+                vr = vol[i] / np.mean(vol[i-19:i+1]) if np.mean(vol[i-19:i+1]) > 0 else 0
+                date_str = str(h.index[i])[:10]
+                
+                if rs >= params.get('max_rsi', 70): continue
+                if cl[i] < ma20: continue
+                if atr_pct < params.get('min_atr', 0.5): continue
+                if vr < params.get('min_vif', 0.8): continue
+                
+                # MACD filter
+                if params.get('macd_filter', False):
+                    ema12 = pd.Series(cl[:i+1]).ewm(span=12).mean().iloc[-1]
+                    ema26 = pd.Series(cl[:i+1]).ewm(span=26).mean().iloc[-1]
+                    macd = ema12 - ema26
+                    signal = macd.ewm(span=9).mean().iloc[-1]
+                    if macd <= signal: continue
+                
+                # Institutional filter
+                inst_days = params.get('inst_days', 0)
+                if inst_days > 0 and code in inst_map:
+                    f_days = 0
+                    for d in range(1, inst_days+1):
+                        dt = (pd.to_datetime(date_str) - pd.Timedelta(days=d)).strftime('%Y-%m-%d')
+                        if dt in inst_map[code] and inst_map[code][dt][0] > 0:
+                            f_days += 1
+                    if f_days < inst_days - 1: continue  # Relaxed: not all days need buy
+                
+                entry = h['Open'].iloc[i+1] if i+1 < len(h) else cl[i]
+                exit_p = cl[min(i+6, len(cl)-1)]
+                ret = (exit_p / entry - 1) * 100 - 0.45
+                all_trades.append({'ret': ret, 'rsi': rs, 'vr': vr, 'code': code})
+        except Exception as e:
+            pass
+        time.sleep(0.05)
+    return all_trades
+
+def analyze(trades):
+    if not trades: return {'signals': 0, 'wr': 0, 'avg': 0}
+    wins = len([t for t in trades if t['ret'] > 0])
+    return {
+        'signals': len(trades),
+        'wr': wins / len(trades) * 100,
+        'avg': np.mean([t['ret'] for t in trades])
+    }
+
+print('='*70)
+print(' v5.1 分層過濾系統 (修復版)')
+print('='*70)
+
+inst_map = load_inst()
+
+# Test different configurations
+configs = [
+    ('Baseline', {'max_rsi': 70, 'min_atr': 0.5, 'min_vif': 0.8, 'inst_days': 0, 'macd_filter': False}),
+    ('+ Inst3d', {'max_rsi': 70, 'min_atr': 0.5, 'min_vif': 0.8, 'inst_days': 3, 'macd_filter': False}),
+    ('+ MACD', {'max_rsi': 70, 'min_atr': 0.5, 'min_vif': 0.8, 'inst_days': 0, 'macd_filter': True}),
+    ('RSI75', {'max_rsi': 75, 'min_atr': 0.5, 'min_vif': 0.8, 'inst_days': 3, 'macd_filter': False}),
+    ('VIF1.0', {'max_rsi': 70, 'min_atr': 0.5, 'min_vif': 1.0, 'inst_days': 3, 'macd_filter': False}),
+    ('RSI75+VIF1.0', {'max_rsi': 75, 'min_atr': 0.5, 'min_vif': 1.0, 'inst_days': 3, 'macd_filter': False}),
+]
+
+results = []
+for name, params in configs:
+    trades = backtest_top50(params, inst_map)
+    r = analyze(trades)
+    print('%s: Signals=%d, WR=%.1f%%, Avg=%+.2f%%' % (name, r['signals'], r['wr'], r['avg']))
+    results.append({'name': name, 'signals': r['signals'], 'wr': r['wr'], 'avg': r['avg'], 'params': params})
+
+results.sort(key=lambda x: (x['wr'], x['signals']), reverse=True)
+print()
+print('='*70)
+print(' 最佳配置 (WR >= 55%):')
+print('='*70)
+for r in results:
+    if r['wr'] >= 55:
+        print('%s: Signals=%d, WR=%.1f%%' % (r['name'], r['signals'], r['wr']))
+
+if not any(r['wr'] >= 55 for r in results):
+    print(' 無配置達到55%勝率')
+    best = results[0]
+    print(' 最佳: %s (WR=%.1f%%, Signals=%d)' % (best['name'], best['wr'], best['signals']))
