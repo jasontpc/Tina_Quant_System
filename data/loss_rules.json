@@ -1,48 +1,13 @@
 {
-  "version": "1.5.0",
+  "version": "2.0.0",
   "generated": "2026-04-22",
   "patterns": [
-    {
-      "name": "VIF_Extreme_Risk",
-      "description": "VIF 極高風險區 (<1.2)",
-      "condition": "VIF < 1.2",
-      "action": "強制禁入",
-      "note": "Q1 2026 佔81.1%失敗"
-    },
-    {
-      "name": "VIF_Watch_Zone",
-      "description": "VIF 觀察區 (1.2-1.5)",
-      "condition": "1.2 <= VIF < 1.5",
-      "action": "僅限大型權值股，Score需>80",
-      "note": "僅允許2330、3017等大型權值"
-    },
-    {
-      "name": "VIF_Standard",
-      "description": "VIF 標準起漲區 (1.5-2.5)",
-      "condition": "1.5 <= VIF < 2.5",
-      "action": "正式進場",
-      "note": "v3.12 核心獲利區"
-    },
-    {
-      "name": "VIF_Strong_Breakout",
-      "description": "VIF 強勢爆發區 (>2.5)",
-      "condition": "VIF >= 2.5",
-      "action": "重倉/加碼",
-      "note": "籌碼熱絡，波段連續性最強"
-    },
     {
       "name": "High_RSI_Entry",
       "description": "RSI過熱進場 (>=65)",
       "condition": "RSI>=65",
-      "action": "降低部位或觀望",
-      "note": "Q1 2026 佔51.2%失敗"
-    },
-    {
-      "name": "High_MA20_Bias",
-      "description": "偏離MA20過大 (>6%)",
-      "condition": "Bias_MA20 > 6",
       "action": "禁止進場",
-      "note": "Q1 2026 佔56.7%失敗"
+      "note": "Q1 2026 佔51.2%失敗"
     },
     {
       "name": "Low_ATR_Warning",
@@ -54,12 +19,12 @@
     {
       "name": "Blacklist_Stocks",
       "description": "黑名單股票",
-      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "2408", "3443"],
-      "reason": "Q1 2026 勝率0-23%"
+      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "2408", "3443", "6446", "6669"],
+      "reason": "Q1 勝率0-33%, 迭代優化確認排除"
     }
   ],
   "vif_tiers": {
-    "hard_minimum": 1.2,
+    "hard_minimum": 0,
     "watch_zone": {
       "min": 1.2,
       "max": 1.5,
@@ -93,8 +58,8 @@
     "minimum_score": 72,
     "minimum_atr": 30,
     "maximum_rsi": 65,
-    "maximum_ma20_bias": 6,
-    "minimum_vif": 1.2,
+    "maximum_ma20_bias": 99,
+    "minimum_vif": 0,
     "trend": "above_ma20"
   },
   "stock_vif_custom": {
