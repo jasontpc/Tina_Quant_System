@@ -357,56 +357,6 @@
       "lastUpdate": "2026-04-22 11:04"
     },
     {
-      "symbol": "2317.TW",
-      "name": "2317 鴻海",
-      "type": "AI 伺服器",
-      "weight": 0,
-      "initial": 0,
-      "monthly": 0,
-      "status": "watch",
-      "currentPrice": 221.0,
-      "entryTargets": [
-        {
-          "price": 200,
-          "action": "考慮買入",
-          "rsi": 50,
-          "note": "MA20理想進場"
-        },
-        {
-          "price": 195,
-          "action": "買入",
-          "rsi": 45,
-          "note": "加碼"
-        },
-        {
-          "price": 190,
-          "action": "買入100%",
-          "rsi": 40,
-          "note": "MA60全額進場"
-        }
-      ],
-      "alertConditions": {
-        "buySignal": {
-          "rsi": 30,
-          "ma20Deviation": -3
-        },
-        "sellSignal": {
-          "rsi": 70,
-          "ma20Deviation": 12
-        }
-      },
-      "backtest": {
-        "return": 5.4,
-        "sharpe": 0.24,
-        "strategy": "標準RSI"
-      },
-      "change": 4.74,
-      "lastUpdate": "2026-04-22 16:13",
-      "sold": true,
-      "soldPrice": 221,
-      "soldDate": "2026-04-22"
-    },
-    {
       "symbol": "00631L.TW",
       "name": "00631L 元大台灣50正2",
       "type": "槓桿 2x",
