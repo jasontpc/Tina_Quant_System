@@ -1,0 +1,64 @@
+# Tina Quant System .gitignore
+
+# Database - Large binary files
+*.db
+*.sqlite
+*.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Sensitive configs (keep templates only)
+# config.json
+# secrets.json
+# *.key
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Private scripts (not for sharing)
+# *_private.py
+# credentials.py
+
+# Backup files
+*.bak
+*.backup
+
+# Jupyter notebooks (optional)
+.ipynb_checkpoints/
+
+# Compressed archives (if not source code)
+*.zip
+*.tar
+*.gz
+*.rar
+
+# System files
+Thumbs.db
+.DS_Store

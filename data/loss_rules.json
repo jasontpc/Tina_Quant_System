@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-04-22",
+  "patterns": [
+    {
+      "name": "Day1_Pump_Reversal",
+      "description": "第一天漲停後第二天反轉",
+      "condition": "VIF<1.5 AND ATR<30",
+      "avoid_when": ["VIF<1.5", "量能不足", "隔日大幅低開"]
+    },
+    {
+      "name": "High_RSI_Entry",
+      "description": "RSI>78 進場過熱",
+      "condition": "RSI>=78",
+      "avoid_when": ["RSI>78", "偏離MA20>15%"]
+    },
+    {
+      "name": "Low_ATR_Warning",
+      "description": "ATR過低，波動不足",
+      "condition": "ATR<30",
+      "minimum": 30,
+      "note": "ATR<30 不符合進場條件"
+    },
+    {
+      "name": "Blacklist_Stocks",
+      "description": "黑名單股票",
+      "codes": ["1590", "2308"],
+      "reason": "歷史表現不佳或流動性問題"
+    }
+  ],
+  "risk_management": {
+    "max_loss_per_trade": -10,
+    "stop_loss_atr_multiple": 2,
+    "max_portfolio_concentration": 30,
+    "max_positions": 5
+  },
+  "entry_conditions": {
+    "minimum_score": 72,
+    "minimum_atr": 30,
+    "maximum_rsi": 78,
+    "trend": "above_ma20"
+  },
+  "exit_rules": {
+    "trailing_stop": {
+      "method": "MA20",
+      "description": "跌破MA20全出"
+    },
+    "profit_targets": [
+      {"level": 1, "return": 3, "action": "減碼1/3"},
+      {"level": 2, "return": 5, "action": "再減碼1/3"},
+      {"level": 3, "return": 8, "action": "持有觀望"},
+      {"level": 4, "return": 10, "action": "全數出清"}
+    ]
+  }
+}

@@ -1,0 +1,749 @@
+{
+  "watchlist": [
+    {
+      "symbol": "0050.TW",
+      "name": "0050 元大台灣50",
+      "type": "台灣市值",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 86.0,
+      "entryTargets": [
+        {
+          "price": 77,
+          "action": "考慮買入",
+          "rsi": 55,
+          "note": "理想進場"
+        },
+        {
+          "price": 75,
+          "action": "買入",
+          "rsi": 50,
+          "note": "加碼"
+        },
+        {
+          "price": 72,
+          "action": "買入100%",
+          "rsi": 45,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 15
+        }
+      },
+      "backtest": {
+        "return": 13.0,
+        "sharpe": 0.69,
+        "strategy": "短週期RSI(5)"
+      },
+      "change": 1.45,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00662.TW",
+      "name": "00662 富邦NASDAQ100",
+      "type": "美股NASDAQ",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 107.9,
+      "entryTargets": [
+        {
+          "price": 100,
+          "action": "考慮買入",
+          "rsi": 55,
+          "note": "理想進場"
+        },
+        {
+          "price": 95,
+          "action": "買入",
+          "rsi": 50,
+          "note": "加碼"
+        },
+        {
+          "price": 90,
+          "action": "買入100%",
+          "rsi": 45,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 15
+        }
+      },
+      "backtest": {
+        "return": 9.5,
+        "sharpe": 0.61,
+        "strategy": "短週期RSI(5)"
+      },
+      "change": 0.5,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00713.TW",
+      "name": "00713 元大台灣高息低波",
+      "type": "台灣高息",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 54.0,
+      "entryTargets": [
+        {
+          "price": 51,
+          "action": "考慮買入",
+          "rsi": 50,
+          "note": "理想進場"
+        },
+        {
+          "price": 48,
+          "action": "買入",
+          "rsi": 45,
+          "note": "加碼"
+        },
+        {
+          "price": 45,
+          "action": "買入100%",
+          "rsi": 40,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -3
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 10
+        }
+      },
+      "backtest": {
+        "return": -4.0,
+        "sharpe": -0.75,
+        "strategy": "標準RSI (不建議)"
+      },
+      "change": -0.2,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "0056.TW",
+      "name": "0056 元大高股息",
+      "type": "台灣高股息",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 41.97,
+      "entryTargets": [
+        {
+          "price": 38,
+          "action": "考慮買入",
+          "rsi": 50,
+          "note": "高息進場"
+        },
+        {
+          "price": 36,
+          "action": "買入",
+          "rsi": 45,
+          "note": "加碼"
+        },
+        {
+          "price": 34,
+          "action": "買入100%",
+          "rsi": 40,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 10
+        }
+      },
+      "backtest": {
+        "return": 3.2,
+        "sharpe": 0.33,
+        "strategy": "短週期RSI(5)"
+      },
+      "change": 0.5,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00891.TW",
+      "name": "00891 中信關鍵半導體",
+      "type": "半導體",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 29.68,
+      "entryTargets": [
+        {
+          "price": 26,
+          "action": "考慮買入",
+          "rsi": 55,
+          "note": "理想進場"
+        },
+        {
+          "price": 24,
+          "action": "買入",
+          "rsi": 50,
+          "note": "加碼"
+        },
+        {
+          "price": 22,
+          "action": "買入100%",
+          "rsi": 45,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 15
+        }
+      },
+      "change": 0.78,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00878.TW",
+      "name": "00878 國泰永續高股息",
+      "type": "台灣高息",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 24.72,
+      "entryTargets": [
+        {
+          "price": 22,
+          "action": "考慮買入",
+          "rsi": 55,
+          "note": "理想進場"
+        },
+        {
+          "price": 20,
+          "action": "買入",
+          "rsi": 50,
+          "note": "加碼"
+        },
+        {
+          "price": 18,
+          "action": "買入100%",
+          "rsi": 45,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 10
+        }
+      },
+      "change": 0.21,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00940.TW",
+      "name": "00940 野村台灣新科技",
+      "type": "新科技",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 10.42,
+      "entryTargets": [
+        {
+          "price": 9.5,
+          "action": "考慮買入",
+          "rsi": 55,
+          "note": "理想進場"
+        },
+        {
+          "price": 9,
+          "action": "買入",
+          "rsi": 50,
+          "note": "加碼"
+        },
+        {
+          "price": 8.5,
+          "action": "買入100%",
+          "rsi": 45,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 15
+        }
+      },
+      "change": 0.08,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00981A.TW",
+      "name": "00981A 主動統一台股增長",
+      "type": "主動型台股",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 26.4,
+      "entryTargets": [
+        {
+          "price": 23,
+          "action": "考慮買入",
+          "rsi": 50,
+          "note": "進場觀察"
+        },
+        {
+          "price": 21,
+          "action": "買入",
+          "rsi": 45,
+          "note": "加碼"
+        },
+        {
+          "price": 19,
+          "action": "買入100%",
+          "rsi": 40,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 50,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 15
+        }
+      },
+      "change": 0.42,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "2317.TW",
+      "name": "2317 鴻海",
+      "type": "AI 伺服器",
+      "weight": 1,
+      "initial": 0,
+      "monthly": 0,
+      "status": "hold",
+      "currentPrice": 211.0,
+      "entryTargets": [
+        {
+          "price": 200,
+          "action": "考慮買入",
+          "rsi": 50,
+          "note": "MA20理想進場"
+        },
+        {
+          "price": 195,
+          "action": "買入",
+          "rsi": 45,
+          "note": "加碼"
+        },
+        {
+          "price": 190,
+          "action": "買入100%",
+          "rsi": 40,
+          "note": "MA60全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -3
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 12
+        }
+      },
+      "backtest": {
+        "return": 5.4,
+        "sharpe": 0.24,
+        "strategy": "標準RSI"
+      },
+      "change": 3.5,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00631L.TW",
+      "name": "00631L 元大台灣50正2",
+      "type": "槓桿 2x",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 26.88,
+      "entryTargets": [
+        {
+          "price": 24,
+          "action": "考慮買入",
+          "rsi": 55,
+          "note": "理想進場"
+        },
+        {
+          "price": 22,
+          "action": "買入",
+          "rsi": 50,
+          "note": "加碼"
+        },
+        {
+          "price": 20,
+          "action": "買入100%",
+          "rsi": 45,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 15
+        }
+      },
+      "note": "股票分割後(1拆22)，2026-03-31恢復交易，適合短線操作",
+      "change": 0.89,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "00830.TW",
+      "name": "00830 富邦NASDAQ",
+      "type": "美股NASDAQ",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 67.2,
+      "entryTargets": [
+        {
+          "price": 59.580000000000005,
+          "action": "考慮買入",
+          "rsi": 55,
+          "note": "理想進場"
+        },
+        {
+          "price": 56.27,
+          "action": "買入",
+          "rsi": 50,
+          "note": "加碼"
+        },
+        {
+          "price": 52.96000000000001,
+          "action": "買入100%",
+          "rsi": 45,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 15
+        }
+      },
+      "note": "美股ETF，NASDAQ/FANG+成分",
+      "change": 1.0,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "3017.TW",
+      "name": "3017 奇鋐",
+      "type": "AI 伺服器",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "hold",
+      "currentPrice": 2565.0,
+      "entryTargets": [
+        {
+          "price": 2700,
+          "action": "停利",
+          "rsi": 75,
+          "note": "第一階段"
+        },
+        {
+          "price": 2800,
+          "action": "停利",
+          "rsi": 80,
+          "note": "第二階段"
+        },
+        {
+          "price": 2900,
+          "action": "全出",
+          "rsi": 85,
+          "note": "滿足"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 55,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 75,
+          "ma20Deviation": 15
+        }
+      },
+      "entryPrice": 2605,
+      "change": 75.0,
+      "lastUpdate": "2026-04-22 11:04"
+    },
+    {
+      "symbol": "3583.TW",
+      "name": "3583 雲品",
+      "type": "觀光",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 770.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 100,
+        "avgReturn": 35.4,
+        "signals": 2
+      }
+    },
+    {
+      "symbol": "3665.TW",
+      "name": "3665 贸聯",
+      "type": "AI/伺服器",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 2425.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 86.7,
+        "avgReturn": 7.2,
+        "signals": 30
+      }
+    },
+    {
+      "symbol": "2345.TW",
+      "name": "2345 智邦",
+      "type": "網通",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 2190.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 86.5,
+        "avgReturn": 6.6,
+        "signals": 37
+      }
+    },
+    {
+      "symbol": "2308.TW",
+      "name": "2308 台達電",
+      "type": "電源供應",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 2015.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 79.4,
+        "avgReturn": 5.2,
+        "signals": 34
+      }
+    },
+    {
+      "symbol": "2360.TW",
+      "name": "2360 致茂",
+      "type": "半導體",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 2025.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 75.0,
+        "avgReturn": 6.6,
+        "signals": 36
+      }
+    },
+    {
+      "symbol": "6139.TW",
+      "name": "6139 禾伸堂",
+      "type": "被動元件",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 725.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 61.5,
+        "avgReturn": 6.4,
+        "signals": 13
+      }
+    },
+    {
+      "symbol": "3189.TW",
+      "name": "3189 景碩",
+      "type": "PCB",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 473.5,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 60.0,
+        "avgReturn": 4.5,
+        "signals": 10
+      }
+    },
+    {
+      "symbol": "2454.TW",
+      "name": "2454 聯發科",
+      "type": "IC設計",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 2090.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 60.0,
+        "avgReturn": 3.8,
+        "signals": 10
+      }
+    },
+    {
+      "symbol": "1590.TW",
+      "name": "1590 亞德客-KY",
+      "type": "氣動元件",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 1265.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 58.3,
+        "avgReturn": 1.5,
+        "signals": 12
+      }
+    },
+    {
+      "symbol": "3443.TW",
+      "name": "3443 創意",
+      "type": "IC設計",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 3735.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 52.6,
+        "avgReturn": 4.5,
+        "signals": 19
+      }
+    },
+    {
+      "symbol": "2330.TW",
+      "name": "2330 台積電",
+      "type": "半導體",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 2050.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 43.5,
+        "avgReturn": 0.1,
+        "signals": 23
+      }
+    },
+    {
+      "symbol": "3008.TW",
+      "name": "3008 大立光",
+      "type": "光學",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 2645.0,
+      "entryTargets": [],
+      "alertConditions": {},
+      "backtest": {
+        "winRate": 41.2,
+        "avgReturn": 1.1,
+        "signals": 17
+      }
+    }
+  ],
+  "lastUpdate": "2026-04-21",
+  "marketStatus": "OVERBOUGHT",
+  "notes": "觀察名單：回測修正RSI門檻，等待買入區間",
+  "alertSettings": {
+    "enabled": true,
+    "notifyOnBuySignal": true,
+    "notifyOnSellSignal": true,
+    "checkInterval": "daily"
+  }
+}

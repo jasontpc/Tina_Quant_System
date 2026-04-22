@@ -1,0 +1,54 @@
+{
+  "rules": [
+    {
+      "symbol": "00830.TW",
+      "condition": "RSI_14 < 50",
+      "message": "【進攻佈局】00830 RSI 回落至 50 以下，符合分批切入條件！"
+    },
+    {
+      "symbol": "00830.TW",
+      "condition": "RSI_14 > 80",
+      "message": "【風控警示】00830 RSI 突破 80！市場極度過熱，請準備移動停利或轉向防禦標的！"
+    },
+    {
+      "symbol": "00757.TW",
+      "condition": "PRICE < 106",
+      "message": "【進攻佈局】00757 價格回落至 $106 以下，符合進場標準表！"
+    },
+    {
+      "symbol": "0052.TW",
+      "condition": "PRICE < 48",
+      "message": "【進攻佈局】0052 價格回落至  以下，符合分批切入條件！"
+    },
+    {
+      "symbol": "00981D.TWO",
+      "condition": "RSI_14 < 45",
+      "message": "【防禦加碼】00981D RSI 低於 45，符合資產避風港購入條件！"
+    },
+    {
+      "symbol": "00878.TW",
+      "condition": "PRICE < 22.85",
+      "message": "【風控警示】00878 股價回檔達 5%，資金暫存區觸發警示！"
+    },
+    {
+      "symbol": "3231.TW",
+      "condition": "DEATH_CROSS_5_20",
+      "message": "【防守警報】緯創(3231) 短線跌破月線出現死亡交叉，趨勢轉弱，請嚴格執行防守停損！"
+    },
+    {
+      "symbol": "3231.TW",
+      "condition": "PRICE < 129.5",
+      "message": "【防守警報】緯創(3231) 價格回撤超過 5% (跌破 129.5)，觸發強制防守線！"
+    },
+    {
+      "symbol": "2881.TW",
+      "condition": "DEATH_CROSS_5_20",
+      "message": "【防守警報】富邦金(2881) 短線跌破月線出現死亡交叉，請準備防守！"
+    },
+    {
+      "symbol": "2881.TW",
+      "condition": "PRICE < 83.6",
+      "message": "【防守警報】富邦金(2881) 價格回撤超過 5% (跌破 83.6)，觸發強制防守線！"
+    }
+  ]
+}
