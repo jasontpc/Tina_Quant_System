@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "generated": "2026-04-22",
   "patterns": [
     {
@@ -23,6 +23,12 @@
       "reason": "Q1 勝率0-33%, 迭代優化確認排除"
     }
   ],
+  "institutional_filter": {
+    "enabled": true,
+    "lookback_days": 3,
+    "requirement": "任一法人(外资/投信) 3天內至少1天買超",
+    "note": "法人篩選可將勝率從73.6%提升至81.5%"
+  },
   "vif_tiers": {
     "hard_minimum": 0,
     "watch_zone": {
@@ -60,6 +66,7 @@
     "maximum_rsi": 65,
     "maximum_ma20_bias": 99,
     "minimum_vif": 0,
+    "institutional_days": 3,
     "trend": "above_ma20"
   },
   "stock_vif_custom": {
