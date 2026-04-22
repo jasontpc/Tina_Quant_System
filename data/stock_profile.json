@@ -1,0 +1,72 @@
+{
+  "DEFAULT": {
+    "vif_threshold": 1.2,
+    "vif_warning": 1.5,
+    "rsi_max": 78,
+    "score_min": 72,
+    "atr_min": 30,
+    "hold_days": 5,
+    "position_size": "full",
+    "description": "系統預設穩健參數"
+  },
+  "3017": {
+    "vif_threshold": 1.2,
+    "vif_warning": 1.5,
+    "rsi_max": 78,
+    "score_min": 70,
+    "atr_min": 30,
+    "hold_days": 5,
+    "position_size": "full",
+    "description": "奇鋐：大型AI權值，量能基數大，門檻放寬避免錯失"
+  },
+  "3665": {
+    "vif_threshold": 1.5,
+    "vif_warning": 2.0,
+    "rsi_max": 75,
+    "score_min": 72,
+    "atr_min": 30,
+    "hold_days": 5,
+    "position_size": "normal",
+    "description": "贸聯：爆發型標的，需絕對量能確認真實突破"
+  },
+  "2330": {
+    "vif_threshold": 1.1,
+    "vif_warning": 1.5,
+    "rsi_max": 78,
+    "score_min": 75,
+    "atr_min": 35,
+    "hold_days": 5,
+    "position_size": "reduced",
+    "description": "台積電：極高流動性，ATR需較高確認波動"
+  },
+  "2345": {
+    "vif_threshold": 1.2,
+    "vif_warning": 1.5,
+    "rsi_max": 78,
+    "score_min": 72,
+    "atr_min": 30,
+    "hold_days": 5,
+    "position_size": "normal",
+    "description": "智邦：網通股，穩定型"
+  },
+  "0050": {
+    "vif_threshold": 1.0,
+    "vif_warning": 1.2,
+    "rsi_max": 80,
+    "score_min": 65,
+    "atr_min": 25,
+    "hold_days": 10,
+    "position_size": "etf_full",
+    "description": "ETF：流動性極高，可寬鬆"
+  },
+  "0056": {
+    "vif_threshold": 1.0,
+    "vif_warning": 1.2,
+    "rsi_max": 80,
+    "score_min": 65,
+    "atr_min": 25,
+    "hold_days": 10,
+    "position_size": "etf_full",
+    "description": "高股息ETF：穩定收息為主"
+  }
+}
