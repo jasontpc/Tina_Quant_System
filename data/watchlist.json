@@ -318,10 +318,14 @@
       "symbol": "00981A.TW",
       "name": "00981A 主動統一台股增長",
       "type": "主動型台股",
-      "weight": 0,
-      "initial": 0,
+      "weight": 1,
+      "initial": 26950,
       "monthly": 0,
-      "status": "watch",
+      "status": "hold",
+      "currentPrice": 26.95,
+      "entryPrice": 26.95,
+      "shares": 1000,
+      "cost": 26950,
       "currentPrice": 26.4,
       "entryTargets": [
         {
