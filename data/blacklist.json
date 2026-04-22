@@ -10,18 +10,44 @@
     {
       "symbol": "1590",
       "name": "亞德客-KY",
-      "reason": "PF=1.27，表現低於平均水平",
+      "reason": "Q1 2026 勝率0%，平均虧損-9.55%",
       "date_added": "2026-04-22",
-      "hard_reject": false,
-      "conditions": "需要 VIF > 2.0 確認"
+      "hard_reject": true
     },
     {
       "symbol": "2382",
       "name": "廣達",
       "reason": "PF=0.75，牛皮股特性，盈虧比倒置",
       "date_added": "2026-04-22",
-      "hard_reject": false,
-      "conditions": "暫停進場，等待策略調整"
+      "hard_reject": true
+    },
+    {
+      "symbol": "2317",
+      "name": "鴻海",
+      "reason": "Q1 2026 勝率0%，平均虧損-7.19%",
+      "date_added": "2026-04-22",
+      "hard_reject": true
+    },
+    {
+      "symbol": "2303",
+      "name": "聯電",
+      "reason": "Q1 2026 勝率0%，平均虧損-5.88%",
+      "date_added": "2026-04-22",
+      "hard_reject": true
+    },
+    {
+      "symbol": "3008",
+      "name": "大立光",
+      "reason": "Q1 2026 勝率0%，平均虧損-4.66%",
+      "date_added": "2026-04-22",
+      "hard_reject": true
+    },
+    {
+      "symbol": "3231",
+      "name": "緯創",
+      "reason": "Q1 2026 勝率0%，平均虧損-4.88%",
+      "date_added": "2026-04-22",
+      "hard_reject": true
     }
   ],
   "pf_thresholds": {
