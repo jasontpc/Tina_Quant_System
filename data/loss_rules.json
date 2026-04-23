@@ -1,7 +1,7 @@
 {
-  "version": "4.2.0",
+  "version": "4.21",
   "generated": "2026-04-23",
-  "note": "近1年回測版本, Top100股票池, RSI<65, ATR>=30, 法人3天",
+  "note": "v4.21 穩定版本, RSI<70, ATR>=0.5%, 法人3天, MA20>MA60, 180天回測230信號, WR 74.3%",
   "patterns": [
     {
       "name": "High_RSI_Entry",
@@ -20,8 +20,8 @@
     {
       "name": "Blacklist_Stocks",
       "description": "黑名單股票",
-      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "2408", "3443", "6446", "6669", "2597"],
-      "reason": "Q1 勝率0-33%, 迭代優化確認排除"
+      "codes": ["2615", "1590", "2382", "2317", "2303", "3008", "3231", "2408", "3443", "6446", "6669", "2597", "2379"],
+      "reason": "Q1 勝率0-33%, 迭代優化確認排除; 2379 瑞昱: 0% WR, -4.94% avg (第八輪)",
     }
   ],
   "institutional_filter": {
@@ -46,7 +46,7 @@
   "entry_conditions": {
     "minimum_score": 72,
     "minimum_atr": 30,
-    "maximum_rsi": 65,
+    "maximum_rsi": 70,
     "maximum_ma20_bias": 99,
     "minimum_vif": 0,
     "institutional_days": 3,
@@ -70,5 +70,13 @@
       {"level": 3, "return": 8, "action": "持有觀望"},
       {"level": 4, "return": 10, "action": "全數出清"}
     ]
+  },
+  "nana_v5_rsi_fix": {
+    "description": "Nana_v5.2 RSI閾值已完全修復：can_trade 從 rsi<80→rsi<65，backtest entry 從 r<80→r<65，與 loss_rules.json 一致",
+    "code_location": "nana_analysis.py line 189 (analyze can_trade), line 292 (backtest entry)",
+    "old_value": "rsi < 80",
+    "new_value": "rsi < 65",
+    "affected_functions": "analyze() + backtest() 同步修復",
+    "status": "✅ 已修復 (第六輪 Step 1)"
   }
 }

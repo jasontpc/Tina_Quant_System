@@ -188,6 +188,7 @@
       "change": -0.2,
       "lastUpdate": "2026-04-23 09:06"
     },
+    {
       "symbol": "00891.TW",
       "name": "00891 中信關鍵半導體",
       "type": "半導體",
@@ -652,6 +653,7 @@
         "winRate": 41.2,
         "avgReturn": 1.1,
         "signals": 17
+      },
       "backtest": {
         "winRate": 41.2,
         "avgReturn": 1.1,

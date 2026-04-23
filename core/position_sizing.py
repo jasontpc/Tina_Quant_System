@@ -105,10 +105,13 @@ class PositionSizer:
             # 使用預設值或系統勝率
             return 0.10  # 預設 10%
         
-        if self.avg_loss == 0:
+        if self.avg_loss == 0 or pd.isna(self.avg_loss) or np.isinf(self.avg_win / self.avg_loss):
             return 0.10
         
         win_loss_ratio = self.avg_win / abs(self.avg_loss)
+        if not np.isfinite(win_loss_ratio) or win_loss_ratio <= 0:
+            return 0.10
+        
         kelly = self.win_rate - ((1 - self.win_rate) / win_loss_ratio)
         
         # 半 Kelly (降低波動)
@@ -159,6 +162,15 @@ class PositionSizer:
             'entry_price': entry_price,
             'warning': None
         }
+        
+        # 0. 價格有效性檢查
+        if not np.isfinite(entry_price) or entry_price <= 0:
+            result['warning'] = f'進場價異常: {entry_price}'
+            return result
+        
+        if not np.isfinite(stop_loss) or stop_loss <= 0:
+            result['warning'] = f'停損價異常: {stop_loss}'
+            return result
         
         # 1. 計算風險金額
         risk_amount = self.total_capital * self.risk_per_trade * confidence
