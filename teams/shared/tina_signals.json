@@ -1,0 +1,15 @@
+{
+  "2330": {
+    "timestamp": "2026-04-23 17:49",
+    "score": 85,
+    "signal": "buy",
+    "rsi": 65,
+    "atr_pct": 0.8
+  },
+  "2317": {
+    "timestamp": "2026-04-23 17:49",
+    "score": 70,
+    "signal": "buy",
+    "rsi": 80
+  }
+}

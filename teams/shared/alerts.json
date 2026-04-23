@@ -1,0 +1,8 @@
+[
+  {
+    "timestamp": "2026-04-23 17:49",
+    "type": "RSI",
+    "message": "2330 RSI 超過 80",
+    "severity": "warning"
+  }
+]

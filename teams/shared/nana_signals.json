@@ -1,0 +1,14 @@
+{
+  "2330": {
+    "timestamp": "2026-04-23 17:49",
+    "score": 80,
+    "signal": "buy",
+    "f_consec": 3
+  },
+  "3034": {
+    "timestamp": "2026-04-23 17:49",
+    "score": 75,
+    "signal": "buy",
+    "f_consec": 4
+  }
+}

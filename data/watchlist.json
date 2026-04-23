@@ -95,53 +95,6 @@
       "lastUpdate": "2026-04-22 11:04"
     },
     {
-      "symbol": "00713.TW",
-      "name": "00713 元大台灣高息低波",
-      "type": "台灣高息",
-      "weight": 0,
-      "initial": 0,
-      "monthly": 0,
-      "status": "watch",
-      "currentPrice": 54.0,
-      "entryTargets": [
-        {
-          "price": 51,
-          "action": "考慮買入",
-          "rsi": 50,
-          "note": "理想進場"
-        },
-        {
-          "price": 48,
-          "action": "買入",
-          "rsi": 45,
-          "note": "加碼"
-        },
-        {
-          "price": 45,
-          "action": "買入100%",
-          "rsi": 40,
-          "note": "全額進場"
-        }
-      ],
-      "alertConditions": {
-        "buySignal": {
-          "rsi": 30,
-          "ma20Deviation": -3
-        },
-        "sellSignal": {
-          "rsi": 70,
-          "ma20Deviation": 10
-        }
-      },
-      "backtest": {
-        "return": -4.0,
-        "sharpe": -0.75,
-        "strategy": "標準RSI (不建議)"
-      },
-      "change": -0.2,
-      "lastUpdate": "2026-04-22 11:04"
-    },
-    {
       "symbol": "0056.TW",
       "name": "0056 元大高股息",
       "type": "台灣高股息",
@@ -189,6 +142,52 @@
       "lastUpdate": "2026-04-22 11:04"
     },
     {
+      "symbol": "00713.TW",
+      "name": "00713 元大台灣高息低波",
+      "type": "台灣高息",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "watch",
+      "currentPrice": 54.0,
+      "entryTargets": [
+        {
+          "price": 51,
+          "action": "考慮買入",
+          "rsi": 50,
+          "note": "理想進場"
+        },
+        {
+          "price": 48,
+          "action": "買入",
+          "rsi": 45,
+          "note": "加碼"
+        },
+        {
+          "price": 45,
+          "action": "買入100%",
+          "rsi": 40,
+          "note": "全額進場"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 30,
+          "ma20Deviation": -3
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 10
+        }
+      },
+      "backtest": {
+        "return": -4.0,
+        "sharpe": -0.75,
+        "strategy": "標準RSI (不建議)"
+      },
+      "change": -0.2,
+      "lastUpdate": "2026-04-23 09:06"
+    },
       "symbol": "00891.TW",
       "name": "00891 中信關鍵半導體",
       "type": "半導體",
@@ -447,56 +446,6 @@
       "lastUpdate": "2026-04-22 11:04"
     },
     {
-      "symbol": "3017.TW",
-      "name": "3017 奇鋐",
-      "type": "AI 伺服器",
-      "weight": 5,
-      "initial": 0,
-      "monthly": 0,
-      "status": "hold",
-      "vifConfig": {
-        "vif_min": 1.2,
-        "vif_warning": 1.5,
-        "note": "3017 股性活潑，VIF 可較低但需 warnings"
-      },
-      "currentPrice": 2695.0,
-      "entryTargets": [
-        {
-          "price": 2700,
-          "action": "停利",
-          "rsi": 75,
-          "note": "第一階段"
-        },
-        {
-          "price": 2800,
-          "action": "停利",
-          "rsi": 80,
-          "note": "第二階段"
-        },
-        {
-          "price": 2900,
-          "action": "全出",
-          "rsi": 85,
-          "note": "滿足"
-        }
-      ],
-      "alertConditions": {
-        "buySignal": {
-          "rsi": 55,
-          "ma20Deviation": -5
-        },
-        "sellSignal": {
-          "rsi": 75,
-          "ma20Deviation": 15
-        }
-      },
-      "entryPrice": 2605,
-      "shares": 5,
-      "cost": 13025,
-      "change": 450.0,
-      "lastUpdate": "2026-04-22 11:04"
-    },
-    {
       "symbol": "3583.TW",
       "name": "3583 雲品",
       "type": "觀光",
@@ -703,7 +652,55 @@
         "winRate": 41.2,
         "avgReturn": 1.1,
         "signals": 17
+      "backtest": {
+        "winRate": 41.2,
+        "avgReturn": 1.1,
+        "signals": 17
       }
+    },
+    {
+      "symbol": "3231.TW",
+      "name": "3231 緯創",
+      "type": "AI/伺服器",
+      "weight": 0,
+      "initial": 0,
+      "monthly": 0,
+      "status": "hold",
+      "currentPrice": 136.0,
+      "entryPrice": 136.0,
+      "shares": 150,
+      "cost": 20400,
+      "entryTargets": [
+        {
+          "price": 130,
+          "action": "停損",
+          "rsi": 60,
+          "note": "MA20-5%"
+        },
+        {
+          "price": 144,
+          "action": "第一目標",
+          "rsi": 70,
+          "note": "MA60+6%"
+        },
+        {
+          "price": 150,
+          "action": "第二目標",
+          "rsi": 75,
+          "note": "MA60+10%"
+        }
+      ],
+      "alertConditions": {
+        "buySignal": {
+          "rsi": 55,
+          "ma20Deviation": -5
+        },
+        "sellSignal": {
+          "rsi": 70,
+          "ma20Deviation": 10
+        }
+      },
+      "lastUpdate": "2026-04-23 11:08"
     }
   ],
   "lastUpdate": "2026-04-22",

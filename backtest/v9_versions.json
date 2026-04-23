@@ -222,5 +222,229 @@
       "inst_confirmed": 1040
     },
     "timestamp": "2026-04-23 08:18"
+  },
+  {
+    "version": "v9.0 (Baseline)",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 70,
+      "min_atr_pct": 0.3,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "macd_filter": false,
+      "inst_mode": "any",
+      "sync_days": 3,
+      "strict_inst": true
+    },
+    "result": {
+      "total": 793,
+      "wins": 454,
+      "losses": 339,
+      "wr": 57.25,
+      "avg": 2.92,
+      "pf": 2.34,
+      "mdd": -23.67,
+      "expectancy": 2.92,
+      "avg_win": 8.91,
+      "avg_loss": 5.11,
+      "inst_confirmed": 793
+    },
+    "timestamp": "2026-04-23 08:23"
+  },
+  {
+    "version": "v9.1: Inst Sync",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 70,
+      "min_atr_pct": 0.3,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "macd_filter": false,
+      "inst_mode": "sync",
+      "sync_days": 3,
+      "strict_inst": true
+    },
+    "result": {
+      "total": 305,
+      "wins": 192,
+      "losses": 113,
+      "wr": 62.95,
+      "avg": 4.52,
+      "pf": 3.55,
+      "mdd": -23.67,
+      "expectancy": 4.52,
+      "avg_win": 9.98,
+      "avg_loss": 4.78,
+      "inst_confirmed": 305
+    },
+    "timestamp": "2026-04-23 08:23"
+  },
+  {
+    "version": "v9.2: Inst Any + Strict",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "macd_filter": false,
+      "inst_mode": "any",
+      "sync_days": 3,
+      "strict_inst": true
+    },
+    "result": {
+      "total": 1009,
+      "wins": 564,
+      "losses": 445,
+      "wr": 55.9,
+      "avg": 2.71,
+      "pf": 2.17,
+      "mdd": -23.67,
+      "expectancy": 2.71,
+      "avg_win": 8.99,
+      "avg_loss": 5.26,
+      "inst_confirmed": 1009
+    },
+    "timestamp": "2026-04-23 08:23"
+  },
+  {
+    "version": "v9.3: Relaxed RSI",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "macd_filter": false,
+      "inst_mode": "any",
+      "sync_days": 3,
+      "strict_inst": true
+    },
+    "result": {
+      "total": 1010,
+      "wins": 565,
+      "losses": 445,
+      "wr": 55.94,
+      "avg": 2.71,
+      "pf": 2.17,
+      "mdd": -23.67,
+      "expectancy": 2.71,
+      "avg_win": 8.98,
+      "avg_loss": 5.26,
+      "inst_confirmed": 1010
+    },
+    "timestamp": "2026-04-23 08:23"
+  },
+  {
+    "version": "v9.4: +KDJ",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "trend_ma": true,
+      "kdj_filter": true,
+      "macd_filter": false,
+      "inst_mode": "any",
+      "sync_days": 3,
+      "strict_inst": true
+    },
+    "result": {
+      "total": 763,
+      "wins": 426,
+      "losses": 337,
+      "wr": 55.83,
+      "avg": 2.41,
+      "pf": 2.0,
+      "mdd": -23.67,
+      "expectancy": 2.41,
+      "avg_win": 8.64,
+      "avg_loss": 5.45,
+      "inst_confirmed": 763
+    },
+    "timestamp": "2026-04-23 08:23"
+  },
+  {
+    "version": "v9.5: No Trend",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 85,
+      "min_atr_pct": 0.2,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false,
+      "inst_mode": "any",
+      "sync_days": 3,
+      "strict_inst": false
+    },
+    "result": {
+      "total": 3182,
+      "wins": 1550,
+      "losses": 1632,
+      "wr": 48.71,
+      "avg": 1.12,
+      "pf": 1.5,
+      "mdd": -30.0,
+      "expectancy": 1.12,
+      "avg_win": 6.9,
+      "avg_loss": 4.37,
+      "inst_confirmed": 2401
+    },
+    "timestamp": "2026-04-23 08:23"
+  },
+  {
+    "version": "v9.6: Ultra Loose",
+    "params": {
+      "rsi_min": 30,
+      "rsi_max": 90,
+      "min_atr_pct": 0.2,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "macd_filter": false,
+      "inst_mode": "any",
+      "sync_days": 0,
+      "strict_inst": false
+    },
+    "result": {
+      "total": 3249,
+      "wins": 1579,
+      "losses": 1670,
+      "wr": 48.6,
+      "avg": 1.1,
+      "pf": 1.49,
+      "mdd": -30.0,
+      "expectancy": 1.1,
+      "avg_win": 6.9,
+      "avg_loss": 4.39,
+      "inst_confirmed": 0
+    },
+    "timestamp": "2026-04-23 08:23"
+  },
+  {
+    "version": "v9.7: ATR 0.1",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 85,
+      "min_atr_pct": 0.1,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "macd_filter": false,
+      "inst_mode": "any",
+      "sync_days": 3,
+      "strict_inst": false
+    },
+    "result": {
+      "total": 1383,
+      "wins": 733,
+      "losses": 650,
+      "wr": 53.0,
+      "avg": 2.09,
+      "pf": 1.85,
+      "mdd": -30.0,
+      "expectancy": 2.09,
+      "avg_win": 8.6,
+      "avg_loss": 5.25,
+      "inst_confirmed": 1040
+    },
+    "timestamp": "2026-04-23 08:23"
   }
 ]

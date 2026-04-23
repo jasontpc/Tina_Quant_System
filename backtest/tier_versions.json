@@ -1,0 +1,183 @@
+[
+  {
+    "version": "Tier v1.0 (v4.21)",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 70,
+      "min_atr_pct": 0.5,
+      "tier1_active": true,
+      "tier2_active": false,
+      "sync_days": 3
+    },
+    "result": {},
+    "timestamp": "2026-04-23 08:36"
+  },
+  {
+    "version": "Tier v1.1: +Tier2",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 70,
+      "min_atr_pct": 0.5,
+      "tier1_active": true,
+      "tier2_active": true,
+      "sync_days": 3
+    },
+    "result": {
+      "total": 1318,
+      "wins": 673,
+      "losses": 645,
+      "wr": 51.06,
+      "avg": 1.59,
+      "pf": 1.74,
+      "mdd": -23.67,
+      "expectancy": 1.59,
+      "tier1": 0,
+      "tier2": 1318
+    },
+    "timestamp": "2026-04-23 08:38"
+  },
+  {
+    "version": "Tier v1.2: +Tier2+Loose",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "tier1_active": true,
+      "tier2_active": true,
+      "sync_days": 3
+    },
+    "result": {
+      "total": 1676,
+      "wins": 840,
+      "losses": 836,
+      "wr": 50.12,
+      "avg": 1.41,
+      "pf": 1.61,
+      "mdd": -23.67,
+      "expectancy": 1.41,
+      "tier1": 0,
+      "tier2": 1676
+    },
+    "timestamp": "2026-04-23 08:38"
+  },
+  {
+    "version": "Tier v1.3: Relax ATR",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 75,
+      "min_atr_pct": 0.3,
+      "tier1_active": true,
+      "tier2_active": true,
+      "sync_days": 3
+    },
+    "result": {
+      "total": 1532,
+      "wins": 778,
+      "losses": 754,
+      "wr": 50.78,
+      "avg": 1.56,
+      "pf": 1.71,
+      "mdd": -23.67,
+      "expectancy": 1.56,
+      "tier1": 0,
+      "tier2": 1532
+    },
+    "timestamp": "2026-04-23 08:38"
+  },
+  {
+    "version": "Tier v1.4: Sync2days",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 75,
+      "min_atr_pct": 0.3,
+      "tier1_active": true,
+      "tier2_active": true,
+      "sync_days": 2
+    },
+    "result": {
+      "total": 1267,
+      "wins": 650,
+      "losses": 617,
+      "wr": 51.3,
+      "avg": 1.5,
+      "pf": 1.68,
+      "mdd": -23.67,
+      "expectancy": 1.5,
+      "tier1": 0,
+      "tier2": 1267
+    },
+    "timestamp": "2026-04-23 08:38"
+  },
+  {
+    "version": "Tier v1.5: ATR 0.2",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 80,
+      "min_atr_pct": 0.2,
+      "tier1_active": true,
+      "tier2_active": true,
+      "sync_days": 3
+    },
+    "result": {
+      "total": 1676,
+      "wins": 840,
+      "losses": 836,
+      "wr": 50.12,
+      "avg": 1.41,
+      "pf": 1.61,
+      "mdd": -23.67,
+      "expectancy": 1.41,
+      "tier1": 0,
+      "tier2": 1676
+    },
+    "timestamp": "2026-04-23 08:38"
+  },
+  {
+    "version": "Tier v1.6: NoTrend Req",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "tier1_active": true,
+      "tier2_active": true,
+      "sync_days": 3
+    },
+    "result": {
+      "total": 1676,
+      "wins": 840,
+      "losses": 836,
+      "wr": 50.12,
+      "avg": 1.41,
+      "pf": 1.61,
+      "mdd": -23.67,
+      "expectancy": 1.41,
+      "tier1": 0,
+      "tier2": 1676
+    },
+    "timestamp": "2026-04-23 08:38"
+  },
+  {
+    "version": "Tier v1.7: Ultra Combo",
+    "params": {
+      "rsi_min": 30,
+      "rsi_max": 85,
+      "min_atr_pct": 0.2,
+      "tier1_active": true,
+      "tier2_active": true,
+      "sync_days": 2
+    },
+    "result": {
+      "total": 1448,
+      "wins": 730,
+      "losses": 718,
+      "wr": 50.41,
+      "avg": 1.23,
+      "pf": 1.52,
+      "mdd": -30.0,
+      "expectancy": 1.23,
+      "tier1": 0,
+      "tier2": 1448
+    },
+    "timestamp": "2026-04-23 08:38"
+  }
+]

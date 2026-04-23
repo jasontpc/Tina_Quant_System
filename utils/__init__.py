@@ -7,6 +7,9 @@ import json
 import logging
 from datetime import datetime, timedelta
 
+# === Position Sizing ===
+from .position_sizing import PositionSizer, calc_kelly_fractional, kelly_to_shares
+
 # === 日誌模組 ===
 
 def setup_logger(name, log_file, level=logging.INFO):
@@ -155,4 +158,4 @@ def save_json(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 # 版本
-__version__ = '1.0.0'
+__version__ = '1.1.0'

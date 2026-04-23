@@ -1,0 +1,329 @@
+{
+  "timestamp": "2026-04-23 17:25:44",
+  "total_scanned": 0,
+  "total_errors": 80,
+  "top10": [],
+  "all_results": [],
+  "errors": [
+    {
+      "stock": "2330",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2454",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2317",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2382",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3034",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2379",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2451",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2308",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2345",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2353",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2395",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2401",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2492",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2610",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2880",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2881",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2882",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2883",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2884",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2885",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2886",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2887",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2891",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2892",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3008",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3033",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3044",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3189",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3231",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3443",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3481",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3665",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3717",
+      "error": "'Close'"
+    },
+    {
+      "stock": "4938",
+      "error": "'Close'"
+    },
+    {
+      "stock": "4958",
+      "error": "'Close'"
+    },
+    {
+      "stock": "6415",
+      "error": "'Close'"
+    },
+    {
+      "stock": "6505",
+      "error": "'Close'"
+    },
+    {
+      "stock": "6669",
+      "error": "'Close'"
+    },
+    {
+      "stock": "6770",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8016",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8046",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8105",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8261",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8341",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8464",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8926",
+      "error": "'Close'"
+    },
+    {
+      "stock": "8996",
+      "error": "'Close'"
+    },
+    {
+      "stock": "9945",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2385",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2603",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2890",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2888",
+      "error": "無資料"
+    },
+    {
+      "stock": "5880",
+      "error": "'Close'"
+    },
+    {
+      "stock": "5871",
+      "error": "'Close'"
+    },
+    {
+      "stock": "1234",
+      "error": "'Close'"
+    },
+    {
+      "stock": "5871",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2303",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2327",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2344",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2515",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2527",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2707",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2834",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2855",
+      "error": "'Close'"
+    },
+    {
+      "stock": "2912",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3029",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3045",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3294",
+      "error": "無資料"
+    },
+    {
+      "stock": "3305",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3380",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3416",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3533",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3557",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3593",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3596",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3673",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3686",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3702",
+      "error": "'Close'"
+    },
+    {
+      "stock": "3711",
+      "error": "'Close'"
+    },
+    {
+      "stock": "4001",
+      "error": "無資料"
+    }
+  ]
+}
