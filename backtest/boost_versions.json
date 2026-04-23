@@ -1,0 +1,202 @@
+[
+  {
+    "version": "Boost v1.0",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 70,
+      "min_atr_pct": 0.5,
+      "inst_level": 1,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "inst_sync_days": 3
+    },
+    "result": {
+      "total": 1203,
+      "wins": 668,
+      "losses": 535,
+      "wr": 55.53,
+      "avg": 2.48,
+      "pf": 2.22,
+      "mdd": -23.67,
+      "expectancy": 2.48,
+      "avg_win": 8.15,
+      "avg_loss": 4.59
+    },
+    "timestamp": "2026-04-23 07:51"
+  },
+  {
+    "version": "Boost v1.1: RSI 35-80",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "inst_level": 1,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "inst_sync_days": 3
+    },
+    "result": {
+      "total": 1524,
+      "wins": 831,
+      "losses": 693,
+      "wr": 54.53,
+      "avg": 2.25,
+      "pf": 2.06,
+      "mdd": -23.67,
+      "expectancy": 2.25,
+      "avg_win": 8.02,
+      "avg_loss": 4.67
+    },
+    "timestamp": "2026-04-23 07:51"
+  },
+  {
+    "version": "Boost v1.2: RSI 30-85",
+    "params": {
+      "rsi_min": 30,
+      "rsi_max": 85,
+      "min_atr_pct": 0.3,
+      "inst_level": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "inst_sync_days": 3
+    },
+    "result": {
+      "total": 4636,
+      "wins": 2228,
+      "losses": 2408,
+      "wr": 48.06,
+      "avg": 1.02,
+      "pf": 1.52,
+      "mdd": -30.0,
+      "expectancy": 1.02,
+      "avg_win": 6.22,
+      "avg_loss": 3.79
+    },
+    "timestamp": "2026-04-23 07:51"
+  },
+  {
+    "version": "Boost v1.3: NoTrend",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "inst_level": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "inst_sync_days": 3
+    },
+    "result": {
+      "total": 3856,
+      "wins": 1889,
+      "losses": 1967,
+      "wr": 48.99,
+      "avg": 1.17,
+      "pf": 1.59,
+      "mdd": -23.67,
+      "expectancy": 1.17,
+      "avg_win": 6.48,
+      "avg_loss": 3.93
+    },
+    "timestamp": "2026-04-23 07:51"
+  },
+  {
+    "version": "Boost v1.4: Inst L2",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 80,
+      "min_atr_pct": 0.3,
+      "inst_level": 2,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "inst_sync_days": 3
+    },
+    "result": {
+      "total": 603,
+      "wins": 348,
+      "losses": 255,
+      "wr": 57.71,
+      "avg": 3.35,
+      "pf": 2.86,
+      "mdd": -23.67,
+      "expectancy": 3.35,
+      "avg_win": 8.93,
+      "avg_loss": 4.25
+    },
+    "timestamp": "2026-04-23 07:51"
+  },
+  {
+    "version": "Boost v1.5: ATR 0.2",
+    "params": {
+      "rsi_min": 40,
+      "rsi_max": 80,
+      "min_atr_pct": 0.2,
+      "inst_level": 1,
+      "trend_ma": true,
+      "kdj_filter": false,
+      "inst_sync_days": 3
+    },
+    "result": {
+      "total": 1435,
+      "wins": 787,
+      "losses": 648,
+      "wr": 54.84,
+      "avg": 2.38,
+      "pf": 2.11,
+      "mdd": -23.67,
+      "expectancy": 2.38,
+      "avg_win": 8.25,
+      "avg_loss": 4.76
+    },
+    "timestamp": "2026-04-23 07:51"
+  },
+  {
+    "version": "Boost v1.6: Inst Any",
+    "params": {
+      "rsi_min": 35,
+      "rsi_max": 85,
+      "min_atr_pct": 0.2,
+      "inst_level": 1,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "inst_sync_days": 3
+    },
+    "result": {
+      "total": 4332,
+      "wins": 2105,
+      "losses": 2227,
+      "wr": 48.59,
+      "avg": 1.08,
+      "pf": 1.55,
+      "mdd": -30.0,
+      "expectancy": 1.08,
+      "avg_win": 6.28,
+      "avg_loss": 3.83
+    },
+    "timestamp": "2026-04-23 07:51"
+  },
+  {
+    "version": "Boost v1.7: Ultra Loose",
+    "params": {
+      "rsi_min": 30,
+      "rsi_max": 90,
+      "min_atr_pct": 0.2,
+      "inst_level": 0,
+      "trend_ma": false,
+      "kdj_filter": false,
+      "inst_sync_days": 0
+    },
+    "result": {
+      "total": 6080,
+      "wins": 2837,
+      "losses": 3243,
+      "wr": 46.66,
+      "avg": 0.83,
+      "pf": 1.41,
+      "mdd": -30.0,
+      "expectancy": 0.83,
+      "avg_win": 6.15,
+      "avg_loss": 3.82
+    },
+    "timestamp": "2026-04-23 07:51"
+  }
+]
