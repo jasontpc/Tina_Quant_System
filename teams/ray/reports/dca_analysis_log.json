@@ -1,0 +1,93 @@
+[
+  {
+    "date": "2026-04-24 13:03",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.450000762939453,
+    "position_pct": 91.1,
+    "rsi": 71.2,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-24 13:04",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.450000762939453,
+    "position_pct": 91.1,
+    "rsi": 71.2,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-24 13:04",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.450000762939453,
+    "position_pct": 91.1,
+    "rsi": 71.2,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-24 13:05",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.459999084472656,
+    "position_pct": 91.3,
+    "rsi": 71.3,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-24 13:05",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.459999084472656,
+    "position_pct": 91.3,
+    "rsi": 71.3,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-24 13:12",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.469999313354492,
+    "position_pct": 91.5,
+    "rsi": 71.4,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-24 13:19",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.450000762939453,
+    "position_pct": 91.1,
+    "rsi": 71.2,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  }
+]
