@@ -34,7 +34,7 @@ def format_telegram_table(results, title):
         f"📊 *{title}* | {datetime.now().strftime('%Y-%m-%d %H:%M')}",
         "`" + "="*48 + "`"
     ]
-    for r in results[:20]:
+    for r in results:
         tier_icon = {"A": "🥇", "B": "🥈", "C": "🥉", "D": "❌"}.get(r.get('tier','?'), '?')
         ma_icon = "✅" if r.get('ma20_above_ma60') else "❌"
         macd_icon = "✅" if r.get('macd_hist', 0) > 0 else "❌"
@@ -52,7 +52,7 @@ def format_telegram_table(results, title):
     lines.append("`" + "="*48 + "`")
     lines.append(f"🥇A={a} 🥈B={b} 🥉C={c} | Total={len(results)}")
     if len(results) > 20:
-        lines.append(f"(Showing 20 of {len(results)})")
+        lines.append(f"(Showing all {len(results)} stocks)")
     return "\n".join(lines)
 
 # ── Session Cache ──────────────────────────────────────────────────────────────
