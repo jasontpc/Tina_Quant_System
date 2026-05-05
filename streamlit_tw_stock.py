@@ -121,7 +121,12 @@ US_CATS = {
     '金融科技': ['PYPL','SQ','AFRM','COIN','HOOD','DB','AFC','GREM','UPST','LC','RBLX','NU','SOFI'],
     '電動車/綠能': ['TSLA','RIVN','LCID','F','GM','HYLN','ENPH','SEDG','SPWR','FSLR','RUN','ALB','NIO','XPEV','CHPT','BLNK','CCID','NOVA'],
     # ─── 美股 ETF ───
-    '美股 ETF': ['QQQ','SOXX','SMH','XLF','ARKK','FXI','GDX','XLE'],
+    # ─── 美股熱門 ETF（Jo 提供，22 檔）───
+    'ETF - 指數核心': ['VOO','IVV','SPY','VTI'],
+    'ETF - 科技與成長': ['QQQ','VUG','SOXX','SMH'],
+    'ETF - 股息與價值': ['SCHD','VYM','VTV','DGRO'],
+    'ETF - 債券與配置': ['BND','TLT','SHY','AGG'],
+    'ETF - 全球與其他': ['VT','VXUS','VWO'],
     '全部': [],
 }
 
@@ -188,10 +193,20 @@ US_NAMES = {
     "DB": "Deutsche Bank", "BAC": "Bank of America", "GS": "Goldman", "V": "Visa", "MA": "Mastercard",
     # 其他
     "SMCI": "SuperMicro", "AI": "C3.ai", "DT": "Dynatrace",
-    # ETF
-    "QQQ": "QQQ ETF", "SOXX": "SOX ETF", "SMH": "SMH ETF",
-    "XLF": "Financial ETF", "ARKK": "ARK ETF", "FXI": "China ETF",
-    "GDX": "Gold ETF", "XLE": "Energy ETF",
+    # ─── ETF - 指數核心 ───
+    'VOO': "Vanguard S&P 500", 'IVV': "iShares Core S&P 500", 'SPY': "SPDR S&P 500", 'VTI': "Vanguard 全美市場",
+    # ─── ETF - 科技與成長 ───
+    'QQQ': "Invesco QQQ", 'VUG': "Vanguard Growth", 'SOXX': "iShares 半導體", 'SMH': "VanEck 半導體",
+    # ─── ETF - 股息與價值 ───
+    'SCHD': "Schwab 高股息", 'VYM': "Vanguard 高殖利率", 'VTV': "Vanguard Value", 'DGRO': "iShares 股息增長",
+    # ─── ETF - 債券與配置 ───
+    'BND': "Vanguard 綜合債券", 'TLT': "iShares 長天期美債", 'SHY': "iShares 短天期美債", 'AGG': "iShares 綜合債",
+    # ─── ETF - 全球與其他 ───
+    'VT': "Vanguard 全球股票", 'VXUS': "Vanguard 非美股市", 'VWO': "Vanguard 新興市場",
+    # 舊 ETF
+    'SOXX': "SOX ETF", 'SMH': "SMH ETF",
+    'XLF': "Financial ETF", 'ARKK': "ARK ETF", 'FXI': "China ETF",
+    'GDX': "Gold ETF", 'XLE': "Energy ETF",
 }
 
 def calc_rsi(close, period=14):
