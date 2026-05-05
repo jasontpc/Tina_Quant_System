@@ -159,28 +159,25 @@ def calc_macd(close):
     macd_signal = macd.ewm(span=9, adjust=False).mean()
     return float(macd.iloc[-1]), float(macd_signal.iloc[-1]), float((macd - macd_signal).iloc[-1])
 
+# ── Data Fetch ──────────────────────────────────────────────────────────────
+
 def fetch_institutional(code):
-    """Fetch foreign/trust/dealer from FinMind"""
+    """Fetch F/T/D from local macro_institutional.db (has real data up to 2026-04-30)"""
     try:
-        params = {
-            'dataset': 'TaiwanFuturesInstitutionalInvestors',
-            'data_id': str(code).zfill(4),
-            'start_date': '2026-05-01',
-            'end_date': '2026-05-05',
-            'token': FINMIND_TOKEN
-        }
-        url = 'https://api.finmindtrade.com/api/v4/data?' + '&'.join(f'{k}={v}' for k, v in params.items())
-        with urllib.request.urlopen(url, timeout=8) as resp:
-            data = json.loads(resp.read())
-            if data.get('status') == 200 and data.get('data', {}).get('data'):
-                rows = data['data']['data']
-                if rows:
-                    latest = rows[-1]
-                    return {
-                        'foreign': int(latest.get('Buy', 0) - latest.get('Sell', 0)),
-                        'trust': int(latest.get('TrustBuy', 0) - latest.get('TrustSell', 0)),
-                        'dealer': int(latest.get('DealerBuy', 0) - latest.get('DealerSell', 0)),
-                    }
+        db_path = os.path.join(os.path.dirname(__file__), 'data', 'macro_institutional.db')
+        if not os.path.exists(db_path):
+            return None
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        row = c.execute('''
+            SELECT foreign_net, trust_net, dealer_net
+            FROM institutional_daily
+            WHERE stock_id=? AND date >= '2026-04-25'
+            ORDER BY date DESC LIMIT 1
+        ''', (str(code).zfill(4),)).fetchone()
+        conn.close()
+        if row and (row[0] or row[1] or row[2]):
+            return {'foreign': row[0], 'trust': row[1], 'dealer': row[2]}
     except:
         pass
     return None
