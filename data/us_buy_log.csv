@@ -1,0 +1,1 @@
+id,date,time,symbol,entry_price,quantity,cost_basis,reason,score,rsi_entry,expected_return_pct,stop_loss_pct,notes,status,exit_date,exit_price,realized_return_pct,exit_reason

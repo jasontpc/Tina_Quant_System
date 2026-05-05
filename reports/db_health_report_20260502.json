@@ -1,0 +1,164 @@
+{
+  "generated_at": "2026-05-02T08:05:55.323645",
+  "databases": {
+    "tw_history": {
+      "exists": true,
+      "total_records": 33277,
+      "tables": {
+        "stocks": 59,
+        "daily_ohlcv": 29614,
+        "sqlite_sequence": 3,
+        "institutional": 0,
+        "rsi_signals": 1716,
+        "ma_signals": 0,
+        "trades": 0,
+        "market_index": 964,
+        "db_version": 1,
+        "stock_price": 910,
+        "sqlite_stat1": 10
+      },
+      "latest_data": {
+        "daily_ohlcv": "2026-04-30",
+        "stock_price": "2026-05-01"
+      }
+    },
+    "us_history": {
+      "exists": true,
+      "total_records": 110036,
+      "tables": {
+        "daily_ohlcv": 108169,
+        "sqlite_sequence": 1,
+        "stock_summary": 184,
+        "watchlist": 78,
+        "stock_price": 1600,
+        "sqlite_stat1": 4
+      },
+      "latest_data": {
+        "daily_ohlcv": "2026-04-30",
+        "stock_price": "2026-05-01"
+      }
+    },
+    "unified_trading": {
+      "exists": false,
+      "error": "file not found",
+      "tables": {},
+      "latest_data": {}
+    },
+    "portfolio": {
+      "exists": true,
+      "total_records": 10,
+      "tables": {
+        "holdings": 2,
+        "sqlite_sequence": 3,
+        "trades": 1,
+        "portfolio_daily": 1,
+        "sqlite_stat1": 3
+      },
+      "latest_data": {
+        "portfolio_daily": "2026-05-01"
+      }
+    },
+    "tina_master": {
+      "exists": true,
+      "total_records": 16137,
+      "tables": {
+        "Assets": 18,
+        "sqlite_sequence": 5,
+        "MarketData": 16014,
+        "Strategies": 10,
+        "SignalLogs": 0,
+        "DailyStats": 80,
+        "sqlite_stat1": 8,
+        "ScoreVersion": 1,
+        "ScoreConfig": 1
+      },
+      "latest_data": {
+        "DailyStats": "2026-04-24"
+      }
+    },
+    "maggy": {
+      "exists": true,
+      "total_records": 19731,
+      "tables": {
+        "daily": 19729,
+        "sqlite_sequence": 1,
+        "optimized_signals": 0,
+        "sqlite_stat1": 1
+      },
+      "latest_data": {
+        "daily": "2026-04-27"
+      }
+    },
+    "sherry_etf": {
+      "exists": true,
+      "total_records": 43093,
+      "tables": {
+        "etf_daily": 43056,
+        "sqlite_sequence": 1,
+        "etf_summary": 36,
+        "dca_signals": 0,
+        "dca_simulation": 0
+      },
+      "latest_data": {
+        "etf_daily": "2026-04-28"
+      }
+    },
+    "vogel": {
+      "exists": true,
+      "total_records": 698,
+      "tables": {
+        "futures_daily": 697,
+        "sqlite_sequence": 1,
+        "signals": 0,
+        "db_version": 0
+      },
+      "latest_data": {
+        "futures_daily": "2026-04-28"
+      }
+    }
+  },
+  "watchlists": {
+    "nana_watchlist": {
+      "exists": true,
+      "freshness": "FRESH",
+      "age_minutes": 2.9,
+      "last_updated": "2026-05-02T08:03:03.551221"
+    },
+    "leo_watchlist": {
+      "exists": true,
+      "freshness": "FRESH",
+      "age_minutes": 1.4,
+      "last_updated": "2026-05-02T08:04:30.679792"
+    },
+    "ray_watchlist": {
+      "exists": true,
+      "freshness": "FRESH",
+      "age_minutes": 1.4,
+      "last_updated": "2026-05-02T08:04:28.544328"
+    },
+    "maggy_watchlist": {
+      "exists": true,
+      "freshness": "FRESH",
+      "age_minutes": 1.4,
+      "last_updated": "2026-05-02T08:04:29.381082"
+    },
+    "market_regime": {
+      "exists": true,
+      "freshness": "FRESH",
+      "age_minutes": 0.1,
+      "last_updated": "2026-05-02T08:05:48.960346"
+    },
+    "watchlist": {
+      "exists": true,
+      "freshness": "ANCIENT",
+      "age_minutes": 12156.4,
+      "last_updated": "2026-04-23T21:29:29.866221"
+    }
+  },
+  "data_quotas": {},
+  "summary": {
+    "ok": 7,
+    "warn": 1,
+    "error": 1
+  }
+}

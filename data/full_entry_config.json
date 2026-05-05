@@ -1,0 +1,28 @@
+{
+  "updated": "2026-05-04 17:03",
+  "twii_rsi": 84.47158368374974,
+  "market": "BULL",
+  "leo_rsi_limit": 60,
+  "nana_rsi_limit": 50,
+  "position_mult": 1.0,
+  "method_3_tiered": {
+    "A": 5.0,
+    "B": 2.5,
+    "C": 1.0
+  },
+  "method_4_momentum_break": true,
+  "method_5_max_hold_days": 5,
+  "actionable_stocks": [
+    {
+      "name": "光聖",
+      "team": "Nana",
+      "position": 2.5
+    },
+    {
+      "name": "廣達",
+      "team": "Nana",
+      "position": 2.5
+    }
+  ],
+  "total_position_pct": 5.0
+}

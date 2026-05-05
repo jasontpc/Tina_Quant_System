@@ -1,0 +1,22 @@
+{
+  "date": "2026-05-04T15:04:17.858937",
+  "rate": {
+    "symbol": "USDTWD",
+    "price": 31.597999572753906,
+    "prev": 31.569000244140625,
+    "change_pct": 0.09186014251009954
+  },
+  "signals": [
+    {
+      "signal": "UPTREND",
+      "level": "TECHNICAL",
+      "price": 31.597999572753906,
+      "ma20": 31.594620037078858,
+      "threshold": "MA20",
+      "interpretation": "Price above MA20",
+      "action": "USD 強勢"
+    }
+  ],
+  "level": "MEDIUM",
+  "signal": "NEUTRAL"
+}

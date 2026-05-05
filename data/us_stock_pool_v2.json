@@ -1,0 +1,77 @@
+{
+  "PLTR": {
+    "name": "Palantir",
+    "tier": 1,
+    "avg_ret": 6.92
+  },
+  "KLAC": {
+    "name": "KLA Corp",
+    "tier": 1,
+    "avg_ret": 6.75
+  },
+  "NVDA": {
+    "name": "Nvidia",
+    "tier": 1,
+    "avg_ret": 6.67
+  },
+  "AVGO": {
+    "name": "Broadcom",
+    "tier": 1,
+    "avg_ret": 5.84
+  },
+  "LLY": {
+    "name": "Eli Lilly",
+    "tier": 1,
+    "avg_ret": 4.77
+  },
+  "INTC": {
+    "name": "Intel",
+    "tier": 1,
+    "avg_ret": 4.32
+  },
+  "META": {
+    "name": "Meta",
+    "tier": 1,
+    "avg_ret": 4.2
+  },
+  "AMAT": {
+    "name": "Applied Materials",
+    "tier": 2,
+    "avg_ret": 4.15
+  },
+  "GOOGL": {
+    "name": "Alphabet",
+    "tier": 2,
+    "avg_ret": 3.61
+  },
+  "NET": {
+    "name": "Cloudflare",
+    "tier": 2,
+    "avg_ret": 3.47
+  },
+  "ASML": {
+    "name": "ASML",
+    "tier": 2,
+    "avg_ret": 3.41
+  },
+  "NFLX": {
+    "name": "Netflix",
+    "tier": 2,
+    "avg_ret": 3.24
+  },
+  "UPST": {
+    "name": "Upstart",
+    "tier": 2,
+    "avg_ret": 3.18
+  },
+  "UBER": {
+    "name": "Uber",
+    "tier": 2,
+    "avg_ret": 3.12
+  },
+  "OKTA": {
+    "name": "Okta",
+    "tier": 2,
+    "avg_ret": 3.1
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "0050": {
+    "etf_id": "0050",
+    "name": "元大台灣50",
+    "period_start": "2021-04-26T00:00:00+08:00",
+    "period_end": "2026-04-23T00:00:00+08:00",
+    "results": [
+      {
+        "strategy": "A: 固定 DCA",
+        "total_trades": 35,
+        "total_cost": 349434.38,
+        "total_shares": 10439,
+        "avg_cost": 33.4739,
+        "final_value": 901407.63,
+        "total_return_pct": 157.96,
+        "max_drawdown_pct": 4.29,
+        "sharpe_ratio": 12.7
+      },
+      {
+        "strategy": "B: 位置觸發 DCA",
+        "total_trades": 11,
+        "total_cost": 109872.66,
+        "total_shares": 3953,
+        "avg_cost": 27.7948,
+        "final_value": 341341.54,
+        "total_return_pct": 210.67,
+        "max_drawdown_pct": 5.95,
+        "sharpe_ratio": 11.095
+      },
+      {
+        "strategy": "C: Buy & Hold",
+        "total_trades": 1,
+        "total_cost": 120000,
+        "total_shares": 3916.49,
+        "avg_cost": 30.6397,
+        "final_value": 338188.47,
+        "total_return_pct": 181.82,
+        "max_drawdown_pct": 33.83,
+        "sharpe_ratio": 1.005
+      }
+    ],
+    "best_strategy": "B: 位置觸發 DCA"
+  },
+  "0056": {
+    "etf_id": "0056",
+    "name": "元大高股息",
+    "period_start": "2021-04-26T00:00:00+08:00",
+    "period_end": "2026-04-23T00:00:00+08:00",
+    "results": [
+      {
+        "strategy": "A: 固定 DCA",
+        "total_trades": 35,
+        "total_cost": 349574.02,
+        "total_shares": 14156,
+        "avg_cost": 24.6944,
+        "final_value": 575441.42,
+        "total_return_pct": 64.61,
+        "max_drawdown_pct": 3.54,
+        "sharpe_ratio": 11.679
+      },
+      {
+        "strategy": "B: 位置觸發 DCA",
+        "total_trades": 12,
+        "total_cost": 119872.99,
+        "total_shares": 5944,
+        "avg_cost": 20.1671,
+        "final_value": 241623.61,
+        "total_return_pct": 101.57,
+        "max_drawdown_pct": 4.75,
+        "sharpe_ratio": 9.431
+      },
+      {
+        "strategy": "C: Buy & Hold",
+        "total_trades": 1,
+        "total_cost": 120000,
+        "total_shares": 5264.97,
+        "avg_cost": 22.7922,
+        "final_value": 214021.06,
+        "total_return_pct": 78.35,
+        "max_drawdown_pct": 26.89,
+        "sharpe_ratio": 0.703
+      }
+    ],
+    "best_strategy": "B: 位置觸發 DCA"
+  },
+  "00878": {
+    "etf_id": "00878",
+    "name": "國泰永續高息",
+    "period_start": "2021-04-26T00:00:00+08:00",
+    "period_end": "2026-04-23T00:00:00+08:00",
+    "results": [
+      {
+        "strategy": "A: 固定 DCA",
+        "total_trades": 35,
+        "total_cost": 349727.72,
+        "total_shares": 22319,
+        "avg_cost": 15.6695,
+        "final_value": 550386.54,
+        "total_return_pct": 57.38,
+        "max_drawdown_pct": 1.9,
+        "sharpe_ratio": 11.492
+      },
+      {
+        "strategy": "B: 位置觸發 DCA",
+        "total_trades": 9,
+        "total_cost": 89936.12,
+        "total_shares": 6761,
+        "avg_cost": 13.3022,
+        "final_value": 166726.26,
+        "total_return_pct": 85.38,
+        "max_drawdown_pct": 8.85,
+        "sharpe_ratio": 8.924
+      },
+      {
+        "strategy": "C: Buy & Hold",
+        "total_trades": 1,
+        "total_cost": 120000,
+        "total_shares": 9014.11,
+        "avg_cost": 13.3125,
+        "final_value": 222288.01,
+        "total_return_pct": 85.24,
+        "max_drawdown_pct": 22.29,
+        "sharpe_ratio": 0.805
+      }
+    ],
+    "best_strategy": "B: 位置觸發 DCA"
+  },
+  "00919": {
+    "etf_id": "00919",
+    "name": "群益台灣精選",
+    "period_start": "2022-10-13T00:00:00+08:00",
+    "period_end": "2026-04-23T00:00:00+08:00",
+    "results": [
+      {
+        "strategy": "A: 固定 DCA",
+        "total_trades": 23,
+        "total_cost": 229805.53,
+        "total_shares": 13684,
+        "avg_cost": 16.7937,
+        "final_value": 320889.81,
+        "total_return_pct": 39.64,
+        "max_drawdown_pct": 0.34,
+        "sharpe_ratio": 12.352
+      },
+      {
+        "strategy": "B: 位置觸發 DCA",
+        "total_trades": 1,
+        "total_cost": 9993.23,
+        "total_shares": 938,
+        "avg_cost": 10.6538,
+        "final_value": 21996.1,
+        "total_return_pct": 120.11,
+        "max_drawdown_pct": 8.44,
+        "sharpe_ratio": 11.433
+      },
+      {
+        "strategy": "C: Buy & Hold",
+        "total_trades": 1,
+        "total_cost": 120000,
+        "total_shares": 11188.53,
+        "avg_cost": 10.7253,
+        "final_value": 262371.02,
+        "total_return_pct": 118.64,
+        "max_drawdown_pct": 23.39,
+        "sharpe_ratio": 1.344
+      }
+    ],
+    "best_strategy": "B: 位置觸發 DCA"
+  },
+  "00713": {
+    "etf_id": "00713",
+    "name": "元大高息低波",
+    "period_start": "2021-04-26T00:00:00+08:00",
+    "period_end": "2026-04-23T00:00:00+08:00",
+    "results": [
+      {
+        "strategy": "A: 固定 DCA",
+        "total_trades": 35,
+        "total_cost": 349399.29,
+        "total_shares": 9623,
+        "avg_cost": 36.3088,
+        "final_value": 513387.04,
+        "total_return_pct": 46.93,
+        "max_drawdown_pct": 0.26,
+        "sharpe_ratio": 11.46
+      },
+      {
+        "strategy": "B: 位置觸發 DCA",
+        "total_trades": 6,
+        "total_cost": 59917.71,
+        "total_shares": 2079,
+        "avg_cost": 28.8204,
+        "final_value": 110914.65,
+        "total_return_pct": 85.11,
+        "max_drawdown_pct": 4.8,
+        "sharpe_ratio": 8.254
+      },
+      {
+        "strategy": "C: Buy & Hold",
+        "total_trades": 1,
+        "total_cost": 120000,
+        "total_shares": 4067.97,
+        "avg_cost": 29.4987,
+        "final_value": 217026.4,
+        "total_return_pct": 80.86,
+        "max_drawdown_pct": 18.42,
+        "sharpe_ratio": 0.88
+      }
+    ],
+    "best_strategy": "B: 位置觸發 DCA"
+  }
+}

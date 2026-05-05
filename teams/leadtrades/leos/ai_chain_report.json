@@ -1,0 +1,160 @@
+{
+  "stocks": [
+    {
+      "symbol": "2330",
+      "name": "台積電",
+      "sector": "上游-晶圓製造",
+      "price": 2180.0,
+      "chg": -1.58,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "2454",
+      "name": "聯發科",
+      "sector": "上游-IC設計",
+      "price": 2575.0,
+      "chg": -1.53,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "sector": "上游-IC設計",
+      "price": 551.0,
+      "chg": -1.78,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "3035",
+      "name": "智原",
+      "sector": "上游-IC設計",
+      "price": 168.5,
+      "chg": -4.53,
+      "rsi": 50.0,
+      "signal": "📉弱"
+    },
+    {
+      "symbol": "3653",
+      "name": "健策",
+      "sector": "上游-導線架",
+      "price": 5445.0,
+      "chg": 10.0,
+      "rsi": 50.0,
+      "signal": "💹強"
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "sector": "中游-伺服器",
+      "price": 322.0,
+      "chg": 0.31,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "sector": "中游-伺服器",
+      "price": 408.5,
+      "chg": -0.97,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "4938",
+      "name": "和碩",
+      "sector": "中游-EMS",
+      "price": 82.0,
+      "chg": -0.85,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "2376",
+      "name": "技嘉",
+      "sector": "中游-GPU板卡",
+      "price": 272.5,
+      "chg": -3.2,
+      "rsi": 50.0,
+      "signal": "📉弱"
+    },
+    {
+      "symbol": "3665",
+      "name": "穎崴",
+      "sector": "中游-AI封測",
+      "price": 2780.0,
+      "chg": 5.7,
+      "rsi": 50.0,
+      "signal": "💹強"
+    },
+    {
+      "symbol": "6153",
+      "name": "嘉澤",
+      "sector": "中游-連接器",
+      "price": 17.75,
+      "chg": -1.93,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "2317",
+      "name": "鴻海",
+      "sector": "下游-EMS",
+      "price": 225.0,
+      "chg": -0.22,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "6706",
+      "name": "健鼎",
+      "sector": "下游-PCB",
+      "price": 147.0,
+      "chg": 9.7,
+      "rsi": 50.0,
+      "signal": "💹強"
+    },
+    {
+      "symbol": "6271",
+      "name": "敦南",
+      "sector": "下游-PCB",
+      "price": 173.0,
+      "chg": -1.42,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    },
+    {
+      "symbol": "3016",
+      "name": "奇鋐",
+      "sector": "下游-散熱",
+      "price": 81.6,
+      "chg": 9.97,
+      "rsi": 50.0,
+      "signal": "💹強"
+    },
+    {
+      "symbol": "6230",
+      "name": "尼得科",
+      "sector": "下游-散熱",
+      "price": 161.0,
+      "chg": 0.0,
+      "rsi": 50.0,
+      "signal": "➡️中"
+    }
+  ],
+  "summary": {
+    "strong": 4,
+    "neutral": 10,
+    "weak": 2,
+    "candidates": [
+      "3653",
+      "3665",
+      "6706",
+      "3016",
+      "2382"
+    ]
+  }
+}

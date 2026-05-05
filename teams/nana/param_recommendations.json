@@ -1,0 +1,42 @@
+{
+  "current_regime": "BULL",
+  "recommendations": {
+    "atr_stop_loss": 4.5694,
+    "atr_target_profit": 9.1389,
+    "hold_days_max": 10,
+    "entry_rsi_max": 65
+  },
+  "all_regimes": {
+    "OVERBOUGHT": {
+      "atr_stop_loss": 3.9736,
+      "atr_target_profit": 7.9473,
+      "hold_days_max": 10,
+      "entry_rsi_max": 60
+    },
+    "BULL": {
+      "atr_stop_loss": 4.5694,
+      "atr_target_profit": 9.1389,
+      "hold_days_max": 10,
+      "entry_rsi_max": 65
+    },
+    "CONSOLIDATE": {
+      "atr_stop_loss": 5.2014,
+      "atr_target_profit": 10.4028,
+      "hold_days_max": 7,
+      "entry_rsi_max": 65
+    },
+    "BEAR": {
+      "atr_stop_loss": 5.2568,
+      "atr_target_profit": 10.5135,
+      "hold_days_max": 7,
+      "entry_rsi_max": 60
+    },
+    "OVERSOLD": {
+      "atr_stop_loss": 5.5558,
+      "atr_target_profit": 11.1117,
+      "hold_days_max": 7,
+      "entry_rsi_max": 60
+    }
+  },
+  "updated_at": "2026-04-24T15:04:31.602629"
+}

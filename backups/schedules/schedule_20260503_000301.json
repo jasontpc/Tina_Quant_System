@@ -1,0 +1,282 @@
+[
+  {
+    "stock_id": "0050",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_0050.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "0056",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_0056.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "00646",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_00646.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "00713",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_00713.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2317",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2317.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2330",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2330.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2345",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2345.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2382",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2382.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2454",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2454.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2881",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2881.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2883",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2883.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2884",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2884.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2886",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2886.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "2891",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_2891.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "3017",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_3017.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "3034",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_3034.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "3665",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_3665.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "4961",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_4961.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "AMD",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_AMD.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "BILL",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_BILL.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "BMY",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_BMY.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "COIN",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_COIN.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "D",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_D.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "DLO",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_DLO.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "DXCM",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_DXCM.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "ESTC",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_ESTC.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "GEN",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_GEN.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "GTLB",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_GTLB.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "INTC",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_INTC.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "NET",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_NET.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "NVDA",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_NVDA.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "PATH",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_PATH.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "RIVN",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_RIVN.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "RKLB",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_RKLB.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "SMCI",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_SMCI.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "SO",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_SO.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "SOFI",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_SOFI.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "TSM",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_TSM.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "U",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_U.py",
+    "action": "normal",
+    "priority": "HIGH"
+  },
+  {
+    "stock_id": "VEA",
+    "cron": "0 */1 * * *",
+    "script": "scripts/stock_optimize_VEA.py",
+    "action": "normal",
+    "priority": "HIGH"
+  }
+]

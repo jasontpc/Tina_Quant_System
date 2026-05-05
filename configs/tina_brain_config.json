@@ -1,0 +1,142 @@
+{
+  "brain_version": "2.0",
+  "brain_name": "TinaMaster v2",
+  "thinking_interval_hours": 4,
+  "autonomous_mode": true,
+  
+  "active_strategies": [
+    {
+      "name": "MA20突破",
+      "rsi_range": [40, 60],
+      "max_hold_days": 15,
+      "stop_loss_atr": 2.0,
+      "take_profit_atr": 3.0,
+      "stop_loss_pct": -0.08,
+      "take_profit_pct": 0.15,
+      "weight": 1.0,
+      "confidence": 0.85,
+      "times_used": 12,
+      "win_rate": 0.75
+    },
+    {
+      "name": "RSI超賣反彈",
+      "rsi_range": [35, 50],
+      "max_hold_days": 10,
+      "stop_loss_atr": 2.0,
+      "take_profit_atr": 3.0,
+      "stop_loss_pct": -0.06,
+      "take_profit_pct": 0.12,
+      "weight": 0.9,
+      "confidence": 0.70,
+      "times_used": 8,
+      "win_rate": 0.62
+    },
+    {
+      "name": "價值成長",
+      "rsi_range": [40, 55],
+      "max_hold_days": 30,
+      "stop_loss_atr": 2.5,
+      "take_profit_atr": 5.0,
+      "stop_loss_pct": -0.10,
+      "take_profit_pct": 0.20,
+      "weight": 0.95,
+      "confidence": 0.80,
+      "times_used": 15,
+      "win_rate": 0.73
+    },
+    {
+      "name": "金融股波段",
+      "rsi_range": [35, 50],
+      "max_hold_days": 14,
+      "stop_loss_atr": 2.0,
+      "take_profit_atr": 4.0,
+      "stop_loss_pct": -0.06,
+      "take_profit_pct": 0.15,
+      "weight": 0.88,
+      "confidence": 0.75,
+      "times_used": 10,
+      "win_rate": 0.70
+    },
+    {
+      "name": "AI伺服器成長",
+      "rsi_range": [40, 65],
+      "max_hold_days": 20,
+      "stop_loss_atr": 2.0,
+      "take_profit_atr": 5.0,
+      "stop_loss_pct": -0.08,
+      "take_profit_pct": 0.25,
+      "weight": 1.0,
+      "confidence": 0.90,
+      "times_used": 18,
+      "win_rate": 0.78
+    }
+  ],
+  
+  "market_thresholds": {
+    "twii_rsi_overbought": 75,
+    "twii_rsi_oversold": 30,
+    "qqq_rsi_overbought": 72,
+    "qqq_rsi_oversold": 35,
+    "vix_danger": 25,
+    "vix_opportunity": 15,
+    "atr_spike_threshold": 2.0
+  },
+  
+  "scan_universe": {
+    "tw_stocks": 50,
+    "us_etfs": 20,
+    "tw_growth_stocks": 14,
+    "us_growth_stocks": 10
+  },
+  
+  "self_learning": {
+    "min_trades_for_adjustment": 5,
+    "win_rate_decline_threshold": 0.10,
+    "pattern_min_frequency": 3,
+    "learning_interval_hours": 24,
+    "auto_adjust_weights": true
+  },
+  
+  "autonomous_control": {
+    "enabled": true,
+    "trigger_5_losses": true,
+    "trigger_single_loss_10pct": true,
+    "trigger_environment_invalid": true,
+    "backtest_before_switch": true,
+    "backtest_klines": 100,
+    "min_win_rate": 0.55,
+    "min_profit_factor": 1.1,
+    "new_strategy_naming": "tina_v{N}_auto_patch.py",
+    "forbidden_to_modify": ["main.py", "tina_main.py", "tina_core.py"]
+  },
+  
+  "xp_system": {
+    "level": "見習",
+    "xp": 0,
+    "xp_to_next": 100,
+    "trade_win": 10,
+    "trade_loss": -5,
+    "pattern_found": 20,
+    "strategy_adjusted": 15,
+    "daily_analysis": 5,
+    "correct_prediction": 8,
+    "wrong_prediction": -3
+  },
+  
+  "thinking_modes": {
+    "morning_brief": "09:00",
+    "market_scan": "12:00",
+    "afternoon_check": "14:00",
+    "evening_review": "16:30",
+    "night_report": "22:00"
+  },
+  
+  "output": {
+    "daily_brief_path": "reports/tina_daily_brief_{date}.md",
+    "trade_log_path": "reports/tina_trade_log_{date}.md",
+    "weekly_review_path": "reports/tina_weekly_review_{date}.md",
+    "thinking_diary_path": "reports/tina_thinking_diary_{date}.md",
+    "learning_insights_path": "reports/tina_learning_insights_{date}.md",
+    "autonomous_decision_path": "reports/tina_autonomous_decision_{date}.md"
+  }
+}

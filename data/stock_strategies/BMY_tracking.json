@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "BMY",
+    "name": "Bristol-Myers Squibb",
+    "market": "US",
+    "type": "pharma",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 58.22,
+      "rsi14": 50.6,
+      "ma20": 58.75,
+      "ma60": 59.27,
+      "bias20": -0.9,
+      "slope20": -0.0667,
+      "atr14": 1.45,
+      "vol": 13568076,
+      "vol_avg20": 9608649.0,
+      "vol_ratio": 1.41,
+      "high_20": 60.78,
+      "low_20": 57.22,
+      "K": 27.3,
+      "D": 27.9
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "BMY",
+    "name": "Bristol-Myers Squibb",
+    "market": "US",
+    "type": "pharma",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 58.22,
+      "rsi14": 50.6,
+      "ma20": 58.75,
+      "ma60": 59.27,
+      "bias20": -0.9,
+      "slope20": -0.0667,
+      "atr14": 1.45,
+      "vol": 13568076,
+      "vol_avg20": 9608649.0,
+      "vol_ratio": 1.41,
+      "high_20": 60.78,
+      "low_20": 57.22,
+      "K": 41.5,
+      "D": 41.6
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "BMY",
+    "name": "Bristol-Myers Squibb",
+    "market": "US",
+    "type": "pharma",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 58.22,
+      "rsi14": 50.6,
+      "ma20": 58.75,
+      "ma60": 59.27,
+      "bias20": -0.9,
+      "slope20": -0.0667,
+      "atr14": 1.45,
+      "vol": 18364600,
+      "vol_avg20": 9848580.0,
+      "vol_ratio": 1.86,
+      "high_20": 60.78,
+      "low_20": 57.22,
+      "K": 41.5,
+      "D": 41.6
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "BMY",
+    "name": "Bristol-Myers Squibb",
+    "market": "US",
+    "type": "pharma",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 58.22,
+      "rsi14": 50.6,
+      "ma20": 58.75,
+      "ma60": 59.27,
+      "bias20": -0.9,
+      "slope20": -0.0667,
+      "atr14": 1.45,
+      "vol": 18364600,
+      "vol_avg20": 9848580.0,
+      "vol_ratio": 1.86,
+      "high_20": 60.78,
+      "low_20": 57.22,
+      "K": 41.5,
+      "D": 41.6
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "date": "2026-04-28T21:51:54.019238",
+  "systems": {
+    "maggy": {
+      "focus": "AI/科技股",
+      "status": "active"
+    },
+    "sherry": {
+      "focus": "ETF DCA",
+      "status": "active"
+    },
+    "vogel": {
+      "focus": "台指期",
+      "status": "active"
+    },
+    "nana": {
+      "focus": "台股波段",
+      "status": "active"
+    },
+    "ray": {
+      "focus": "台股ETF DCA",
+      "status": "active"
+    }
+  },
+  "recommendations": {
+    "entry": [
+      "XOM",
+      "JNJ",
+      "HON"
+    ],
+    "watch": [
+      "NFLX",
+      "XLE",
+      "EOG"
+    ],
+    "overbought": [
+      "NVDA",
+      "AMD",
+      "QQQ"
+    ]
+  }
+}

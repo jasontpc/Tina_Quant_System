@@ -1,0 +1,41 @@
+{
+  "tier": "tier2",
+  "stocks": [
+    {
+      "id": "3665",
+      "name": "穎崴",
+      "sector": "ai_hvdc",
+      "tier": "2",
+      "wr": 66.7
+    },
+    {
+      "id": "2885",
+      "name": "元大金",
+      "sector": "finance",
+      "tier": "2",
+      "wr": 67.9
+    },
+    {
+      "id": "3035",
+      "name": "智原",
+      "sector": "ai_hvdc",
+      "tier": "2",
+      "wr": 66.0
+    },
+    {
+      "id": "2379",
+      "name": "瑞昱",
+      "sector": "ai_hvdc",
+      "tier": "2",
+      "wr": 65.0
+    },
+    {
+      "id": "2382",
+      "name": "廣達",
+      "sector": "ai_hvdc",
+      "tier": "2",
+      "wr": 64.0
+    }
+  ],
+  "last_updated": "2026-04-25T07:11:12.161747"
+}

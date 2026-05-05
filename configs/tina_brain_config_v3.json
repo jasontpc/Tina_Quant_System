@@ -1,0 +1,177 @@
+{
+  "brain_version": "3.0",
+  "brain_name": "TinaMaster v3 - Thinking Brain",
+  "created_at": "2026-05-02",
+  
+  "core_principle": "目標導向，而非規則導向。根據目標而非規則運行。",
+  
+  "thinking_layers": {
+    "perception": {
+      "enabled": true,
+      "description": "感知層：獲取環境資訊",
+      "tools": ["get_market_data", "get_system_logs", "read_memory"]
+    },
+    "thinking": {
+      "enabled": true,
+      "description": "思考層：慢思考機制（Chain-of-Thought）",
+      "mode": "inner_monologue",
+      "prompt_template": "在你執行任何動作前，請先在 <thought> 標籤內進行分析：\n1. 當前目標是什麼？\n2. 目前掌握了哪些已知資訊？還缺少什麼？\n3. 預計採取的步驟是什麼？\n4. 潛在的風險與備案為何？\n只有在思考完整後，才輸出執行指令。"
+    },
+    "decision": {
+      "enabled": true,
+      "description": "決策層：判斷是否需要介入",
+      "threshold_checks": ["risk_level", "opportunity_score", "confidence"]
+    },
+    "execution": {
+      "enabled": true,
+      "description": "執行層：呼叫工具執行",
+      "allowed_operations": ["send_telegram", "write_file", "run_script", "update_config"]
+    }
+  },
+  
+  "slow_think_chain": {
+    "enabled": true,
+    "steps": [
+      {
+        "step": 1,
+        "name": "目標確認",
+        "description": "確認當前任務的最終目標"
+      },
+      {
+        "step": 2,
+        "name": "資訊收集",
+        "description": "盤點已知資訊，找出缺口"
+      },
+      {
+        "step": 3,
+        "name": "假設形成",
+        "description": "提出可能的假設路徑"
+      },
+      {
+        "step": 4,
+        "name": "風險評估",
+        "description": "列出潛在風險與備案"
+      },
+      {
+        "step": 5,
+        "name": "執行計劃",
+        "description": "制定行動計劃"
+      }
+    ]
+  },
+  
+  "memory_system": {
+    "long_term": {
+      "enabled": true,
+      "file": "memory/2026-05-02.md",
+      "update_frequency": "daily",
+      "topics": [
+        "策略失效的共同點",
+        "使用者隱含的偏好改變",
+        "系統運行的效能瓶頸"
+      ]
+    },
+    "short_term": {
+      "enabled": true,
+      "file": "memory/short_term.json",
+      "retention_hours": 72
+    },
+    "working": {
+      "enabled": true,
+      "description": "當前對話的上下文記憶"
+    }
+  },
+  
+  "self_reflection": {
+    "enabled": true,
+    "layers": 3,
+    "layer_1": {
+      "name": "提議層",
+      "role": "策略師",
+      "description": "產生策略修正建議"
+    },
+    "layer_2": {
+      "name": "批判層",
+      "role": "黑粉/審核員",
+      "description": "扮演反對者，找出第一層建議的漏洞"
+    },
+    "layer_3": {
+      "name": "決策層",
+      "role": "裁判",
+      "description": "整合兩者，輸出最終方案"
+    }
+  },
+  
+  "expert_committee": {
+    "enabled": true,
+    "description": "複雜決策時模擬專家委員會",
+    "members": [
+      {
+        "role": "量化分析師",
+        "focus": "數學邏輯與回測可靠性",
+        "decision_weight": 0.35
+      },
+      {
+        "role": "資深開發者",
+        "focus": "代碼穩定性與系統效能",
+        "decision_weight": 0.35
+      },
+      {
+        "role": "風控長",
+        "focus": "最大回撤與資金安全",
+        "decision_weight": 0.30
+      }
+    ],
+    "activation_threshold": "修改 Tina 核心架構或涉及資金超過 20% 配置"
+  },
+  
+  "reasoning_chains": {
+    "simple_decision": {
+      "max_steps": 3,
+      "timeout_seconds": 30
+    },
+    "complex_decision": {
+      "max_steps": 7,
+      "timeout_seconds": 120,
+      "requires_committee": true
+    }
+  },
+  
+  "brain_version_control": {
+    "current": "v3.0",
+    "previous": "v2.0",
+    "update_history": [
+      {"version": "v1.0", "date": "2026-05-01", "changes": "基礎框架"},
+      {"version": "v2.0", "date": "2026-05-02 09:00", "changes": "加入主動思考與XP系統"},
+      {"version": "v3.0", "date": "2026-05-02 12:00", "changes": "慢思考鏈、反思機制、專家委員會"}
+    ]
+  },
+  
+  "brain_files": {
+    "core_config": "configs/tina_brain_config_v3.json",
+    "long_term_memory": "memory/long_term_memory.json",
+    "thinking_diary": "data/tina_thinking_diary.db",
+    "knowledge_base": "data/tina_knowledge.db",
+    "self_reflection_log": "reports/tina_self_reflection_log.md",
+    "committee_decisions": "reports/tina_committee_decisions.md"
+  },
+  
+  "daily_automation": {
+    "midnight_review": {
+      "time": "00:00",
+      "task": "讀取當日交易日誌，提取關鍵洞察並更新 long_term_memory.json"
+    },
+    "morning_think": {
+      "time": "09:00",
+      "task": "慢思考分析當日市場格局"
+    },
+    "afternoon_self_reflection": {
+      "time": "15:00",
+      "task": "反思上午決策，記錄 lesson learned"
+    },
+    "evening_committee": {
+      "time": "20:00",
+      "task": "如有複雜決策，召開專家委員會"
+    }
+  }
+}

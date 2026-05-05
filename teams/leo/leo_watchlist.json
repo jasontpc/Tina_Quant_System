@@ -1,0 +1,19 @@
+{
+  "updated": "2026-05-04 13:15",
+  "version": "v4_leo",
+  "description": "Leo AI科技股波段名單（v4 - 擴展個股整合）",
+  "stocks": {
+    "3037.TW": {"name":"欣興","category":"PCB載板","win_rate":75.9,"avg_pnl":4.53,"pf":1.55,"priority":"HIGH","strategy":"MA20>MA60+RSI<60+ATR2.5x","note":"PCB族群最強，勝率第一"},
+    "3189.TW": {"name":"景碩","category":"PCB載板","win_rate":71.1,"avg_pnl":4.56,"pf":1.75,"priority":"HIGH","strategy":"MA20>MA60+RSI<60+ATR2.5x","note":"ABF載板"},
+    "2360.TW": {"name":"致茂","category":"CPO測試設備","win_rate":71.4,"avg_pnl":4.21,"pf":1.87,"priority":"HIGH","strategy":"MA20>MA60+RSI<60+ATR2.5x","note":"Q1 EPS 9.12，CPO+AI電源雙題材"},
+    "3665.TW": {"name":"穎崴","category":"AI封測","win_rate":70.0,"avg_pnl":4.09,"pf":2.02,"priority":"HIGH","strategy":"MA20>MA60+RSI<60+ATR2.5x","note":"HBM封測"},
+    "2345.TW": {"name":"智邦","category":"高速傳輸","win_rate":69.0,"avg_pnl":3.80,"pf":1.58,"priority":"HIGH","strategy":"MA20>MA60+RSI<60+ATR2.5x","note":"1.6T交換器"},
+    "2383.TW": {"name":"台光電","category":"PCB/CCL","win_rate":62.2,"avg_pnl":4.01,"pf":2.15,"priority":"HIGH","strategy":"MA20>MA60+RSI<60+ATR2.5x","note":"CCL龍頭"},
+    "2449.TW": {"name":"京元電子","category":"IC測試","win_rate":63.5,"avg_pnl":1.97,"pf":1.10,"priority":"MEDIUM","strategy":"MA20>MA60+RSI<55+ATR2.5x","note":"NVIDIA生態系"},
+    "3017.TW": {"name":"奇力新","category":"散熱元件","win_rate":63.2,"avg_pnl":3.57,"pf":1.73,"priority":"MEDIUM","strategy":"MA20>MA60+RSI<55+ATR2.5x","note":"散熱族群"},
+    "2308.TW": {"name":"台達電","category":"AI電源","win_rate":71.0,"avg_pnl":3.27,"pf":1.52,"priority":"HIGH","strategy":"MA20>MA60+RSI<35+ATR1.5x","note":"AI伺服器電源大單，RSI<35進場"},
+    "3016.TW": {"name":"嘉晶","category":"矽磊晶","win_rate":71.0,"avg_pnl":2.62,"pf":0.75,"priority":"MEDIUM","strategy":"MA20>MA60+RSI<35+ATR1.5x","note":"AI磊晶需求Q1超標"},
+    "2330.TW": {"name":"台積電","category":"AI先進製程","win_rate":69.0,"avg_pnl":1.21,"pf":0.77,"priority":"HIGH","strategy":"MA20>MA60+RSI<45+ATR2.0x","note":"AI先進製程領導"}
+  },
+  "params": {"rsi_entry_max":60,"atr_sl_mult":2.5,"max_dist_ma20_pct":5.0,"hold_days":5}
+}

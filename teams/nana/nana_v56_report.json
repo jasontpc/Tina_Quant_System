@@ -1,0 +1,101 @@
+{
+  "version": "v5.6_tier_differentiated",
+  "timestamp": "2026-04-25 02:26",
+  "market": "過熱",
+  "max_hold": 4,
+  "scan_total": 51,
+  "tradeable": 23,
+  "wr": 48.0,
+  "avg_return": 0.4727722625706938,
+  "total_trades": 300,
+  "v56_fixes": {
+    "tier1_entry": "Score>=25, RSI<73, Bias<13%",
+    "tier2_entry": "Score>=22, RSI<75, Bias<15%",
+    "tier3_entry": "Score>=20, RSI<78, Bias<18% (Ultra)",
+    "tier1_exit": "RSI>=80 OR Bias>=12%",
+    "tier2_exit": "RSI>=82 OR Bias>=14%",
+    "tier3_exit": "RSI>=85 OR Bias>=18%"
+  },
+  "top_picks": [
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "score": 44.2,
+      "rsi": 59.5,
+      "bias": 5.5,
+      "tier": 1
+    },
+    {
+      "symbol": "2353",
+      "name": "宏碁",
+      "score": 40.8,
+      "rsi": 46.7,
+      "bias": -0.3,
+      "tier": 1
+    },
+    {
+      "symbol": "3231",
+      "name": "緯創",
+      "score": 40.2,
+      "rsi": 56.2,
+      "bias": 5.4,
+      "tier": 1
+    },
+    {
+      "symbol": "4938",
+      "name": "和碩",
+      "score": 38.0,
+      "rsi": 64.4,
+      "bias": 4.9,
+      "tier": 1
+    },
+    {
+      "symbol": "6230",
+      "name": "尼吉康",
+      "score": 38.0,
+      "rsi": 47.1,
+      "bias": 1.0,
+      "tier": 1
+    },
+    {
+      "symbol": "3034",
+      "name": "聯詠",
+      "score": 38.0,
+      "rsi": 52.1,
+      "bias": 1.8,
+      "tier": 1
+    },
+    {
+      "symbol": "2885",
+      "name": "元大金",
+      "score": 30.0,
+      "rsi": 62.0,
+      "bias": 4.6,
+      "tier": 3
+    },
+    {
+      "symbol": "2891",
+      "name": "中信金",
+      "score": 28.8,
+      "rsi": 45.9,
+      "bias": -1.4,
+      "tier": 3
+    },
+    {
+      "symbol": "2385",
+      "name": "群電",
+      "score": 28.0,
+      "rsi": 55.7,
+      "bias": 2.1,
+      "tier": 1
+    },
+    {
+      "symbol": "0050",
+      "name": "元大台灣50",
+      "score": 26.5,
+      "rsi": 69.6,
+      "bias": 8.1,
+      "tier": 3
+    }
+  ]
+}

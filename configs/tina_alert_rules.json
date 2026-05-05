@@ -1,0 +1,54 @@
+{
+  "alert_version": "2.0",
+  "check_interval_minutes": 60,
+  "channels": ["console", "log_file", "telegram"],
+  "rules": [
+    {
+      "name": "atr_spike",
+      "description": "ATR 大幅放大，超過 2 倍 20 日均值",
+      "condition": "atr_current > 2 * atr_20ma",
+      "action": "Telegram: 市場波動過高，建議暫停交易",
+      "priority": "HIGH",
+      "cooldown_hours": 6
+    },
+    {
+      "name": "net_value_outperform",
+      "description": "單日淨值成長 +2% 以上",
+      "condition": "daily_nav_change >= 2.0%",
+      "action": "Telegram: 淨值表現優異，主動整理前五大持股",
+      "priority": "MEDIUM",
+      "cooldown_hours": 24
+    },
+    {
+      "name": "three_losses_streak",
+      "description": "連續 3 筆虧損",
+      "condition": "consecutive_losses >= 3",
+      "action": "Telegram: 連續虧損，要求策略面談",
+      "priority": "HIGH",
+      "cooldown_hours": 0
+    },
+    {
+      "name": "high_vix",
+      "description": "VIX 指數超過 25",
+      "condition": "vix > 25",
+      "action": "Telegram: VIX 過高，市場恐慌，建議減碼",
+      "priority": "HIGH",
+      "cooldown_hours": 6
+    },
+    {
+      "name": "consecutive_losses_5",
+      "description": "連續 5 筆虧損，策略嚴重失效",
+      "condition": "consecutive_losses >= 5",
+      "action": "Telegram: 策略嚴重失效，應全面檢討",
+      "priority": "CRITICAL",
+      "cooldown_hours": 0
+    }
+  ],
+  "notification_template": {
+    "atr_spike": "*[HIGH] Tina ATR 警報*\n市場波動異常，系統暫停交易\nATR={current_atr:.2f} (20日均值={avg_atr:.2f})",
+    "net_value_outperform": "*[MED] Tina 淨值表現*\n單日淨值 {change:+.2f}%，主動管家啟動",
+    "three_losses_streak": "*[HIGH] Tina 策略面談要求*\n系統連續 {count} 筆虧損，需要檢討策略有效性\n請回覆數字（1-5）告訴我主要原因",
+    "high_vix": "*[HIGH] Tina VIX 警報*\nVIX={vix:.2f}，市場恐慌，建議減碼觀望",
+    "consecutive_losses_5": "*[CRITICAL] Tina 策略失效警報*\n連續 {count} 筆虧損，策略全面失效，請 Jo 立即介入"
+  }
+}

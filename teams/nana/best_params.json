@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-04-26 10:39:31",
+  "team": "nana",
+  "best_config": {
+    "rsi_entry_min": 35,
+    "rsi_entry_max": 55,
+    "atr_tp_mult": 4.0,
+    "atr_sl_mult": 1.5,
+    "hold_days": 10,
+    "trailing_atr": 2.0,
+    "score_min": 35,
+    "adx_threshold": 20
+  },
+  "backtest_result": {
+    "total_trades": 700,
+    "win_rate": 47.285714285714285,
+    "avg_return": 0.41226056004698314,
+    "avg_win": 5.199230338330261,
+    "avg_loss": -3.8817421407979085,
+    "score": 132.86912661986446
+  }
+}

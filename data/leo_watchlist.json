@@ -1,0 +1,44 @@
+{
+  "version": "v7",
+  "updated": "2026-05-04 21:15",
+  "strategy": "Leo v2策略（RSI 25-60 + MACD Hist>0 + SL ATR 2.5x + 持有5-10天）",
+  "params": {
+    "rsi_low": 25,
+    "rsi_high": 60,
+    "macd_hist": true,
+    "sl_mult": 2.5,
+    "max_hold": 10
+  },
+  "stocks": [
+    {
+      "symbol": "2330.TW",
+      "name": "台積電",
+      "tier": "A",
+      "note": "勝率72% (18筆)"
+    },
+    {
+      "symbol": "2345.TW",
+      "name": "智邦",
+      "tier": "B",
+      "note": "勝率67% (15筆)"
+    },
+    {
+      "symbol": "2449.TW",
+      "name": "京元電",
+      "tier": "B",
+      "note": "勝率63% (19筆)"
+    },
+    {
+      "symbol": "2383.TW",
+      "name": "台光電",
+      "tier": "B",
+      "note": "勝率62% (16筆)"
+    },
+    {
+      "symbol": "3017.TW",
+      "name": "奇力新",
+      "tier": "B",
+      "note": "勝率61% (18筆)"
+    }
+  ]
+}

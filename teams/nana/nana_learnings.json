@@ -1,0 +1,326 @@
+[
+  {
+    "type": "market_state",
+    "data": {
+      "date": "2026-04-25 15:32",
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "ma20": 35310.48,
+      "ma60": null,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "regime_params",
+    "data": {
+      "OVERBOUGHT": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "禁止進場"
+      },
+      "BULL": {
+        "entry_rsi_max": 65,
+        "max_positions": 5,
+        "strategy": "順勢而為"
+      },
+      "NEUTRAL": {
+        "entry_rsi_max": 65,
+        "max_positions": 3,
+        "strategy": "區間操作"
+      },
+      "BEAR": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "觀望"
+      }
+    }
+  },
+  {
+    "type": "bias_exit_rule",
+    "data": {
+      "desc": "BIAS>5.0時離場，歷史勝率97.4%，平均報酬6.54%",
+      "threshold": 5.0,
+      "source": "v5.39_backtest",
+      "applies_to": "all_entries"
+    }
+  },
+  {
+    "type": "atr_rule",
+    "data": {
+      "desc": "ATR 1.5x停損，ATR 3.0x目標",
+      "atr_stop": 1.5,
+      "atr_target": 3.0,
+      "source": "v5.28_strategy"
+    }
+  },
+  {
+    "type": "market_state",
+    "data": {
+      "date": "2026-04-25 15:32",
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "ma20": 35310.48,
+      "ma60": null,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "regime_params",
+    "data": {
+      "OVERBOUGHT": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "禁止進場"
+      },
+      "BULL": {
+        "entry_rsi_max": 65,
+        "max_positions": 5,
+        "strategy": "順勢而為"
+      },
+      "NEUTRAL": {
+        "entry_rsi_max": 65,
+        "max_positions": 3,
+        "strategy": "區間操作"
+      },
+      "BEAR": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "觀望"
+      }
+    }
+  },
+  {
+    "type": "bias_exit_rule",
+    "data": {
+      "desc": "BIAS>5.0時離場，歷史勝率97.4%，平均報酬6.54%",
+      "threshold": 5.0,
+      "source": "v5.39_backtest",
+      "applies_to": "all_entries"
+    }
+  },
+  {
+    "type": "atr_rule",
+    "data": {
+      "desc": "ATR 1.5x停損，ATR 3.0x目標",
+      "atr_stop": 1.5,
+      "atr_target": 3.0,
+      "source": "v5.28_strategy"
+    }
+  },
+  {
+    "type": "market_state",
+    "data": {
+      "date": "2026-04-25 16:06",
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "ma20": 35310.48,
+      "ma60": null,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "regime_params",
+    "data": {
+      "OVERBOUGHT": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "禁止進場"
+      },
+      "BULL": {
+        "entry_rsi_max": 65,
+        "max_positions": 5,
+        "strategy": "順勢而為"
+      },
+      "NEUTRAL": {
+        "entry_rsi_max": 65,
+        "max_positions": 3,
+        "strategy": "區間操作"
+      },
+      "BEAR": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "觀望"
+      }
+    }
+  },
+  {
+    "type": "bias_exit_rule",
+    "data": {
+      "desc": "BIAS>5.0時離場，歷史勝率97.4%，平均報酬6.54%",
+      "threshold": 5.0,
+      "source": "v5.39_backtest",
+      "applies_to": "all_entries"
+    }
+  },
+  {
+    "type": "atr_rule",
+    "data": {
+      "desc": "ATR 1.5x停損，ATR 3.0x目標",
+      "atr_stop": 1.5,
+      "atr_target": 3.0,
+      "source": "v5.28_strategy"
+    }
+  },
+  {
+    "type": "market_state",
+    "data": {
+      "date": "2026-04-25 18:04",
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "ma20": 35310.48,
+      "ma60": null,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "regime_params",
+    "data": {
+      "OVERBOUGHT": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "禁止進場"
+      },
+      "BULL": {
+        "entry_rsi_max": 65,
+        "max_positions": 5,
+        "strategy": "順勢而為"
+      },
+      "NEUTRAL": {
+        "entry_rsi_max": 65,
+        "max_positions": 3,
+        "strategy": "區間操作"
+      },
+      "BEAR": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "觀望"
+      }
+    }
+  },
+  {
+    "type": "bias_exit_rule",
+    "data": {
+      "desc": "BIAS>5.0時離場，歷史勝率97.4%，平均報酬6.54%",
+      "threshold": 5.0,
+      "source": "v5.39_backtest",
+      "applies_to": "all_entries"
+    }
+  },
+  {
+    "type": "atr_rule",
+    "data": {
+      "desc": "ATR 1.5x停損，ATR 3.0x目標",
+      "atr_stop": 1.5,
+      "atr_target": 3.0,
+      "source": "v5.28_strategy"
+    }
+  },
+  {
+    "type": "market_state",
+    "data": {
+      "date": "2026-04-26 00:03",
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "ma20": 35310.48,
+      "ma60": null,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "regime_params",
+    "data": {
+      "OVERBOUGHT": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "禁止進場"
+      },
+      "BULL": {
+        "entry_rsi_max": 65,
+        "max_positions": 5,
+        "strategy": "順勢而為"
+      },
+      "NEUTRAL": {
+        "entry_rsi_max": 65,
+        "max_positions": 3,
+        "strategy": "區間操作"
+      },
+      "BEAR": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "觀望"
+      }
+    }
+  },
+  {
+    "type": "bias_exit_rule",
+    "data": {
+      "desc": "BIAS>5.0時離場，歷史勝率97.4%，平均報酬6.54%",
+      "threshold": 5.0,
+      "source": "v5.39_backtest",
+      "applies_to": "all_entries"
+    }
+  },
+  {
+    "type": "atr_rule",
+    "data": {
+      "desc": "ATR 1.5x停損，ATR 3.0x目標",
+      "atr_stop": 1.5,
+      "atr_target": 3.0,
+      "source": "v5.28_strategy"
+    }
+  },
+  {
+    "type": "market_state",
+    "data": {
+      "date": "2026-04-26 00:04",
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "ma20": 35310.48,
+      "ma60": null,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "regime_params",
+    "data": {
+      "OVERBOUGHT": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "禁止進場"
+      },
+      "BULL": {
+        "entry_rsi_max": 65,
+        "max_positions": 5,
+        "strategy": "順勢而為"
+      },
+      "NEUTRAL": {
+        "entry_rsi_max": 65,
+        "max_positions": 3,
+        "strategy": "區間操作"
+      },
+      "BEAR": {
+        "entry_rsi_max": 60,
+        "max_positions": 2,
+        "strategy": "觀望"
+      }
+    }
+  },
+  {
+    "type": "bias_exit_rule",
+    "data": {
+      "desc": "BIAS>5.0時離場，歷史勝率97.4%，平均報酬6.54%",
+      "threshold": 5.0,
+      "source": "v5.39_backtest",
+      "applies_to": "all_entries"
+    }
+  },
+  {
+    "type": "atr_rule",
+    "data": {
+      "desc": "ATR 1.5x停損，ATR 3.0x目標",
+      "atr_stop": 1.5,
+      "atr_target": 3.0,
+      "source": "v5.28_strategy"
+    }
+  }
+]

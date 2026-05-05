@@ -1,0 +1,64 @@
+{
+  "date": "2026-05-03",
+  "config": {
+    "MSFT": {
+      "strategy": "rsi_mean_reversion",
+      "rsi_min": 35,
+      "rsi_max": 50,
+      "macd_min": 0,
+      "filter": "ma_bull"
+    },
+    "CRM": {
+      "strategy": "macd_crossover",
+      "rsi_min": 0,
+      "rsi_max": 999,
+      "macd_cross": true,
+      "filter": "ma_bull"
+    }
+  },
+  "watch": [
+    "AVGO",
+    "GOOGL",
+    "AMZN",
+    "META",
+    "NVDA"
+  ],
+  "results": [
+    {
+      "symbol": "MSFT",
+      "trades": 3,
+      "win_rate": 66.7,
+      "wins": 2,
+      "avg_gain": 4.41,
+      "avg_loss": -2.73,
+      "pf": 1.62,
+      "params": {
+        "strategy": "rsi_mean_reversion",
+        "rsi_min": 35,
+        "rsi_max": 50,
+        "macd_min": 0,
+        "filter": "ma_bull"
+      }
+    },
+    {
+      "symbol": "CRM",
+      "trades": 4,
+      "win_rate": 75.0,
+      "wins": 3,
+      "avg_gain": 7.43,
+      "avg_loss": -4.22,
+      "pf": 1.76,
+      "params": {
+        "strategy": "macd_crossover",
+        "rsi_min": 0,
+        "rsi_max": 999,
+        "macd_cross": true,
+        "filter": "ma_bull"
+      }
+    }
+  ],
+  "summary": {
+    "total_trades": 7,
+    "win_rate": 71.4
+  }
+}

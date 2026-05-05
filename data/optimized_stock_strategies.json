@@ -1,0 +1,176 @@
+{
+  "2464.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 36.58536585365854,
+    "trades": 123
+  },
+  "1590.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MIXED",
+    "wr": 100.0,
+    "trades": 7
+  },
+  "2891.TW": {
+    "classification": "TREND_FOLLOWING",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 53.13807531380753,
+    "trades": 239
+  },
+  "2201.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 13.91941391941392,
+    "trades": 273
+  },
+  "4966.TWO": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MIXED",
+    "wr": 33.33333333333333,
+    "trades": 6
+  },
+  "2344.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MIXED",
+    "wr": 80.0,
+    "trades": 5
+  },
+  "MSFT": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MIXED",
+    "wr": 33.33333333333333,
+    "trades": 6
+  },
+  "2885.TW": {
+    "classification": "TREND_FOLLOWING",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 57.66129032258065,
+    "trades": 248
+  },
+  "2892.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 30.93220338983051,
+    "trades": 236
+  },
+  "3711.TW": {
+    "classification": "TREND_FOLLOWING",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 51.13636363636363,
+    "trades": 88
+  },
+  "3037.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MIXED",
+    "wr": 100.0,
+    "trades": 1
+  },
+  "2467.TW": {
+    "classification": "MIXED",
+    "best_strategy": "STRONG_UPTREND",
+    "wr": 57.14285714285714,
+    "trades": 42
+  },
+  "2359.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 30.303030303030305,
+    "trades": 165
+  },
+  "2313.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 49.46619217081851,
+    "trades": 281
+  },
+  "2882.TW": {
+    "classification": "TREND_FOLLOWING",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 34.70319634703196,
+    "trades": 219
+  },
+  "2884.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 41.43426294820717,
+    "trades": 251
+  },
+  "8299.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 51.35135135135135,
+    "trades": 111
+  },
+  "5269.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 28.57142857142857,
+    "trades": 140
+  },
+  "2883.TW": {
+    "classification": "TREND_FOLLOWING",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 45.04132231404959,
+    "trades": 242
+  },
+  "CRM": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MIXED",
+    "wr": 33.33333333333333,
+    "trades": 9
+  },
+  "7730.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 39.00709219858156,
+    "trades": 282
+  },
+  "3324.TWO": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 48.78048780487805,
+    "trades": 123
+  },
+  "2634.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 25.968992248062015,
+    "trades": 258
+  },
+  "2408.TW": {
+    "classification": "MIXED",
+    "best_strategy": "MIXED",
+    "wr": 92.3076923076923,
+    "trades": 13
+  },
+  "1519.TW": {
+    "classification": "MIXED",
+    "best_strategy": "STRONG_UPTREND",
+    "wr": 44.44444444444444,
+    "trades": 27
+  },
+  "2207.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "RANGE_BOUND",
+    "wr": 23.636363636363637,
+    "trades": 330
+  },
+  "2881.TW": {
+    "classification": "TREND_FOLLOWING",
+    "best_strategy": "MEAN_REVERSION",
+    "wr": 32.158590308370044,
+    "trades": 227
+  },
+  "6230.TW": {
+    "classification": "MEAN_REVERSION",
+    "best_strategy": "RANGE_BOUND",
+    "wr": 28.57142857142857,
+    "trades": 266
+  },
+  "3163.TWO": {
+    "classification": "MIXED",
+    "best_strategy": null,
+    "wr": 0,
+    "trades": 0
+  }
+}

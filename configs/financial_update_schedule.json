@@ -1,0 +1,11 @@
+{
+  "schedule": {
+    "financial_update": "0 22 * * 0",
+    "trade_history_update": "0 8 * * *",
+    "unused_scripts_check": "0 10 * * 6",
+    "full_db_rebuild": "0 3 1 * *"
+  },
+  "description": "Financial update schedule - Tina Quant System",
+  "note": "Sun 22:00 financial, Daily 08:00 trade, Sat 10:00 cleanup, Monthly 1st full rebuild",
+  "created": "2026-05-02"
+}

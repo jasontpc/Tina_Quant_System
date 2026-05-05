@@ -1,0 +1,72 @@
+{
+  "version": "3.0",
+  "team": "Maggy",
+  "description": "RSI均值回歸策略 v3.0（個股優化版）",
+  "optimized_params": {
+    "entry_rsi": 35,
+    "exit_rsi": 65,
+    "max_hold_days": 20,
+    "macd_confirm": false
+  },
+  "performance": {
+    "total_stocks": 6,
+    "tier1_count": 6,
+    "tier2_count": 0,
+    "tier3_count": 0
+  },
+  "per_stock_tiers": {
+    "tier1": {
+      "COIN": {
+        "entry_rsi": 40,
+        "exit_rsi": 60,
+        "max_hold": 25,
+        "trades": 9,
+        "win_rate": 100.0,
+        "return": 225.8492407389371
+      },
+      "TSLA": {
+        "entry_rsi": 35,
+        "exit_rsi": 65,
+        "max_hold": 15,
+        "trades": 13,
+        "win_rate": 100.0,
+        "return": 188.45155285670094
+      },
+      "INTC": {
+        "entry_rsi": 40,
+        "exit_rsi": 65,
+        "max_hold": 20,
+        "trades": 12,
+        "win_rate": 100.0,
+        "return": 187.92192520650664
+      },
+      "LYFT": {
+        "entry_rsi": 38,
+        "exit_rsi": 65,
+        "max_hold": 25,
+        "trades": 10,
+        "win_rate": 100.0,
+        "return": 185.7063343809992
+      },
+      "SNOW": {
+        "entry_rsi": 38,
+        "exit_rsi": 60,
+        "max_hold": 20,
+        "trades": 11,
+        "win_rate": 100.0,
+        "return": 168.33928398898453
+      },
+      "PLTR": {
+        "entry_rsi": 35,
+        "exit_rsi": 65,
+        "max_hold": 20,
+        "trades": 10,
+        "win_rate": 100.0,
+        "return": 166.82816693034115
+      }
+    },
+    "tier2": {},
+    "tier3": {}
+  },
+  "last_updated": "2026-04-28T20:41:58.915423"
+}

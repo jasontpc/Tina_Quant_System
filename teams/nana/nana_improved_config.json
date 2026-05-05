@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-04-30 15:20:00",
+  "version": "v5.41",
+  "improved": true,
+  "note": "v5.41 — 市場過熱監控模式，MA120修復驗證完成",
+  "market_status": {
+    "date": "2026-04-30",
+    "avg_rsi": 71.2,
+    "overheat_count": 20,
+    "neutral_count": 8,
+    "mode": "OVERHEAT",
+    "action": "觀望為主，嚴格執行停利"
+  },
+  "changes": {
+    "prev": {
+      "entry_rsi_min": 35,
+      "entry_rsi_max": 70,
+      "data_period": "1y",
+      "bias_exit_trigger": 4.0
+    },
+    "now": {
+      "entry_rsi_min": 35,
+      "entry_rsi_max": 70,
+      "data_period": "1y",
+      "bias_exit_trigger": 4.0
+    },
+    "note": "參數維持，市場過熱時自動提高警覺"
+  },
+  "entry_rsi_min": 35,
+  "entry_rsi_max": 70,
+  "entry_score_min": 20,
+  "entry_bias_max": 4.0,
+  "atr_stop": 1.0,
+  "take_profit_pct": 15.0,
+  "hold_days_max": 7,
+  "hold_days_max_tier3": 5,
+  "bias_exit_trigger": 4.0,
+  "data_period": "1y",
+  "ma120_fix_verified": true,
+  "ma120_note": "使用 1y 數據，MA60 有值，MA120 已修復",
+  "regime_filter": true,
+  "overbought_small_position": true,
+  "overbought_position_pct": 10,
+  "overheat_protocol": {
+    "enabled": true,
+    "trigger_avg_rsi": 70,
+    "action": "減少新進場，嚴格停利，保留現金"
+  }
+}

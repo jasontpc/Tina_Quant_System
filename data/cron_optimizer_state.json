@@ -1,0 +1,44 @@
+{
+  "error_counts": {
+    "49e8b734-288c-4a69-b112-6c8fc5b35602": 2,
+    "f3b623a7-44a9-41ea-a542-44b389f8aae8": 1,
+    "bd631c0f-392a-4000-9036-ed4c32a5a476": 3,
+    "d0ed774e-e2b2-43b1-a39c-070b5798f873": 4
+  },
+  "suspended": {},
+  "last_run": "2026-05-03T12:05:35.502293",
+  "timeout_auto_increased": {},
+  "optimizations": [
+    {
+      "time": "2026-05-03T06:51:48.192194",
+      "cron": "system",
+      "action": "idle_found",
+      "reason": "found 10 idle (status=idle)"
+    },
+    {
+      "time": "2026-05-03T06:58:09.313992",
+      "cron": "system",
+      "action": "idle_found",
+      "reason": "found 10 idle (status=idle)"
+    },
+    {
+      "time": "2026-05-03T08:05:29.513677",
+      "cron": "system",
+      "action": "idle_found",
+      "reason": "found 10 idle (status=idle)"
+    },
+    {
+      "time": "2026-05-03T10:03:22.638468",
+      "cron": "system",
+      "action": "idle_found",
+      "reason": "found 12 idle (status=idle)"
+    },
+    {
+      "time": "2026-05-03T12:05:35.502293",
+      "cron": "system",
+      "action": "idle_found",
+      "reason": "found 15 idle (status=idle)"
+    }
+  ],
+  "last_full_scan": "2026-05-03T12:05:35.502293"
+}

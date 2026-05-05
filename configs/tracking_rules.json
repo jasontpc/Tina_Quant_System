@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "description": "Tina 量化系統 - 股票追蹤規則設定",
+  "updated_at": "2026-05-02",
+
+  "tracking": {
+    "scan_interval_hours": 8,
+    "price_data_period": "3mo",
+    "rsi_period": 14,
+    "ma_windows": [20, 60],
+    "atr_period": 14,
+    "alert_cooldown_hours": 6
+  },
+
+  "entry_signals": {
+    "ENTRY_LONG": {
+      "description": "RSI 在理想區間 + MA 多頭 + BIAS 合理",
+      "min_score": 80,
+      "required_conditions": ["MA_BULL", "RSI_IDEAL_RANGE"]
+    },
+    "ENTRY_WATCH": {
+      "description": "RSI 在可接受區間 + MA 多頭",
+      "min_score": 55,
+      "required_conditions": ["MA_BULL"]
+    }
+  },
+
+  "exit_signals": {
+    "RSI_OVERBOUGHT": {
+      "description": "RSI 超过超買閾值",
+      "threshold_rsi": 72
+    },
+    "TRAILING_STOP": {
+      "description": "價格跌破移動停損價",
+      "atr_multiplier": 2.0
+    },
+    "STOP_LOSS": {
+      "description": "價格跌破停損價",
+      "default_pct": 5
+    },
+    "TAKE_PROFIT": {
+      "description": "價格達到停利價",
+      "default_pct": 10
+    },
+    "MAX_HOLD": {
+      "description": "超過最大持有天數"
+    }
+  },
+
+  "alerts": {
+    "ENTRY_WATCH": {
+      "emoji": "👀",
+      "priority": "MEDIUM",
+      "message_template": "ENTRY_WATCH [{stock}] {name} @ {price}  RSI={rsi}  BIAS={bias}  MA={ma}"
+    },
+    "ENTRY_LONG": {
+      "emoji": "🚀",
+      "priority": "HIGH",
+      "message_template": "ENTRY_LONG [{stock}] {name} @ {price}  RSI={rsi}  score={score}"
+    },
+    "EXIT_SIGNAL": {
+      "emoji": "⚠️",
+      "priority": "HIGH",
+      "message_template": "EXIT_SIGNAL [{stock}] {name}  reason={reason}  price={price}"
+    },
+    "INST_FLOW_ALERT": {
+      "emoji": "🏛️",
+      "priority": "MEDIUM",
+      "message_template": "INST_FLOW [{stock}] 法人連續買超 {days} 天  net={net}"
+    }
+  },
+
+  "cron_schedule": {
+    "daily_morning": {
+      "time": "08:30",
+      "script": "stock_tracking_update.py",
+      "description": "盤前更新 + 進場訊號檢查"
+    },
+    "daily_close": {
+      "time": "16:00",
+      "script": "stock_tracking_update.py",
+      "description": "收盤後更新所有股票現況"
+    },
+    "daily_signal_report": {
+      "time": "16:30",
+      "script": "stock_signal_scanner.py",
+      "description": "產出每日訊號報告"
+    },
+    "weekly_performance": {
+      "day": "Friday",
+      "time": "17:00",
+      "script": "trade_journal.py --report",
+      "description": "週報：進場/出场記錄、績效"
+    },
+    "monthly_review": {
+      "day": 1,
+      "time": "10:00",
+      "description": "每月策略參數回顧與調整"
+    }
+  },
+
+  "reporting": {
+    "daily_report_file": "stock_tracking_daily_{date}.md",
+    "signal_report_file": "daily_signal_report_{date}.md",
+    "journal_file": "stock_trading_journal_{date}.md",
+    "weekly_file": "weekly_performance_{date}.md",
+    "summary_csv": "stock_strategies_summary.csv"
+  }
+}

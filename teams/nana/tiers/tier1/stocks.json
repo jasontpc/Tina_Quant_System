@@ -1,0 +1,41 @@
+{
+  "tier": "tier1",
+  "stocks": [
+    {
+      "id": "2449",
+      "name": "京元電子",
+      "sector": "general",
+      "tier": "1",
+      "wr": 84.6
+    },
+    {
+      "id": "2891",
+      "name": "中信金",
+      "sector": "finance",
+      "tier": "1",
+      "wr": 85.7
+    },
+    {
+      "id": "3231",
+      "name": "緯創",
+      "sector": "ai_hvdc",
+      "tier": "1",
+      "wr": 73.3
+    },
+    {
+      "id": "2886",
+      "name": "兆豐金",
+      "sector": "finance",
+      "tier": "1",
+      "wr": 75.0
+    },
+    {
+      "id": "2317",
+      "name": "鴻海",
+      "sector": "ai_hvdc",
+      "tier": "1",
+      "wr": 70.0
+    }
+  ],
+  "last_updated": "2026-04-25T07:11:12.155750"
+}

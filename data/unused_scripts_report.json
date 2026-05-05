@@ -1,0 +1,211 @@
+{
+  "generated_at": "2026-05-02 10:03:53",
+  "cutoff_days": 14,
+  "total_scanned": 172,
+  "unused_count": 0,
+  "recent_count": 172,
+  "unused_scripts": [],
+  "recent_scripts": [
+    {
+      "path": "backtest\\ai_scan.py",
+      "file": "ai_scan.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 09:01",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\auto_optimizer.py",
+      "file": "auto_optimizer.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 00:07",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\boost_optimizer.py",
+      "file": "boost_optimizer.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 07:51",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\check_db.py",
+      "file": "check_db.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 21:28",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "superseded_by": "scripts/db_health_check.py",
+      "recommendation": "delete"
+    },
+    {
+      "path": "backtest\\etf_inst_flow.py",
+      "file": "etf_inst_flow.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 09:25",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\etf_tech_analysis.py",
+      "file": "etf_tech_analysis.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 09:57",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\etf_top10.py",
+      "file": "etf_top10.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 09:26",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\fetch_inst_data.py",
+      "file": "fetch_inst_data.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 21:37",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\full_iter.py",
+      "file": "full_iter.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 23:53",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\h2_2025_with_inst.py",
+      "file": "h2_2025_with_inst.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 21:28",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\h2_q1_iter.py",
+      "file": "h2_q1_iter.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 00:00",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\inst_flow.py",
+      "file": "inst_flow.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 08:52",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\inst_iterative.py",
+      "file": "inst_iterative.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 23:00",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\inst_iterative_v2.py",
+      "file": "inst_iterative_v2.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 23:05",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\inst_iterative_v3.py",
+      "file": "inst_iterative_v3.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 23:09",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\iterative_optimize.py",
+      "file": "iterative_optimize.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 22:30",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\iter_final.py",
+      "file": "iter_final.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 23:36",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\loss_pattern_analysis.py",
+      "file": "loss_pattern_analysis.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 14:26",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\morning_outlook.py",
+      "file": "morning_outlook.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-23 08:42",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    },
+    {
+      "path": "backtest\\optimize_v312.py",
+      "file": "optimize_v312.py",
+      "dir": "backtest",
+      "last_modified": "2026-04-22 16:26",
+      "age_days": 9,
+      "unused": false,
+      "in_cron": false,
+      "recommendation": "keep"
+    }
+  ]
+}

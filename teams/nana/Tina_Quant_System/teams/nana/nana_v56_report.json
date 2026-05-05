@@ -1,0 +1,55 @@
+{
+  "version": "v5.6_avg2pct",
+  "timestamp": "2026-04-24 18:08",
+  "market": "過熱",
+  "max_hold": 3,
+  "scan_total": 51,
+  "tradeable": 7,
+  "wr": 64.1025641025641,
+  "avg_return": 0.7648768644628602,
+  "total_trades": 78,
+  "top_picks": [
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "score": 46.0,
+      "rsi": 59.9,
+      "bias": 4.4
+    },
+    {
+      "symbol": "2353",
+      "name": "宏碁",
+      "score": 42.0,
+      "rsi": 50.7,
+      "bias": 0.3
+    },
+    {
+      "symbol": "3231",
+      "name": "緯創",
+      "score": 40.2,
+      "rsi": 60.4,
+      "bias": 6.4
+    },
+    {
+      "symbol": "3034",
+      "name": "聯詠",
+      "score": 38.0,
+      "rsi": 58.9,
+      "bias": 4.3
+    },
+    {
+      "symbol": "4938",
+      "name": "和碩",
+      "score": 38.0,
+      "rsi": 66.7,
+      "bias": 4.8
+    }
+  ],
+  "fixes_applied": [
+    "+2% profit target exit",
+    "1.5x ATR stop loss",
+    "max_hold=3",
+    "RSI<70",
+    "Bias<12%"
+  ]
+}

@@ -24,7 +24,7 @@ import time
 from datetime import datetime, timedelta
 from io import StringIO
 
-DB_PATH = 'skills/stock-analyzer/scripts/tina_master.db'
+DB_PATH = 'Tina_Quant_System/data/tina_master.db'
 
 # ==================== TWSE API 爬蟲 ====================
 

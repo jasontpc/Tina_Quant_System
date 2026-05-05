@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "3034",
+    "name": "緯穎",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 409.0,
+      "rsi14": 58.6,
+      "ma20": 405.07,
+      "ma60": 388.97,
+      "bias20": 0.97,
+      "slope20": 1.005,
+      "atr14": 12.14,
+      "vol": 2518301,
+      "vol_avg20": 3854261.0,
+      "vol_ratio": 0.65,
+      "high_20": 438.0,
+      "low_20": 379.0,
+      "K": 19.1,
+      "D": 34.0
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "3034",
+    "name": "緯穎",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 409.0,
+      "rsi14": 58.6,
+      "ma20": 405.07,
+      "ma60": 388.97,
+      "bias20": 0.97,
+      "slope20": 1.005,
+      "atr14": 12.14,
+      "vol": 2518301,
+      "vol_avg20": 3854261.0,
+      "vol_ratio": 0.65,
+      "high_20": 438.0,
+      "low_20": 379.0,
+      "K": 25.1,
+      "D": 43.1
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "3034",
+    "name": "緯穎",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 409.0,
+      "rsi14": 58.6,
+      "ma20": 405.07,
+      "ma60": 388.97,
+      "bias20": 0.97,
+      "slope20": 1.005,
+      "atr14": 12.14,
+      "vol": 2518301,
+      "vol_avg20": 3854261.0,
+      "vol_ratio": 0.65,
+      "high_20": 438.0,
+      "low_20": 379.0,
+      "K": 25.1,
+      "D": 43.1
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "3034",
+    "name": "緯穎",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 409.0,
+      "rsi14": 58.6,
+      "ma20": 405.07,
+      "ma60": 388.97,
+      "bias20": 0.97,
+      "slope20": 1.005,
+      "atr14": 12.14,
+      "vol": 2518301,
+      "vol_avg20": 3854261.0,
+      "vol_ratio": 0.65,
+      "high_20": 438.0,
+      "low_20": 379.0,
+      "K": 25.1,
+      "D": 43.1
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

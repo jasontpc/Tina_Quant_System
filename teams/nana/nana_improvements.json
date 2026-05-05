@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-04-25 16:12:11",
+  "fixes": [
+    {
+      "team": "Nana",
+      "action": "RAISE_SCORE_THRESHOLD",
+      "param": "entry_score_min",
+      "from_value": 25,
+      "to_value": 35,
+      "desc": "進場分數門檻: 25→35",
+      "priority": "HIGH"
+    }
+  ],
+  "nana_improvements": {
+    "entry_score_min": {
+      "action": "RAISE_SCORE_THRESHOLD",
+      "value": 35,
+      "from": 25
+    }
+  },
+  "leo_improvements": {}
+}

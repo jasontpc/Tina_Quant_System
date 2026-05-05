@@ -1,0 +1,154 @@
+{
+  "date": "2026-05-04",
+  "timestamp": "2026-05-04T18:02:41.421551",
+  "flows": {
+    "SPY": {
+      "name": "S&P 500",
+      "type": "equity",
+      "category": "US_large",
+      "close": 720.65,
+      "change_pct": 0.28,
+      "volume_ratio": 0.94,
+      "ma_trend": "bullish",
+      "rsi": 79.1
+    },
+    "QQQ": {
+      "name": "Nasdaq 100",
+      "type": "equity",
+      "category": "US_tech",
+      "close": 674.15,
+      "change_pct": 0.96,
+      "volume_ratio": 1.1,
+      "ma_trend": "bullish",
+      "rsi": 82.8
+    },
+    "IWM": {
+      "name": "Russell 2000",
+      "type": "equity",
+      "category": "US_small",
+      "close": 279.28,
+      "change_pct": 0.47,
+      "volume_ratio": 1.07,
+      "ma_trend": "bullish",
+      "rsi": 72.3
+    },
+    "VEA": {
+      "name": "Developed ex-US",
+      "type": "equity",
+      "category": "intl",
+      "close": 68.72,
+      "change_pct": -0.12,
+      "volume_ratio": 1.12,
+      "ma_trend": "bullish",
+      "rsi": 53.1
+    },
+    "EEM": {
+      "name": "Emerging Markets",
+      "type": "equity",
+      "category": "em",
+      "close": 64.13,
+      "change_pct": 0.22,
+      "volume_ratio": 1.01,
+      "ma_trend": "bullish",
+      "rsi": 65.2
+    },
+    "TLT": {
+      "name": "20+ Year Treasury",
+      "type": "bond",
+      "category": "long_bond",
+      "close": 85.61,
+      "change_pct": 0.36,
+      "volume_ratio": 0.94,
+      "ma_trend": "bearish",
+      "rsi": 41.4
+    },
+    "IEF": {
+      "name": "7-10 Year Treasury",
+      "type": "bond",
+      "category": "mid_bond",
+      "close": 94.74,
+      "change_pct": 0.08,
+      "volume_ratio": 0.84,
+      "ma_trend": "bearish",
+      "rsi": 43.3
+    },
+    "SHV": {
+      "name": "Short Treasury",
+      "type": "bond",
+      "category": "short_bond",
+      "close": 110.09,
+      "change_pct": -0.27,
+      "volume_ratio": 1.42,
+      "ma_trend": "bearish",
+      "rsi": 38.8
+    },
+    "BND": {
+      "name": "Total Bond",
+      "type": "bond",
+      "category": "total_bond",
+      "close": 73.36,
+      "change_pct": 0.14,
+      "volume_ratio": 0.98,
+      "ma_trend": "bullish",
+      "rsi": 45.0
+    },
+    "GLD": {
+      "name": "Gold",
+      "type": "commodity",
+      "category": "gold",
+      "close": 423.18,
+      "change_pct": -0.11,
+      "volume_ratio": 0.9,
+      "ma_trend": "bearish",
+      "rsi": 41.5
+    },
+    "IAU": {
+      "name": "Gold (iShares)",
+      "type": "commodity",
+      "category": "gold",
+      "close": 86.72,
+      "change_pct": -0.15,
+      "volume_ratio": 1.67,
+      "ma_trend": "bearish",
+      "rsi": 41.4
+    },
+    "SLV": {
+      "name": "Silver",
+      "type": "commodity",
+      "category": "silver",
+      "close": 68.29,
+      "change_pct": 2.45,
+      "volume_ratio": 1.12,
+      "ma_trend": "bullish",
+      "rsi": 50.0
+    },
+    "UUP": {
+      "name": "US Dollar",
+      "type": "currency",
+      "category": "usd",
+      "close": 27.41,
+      "change_pct": 0.18,
+      "volume_ratio": 0.96,
+      "ma_trend": "bearish",
+      "rsi": 51.5
+    },
+    "VIXY": {
+      "name": "VIX Short-Term",
+      "type": "fear",
+      "category": "vix",
+      "close": 27.43,
+      "change_pct": 0.77,
+      "volume_ratio": 0.9,
+      "ma_trend": "bearish",
+      "rsi": 39.7
+    }
+  },
+  "summary": {
+    "risk_on": 1.715,
+    "risk_off": 0.7,
+    "signals": [
+      "資金流向: 風險偏好主導"
+    ],
+    "market_mode": "risk_on"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "version": "v4",
+  "updated": "2026-05-04 21:24",
+  "strategy": "個股定制化策略",
+  "stocks": {
+    "GOOGL": {
+      "strategy": "RSI_30_60_MACD",
+      "rsi_low": 30,
+      "rsi_high": 60,
+      "macd": true,
+      "note": "勝率76%"
+    },
+    "AVGO": {
+      "strategy": "RSI_20_40",
+      "rsi_low": 20,
+      "rsi_high": 40,
+      "macd": false,
+      "note": "勝率74%"
+    },
+    "AMZN": {
+      "strategy": "RSI_20_40",
+      "rsi_low": 20,
+      "rsi_high": 40,
+      "macd": false,
+      "note": "勝率72%"
+    },
+    "META": {
+      "strategy": "RSI_30_60_MACD",
+      "rsi_low": 30,
+      "rsi_high": 60,
+      "macd": true,
+      "note": "勝率65%"
+    },
+    "NVDA": {
+      "strategy": "RSI_20_40",
+      "rsi_low": 20,
+      "rsi_high": 40,
+      "macd": false,
+      "note": "勝率61%"
+    },
+    "NFLX": {
+      "strategy": "RSI_20_40",
+      "rsi_low": 20,
+      "rsi_high": 40,
+      "macd": false,
+      "note": "勝率55%"
+    },
+    "MSFT": {
+      "strategy": "RSI_25_70",
+      "rsi_low": 25,
+      "rsi_high": 70,
+      "macd": false,
+      "note": "勝率54%"
+    },
+    "AMD": {
+      "strategy": "RSI_25_70_MACD",
+      "rsi_low": 25,
+      "rsi_high": 70,
+      "macd": true,
+      "note": "勝率50%"
+    },
+    "TSLA": {
+      "strategy": "RSI_25_70",
+      "rsi_low": 25,
+      "rsi_high": 70,
+      "macd": false,
+      "note": "勝率50%"
+    },
+    "CRM": {
+      "strategy": "RSI_25_70_MACD",
+      "rsi_low": 25,
+      "rsi_high": 70,
+      "macd": true,
+      "note": "勝率46%"
+    }
+  },
+  "common_params": {
+    "sl_mult": 2.5,
+    "max_hold": 10
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "date": "2026-04-27 06:27",
+  "versions": {
+    "v0_initial": {
+      "date": "2026-04-27 05:00",
+      "description": "初始版本（網格搜索前）",
+      "metrics": {
+        "total": 56,
+        "wins": 35,
+        "losses": 21,
+        "win_rate": 62.5,
+        "avg_return": 1.0548661752246296,
+        "tp_count": 4,
+        "sl_count": 4
+      }
+    },
+    "v1_grid": {
+      "date": "2026-04-27 05:43",
+      "description": "243組合網格搜索（Score=41.85）",
+      "metrics": {
+        "total": 89,
+        "wins": 51,
+        "losses": 38,
+        "win_rate": 57.30337078651685,
+        "avg_return": 2.9047010716461847,
+        "tp_count": 41,
+        "sl_count": 9
+      }
+    },
+    "v1_per_stock": {
+      "date": "2026-04-27 05:53",
+      "description": "個股參數優化（勝率100%區間）",
+      "metrics": {
+        "total": 85,
+        "wins": 70,
+        "losses": 15,
+        "win_rate": 82.35294117647058,
+        "avg_return": 3.979170301909152,
+        "tp_count": 61,
+        "sl_count": 11
+      }
+    },
+    "v2_remove_weak": {
+      "date": "2026-04-27 05:45",
+      "description": "移除弱勢股（2454/2379）324組合（勝率77%）",
+      "metrics": {
+        "total": 78,
+        "wins": 52,
+        "losses": 26,
+        "win_rate": 66.66666666666666,
+        "avg_return": 3.15666715849457,
+        "tp_count": 41,
+        "sl_count": 15
+      }
+    },
+    "v3_failure_adjusted": {
+      "date": "2026-04-27 06:03",
+      "description": "結合失敗數據庫調整（邏輯錯誤，已廢棄）",
+      "metrics": {
+        "total": 58,
+        "wins": 31,
+        "losses": 27,
+        "win_rate": 53.44827586206896,
+        "avg_return": 1.1294698709684134,
+        "tp_count": 24,
+        "sl_count": 11
+      }
+    },
+    "vFinal_wide_range": {
+      "date": "2026-04-27 06:16",
+      "description": "擴大RSI範圍30-50（勝率57.1%，失敗）",
+      "metrics": {
+        "total": 100,
+        "wins": 56,
+        "losses": 44,
+        "win_rate": 56.00000000000001,
+        "avg_return": 1.2612545241340567,
+        "tp_count": 42,
+        "sl_count": 31
+      }
+    },
+    "vOfficial": {
+      "date": "2026-04-27 06:21",
+      "description": "正式版（勝率82.4%，平均報酬+3.97%）",
+      "metrics": {
+        "total": 85,
+        "wins": 70,
+        "losses": 15,
+        "win_rate": 82.35294117647058,
+        "avg_return": 3.979170301909152,
+        "tp_count": 61,
+        "sl_count": 11
+      }
+    }
+  },
+  "rules": [
+    {
+      "id": "RULE_001",
+      "category": "進場條件",
+      "rule": "RSI 進場閾值維持在 40-55 之間",
+      "evidence": "vOfficial (RSI 40-55) 勝率82.4%，vFinal_wide (RSI 30-50) 勝率57.1%",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_002",
+      "category": "進場條件",
+      "rule": "避免擴大 RSI 進場範圍（不要 < 30）",
+      "evidence": "v3_failure_adjusted 降低 RSI 到 35，勝率下降",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_003",
+      "category": "持有策略",
+      "rule": "持有天數維持 30-45 天，勝率最高",
+      "evidence": "vOfficial 持有30-45天區間勝率72.7%+",
+      "confidence": "MEDIUM"
+    },
+    {
+      "id": "RULE_004",
+      "category": "停利停損",
+      "rule": "TP 5-8%，SL 8-10%，TP/SL 比率維持 > 2.0",
+      "evidence": "vOfficial TP/SL=5.55，期望值為正",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_005",
+      "category": "個股選擇",
+      "rule": "移除弱勢股（2454/2379）可提升整體勝率",
+      "evidence": "v2_remove_weak 移除後勝率提升",
+      "confidence": "MEDIUM"
+    },
+    {
+      "id": "RULE_006",
+      "category": "數據分析",
+      "rule": "失敗數據庫需 > 50 筆才具統計顯著性",
+      "evidence": "15筆失敗數據庫導致錯誤結論（RSI <35 失敗率高）",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_007",
+      "category": "數據分析",
+      "rule": "全量數據分析優先於失敗數據分析",
+      "evidence": "85筆全量顯示 RSI 30-40 = 100%勝率，失敗數據庫結論相反",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_008",
+      "category": "參數調整",
+      "rule": "避免大幅修改已驗證的有效參數",
+      "evidence": "vOfficial 維持原始 v1_per_stock 參數，勝率最高",
+      "confidence": "HIGH"
+    }
+  ],
+  "summary": {
+    "best_version": "vOfficial",
+    "best_win_rate": 82.35294117647058,
+    "best_avg_return": 3.979170301909152
+  }
+}

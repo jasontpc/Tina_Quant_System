@@ -1,0 +1,27 @@
+{
+  "entry": {
+    "strong_entry": {
+      "score >= 50 and RSI < 50": "immediate entry"
+    },
+    "normal_entry": {
+      "40 <= score < 50": "staged entry"
+    },
+    "watch_entry": {
+      "20 <= score < 40": "observe only"
+    },
+    "veto_entry": {
+      "RSI > 70 OR VIF < 1.0 OR (VIF < 1.2 AND score < 70)": "immediate_veto"
+    }
+  },
+  "exit": {
+    "atr_stop_loss": "ATR 14 * 2 as stop loss",
+    "trailing_stop": "pullback 8% from high = take profit",
+    "rsi_exit": "RSI > 70 and score declining => consider exit",
+    "ma20_stop": "close < MA20 => immediate exit"
+  },
+  "adjustment": {
+    "market_uptrend": "RSI < 40 and foreign consecutive buy => increase entry weight",
+    "market_downtrend": "RSI > 60 => reduce entry weight",
+    "market_neutral": "40 <= RSI <= 60 => standard position sizing"
+  }
+}

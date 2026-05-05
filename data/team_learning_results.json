@@ -1,0 +1,338 @@
+{
+  "date": "2026-05-03 15:02",
+  "teams": {
+    "NANA": {
+      "stocks": [
+        {
+          "symbol": "2464.TW",
+          "backtest": {
+            "entries": 2,
+            "trades": 2,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 5.0,
+            "pf": 0.0
+          }
+        },
+        {
+          "symbol": "3324.TWO",
+          "backtest": {
+            "entries": 5,
+            "trades": 5,
+            "win_rate": 100.0,
+            "avg_gain": 9.9,
+            "avg_loss": 0,
+            "pf": 999
+          }
+        },
+        {
+          "symbol": "3037.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "1590.TW",
+          "backtest": {
+            "entries": 1,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        }
+      ],
+      "strategy": "RSI 35-50 + MA20>MA60 多頭排列"
+    },
+    "LEO": {
+      "stocks": [
+        {
+          "symbol": "3711.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "8299.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "2467.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "5269.TW",
+          "backtest": {
+            "entries": 2,
+            "trades": 2,
+            "win_rate": 50.0,
+            "avg_gain": 10.4,
+            "avg_loss": 5.4,
+            "pf": 1.93
+          }
+        },
+        {
+          "symbol": "2359.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "4966.TWO",
+          "backtest": {
+            "entries": 4,
+            "trades": 4,
+            "win_rate": 100.0,
+            "avg_gain": 7.8,
+            "avg_loss": 0,
+            "pf": 999
+          }
+        },
+        {
+          "symbol": "2408.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "2344.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "7730.TW",
+          "backtest": {
+            "entries": 1,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        }
+      ],
+      "strategy": "AI 供應鏈 + 記憶體/DRAM + 半導體設備"
+    },
+    "MAGGY": {
+      "stocks": [
+        {
+          "symbol": "MSFT",
+          "backtest": {
+            "entries": 3,
+            "trades": 1,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 2.1,
+            "pf": 0.0
+          }
+        },
+        {
+          "symbol": "CRM",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        }
+      ],
+      "strategy": "MACD 金叉 + MA多頭排列（趨勢跟隨）"
+    },
+    "SHERKY": {
+      "stocks": [
+        {
+          "symbol": "1519.TW",
+          "backtest": {
+            "entries": 0,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        }
+      ],
+      "strategy": "RSI<45 + 電力基建"
+    },
+    "AION": {
+      "stocks": [
+        {
+          "symbol": "2201.TW",
+          "backtest": {
+            "entries": 3,
+            "trades": 2,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 7.0,
+            "pf": 0.0
+          }
+        },
+        {
+          "symbol": "2207.TW",
+          "backtest": {
+            "entries": 2,
+            "trades": 2,
+            "win_rate": 100.0,
+            "avg_gain": 4.8,
+            "avg_loss": 0,
+            "pf": 999
+          }
+        }
+      ],
+      "strategy": "電車供應鏈波段操作"
+    },
+    "GUARD": {
+      "stocks": [
+        {
+          "symbol": "2634.TW",
+          "backtest": {
+            "entries": 36,
+            "trades": 10,
+            "win_rate": 50.0,
+            "avg_gain": 9.6,
+            "avg_loss": 5.3,
+            "pf": 1.82
+          }
+        },
+        {
+          "symbol": "2313.TW",
+          "backtest": {
+            "entries": 11,
+            "trades": 10,
+            "win_rate": 100.0,
+            "avg_gain": 10.6,
+            "avg_loss": 0,
+            "pf": 999
+          }
+        }
+      ],
+      "strategy": "國防預算成長 + 地緣政治避險"
+    },
+    "FINMAX": {
+      "stocks": [
+        {
+          "symbol": "2881.TW",
+          "backtest": {
+            "entries": 12,
+            "trades": 9,
+            "win_rate": 22.2,
+            "avg_gain": 4.4,
+            "avg_loss": 2.5,
+            "pf": 1.76
+          }
+        },
+        {
+          "symbol": "2882.TW",
+          "backtest": {
+            "entries": 15,
+            "trades": 12,
+            "win_rate": 50.0,
+            "avg_gain": 5.0,
+            "avg_loss": 3.0,
+            "pf": 1.68
+          }
+        },
+        {
+          "symbol": "2883.TW",
+          "backtest": {
+            "entries": 2,
+            "trades": 2,
+            "win_rate": 50.0,
+            "avg_gain": 4.7,
+            "avg_loss": 1.9,
+            "pf": 2.47
+          }
+        },
+        {
+          "symbol": "2884.TW",
+          "backtest": {
+            "entries": 1,
+            "trades": 0,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 0,
+            "pf": 0
+          }
+        },
+        {
+          "symbol": "2885.TW",
+          "backtest": {
+            "entries": 4,
+            "trades": 2,
+            "win_rate": 100.0,
+            "avg_gain": 6.2,
+            "avg_loss": 0,
+            "pf": 999
+          }
+        },
+        {
+          "symbol": "2891.TW",
+          "backtest": {
+            "entries": 13,
+            "trades": 2,
+            "win_rate": 100.0,
+            "avg_gain": 3.8,
+            "avg_loss": 0,
+            "pf": 999
+          }
+        },
+        {
+          "symbol": "2892.TW",
+          "backtest": {
+            "entries": 1,
+            "trades": 1,
+            "win_rate": 0.0,
+            "avg_gain": 0,
+            "avg_loss": 1.8,
+            "pf": 0.0
+          }
+        }
+      ],
+      "strategy": "降息前佈局金融股波段"
+    }
+  },
+  "total_trades": 66
+}

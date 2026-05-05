@@ -1,0 +1,82 @@
+{
+  "stock": "2454",
+  "name": "聯發科",
+  "market": "TW",
+  "type": "ic_design",
+  "team": "Nana",
+  "volatility_tier": "high",
+  "stock_character": {
+    "label": "IC設計",
+    "bias": "高波動景氣循環",
+    "atr_multiplier": 1.3,
+    "noise_level": "high",
+    "suitable_strategy": "景氣循環，注意 RSI 過熱風險"
+  },
+  "entry": {
+    "rsi_max": 65,
+    "rsi_ideal": "35-50",
+    "rsi_min": 30,
+    "rsi_length": 14,
+    "bias20_max": 5,
+    "bias20_ideal": "0-3",
+    "ma_required": "MA20>MA60",
+    "ma20_slope_min": 0.5,
+    "volume_min": 200000,
+    "volume_ratio_min": 1.2,
+    "inst_required": false,
+    "inst_days": 0,
+    "inst_net_min": 0
+  },
+  "exit": {
+    "stop_loss_atr": 1.5,
+    "stop_loss_pct": 10,
+    "take_profit_atr": 4.0,
+    "take_profit_pct": 15,
+    "trailing_stop_atr": 2.0,
+    "rsi_overbought_exit": 75,
+    "rsi_divergence_exit": true,
+    "max_hold_days": 14,
+    "exit_on_bearish_ma": true,
+    "rsi_length": 14
+  },
+  "position": {
+    "max_position_pct": 15,
+    "allow_add": false,
+    "add_condition": null,
+    "add_limit": 0,
+    "dividend_handling": "skip_exdate"
+  },
+  "risk": {
+    "max_loss_per_trade": 5,
+    "max_daily_loss": 8,
+    "max_total_exposure": 25,
+    "volatility_tier": "high"
+  },
+  "atr_params": {
+    "period": 14,
+    "typical_price": true
+  },
+  "brain_instructions": {
+    "think_context": "聯發科是IC設計景氣循環股，波動極大，注意景氣變化",
+    "avoid_mistakes": "不要在 RSI > 75 時進場，等 RSI < 50 後再評估",
+    "special_notes": "IC設計股受半導體景氣影響大，需注意庫存週期"
+  },
+  "notes": "聯發科波動極大，RSI 30-50 進場為佳。当前 RSI 89.1 極度過熱，禁�。",
+  "rsi_max": 75,
+  "rsi_overbought_exit": 85,
+  "stop_loss_pct": 8,
+  "trailing_stop_atr": 2.5,
+  "optimization_log": [
+    {
+      "date": "2026-05-02T15:21:01.319881",
+      "situation": "強勢多頭",
+      "recommendation": "趨勢追蹤",
+      "confidence": 0.75,
+      "audit": {
+        "approved": true,
+        "win_rate": 0.5,
+        "avg_pnl": 0
+      }
+    }
+  ]
+}

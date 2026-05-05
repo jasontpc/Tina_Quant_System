@@ -1,0 +1,52 @@
+{
+  "version": "v7",
+  "updated": "2026-05-04 20:08",
+  "logic": "Hunter v2 價值成長股篩選（RSI<35直接A級 + 近低點<30%區間）",
+  "a_stocks": 3,
+  "b_stocks": 5,
+  "c_stocks": 2,
+  "total": 10,
+  "stocks": [
+    {
+      "symbol": "2383.TW",
+      "name": "台光電",
+      "price": null,
+      "rsi": null,
+      "tier": "A",
+      "note": "勝率100% (19筆)"
+    },
+    {
+      "symbol": "3016.TW",
+      "name": "嘉晶",
+      "price": null,
+      "rsi": null,
+      "tier": "A",
+      "note": "勝率78% (9筆)"
+    },
+    {
+      "symbol": "2317.TW",
+      "name": "鴻海",
+      "price": null,
+      "rsi": null,
+      "tier": "A",
+      "note": "勝率75% (8筆)"
+    },
+    {
+      "symbol": "3661.TW",
+      "name": "世芯-KY",
+      "price": null,
+      "rsi": null,
+      "tier": "A",
+      "note": "勝率75% (8筆)"
+    },
+    {
+      "symbol": "3665.TW",
+      "name": "穎崴",
+      "price": null,
+      "rsi": null,
+      "tier": "B",
+      "note": "勝率67% (3筆)"
+    }
+  ],
+  "strategy": "v2策略（RSI 30-45 + MACD Hist>0 + SL ATR 2.5x）"
+}

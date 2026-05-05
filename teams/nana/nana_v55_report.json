@@ -1,0 +1,36 @@
+{
+  "version": "v5.5_further_relaxed",
+  "timestamp": "2026-04-24 08:15",
+  "market": "多頭",
+  "max_hold": 5,
+  "scan_total": 51,
+  "tradeable": 8,
+  "wr": 60.4,
+  "avg_return": 0.88,
+  "total_trades": 53,
+  "top_picks": [
+    {"symbol": "3231", "name": "緯創", "score": 44.2, "rsi": 58.0, "bias": 5.4},
+    {"symbol": "2379", "name": "瑞昱", "score": 44.2, "rsi": 61.3, "bias": 5.5},
+    {"symbol": "2884", "name": "玉山金", "score": 41.0, "rsi": 47.0, "bias": -0.0},
+    {"symbol": "3034", "name": "聯詠", "score": 38.0, "rsi": 53.9, "bias": 1.8},
+    {"symbol": "4938", "name": "和碩", "score": 38.0, "rsi": 66.1, "bias": 4.9}
+  ],
+  "tier_breakdown": {
+    "tier1": {"trades": 22, "wr": 45.5, "avg": 0.32},
+    "tier2": {"trades": 0, "wr": 0, "avg": 0},
+    "tier3": {"trades": 31, "wr": 71.0, "avg": 1.28}
+  },
+  "exit_reasons": {
+    "hold_max": {"count": 48, "wr": 66.7, "avg": 1.10},
+    "eod": {"count": 3, "wr": 0.0, "avg": -0.91},
+    "ma_cross": {"count": 2, "wr": 0.0, "avg": -1.68}
+  },
+  "fixes_applied": [
+    "RSI<70_relaxed",
+    "Bias<12%",
+    "ATR>=0.2%",
+    "vol_ratio>=0.5",
+    "Tier2/3_relaxed",
+    "Inst_reversal_RSI>75"
+  ]
+}

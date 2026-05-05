@@ -1,0 +1,92 @@
+{
+  "brain_version": "3.0",
+  "cron_optimization": {
+    "enabled": true,
+    "principle": "精簡、去重疊、保留核心"
+  },
+  "current_crons_analysis": {
+    "total_tina_crons": 15,
+    "redundancies": [
+      "16:00 有3個cron重疊（Tina股票追蹤-收盤更新 + Tina交易日記+預警 + Tina策略複盤）",
+      "16:30 和 17:00 也有重疊（Tina每日訊號報告 + Tina股票交易週報）",
+      "08:00-09:00 有多個早晨任務可能可合併"
+    ],
+    "remove_or_disable": [
+      {
+        "reason": "重疊冗餘",
+        "action": "考慮合併 16:00 的三個 cron 為一個整合腳本"
+      }
+    ]
+  },
+  "optimized_schedule": {
+    "daily": [
+      {
+        "time": "07:00",
+        "name": "Tina 晨間健康檢查",
+        "script": "python scripts/tina_brain.py --morning",
+        "description": "系統狀態 + 前日績效摘要"
+      },
+      {
+        "time": "08:30",
+        "name": "Tina 盤前掃描",
+        "script": "python scripts/tina_brain.py --pre-market",
+        "description": "進場機會 + 持倉預警"
+      },
+      {
+        "time": "09:00",
+        "name": "Tina 大腦思考",
+        "script": "python scripts/tina_brain.py --think",
+        "description": "市場分析 + 策略建議"
+      },
+      {
+        "time": "16:00",
+        "name": "Tina 收盤整合報告",
+        "script": "python scripts/tina_brain.py --close",
+        "description": "整合：追蹤更新 + 日記 + 預警 + 策略複盤"
+      },
+      {
+        "time": "20:00",
+        "name": "Tina 晚間學習",
+        "script": "python scripts/tina_brain.py --evening",
+        "description": "經驗學習 + 更新 long_term_memory"
+      }
+    ],
+    "weekly": [
+      {
+        "time": "週五 17:00",
+        "name": "Tina 每週回顧",
+        "script": "python scripts/tina_brain.py --weekly",
+        "description": "績效檢討 + 策略調整建議"
+      }
+    ],
+    "monthly": [
+      {
+        "time": "每月1日 03:00",
+        "name": "Tina 完整DB重建",
+        "script": "python scripts/full_db_updater.py",
+        "description": "資料庫完整更新"
+      }
+    ]
+  },
+  "autonomous_decision_rules": {
+    "if_error_rate_above_30pct": "降低執行頻率",
+    "if_all_ok": "維持現狀",
+    "if_market_holiday": "跳過盤前任務",
+    "if_low_confidence_signal": "延遲執行，先求證"
+  },
+  "current_crons_to_keep": [
+    "Tina 每小時心跳監控",
+    "Tina 大腦-每日思考",
+    "Tina 股票追蹤-盤前更新",
+    "Tina 股票追蹤-收盤更新",
+    "Tina 每日訊號報告",
+    "Tina 每週回顧",
+    "Tina 系統健檢（夜間）",
+    "Tina 完整DB重建（每月1日）"
+  ],
+  "current_crons_to_review": [
+    "Tina 交易日記+預警（可能與收盤更新合併）",
+    "Tina 策略複盤（每日收盤後）（可能與收盤更新合併）",
+    "Tina 股票交易週報（可能與每週回顧合併）"
+  ]
+}

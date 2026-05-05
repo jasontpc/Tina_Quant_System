@@ -1,0 +1,41 @@
+{
+  "version": "v5.8_raised_threshold",
+  "timestamp": "2026-04-25 03:24",
+  "market": "多頭",
+  "max_hold": 5,
+  "scan_total": 51,
+  "tradeable": 3,
+  "wr": 72.72727272727273,
+  "avg_return": 1.0700282389138416,
+  "total_trades": 11,
+  "v58_fixes": {
+    "entry_threshold": "Tier1>=40, Tier2>=35, Tier3>=32 (RAISED from 35/30/28)",
+    "exit": "+2% full exit, 1.5x ATR stop, max_hold=3, RSI>=80, Bias>=12%"
+  },
+  "top_picks": [
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "score": 46.0,
+      "rsi": 59.9,
+      "bias": 4.4,
+      "tier": 1
+    },
+    {
+      "symbol": "2353",
+      "name": "宏碁",
+      "score": 42.0,
+      "rsi": 50.7,
+      "bias": 0.3,
+      "tier": 1
+    },
+    {
+      "symbol": "3231",
+      "name": "緯創",
+      "score": 40.2,
+      "rsi": 60.4,
+      "bias": 6.4,
+      "tier": 1
+    }
+  ]
+}

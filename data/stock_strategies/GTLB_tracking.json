@@ -1,0 +1,70 @@
+[
+  {
+    "stock": "GTLB",
+    "name": "GitLab",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 1,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": false,
+      "volume": true
+    },
+    "indicators": {
+      "price": 24.05,
+      "rsi14": 71.3,
+      "ma20": 21.59,
+      "ma60": 23.99,
+      "bias20": 11.4,
+      "slope20": 0.0377,
+      "atr14": 1.26,
+      "vol": 9776726,
+      "vol_avg20": 6443206.0,
+      "vol_ratio": 1.52,
+      "high_20": 24.26,
+      "low_20": 18.73,
+      "K": 114.3,
+      "D": 118.5
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "GTLB",
+    "name": "GitLab",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 1,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": false,
+      "volume": true
+    },
+    "indicators": {
+      "price": 24.05,
+      "rsi14": 71.3,
+      "ma20": 21.59,
+      "ma60": 23.99,
+      "bias20": 11.4,
+      "slope20": 0.0377,
+      "atr14": 1.26,
+      "vol": 9776726,
+      "vol_avg20": 6443206.0,
+      "vol_ratio": 1.52,
+      "high_20": 24.26,
+      "low_20": 18.73,
+      "K": 70.8,
+      "D": 60.8
+    },
+    "updated_at": "2026-05-02 08:11"
+  }
+]

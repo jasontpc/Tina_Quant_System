@@ -1,0 +1,157 @@
+{
+  "date": "2026-04-30T09:04:40.600464",
+  "regime": {
+    "regime": "RISK_ON",
+    "vix_level": "NEUTRAL",
+    "dxy_level": "WEAK",
+    "yield_level": "NORMAL",
+    "sentiment": "NEUTRAL"
+  },
+  "signals": [
+    {
+      "signal_type": "VOLATILITY",
+      "macro_factor": "VIX",
+      "direction": "UP",
+      "confidence": 3,
+      "value": 18.809999465942383,
+      "threshold": "20",
+      "interpretation": "LOW_VOLATILITY",
+      "action": "NORMAL"
+    },
+    {
+      "signal_type": "RATES",
+      "macro_factor": "10Y Yield",
+      "direction": "UP",
+      "confidence": 8,
+      "value": 4.418000221252441,
+      "threshold": "4.5",
+      "interpretation": "ELEVATED_RATE",
+      "action": "MONITOR"
+    }
+  ],
+  "macro_data": [
+    {
+      "symbol": "^TNX",
+      "name": "10Y Treasury Yield",
+      "value": 4.418000221252441,
+      "change_pct": 1.4699156718869784,
+      "signal": "NORMAL_RATE",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    },
+    {
+      "symbol": "^VIX",
+      "name": "VIX",
+      "value": 18.809999465942383,
+      "change_pct": 5.49635191491706,
+      "signal": "RISK_ON",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    },
+    {
+      "symbol": "CL=F",
+      "name": "WTI Crude",
+      "value": 107.2699966430664,
+      "change_pct": 7.345137912013453,
+      "signal": "BULLISH",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    },
+    {
+      "symbol": "GC=F",
+      "name": "Gold",
+      "value": 4584.5,
+      "change_pct": -0.15245562452357617,
+      "signal": "BEARISH",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    },
+    {
+      "symbol": "SI=F",
+      "name": "Silver",
+      "value": 72.72000122070312,
+      "change_pct": -0.6625238688892673,
+      "signal": "BEARISH",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    },
+    {
+      "symbol": "HG=F",
+      "name": "Copper",
+      "value": 5.95550012588501,
+      "change_pct": 0.6932097004693635,
+      "signal": "BULLISH",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "value": 372.79998779296875,
+      "change_pct": -0.8563377785179521,
+      "signal": "BEARISH",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    },
+    {
+      "symbol": "BTC-USD",
+      "name": "Bitcoin",
+      "value": 76253.7578125,
+      "change_pct": -0.12693282209574533,
+      "signal": "BEARISH",
+      "timestamp": "2026-04-30T09:04:34.984149"
+    }
+  ],
+  "tw_data": [
+    {
+      "symbol": "^TWII",
+      "name": "加權指數",
+      "value": 39521.73046875,
+      "change_pct": -0.23954193004298915,
+      "rsi": NaN,
+      "timestamp": "2026-04-30T09:04:38.143164"
+    },
+    {
+      "symbol": "2330.TW",
+      "name": "台積電",
+      "value": 2180.0,
+      "change_pct": -1.580135440180587,
+      "rsi": NaN,
+      "timestamp": "2026-04-30T09:04:38.143164"
+    },
+    {
+      "symbol": "2454.TW",
+      "name": "聯發科",
+      "value": 2575.0,
+      "change_pct": -1.5296367112810707,
+      "rsi": NaN,
+      "timestamp": "2026-04-30T09:04:38.143164"
+    },
+    {
+      "symbol": "SOXX",
+      "name": "費城半導體",
+      "value": 449.989990234375,
+      "change_pct": 2.571174351850132,
+      "rsi": NaN,
+      "timestamp": "2026-04-30T09:04:38.143164"
+    }
+  ],
+  "implications": [
+    [
+      "0050",
+      "台灣50",
+      "HOLD",
+      "Risk on environment"
+    ],
+    [
+      "00757",
+      "FANG+",
+      "HOLD",
+      "Neutral environment"
+    ],
+    [
+      "00830",
+      "半導體",
+      "HOLD",
+      "Normal rates"
+    ]
+  ],
+  "summary": {
+    "regime": "RISK_ON",
+    "vix": 18.809999465942383,
+    "yield_10y": 4.418000221252441
+  }
+}

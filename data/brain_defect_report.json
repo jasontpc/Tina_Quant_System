@@ -1,0 +1,289 @@
+{
+  "date": "2026-05-03 13:53",
+  "db_coverage": {
+    "total_rows": 271524,
+    "rsi_null_pct": 47.0,
+    "macd_null_pct": 48.8,
+    "macd_missing_symbols": [
+      [
+        "AAPL",
+        152
+      ],
+      [
+        "0388.HK",
+        60
+      ],
+      [
+        "0700.HK",
+        60
+      ],
+      [
+        "0941.HK",
+        60
+      ],
+      [
+        "1211.HK",
+        60
+      ],
+      [
+        "1810.HK",
+        60
+      ],
+      [
+        "2007.HK",
+        60
+      ],
+      [
+        "2303.TW",
+        60
+      ],
+      [
+        "2308.TW",
+        60
+      ],
+      [
+        "2318.HK",
+        60
+      ],
+      [
+        "2345.TW",
+        60
+      ],
+      [
+        "2360.TW",
+        60
+      ],
+      [
+        "2368.TW",
+        60
+      ],
+      [
+        "2383.TW",
+        60
+      ],
+      [
+        "2455.TW",
+        60
+      ],
+      [
+        "2489.TW",
+        60
+      ],
+      [
+        "2628.HK",
+        60
+      ],
+      [
+        "3017.TW",
+        60
+      ],
+      [
+        "3037.TW",
+        60
+      ],
+      [
+        "3081.TW",
+        60
+      ]
+    ]
+  },
+  "sector_coverage": {
+    "算力核心": {
+      "covered": [
+        "2330",
+        "3711",
+        "3661",
+        "3443"
+      ],
+      "missing": [],
+      "pct": 100
+    },
+    "Edge AI": {
+      "covered": [
+        "2454",
+        "5269",
+        "4966",
+        "2379",
+        "2458"
+      ],
+      "missing": [],
+      "pct": 100
+    },
+    "機器人/具身": {
+      "covered": [
+        "2359",
+        "2049",
+        "1590",
+        "6188.TWO",
+        "2464"
+      ],
+      "missing": [],
+      "pct": 100
+    },
+    "先進封裝": {
+      "covered": [
+        "3131",
+        "6187",
+        "6640.TWO",
+        "2467",
+        "1560"
+      ],
+      "missing": [],
+      "pct": 100
+    },
+    "高速傳輸/CPO": {
+      "covered": [
+        "2345",
+        "3081",
+        "3363",
+        "3163",
+        "4908",
+        "6442"
+      ],
+      "missing": [],
+      "pct": 100
+    },
+    "散熱/液冷": {
+      "covered": [
+        "3017",
+        "3324",
+        "3653",
+        "2308",
+        "8996"
+      ],
+      "missing": [
+        "2301"
+      ],
+      "pct": 83
+    },
+    "PCB/載板": {
+      "covered": [
+        "2368",
+        "2383",
+        "3037"
+      ],
+      "missing": [
+        "3189",
+        "8046",
+        "6274"
+      ],
+      "pct": 50
+    },
+    "電力/變壓器": {
+      "covered": [
+        "1519",
+        "1503",
+        "1513",
+        "1514"
+      ],
+      "missing": [],
+      "pct": 100
+    },
+    "HBM/存儲": {
+      "covered": [
+        "8299",
+        "3260",
+        "4967"
+      ],
+      "missing": [
+        "2408",
+        "2344"
+      ],
+      "pct": 60
+    },
+    "伺服器": {
+      "covered": [
+        "2382",
+        "3231",
+        "6669",
+        "2376"
+      ],
+      "missing": [
+        "2356",
+        "3706"
+      ],
+      "pct": 67
+    }
+  },
+  "logic_gaps": [
+    {
+      "type": "rsi_bias",
+      "sym": "2467.TW",
+      "team": "LEO AI科技",
+      "diff": 99
+    },
+    {
+      "type": "rsi_bias",
+      "sym": "2359.TW",
+      "team": "LEO AI科技",
+      "diff": 99
+    },
+    {
+      "type": "rsi_bias",
+      "sym": "4966.TWO",
+      "team": "LEO AI科技",
+      "diff": 99
+    },
+    {
+      "type": "rsi_bias",
+      "sym": "2464.TW",
+      "team": "NANA 波段",
+      "diff": 99
+    },
+    {
+      "type": "rsi_bias",
+      "sym": "3324.TWO",
+      "team": "NANA 波段",
+      "diff": 99
+    },
+    {
+      "type": "rsi_bias",
+      "sym": "1590.TW",
+      "team": "NANA 波段",
+      "diff": 99
+    },
+    {
+      "type": "rsi_bias",
+      "sym": "1519.TW",
+      "team": "SHERKY",
+      "diff": 99
+    }
+  ],
+  "backtest_status": {
+    "NANA": {
+      "status": "no_trades",
+      "trades": 0
+    },
+    "LEO": {
+      "status": "ok",
+      "trades": 7,
+      "wr": 28.6
+    },
+    "MAGGY": {
+      "status": "ok",
+      "trades": 46,
+      "wr": 21.7
+    },
+    "SHERKY": {
+      "status": "no_trades",
+      "trades": 0
+    }
+  },
+  "fixes": [
+    {
+      "name": "fix_macd_coverage.py",
+      "desc": "補充缺失 MACD 計算（影響 20 檔）",
+      "priority": "HIGH"
+    },
+    {
+      "name": "fill_sector_gaps.py",
+      "desc": "補充缺口產業：PCB/載板, HBM/存儲, 伺服器",
+      "priority": "MED"
+    },
+    {
+      "name": "relax_entry_rules.py",
+      "desc": "放寬進場門檻（NANA, SHERKY）",
+      "priority": "HIGH"
+    }
+  ]
+}

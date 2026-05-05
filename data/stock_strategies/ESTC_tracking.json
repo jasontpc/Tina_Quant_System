@@ -1,0 +1,70 @@
+[
+  {
+    "stock": "ESTC",
+    "name": "Elastic",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 48.61,
+      "rsi14": 60.4,
+      "ma20": 47.38,
+      "ma60": 52.43,
+      "bias20": 2.6,
+      "slope20": -0.1312,
+      "atr14": 2.39,
+      "vol": 1520716,
+      "vol_avg20": 1767186.0,
+      "vol_ratio": 0.86,
+      "high_20": 51.91,
+      "low_20": 42.05,
+      "K": 71.5,
+      "D": 71.6
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "ESTC",
+    "name": "Elastic",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 48.61,
+      "rsi14": 60.4,
+      "ma20": 47.38,
+      "ma60": 52.43,
+      "bias20": 2.6,
+      "slope20": -0.1312,
+      "atr14": 2.39,
+      "vol": 1520716,
+      "vol_avg20": 1767186.0,
+      "vol_ratio": 0.86,
+      "high_20": 51.91,
+      "low_20": 42.05,
+      "K": 54.8,
+      "D": 52.5
+    },
+    "updated_at": "2026-05-02 08:11"
+  }
+]

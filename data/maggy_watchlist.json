@@ -1,0 +1,60 @@
+{
+  "team": "maggy",
+  "updated_at": "2026-05-05T17:50:16.106130",
+  "stocks": [
+    {
+      "symbol": "D",
+      "name": "Dominion Energy",
+      "price": 62.95000076293945,
+      "change_pct": -1.55,
+      "value_growth_score": 2.773,
+      "dividend_yield": 0.0,
+      "updated_at": "2026-05-05T17:50:14.785382"
+    },
+    {
+      "symbol": "BMY",
+      "name": "Bristol-Myers",
+      "price": 57.380001068115234,
+      "change_pct": -1.44,
+      "value_growth_score": -1.6998,
+      "dividend_yield": 0.0,
+      "updated_at": "2026-05-05T17:50:15.109800"
+    },
+    {
+      "symbol": "SO",
+      "name": "Southern Company",
+      "price": 95.98999786376953,
+      "change_pct": -0.74,
+      "value_growth_score": 7.9816,
+      "dividend_yield": 0.0,
+      "updated_at": "2026-05-05T17:50:15.426638"
+    },
+    {
+      "symbol": "DXCM",
+      "name": "DexCom",
+      "price": 60.040000915527344,
+      "change_pct": -2.14,
+      "value_growth_score": -9.4953,
+      "dividend_yield": 0.0,
+      "updated_at": "2026-05-05T17:50:15.649629"
+    },
+    {
+      "symbol": "COIN",
+      "name": "Coinbase",
+      "price": 202.99000549316406,
+      "change_pct": 6.14,
+      "value_growth_score": 12.6529,
+      "dividend_yield": 0.0,
+      "updated_at": "2026-05-05T17:50:15.862350"
+    },
+    {
+      "symbol": "NET",
+      "name": "Cloudflare",
+      "price": 224.1699981689453,
+      "change_pct": 3.07,
+      "value_growth_score": 14.3312,
+      "dividend_yield": 0.0,
+      "updated_at": "2026-05-05T17:50:16.106130"
+    }
+  ]
+}

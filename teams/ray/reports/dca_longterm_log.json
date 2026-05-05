@@ -1,0 +1,20 @@
+{
+  "records": [
+    {
+      "date": "2026-04-24",
+      "type": "monthly_dca_reminder",
+      "budget": 30000,
+      "total_dca": 30000
+    },
+    {
+      "date": "2026-04-24 16:02",
+      "type": "daily_longterm_review",
+      "market_change_60d": null,
+      "alerts_issued": 0,
+      "warnings": [
+        "TWII 接近歷史高點（100.0%），建議降低 DCA 倍數"
+      ]
+    }
+  ],
+  "goal_progress": []
+}

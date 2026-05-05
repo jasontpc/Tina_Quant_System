@@ -1,0 +1,32 @@
+{
+  "date": "2026-05-03",
+  "results": [
+    {
+      "trades": 7,
+      "win_rate": 71.4,
+      "wins": 5,
+      "avg_gain": 11.23,
+      "avg_loss": -4.94,
+      "pf": 2.27,
+      "symbol": "3324.TWO"
+    },
+    {
+      "trades": 1,
+      "win_rate": 0.0,
+      "wins": 0,
+      "avg_gain": 0,
+      "avg_loss": -5.64,
+      "pf": 0.0,
+      "symbol": "3653.TW"
+    },
+    {
+      "trades": 1,
+      "win_rate": 100.0,
+      "wins": 1,
+      "avg_gain": 7.98,
+      "avg_loss": 0,
+      "pf": 0,
+      "symbol": "3711.TW"
+    }
+  ]
+}

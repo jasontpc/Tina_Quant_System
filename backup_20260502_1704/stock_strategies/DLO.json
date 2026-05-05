@@ -1,0 +1,51 @@
+{
+  "stock": "DLO",
+  "name": "Deloitte",
+  "market": "US",
+  "type": "us_growth",
+  "team": "Nana",
+  "volatility_tier": "high",
+  "stock_character": {
+    "label": "US Financial Tech",
+    "bias": "High growth volatile",
+    "atr_multiplier": 1.3,
+    "noise_level": "high",
+    "suitable_strategy": "Growth momentum, breakout entry"
+  },
+  "entry": {
+    "rsi_max": 60,
+    "rsi_ideal": "40-55",
+    "rsi_min": 35,
+    "rsi_length": 14,
+    "bias20_max": 8,
+    "bias20_ideal": "0-5",
+    "ma_required": "MA20>MA60",
+    "ma20_slope_min": 0.5,
+    "volume_ratio_min": 1.3
+  },
+  "exit": {
+    "stop_loss_atr": 1.5,
+    "stop_loss_pct": 8,
+    "take_profit_atr": 5.0,
+    "take_profit_pct": 15,
+    "trailing_stop_atr": 2.0,
+    "rsi_overbought_exit": 75,
+    "max_hold_days": 14
+  },
+  "position": {
+    "max_position_pct": 15,
+    "allow_add": true,
+    "add_condition": "RSI < 50 and price > entry + 3%",
+    "add_limit": 1
+  },
+  "risk": {
+    "max_loss_per_trade": 5,
+    "max_daily_loss": 8,
+    "max_total_exposure": 25
+  },
+  "brain_instructions": {
+    "think_context": "DLO is a high-growth financial tech stock, volatile with momentum swings",
+    "avoid_mistakes": "Do not buy when RSI > 65, watch for earnings volatility",
+    "special_notes": "Revenue growth 65% YoY, PE 21, attractive valuation"
+  }
+}

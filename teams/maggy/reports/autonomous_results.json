@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-04-28T16:46:42.606389",
+  "results": [
+    {
+      "symbol": "NVDA",
+      "strategy": "RSI_Rev",
+      "trades": 5,
+      "win_rate": 100.0,
+      "avg_return": 8.084043864826915,
+      "total_return": 40.42021932413458,
+      "params": {
+        "rsi_entry": 30,
+        "rsi_exit": 55,
+        "max_hold": 20
+      }
+    },
+    {
+      "symbol": "AAPL",
+      "strategy": "RSI_Rev",
+      "trades": 5,
+      "win_rate": 60.0,
+      "avg_return": 3.2275981291541243,
+      "total_return": 16.13799064577062,
+      "params": {
+        "rsi_entry": 30,
+        "rsi_exit": 55,
+        "max_hold": 20
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "strategy": "MA_Cross",
+      "trades": 18,
+      "win_rate": 22.22222222222222,
+      "avg_return": 0.579905794409027,
+      "total_return": 10.438304299362485,
+      "params": {}
+    },
+    {
+      "symbol": "QQQ",
+      "strategy": "MA_Cross",
+      "trades": 19,
+      "win_rate": 26.31578947368421,
+      "avg_return": 0.51044651934048,
+      "total_return": 9.69848386746912,
+      "params": {}
+    },
+    {
+      "symbol": "SPY",
+      "strategy": "MA_Cross",
+      "trades": 18,
+      "win_rate": 27.77777777777778,
+      "avg_return": 0.04182293293433728,
+      "total_return": 0.752812792818071,
+      "params": {}
+    },
+    {
+      "symbol": "AAPL",
+      "strategy": "MA_Cross",
+      "trades": 13,
+      "win_rate": 46.15384615384615,
+      "avg_return": -0.08900666286492837,
+      "total_return": -1.1570866172440688,
+      "params": {}
+    }
+  ],
+  "db_status": {
+    "symbols": 34
+  }
+}

@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "NET",
+    "name": "Cloudflare",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 217.5,
+      "rsi14": 73.5,
+      "ma20": 201.9,
+      "ma60": 197.33,
+      "bias20": 7.73,
+      "slope20": 0.2744,
+      "atr14": 9.96,
+      "vol": 2990892,
+      "vol_avg20": 4386345.0,
+      "vol_ratio": 0.68,
+      "high_20": 225.13,
+      "low_20": 164.05,
+      "K": 102.4,
+      "D": 104.2
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "NET",
+    "name": "Cloudflare",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 217.5,
+      "rsi14": 73.5,
+      "ma20": 201.9,
+      "ma60": 197.33,
+      "bias20": 7.73,
+      "slope20": 0.2744,
+      "atr14": 9.96,
+      "vol": 2990892,
+      "vol_avg20": 4386345.0,
+      "vol_ratio": 0.68,
+      "high_20": 225.13,
+      "low_20": 164.05,
+      "K": 77.5,
+      "D": 75.4
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "NET",
+    "name": "Cloudflare",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 217.5,
+      "rsi14": 73.5,
+      "ma20": 201.9,
+      "ma60": 197.33,
+      "bias20": 7.73,
+      "slope20": 0.2744,
+      "atr14": 9.97,
+      "vol": 2991700,
+      "vol_avg20": 4386385.0,
+      "vol_ratio": 0.68,
+      "high_20": 225.13,
+      "low_20": 164.05,
+      "K": 77.5,
+      "D": 75.4
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "NET",
+    "name": "Cloudflare",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 217.5,
+      "rsi14": 73.5,
+      "ma20": 201.9,
+      "ma60": 197.33,
+      "bias20": 7.73,
+      "slope20": 0.2744,
+      "atr14": 9.97,
+      "vol": 2991700,
+      "vol_avg20": 4386385.0,
+      "vol_ratio": 0.68,
+      "high_20": 225.13,
+      "low_20": 164.05,
+      "K": 77.5,
+      "D": 75.4
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

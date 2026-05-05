@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "db": "tw_history.db",
+      "integrity": true,
+      "detail": "ok",
+      "vacuum_ok": true,
+      "size_kb": 9512.0,
+      "analyze_ok": true
+    },
+    {
+      "db": "us_history.db",
+      "integrity": true,
+      "detail": "ok",
+      "vacuum_ok": true,
+      "size_kb": 28080.0,
+      "analyze_ok": true
+    },
+    {
+      "db": "financial_history.db",
+      "integrity": true,
+      "detail": "ok",
+      "vacuum_ok": true,
+      "size_kb": 28.0,
+      "analyze_ok": true
+    },
+    {
+      "db": "tina_master.db",
+      "integrity": true,
+      "detail": "ok",
+      "vacuum_ok": true,
+      "size_kb": 2136.0,
+      "analyze_ok": true
+    },
+    {
+      "db": "portfolio.db",
+      "integrity": true,
+      "detail": "ok",
+      "vacuum_ok": true,
+      "size_kb": 28.0,
+      "analyze_ok": true
+    },
+    {
+      "db": "stock_trends.db",
+      "integrity": true,
+      "detail": "ok",
+      "vacuum_ok": true,
+      "size_kb": 200.0,
+      "analyze_ok": true
+    },
+    {
+      "db": "macro_institutional.db",
+      "integrity": true,
+      "detail": "ok",
+      "vacuum_ok": true,
+      "size_kb": 6204.0,
+      "analyze_ok": true
+    }
+  ],
+  "elapsed_s": 1.630281,
+  "timestamp": "2026-05-02T08:19:53.403276"
+}

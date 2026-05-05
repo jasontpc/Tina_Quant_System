@@ -1,0 +1,165 @@
+{
+  "date": "2026-04-29T08:10:30.812377",
+  "total_stocks": 17,
+  "high_risk_count": 10,
+  "alerts_count": 6,
+  "high_risk": [
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 259.70001220703125,
+      "rsi_14": 86.14404258578519,
+      "short_ratio": 2.02,
+      "days_to_cover": 0.0,
+      "change_pct": -0.5438047398549387
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "price": 84.5199966430664,
+      "rsi_14": 84.71353063207015,
+      "short_ratio": 1.38,
+      "days_to_cover": 0.0,
+      "change_pct": -0.5530076862179595
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Nasdaq 100",
+      "price": 657.5499877929688,
+      "rsi_14": 81.6716177047318,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -1.0056746717555793
+    },
+    {
+      "symbol": "NVDA",
+      "name": "Nvidia",
+      "price": 213.1699981689453,
+      "rsi_14": 81.66634547240423,
+      "short_ratio": 1.68,
+      "days_to_cover": 0.0,
+      "change_pct": -1.5881087815489605
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 323.2099914550781,
+      "rsi_14": 80.98595760980751,
+      "short_ratio": 1.08,
+      "days_to_cover": 0.0,
+      "change_pct": -3.412728464601872
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "ProShares 3x Long",
+      "price": 60.7400016784668,
+      "rsi_14": 80.47848737873045,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -3.0332019950428424
+    },
+    {
+      "symbol": "SPY",
+      "name": "S&P 500 ETF",
+      "price": 711.6900024414062,
+      "rsi_14": 79.15991184900601,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.486594872814618
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 349.7799987792969,
+      "rsi_14": 78.02142449554012,
+      "short_ratio": 2.72,
+      "days_to_cover": 0.0,
+      "change_pct": -0.15984402707296144
+    },
+    {
+      "symbol": "SPXL",
+      "name": "3x Long S&P 500",
+      "price": 239.7100067138672,
+      "rsi_14": 77.50208800977175,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -1.4755430714593605
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 429.25,
+      "rsi_14": 75.99886389804901,
+      "short_ratio": 2.53,
+      "days_to_cover": 0.0,
+      "change_pct": 1.0427928533037099
+    }
+  ],
+  "short_squeeze": [],
+  "alerts": [
+    {
+      "symbol": "NVDA",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 213.1699981689453,
+      "margin_ratio": null,
+      "reason": "RSI=81.7 overbought, margin risk high",
+      "timestamp": "2026-04-29T08:10:30.811377"
+    },
+    {
+      "symbol": "AMD",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 323.2099914550781,
+      "margin_ratio": null,
+      "reason": "RSI=81.0 overbought, margin risk high",
+      "timestamp": "2026-04-29T08:10:30.811377"
+    },
+    {
+      "symbol": "AMZN",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 259.70001220703125,
+      "margin_ratio": null,
+      "reason": "RSI=86.1 overbought, margin risk high",
+      "timestamp": "2026-04-29T08:10:30.811377"
+    },
+    {
+      "symbol": "INTC",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 84.5199966430664,
+      "margin_ratio": null,
+      "reason": "RSI=84.7 overbought, margin risk high",
+      "timestamp": "2026-04-29T08:10:30.811377"
+    },
+    {
+      "symbol": "QQQ",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 657.5499877929688,
+      "margin_ratio": null,
+      "reason": "RSI=81.7 overbought, margin risk high",
+      "timestamp": "2026-04-29T08:10:30.811377"
+    },
+    {
+      "symbol": "TQQQ",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 60.7400016784668,
+      "margin_ratio": null,
+      "reason": "RSI=80.5 overbought, margin risk high",
+      "timestamp": "2026-04-29T08:10:30.811377"
+    }
+  ],
+  "params": {
+    "initial_margin": 0.5,
+    "maintenance_margin": 0.25,
+    "margin_call_threshold": 0.3,
+    "max_margin_ratio": 0.4
+  },
+  "summary": {
+    "high_severity": 6,
+    "medium_severity": 0
+  }
+}

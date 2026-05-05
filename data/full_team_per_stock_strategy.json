@@ -1,0 +1,418 @@
+{
+  "updated": "2026-05-04 06:57",
+  "strategies": {
+    "MSFT": {
+      "name": "Microsoft",
+      "team": "Hunter",
+      "win_rate": 41.2,
+      "avg_pnl": -0.24,
+      "trades": 17,
+      "pf": 1.17,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "RSI超賣抄底",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "3037.TW": {
+      "name": "欣興",
+      "team": "Hunter",
+      "win_rate": 75.9,
+      "avg_pnl": 4.53,
+      "trades": 87,
+      "pf": 1.55,
+      "verdict": "MA_OK",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60適用，直接使用"
+      }
+    },
+    "MU": {
+      "name": "Micron",
+      "team": "Hunter",
+      "win_rate": 59.6,
+      "avg_pnl": 0.46,
+      "trades": 52,
+      "pf": 0.77,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 50,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "PLTR": {
+      "name": "Palantir",
+      "team": "Hunter",
+      "win_rate": 45.0,
+      "avg_pnl": -0.09,
+      "trades": 20,
+      "pf": 1.19,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "RSI超賣抄底",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "TSLA": {
+      "name": "Tesla",
+      "team": "Hunter",
+      "win_rate": 45.7,
+      "avg_pnl": -0.34,
+      "trades": 35,
+      "pf": 1.01,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "RSI超賣抄底",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "AMD": {
+      "name": "AMD",
+      "team": "Hunter",
+      "win_rate": 35.7,
+      "avg_pnl": -4.11,
+      "trades": 14,
+      "pf": 0.46,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "消息面追蹤",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "3443.TW": {
+      "name": "創意",
+      "team": "Hunter",
+      "win_rate": 46.2,
+      "avg_pnl": -0.2,
+      "trades": 52,
+      "pf": 1.1,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "區間突破/消息面",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "3661.TW": {
+      "name": "世芯-KY",
+      "team": "Hunter",
+      "win_rate": 39.1,
+      "avg_pnl": -1.32,
+      "trades": 23,
+      "pf": 0.94,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "區間突破/消息面",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "2345.TW": {
+      "name": "智邦",
+      "team": "Hunter",
+      "win_rate": 69.0,
+      "avg_pnl": 3.8,
+      "trades": 58,
+      "pf": 1.58,
+      "verdict": "MA_OK",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60適用，直接使用"
+      }
+    },
+    "3189.TW": {
+      "name": "景碩",
+      "team": "Hunter",
+      "win_rate": 71.1,
+      "avg_pnl": 4.56,
+      "trades": 76,
+      "pf": 1.75,
+      "verdict": "MA_OK",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60適用，直接使用"
+      }
+    },
+    "2359.TW": {
+      "name": "所羅門",
+      "team": "Hunter",
+      "win_rate": 53.3,
+      "avg_pnl": 0.86,
+      "trades": 30,
+      "pf": 1.18,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 50,
+        "atr_sl_mult": 3.0,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "2383.TW": {
+      "name": "台光電",
+      "team": "Hunter",
+      "win_rate": 62.2,
+      "avg_pnl": 4.01,
+      "trades": 74,
+      "pf": 2.15,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 3.0,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "1519.TW": {
+      "name": "華城",
+      "team": "Hunter",
+      "win_rate": 46.2,
+      "avg_pnl": -0.69,
+      "trades": 26,
+      "pf": 0.92,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "區間突破/RSI<35",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "2360.TW": {
+      "name": "致茂",
+      "team": "Hunter",
+      "win_rate": 71.4,
+      "avg_pnl": 4.21,
+      "trades": 77,
+      "pf": 1.87,
+      "verdict": "MA_OK",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60適用，直接使用"
+      }
+    },
+    "6239.TW": {
+      "name": "力成",
+      "team": "Hunter",
+      "win_rate": 29.6,
+      "avg_pnl": -1.82,
+      "trades": 27,
+      "pf": 1.27,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "消息面追蹤",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "6442.TW": {
+      "name": "光聖",
+      "team": "Hunter",
+      "win_rate": 54.2,
+      "avg_pnl": 1.72,
+      "trades": 72,
+      "pf": 1.24,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "2454.TW": {
+      "name": "聯發科",
+      "team": "Hunter",
+      "win_rate": 60.6,
+      "avg_pnl": 1.1,
+      "trades": 33,
+      "pf": 1.07,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 50,
+        "atr_sl_mult": 3.0,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "3532.TW": {
+      "name": "台勝科",
+      "team": "Hunter",
+      "win_rate": 46.7,
+      "avg_pnl": 0.66,
+      "trades": 45,
+      "pf": 1.38,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "區間突破/消息面",
+        "note": "MA60禁用，改用替代策略"
+      }
+    },
+    "2449.TW": {
+      "name": "京元電子",
+      "team": "Hunter",
+      "win_rate": 63.5,
+      "avg_pnl": 1.97,
+      "trades": 63,
+      "pf": 1.1,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "3665.TW": {
+      "name": "穎崴",
+      "team": "Nana",
+      "win_rate": 70.0,
+      "avg_pnl": 4.09,
+      "trades": 50,
+      "pf": 2.02,
+      "verdict": "MA_OK",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60適用，直接使用"
+      }
+    },
+    "3017.TW": {
+      "name": "奇力新",
+      "team": "Nana",
+      "win_rate": 63.2,
+      "avg_pnl": 3.57,
+      "trades": 57,
+      "pf": 1.73,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 50,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "3231.TW": {
+      "name": "緯創",
+      "team": "Nana",
+      "win_rate": 63.2,
+      "avg_pnl": 0.78,
+      "trades": 38,
+      "pf": 0.83,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 50,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "2317.TW": {
+      "name": "鴻海",
+      "team": "Nana",
+      "win_rate": 53.3,
+      "avg_pnl": 0.3,
+      "trades": 30,
+      "pf": 0.99,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "1101.TW": {
+      "name": "台泥",
+      "team": "Nana",
+      "win_rate": 52.6,
+      "avg_pnl": 0.01,
+      "trades": 19,
+      "pf": 0.91,
+      "verdict": "MA_ADJUST",
+      "adjusted_strategy": {
+        "rsi_entry_max": 50,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "MA60可用，需調整參數"
+      }
+    },
+    "2382.TW": {
+      "name": "廣達",
+      "team": "Nana",
+      "win_rate": 44.7,
+      "avg_pnl": 0.15,
+      "trades": 38,
+      "pf": 1.35,
+      "verdict": "MA_BAN",
+      "adjusted_strategy": {
+        "strategy_type": "MA_BAN_ALT",
+        "alt_strategy": "區間突破/消息面",
+        "note": "MA60禁用，改用替代策略"
+      }
+    }
+  },
+  "summary": {
+    "MA_OK": [
+      "3037.TW",
+      "2345.TW",
+      "3189.TW",
+      "2360.TW",
+      "3665.TW"
+    ],
+    "MA_ADJUST": [
+      "MU",
+      "2359.TW",
+      "2383.TW",
+      "6442.TW",
+      "2454.TW",
+      "2449.TW",
+      "3017.TW",
+      "3231.TW",
+      "2317.TW",
+      "1101.TW"
+    ],
+    "MA_BAN": [
+      "MSFT",
+      "PLTR",
+      "TSLA",
+      "AMD",
+      "3443.TW",
+      "3661.TW",
+      "1519.TW",
+      "6239.TW",
+      "3532.TW",
+      "2382.TW"
+    ]
+  }
+}

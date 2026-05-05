@@ -1,0 +1,70 @@
+{
+  "date": "2026-04-29 17:25",
+  "databases": {
+    "tw_ai_tech": {
+      "status": "✅ 正常",
+      "records": 77,
+      "size_mb": 0.04
+    },
+    "tw_etf": {
+      "status": "✅ 正常",
+      "records": 58,
+      "size_mb": 0.04
+    },
+    "tw_etf_return": {
+      "status": "✅ 正常",
+      "records": 256,
+      "size_mb": 0.06
+    },
+    "tw_margin": {
+      "status": "✅ 正常",
+      "records": 1813,
+      "size_mb": 0.2
+    },
+    "us_ai_tech": {
+      "status": "✅ 正常",
+      "records": 91,
+      "size_mb": 0.04
+    },
+    "us_etf": {
+      "status": "✅ 正常",
+      "records": 79,
+      "size_mb": 0.04
+    },
+    "us_etf_return": {
+      "status": "✅ 正常",
+      "records": 245,
+      "size_mb": 0.06
+    },
+    "us_margin": {
+      "status": "✅ 正常",
+      "records": 69,
+      "size_mb": 0.04
+    },
+    "us_fund_flow": {
+      "status": "✅ 正常",
+      "records": 14,
+      "size_mb": 0.0
+    },
+    "unified_db": {
+      "status": "✅ 正常",
+      "records": 2152,
+      "size_mb": 0.29
+    },
+    "macro_db": {
+      "status": "✅ 正常",
+      "records": 42,
+      "size_mb": 0.03
+    },
+    "usd_twd": {
+      "status": "✅ 正常",
+      "records": 10,
+      "size_mb": 0.02
+    }
+  },
+  "summary": {
+    "total": 12,
+    "active": 12,
+    "records": 4906
+  }
+}

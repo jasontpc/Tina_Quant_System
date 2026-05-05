@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "description": "US Stock Alert Configuration - Tina Quant System",
+  "alert_symbols": ["D", "BMY", "SO", "DXCM", "FITB", "HBAN", "CARG", "NEE", "SWKS", "CVLT", "SCHW", "SLB", "NET", "MU"],
+  "core_symbols": ["D", "BMY", "SO", "DXCM"],
+  "top10_symbols": ["FITB", "HBAN", "CARG", "NEE", "SWKS", "CVLT", "SCHW", "SLB", "NET", "MU"],
+  "alert_thresholds": {
+    "D":        {"rsi_overbought": 70, "rsi_oversold": 30, "pos_52w_alert": 0.85, "bias20_alert": 12},
+    "BMY":      {"rsi_overbought": 65, "rsi_oversold": 30, "pos_52w_alert": 0.85, "bias20_alert": 12},
+    "SO":       {"rsi_overbought": 68, "rsi_oversold": 30, "pos_52w_alert": 0.85, "bias20_alert": 12},
+    "DXCM":     {"rsi_overbought": 70, "rsi_oversold": 35, "pos_52w_alert": 0.90, "bias20_alert": 15},
+    "FITB":     {"rsi_overbought": 70, "rsi_oversold": 30, "pos_52w_alert": 0.85, "bias20_alert": 12},
+    "HBAN":     {"rsi_overbought": 70, "rsi_oversold": 30, "pos_52w_alert": 0.85, "bias20_alert": 12},
+    "SCHW":     {"rsi_overbought": 65, "rsi_oversold": 30, "pos_52w_alert": 0.85, "bias20_alert": 12},
+    "default":  {"rsi_overbought": 70, "rsi_oversold": 30, "pos_52w_alert": 0.85, "bias20_alert": 12}
+  }
+}

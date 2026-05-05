@@ -1,0 +1,251 @@
+{
+  "date": "2026-04-25",
+  "results": [
+    {
+      "etf_id": "00878",
+      "name": "國泰永續高息",
+      "assumptions": {
+        "monthly_amount": 5000,
+        "years": 5,
+        "total_invested": 300000
+      },
+      "trading_cost": {
+        "per_trade": 14.0,
+        "total_trades": 60,
+        "total_trading_cost": 855.0,
+        "avg_cost_per_month": 14.0
+      },
+      "expense_cost": {
+        "annual_expense": 525.0,
+        "total_expense": 2625.0,
+        "expense_ratio_pct": 0.35
+      },
+      "opportunity_cost": {
+        "annual_opp_cost": 2250.0,
+        "total_opp_cost": 11250.0,
+        "cash_rate": 0.015
+      },
+      "total_cost": {
+        "trading": 855.0,
+        "expense": 2625.0,
+        "total": 3480.0
+      },
+      "effective_cost_rate_pct": 1.16,
+      "dividend_income": {
+        "annual": 7200.0,
+        "total": 36000.0,
+        "yield_pct": 4.8
+      },
+      "estimated_outcome": {
+        "final_value": 440798.0,
+        "net_return": 173318.0,
+        "cp_ratio": 49.8
+      }
+    },
+    {
+      "etf_id": "0056",
+      "name": "元大高股息",
+      "assumptions": {
+        "monthly_amount": 5000,
+        "years": 5,
+        "total_invested": 300000
+      },
+      "trading_cost": {
+        "per_trade": 14.0,
+        "total_trades": 60,
+        "total_trading_cost": 855.0,
+        "avg_cost_per_month": 14.0
+      },
+      "expense_cost": {
+        "annual_expense": 525.0,
+        "total_expense": 2625.0,
+        "expense_ratio_pct": 0.35
+      },
+      "opportunity_cost": {
+        "annual_opp_cost": 2250.0,
+        "total_opp_cost": 11250.0,
+        "cash_rate": 0.015
+      },
+      "total_cost": {
+        "trading": 855.0,
+        "expense": 2625.0,
+        "total": 3480.0
+      },
+      "effective_cost_rate_pct": 1.16,
+      "dividend_income": {
+        "annual": 6750.0,
+        "total": 33750.0,
+        "yield_pct": 4.5
+      },
+      "estimated_outcome": {
+        "final_value": 440798.0,
+        "net_return": 171068.0,
+        "cp_ratio": 49.16
+      }
+    },
+    {
+      "etf_id": "0050",
+      "name": "元大台灣50",
+      "assumptions": {
+        "monthly_amount": 5000,
+        "years": 5,
+        "total_invested": 300000
+      },
+      "trading_cost": {
+        "per_trade": 14.0,
+        "total_trades": 60,
+        "total_trading_cost": 855.0,
+        "avg_cost_per_month": 14.0
+      },
+      "expense_cost": {
+        "annual_expense": 480.0,
+        "total_expense": 2400.0,
+        "expense_ratio_pct": 0.32
+      },
+      "opportunity_cost": {
+        "annual_opp_cost": 2250.0,
+        "total_opp_cost": 11250.0,
+        "cash_rate": 0.015
+      },
+      "total_cost": {
+        "trading": 855.0,
+        "expense": 2400.0,
+        "total": 3255.0
+      },
+      "effective_cost_rate_pct": 1.08,
+      "dividend_income": {
+        "annual": 3000.0,
+        "total": 15000.0,
+        "yield_pct": 2.0
+      },
+      "estimated_outcome": {
+        "final_value": 440798.0,
+        "net_return": 152543.0,
+        "cp_ratio": 46.86
+      }
+    },
+    {
+      "etf_id": "00713",
+      "name": "元大高息低波",
+      "assumptions": {
+        "monthly_amount": 5000,
+        "years": 5,
+        "total_invested": 300000
+      },
+      "trading_cost": {
+        "per_trade": 14.0,
+        "total_trades": 60,
+        "total_trading_cost": 855.0,
+        "avg_cost_per_month": 14.0
+      },
+      "expense_cost": {
+        "annual_expense": 600.0,
+        "total_expense": 3000.0,
+        "expense_ratio_pct": 0.4
+      },
+      "opportunity_cost": {
+        "annual_opp_cost": 2250.0,
+        "total_opp_cost": 11250.0,
+        "cash_rate": 0.015
+      },
+      "total_cost": {
+        "trading": 855.0,
+        "expense": 3000.0,
+        "total": 3855.0
+      },
+      "effective_cost_rate_pct": 1.29,
+      "dividend_income": {
+        "annual": 7500.0,
+        "total": 37500.0,
+        "yield_pct": 5.0
+      },
+      "estimated_outcome": {
+        "final_value": 440798.0,
+        "net_return": 174443.0,
+        "cp_ratio": 45.25
+      }
+    },
+    {
+      "etf_id": "00919",
+      "name": "群益台灣精選",
+      "assumptions": {
+        "monthly_amount": 5000,
+        "years": 5,
+        "total_invested": 300000
+      },
+      "trading_cost": {
+        "per_trade": 14.0,
+        "total_trades": 60,
+        "total_trading_cost": 855.0,
+        "avg_cost_per_month": 14.0
+      },
+      "expense_cost": {
+        "annual_expense": 630.0,
+        "total_expense": 3150.0,
+        "expense_ratio_pct": 0.42
+      },
+      "opportunity_cost": {
+        "annual_opp_cost": 2250.0,
+        "total_opp_cost": 11250.0,
+        "cash_rate": 0.015
+      },
+      "total_cost": {
+        "trading": 855.0,
+        "expense": 3150.0,
+        "total": 4005.0
+      },
+      "effective_cost_rate_pct": 1.33,
+      "dividend_income": {
+        "annual": 7800.0,
+        "total": 39000.0,
+        "yield_pct": 5.2
+      },
+      "estimated_outcome": {
+        "final_value": 440798.0,
+        "net_return": 175793.0,
+        "cp_ratio": 43.89
+      }
+    },
+    {
+      "etf_id": "00646",
+      "name": "富邦S&P500",
+      "assumptions": {
+        "monthly_amount": 5000,
+        "years": 5,
+        "total_invested": 300000
+      },
+      "trading_cost": {
+        "per_trade": 14.0,
+        "total_trades": 60,
+        "total_trading_cost": 855.0,
+        "avg_cost_per_month": 14.0
+      },
+      "expense_cost": {
+        "annual_expense": 840.0,
+        "total_expense": 4200.0,
+        "expense_ratio_pct": 0.56
+      },
+      "opportunity_cost": {
+        "annual_opp_cost": 2250.0,
+        "total_opp_cost": 11250.0,
+        "cash_rate": 0.015
+      },
+      "total_cost": {
+        "trading": 855.0,
+        "expense": 4200.0,
+        "total": 5055.0
+      },
+      "effective_cost_rate_pct": 1.69,
+      "dividend_income": {
+        "annual": 2100.0,
+        "total": 10500.0,
+        "yield_pct": 1.4
+      },
+      "estimated_outcome": {
+        "final_value": 440798.0,
+        "net_return": 146243.0,
+        "cp_ratio": 28.93
+      }
+    }
+  ]
+}

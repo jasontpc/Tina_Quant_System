@@ -1,0 +1,54 @@
+{
+  "version": "v5.25_full_backtest",
+  "timestamp": "2026-04-24 10:05",
+  "market": "過熱",
+  "max_hold": 5,
+  "scan_total": 10,
+  "tradeable": 7,
+  "wr": 56.14035087719298,
+  "avg_return": 1.2320968307523166,
+  "total_trades": 114,
+  "etf_trades": 59,
+  "stock_trades": 55,
+  "etf_wr": 59.32203389830508,
+  "etf_avg": 0.5580391240237178,
+  "stock_wr": 52.72727272727272,
+  "stock_avg": 1.9551769161520858,
+  "blacklist": [
+    "2458",
+    "8081",
+    "2451",
+    "2454",
+    "2330",
+    "2379",
+    "1605",
+    "2353",
+    "6230",
+    "3413",
+    "3034",
+    "4938",
+    "2308"
+  ],
+  "stock_pool": [
+    "2382",
+    "2884",
+    "2474",
+    "3017"
+  ],
+  "etf_pool": [
+    "0050",
+    "0056",
+    "00891",
+    "00713",
+    "00900",
+    "00902"
+  ],
+  "fixes_applied": [
+    "BLACKLIST_13_ADDED_4938_2353",
+    "REFINE_STOCK_POOL_4_CORES",
+    "REMOVE_WEAK_ETF_00662_00646",
+    "MAINTAIN_ETF_POOL_6_SELECTED",
+    "TIER1_2382_3017_TIER2_2474_2884",
+    "REFINE_Avg_TARGET_3.0PCT"
+  ]
+}

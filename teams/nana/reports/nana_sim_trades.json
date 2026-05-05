@@ -1,0 +1,12 @@
+[
+  {
+    "action": "enter",
+    "symbol": "2881",
+    "name": "國泰金",
+    "entry_price": 87.8,
+    "entry_date": "2026-04-26",
+    "target": 91.49,
+    "stop": 85.96,
+    "score": 45
+  }
+]

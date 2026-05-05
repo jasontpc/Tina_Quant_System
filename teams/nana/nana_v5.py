@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Nana System v5.2 - Bias/ATR NaN 緊急修復 + today_chg 顯示修復
+Nana System v5.5 - 第十一輪修正版 (nana_v5 analyze() Veto 整合)
+P0: analyze() 新增 Veto 信號降級機制（與 nana_scorer.py 一致）
+P1: can_trade 增加 veto 條件
 """
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
+ROOT_DIR = 'C:/Users/USER/.openclaw/workspace/Tina_Quant_System'
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -12,13 +17,17 @@ import json
 import os
 from datetime import datetime
 from typing import List, Dict, Optional
+from core.position_sizing import PositionSizer
 
 DB_PATH = 'C:/Users/USER/.openclaw/workspace/Tina_Quant_System/data/tina_master.db'
 DATA_DIR = 'Tina_Quant_System/data'
 TEAM_DIR = 'Tina_Quant_System/teams/nana'
+TEAM_DIR = 'Tina_Quant_System/teams/nana'
+
+BLACKLIST = {'2615','1590','2382','2317','2303','3008','3231','2408','3443','6446','6669','2597','2379'}
 
 TIER1_TECH = [
-    '2330','2454','3034','2379','2303','2344',
+    '2330','2454','3034','2303','2344',
     '2382','3231','3717','4938',
     '2317','2353','2357','2345',
     '3017','6230','6269',
@@ -35,7 +44,7 @@ TIER3_BLUE = [
     '2801','2812','2834','1301','1326','2002',
     '0050','0056','00891','00713',
 ]
-ALL_STOCKS = list(set(TIER1_TECH + TIER2_RELATED + TIER3_BLUE))
+ALL_STOCKS = list(set(TIER1_TECH + TIER2_RELATED + TIER3_BLUE) - BLACKLIST)
 
 STOCK_NAMES = {
     '2330':'台積電','2454':'聯發科','3034':'聯詠','2379':'瑞昱',
@@ -69,6 +78,7 @@ def get_market_status():
     try:
         twii = yf.download('^TWII', period='20d', auto_adjust=True, progress=False)
         if isinstance(twii.columns, pd.MultiIndex): twii.columns = [c[0] for c in twii.columns]
+        twii = twii.dropna(subset=['Close'])
         close = twii['Close'].values
         ma20_s = pd.Series(close).rolling(20).mean()
         ma20 = last_valid(ma20_s, 0)
@@ -120,26 +130,29 @@ def analyze(symbol: str) -> Optional[Dict]:
         df = yf.download(symbol + '.TW', period='90d', auto_adjust=True, progress=False)
         if df is None or len(df) < 60: return None
         if isinstance(df.columns, pd.MultiIndex): df.columns = [c[0] for c in df.columns]
+        # Drop rows with NaN to avoid last-row NaN issue
+        df = df.dropna(subset=['Close'])
+        if len(df) < 60: return None
         close = df['Close'].values; high = df['High'].values; low = df['Low'].values
-        
+
         ma20_s = pd.Series(close).rolling(20).mean()
         ma60_s = pd.Series(close).rolling(60).mean()
         ma20 = last_valid(ma20_s, 0)
         ma60 = last_valid(ma60_s, 0)
-        
+
         rsi_vals = calc_rsi(close)
         rsi = rsi_vals[-1]
         atr_pct_arr = calc_atr(close, high, low)
         atr_pct = last_valid(pd.Series(atr_pct_arr), 0)
         bias_arr = (close - ma20_s.values) / ma20_s.values * 100
         bias = last_valid(pd.Series(bias_arr), 0)
-        
+
         # today_chg: compare today close vs yesterday close
         if len(close) >= 2:
             today_chg = (close[-1] / close[-2] - 1) * 100
         else:
             today_chg = 0.0
-        
+
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
         cur.execute('SELECT foreign_net, trust_net FROM MarketData WHERE symbol = ? ORDER BY date DESC LIMIT 10', (symbol,))
@@ -151,27 +164,66 @@ def analyze(symbol: str) -> Optional[Dict]:
         for f, t in rows:
             if t and t > 0: t_days += 1
             else: break
-        
+
         f_s = inst_score(f_days); t_s = inst_score(t_days)
         base = max(f_s, t_s)
         if f_days >= 3 and t_days >= 3: base += 10
         inst = min(70, base)
-        
+
         if 40 <= rsi <= 70: rsi_s = 20
         elif 30 <= rsi < 40: rsi_s = 12
         elif 70 < rsi <= 75: rsi_s = 10
         elif 75 < rsi <= 80: rsi_s = 5
         else: rsi_s = 3
-        
+
         bias_s = 15 if -3 <= bias <= 5 else (10 if 5 < bias <= 8 else 5)
         atr_s = 10 if atr_pct >= 0.5 else (5 if atr_pct >= 0.3 else 0)
         tech = rsi_s + bias_s + atr_s
         trend = (15 if ma20 > ma60 else 0) + (10 if bias > 0 else 5)
         total = inst * 0.40 + tech * 0.35 + trend * 0.25
-        
+
         tier = 1 if symbol in TIER1_TECH else (2 if symbol in TIER2_RELATED else 3)
-        # can_trade: require bias <= 8 (過濾偏離過大, 與 backtest 一致)
-        can_trade = bool(total >= 35 and rsi < 65 and ma20 > ma60 and atr_pct >= 0.3 and bias <= 8)
+        # Market regime: TWII RSI > 75 (overbought) 時,提高進場標準 RSI < 60
+        # Cache at module level to avoid repeated yfinance calls
+        if not hasattr(analyze, '_market_regime_cached'):
+            from nana_market_regime import MarketRegime
+            analyze._market_regime_cached = MarketRegime()
+        mr = analyze._market_regime_cached
+        if not hasattr(mr, '_regime'):
+            mr.get_regime()
+        adj_rsi_thresh = mr.get_adjusted_rsi_threshold(base_threshold=65)
+        rsi_threshold = adj_rsi_thresh
+
+        # === Veto 檢查（與 nana_scorer.py 一致）===
+        veto = False
+        veto_reason = ''
+        if rsi > 70:
+            veto = True
+            veto_reason = 'RSI>70'
+        if bias > 10:
+            veto = True
+            veto_reason = veto_reason + '+Bias>10' if veto_reason else 'Bias>10'
+
+        can_trade = bool(not veto and total >= 35 and rsi < rsi_threshold and ma20 > ma60 and atr_pct >= 0.3 and bias <= 8)
+
+        # === 信號判定（Veto 降級）===
+        if total >= 80 and not veto:
+            signal = '⭐ 強力買進'
+        elif total >= 60 and not veto:
+            signal = '買進'
+        elif total >= 40:
+            signal = '觀望'
+        else:
+            signal = '不進場'
+
+        # Veto 降級：過熱股票信號降一級
+        if veto:
+            if signal == '⭐ 強力買進':
+                signal = '觀望'
+            elif signal == '買進':
+                signal = '不進場'
+            elif signal == '觀望':
+                signal = '不進場'
 
         # Kelly position sizing (10% 建議倉位, 300萬本金)
         total_capital = 3_000_000
@@ -189,7 +241,8 @@ def analyze(symbol: str) -> Optional[Dict]:
             'price': round(close[-1], 0), 'today_chg': round(today_chg, 2),
             'can_trade': can_trade, 'ma20_above': ma20 > ma60,
             'kelly_ratio': round(kelly_ratio, 3), 'suggested_shares': suggested_shares,
-            'suggested_capital': round(suggested_capital, 0), 'position_ratio': round(position_ratio, 3)}
+            'suggested_capital': round(suggested_capital, 0), 'position_ratio': round(position_ratio, 3),
+            'signal': signal, 'veto': veto, 'veto_reason': veto_reason}
     except Exception as e:
         print(f"  Error analyzing {symbol}: {e}")
         return None
@@ -199,6 +252,8 @@ def backtest(symbol: str, max_hold: int = 2) -> List[Dict]:
         df = yf.download(symbol + '.TW', period='180d', auto_adjust=True, progress=False)
         if df is None or len(df) < 60: return []
         if isinstance(df.columns, pd.MultiIndex): df.columns = [c[0] for c in df.columns]
+        df = df.dropna(subset=['Close'])
+        if len(df) < 60: return []
         close = df['Close'].values; high = df['High'].values; low = df['Low'].values
         dates = [str(d)[:10] for d in df.index]
         ma20 = pd.Series(close).rolling(20).mean().values
@@ -206,12 +261,25 @@ def backtest(symbol: str, max_hold: int = 2) -> List[Dict]:
         rsi = calc_rsi(close)
         atr_pct = calc_atr(close, high, low)
         bias_arr = (close - ma20) / ma20 * 100
-        
+
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
         cur.execute('SELECT date, foreign_net, trust_net FROM MarketData WHERE symbol = ? ORDER BY date DESC LIMIT 180', (symbol,))
         rows = cur.fetchall(); conn.close()
         inst_map = {str(r[0])[:10]: {'f': r[1] or 0, 't': r[2] or 0} for r in rows}
+
+        # Market regime RSI threshold
+        if not hasattr(backtest, '_market_regime'):
+            from nana_market_regime import MarketRegime
+            backtest._market_regime = MarketRegime()
+        mr = backtest._market_regime
+        if not hasattr(mr, '_regime'):
+            mr.get_regime()
+        adj_rsi_thresh = mr.get_adjusted_rsi_threshold(base_threshold=65)
+        
+        # Position sizing (Kelly 10%)
+        kelly_ratio = 0.10  # 第八輪確認 Kelly 10%
+        total_capital = 3_000_000
         
         trades = []; position = None
         for i in range(60, len(dates)):
@@ -220,7 +288,7 @@ def backtest(symbol: str, max_hold: int = 2) -> List[Dict]:
             m60 = ma60[i] if not np.isnan(ma60[i]) else 0
             a = atr_pct[i] if not np.isnan(atr_pct[i]) else 0
             b = bias_arr[i] if not np.isnan(bias_arr[i]) else 0
-            
+
             f_d = t_d = 0
             for j in range(i, max(i - 20, -1), -1):
                 if j < 0: break
@@ -232,22 +300,22 @@ def backtest(symbol: str, max_hold: int = 2) -> List[Dict]:
                 inst = inst_map.get(dates[j], {'t': 0})
                 if inst['t'] > 0: t_d += 1
                 else: break
-            
+
             f_s = inst_score(f_d); t_s = inst_score(t_d)
             base = max(f_s, t_s)
             if f_d >= 3 and t_d >= 3: base += 10
             inst_val = min(70, base)
-            
+
             rsi_s = 20 if 40 <= r <= 70 else (12 if 30 <= r < 40 else (10 if 70 < r <= 75 else (5 if 75 < r <= 80 else 3)))
             bias_s = 15 if -3 <= b <= 5 else (10 if 5 < b <= 8 else 5)
             atr_s = 10 if a >= 0.5 else (5 if a >= 0.3 else 0)
             tech = rsi_s + bias_s + atr_s
             trend = (15 if m20 > m60 else 0) + (10 if b > 0 else 5)
             total = inst_val * 0.40 + tech * 0.35 + trend * 0.25
-            
+
             if position is None:
-                # Entry: require bias <= 8 (過濾偏離過大)
-                if total >= 35 and r < 65 and m20 > m60 and a >= 0.3 and b <= 8:
+                # Entry: require bias <= 8 (過濾偏離過大) + dynamic RSI threshold from MarketRegime
+                if total >= 35 and r < adj_rsi_thresh and m20 > m60 and a >= 0.3 and b <= 8:
                     position = {'entry': price, 'days': 0, 'score': total, 'entry_date': dates[i]}
             else:
                 position['days'] += 1
@@ -261,8 +329,11 @@ def backtest(symbol: str, max_hold: int = 2) -> List[Dict]:
                 # same-day buy→sell: today foreign < 0 while prev/entry were > 0
                 if today_f < 0 and entry_f > 0 and prev_f > 0:
                     profit = (price / position['entry'] - 1) * 100
+                    capital_used = kelly_ratio * total_capital * (1 + (position['score'] - 35) / 100)
+                    shares = int(capital_used / position['entry'] / 100) * 100
                     trades.append({'symbol': symbol, 'entry': position['entry'], 'exit': price,
-                        'profit': profit, 'days': position['days'], 'reason': 'inst_reversal', 'score': position['score']})
+                        'profit': profit, 'days': position['days'], 'reason': 'inst_reversal', 'score': position['score'],
+                        'shares': shares, 'capital': round(capital_used, 0), 'kelly_ratio': kelly_ratio})
                     position = None
                 else:
                     exit = False; reason = 'time'
@@ -276,13 +347,19 @@ def backtest(symbol: str, max_hold: int = 2) -> List[Dict]:
                         exit = True; reason = 'ma_cross'
                     if exit:
                         profit = (price / position['entry'] - 1) * 100
+                        capital_used = kelly_ratio * total_capital * (1 + (position['score'] - 35) / 100)
+                        shares = int(capital_used / position['entry'] / 100) * 100
                         trades.append({'symbol': symbol, 'entry': position['entry'], 'exit': price,
-                            'profit': profit, 'days': position['days'], 'reason': reason, 'score': position['score']})
+                            'profit': profit, 'days': position['days'], 'reason': reason, 'score': position['score'],
+                            'shares': shares, 'capital': round(capital_used, 0), 'kelly_ratio': kelly_ratio})
                         position = None
         if position:
             profit = (close[-1] / position['entry'] - 1) * 100
+            capital_used = kelly_ratio * total_capital * (1 + (position['score'] - 35) / 100)
+            shares = int(capital_used / position['entry'] / 100) * 100
             trades.append({'symbol': symbol, 'entry': position['entry'], 'exit': close[-1],
-                'profit': profit, 'days': position['days'], 'reason': 'eod', 'score': position['score']})
+                'profit': profit, 'days': position['days'], 'reason': 'eod', 'score': position['score'],
+                'shares': shares, 'capital': round(capital_used, 0), 'kelly_ratio': kelly_ratio})
         return trades
     except Exception as e:
         print(f"  Error backtesting {symbol}: {e}")
@@ -292,7 +369,7 @@ class NanaSystem:
     def __init__(self):
         self.status, self.max_hold, self.status_desc = get_market_status()
         self.results = []; self.trades = []; self.top_picks = []
-        
+
     def scan_universe(self):
         print(f'[{datetime.now().strftime("%H:%M:%S")}] Scanning {len(ALL_STOCKS)} stocks...')
         for symbol in ALL_STOCKS:
@@ -303,7 +380,7 @@ class NanaSystem:
         self.results.sort(key=lambda x: x['score'], reverse=True)
         self.top_picks.sort(key=lambda x: x['score'], reverse=True)
         print(f'  Scanned: {len(self.results)} | Tradeable: {len(self.top_picks)}')
-        
+
     def backtest_all(self):
         print(f'[{datetime.now().strftime("%H:%M:%S")}] Backtesting (max_hold={self.max_hold}days)...')
         all_trades = []
@@ -322,7 +399,7 @@ class NanaSystem:
             print(f'  Total trades: {len(df)} | WR: {wr:.1f}% | Avg: {avg:.2f}%')
             return wr, avg, len(df)
         return 0, 0, 0
-    
+
     def run(self):
         print('='*70)
         print(' NANA SYSTEM v5.3 - 第九輪修正版 (inst_reversal + Kelly + b<=8)')
@@ -330,7 +407,7 @@ class NanaSystem:
         print(f'市場狀態: {self.status_desc} | 最大持有: {self.max_hold}天')
         print()
         self.scan_universe(); print()
-        
+
         print('-'*70)
         print(f'{"排名":<4} {"代碼":<8} {"名稱":<8} {"Tier":<6} {"評分":<6} {"法人":<6} {"RSI":<6} {"Bias":<6} {"ATR%":<6} {"漲跌":<8}')
         print('-'*70)
@@ -340,7 +417,7 @@ class NanaSystem:
             chg_str = f"{r['today_chg']:+.2f}%"
             trade_tag = '✓' if r['can_trade'] else ' '
             print(f'{i:<4} {r["symbol"]:<8} {r["name"]:<8} {icon}{r["tier"]:<5} {r["score"]:<6.1f} {r["f_days"]:<6} {r["rsi"]:<6.1f} {r["bias"]:<6.1f} {r["atr"]:<6} {chg_str}')
-        
+
         print()
         print('-'*70)
         print(f' 可交易標的 (Score >= 35, RSI < 65, MA20 > MA60, ATR >= 0.3%, bias <= 8%)')
@@ -352,11 +429,11 @@ class NanaSystem:
                 cap_str = f'${r.get("suggested_capital", 0)/10000:.1f}萬' if r.get('suggested_capital', 0) > 0 else 'N/A'
                 print(f'  {tier_icon.get(r["tier"],"?")} [{r["score"]:.1f}] {r["symbol"]} {r["name"]} - RSI={r["rsi"]}, F={r["f_days"]}d, bias={r["bias"]:.1f}%, Kelly:{cap_str}/{shares_str}')
         else:
-            print('  無符合條件的標的（市場過熱，建議觀望）')
+            print('  無符合條件的標的(市場過熱,建議觀望)')
         print()
-        
+
         wr, avg, total = self.backtest_all()
-        
+
         if self.trades:
             df = pd.DataFrame(self.trades)
             print('\n【Tier 分析】')
@@ -370,12 +447,12 @@ class NanaSystem:
                 rdf = df[df['reason'] == reason]
                 wr_r = len(rdf[rdf['profit'] > 0]) / len(rdf) * 100
                 print(f'  {reason}: {cnt}筆 | WR={wr_r:.1f}% | Avg={rdf["profit"].mean():.2f}%')
-        
+
         print()
         print('='*70)
         print(f' 勝率: {wr:.1f}% | 平均報酬: {avg:.2f}% | 總交易: {total}筆')
         print('='*70)
-        
+
         report = {
             'version': 'v5.3_r9_fixes',
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M'),
@@ -392,7 +469,7 @@ class NanaSystem:
         with open(f'{TEAM_DIR}/nana_v5_report.json', 'w', encoding='utf-8') as f:
             json.dump(report, f, ensure_ascii=False, indent=2, cls=NumpyEncoder)
         print(f'\n報告已儲存: {TEAM_DIR}/nana_v5_report.json')
-        
+
         return report
 
 class NumpyEncoder(json.JSONEncoder):

@@ -1,0 +1,120 @@
+{
+  "date": "2026-04-29",
+  "report": {
+    "high_risk": 13,
+    "medium_risk": 13,
+    "low_risk": 3,
+    "total": 29
+  },
+  "alerts": [
+    {
+      "symbol": "2330",
+      "alert_type": "WATCH",
+      "severity": "MEDIUM",
+      "message": "2330 RSI=71.0 偏高，注意風險",
+      "rsi": 71.02803738317758,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "2454",
+      "alert_type": "OVERBOUGHT_MARGIN",
+      "severity": "HIGH",
+      "message": "2454 RSI=88.8 過熱，Margin 風險高",
+      "rsi": 88.75968992248062,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "3653",
+      "alert_type": "WATCH",
+      "severity": "MEDIUM",
+      "message": "3653 RSI=72.1 偏高，注意風險",
+      "rsi": 72.11009174311927,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "3665",
+      "alert_type": "OVERBOUGHT_MARGIN",
+      "severity": "HIGH",
+      "message": "3665 RSI=81.0 過熱，Margin 風險高",
+      "rsi": 80.95238095238095,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "2317",
+      "alert_type": "WATCH",
+      "severity": "MEDIUM",
+      "message": "2317 RSI=79.8 偏高，注意風險",
+      "rsi": 79.76190476190476,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "3016",
+      "alert_type": "WATCH",
+      "severity": "MEDIUM",
+      "message": "3016 RSI=79.5 偏高，注意風險",
+      "rsi": 79.52586105901756,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "2882",
+      "alert_type": "WATCH",
+      "severity": "MEDIUM",
+      "message": "2882 RSI=70.8 偏高，注意風險",
+      "rsi": 70.83333333333333,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "0050",
+      "alert_type": "OVERBOUGHT_MARGIN",
+      "severity": "HIGH",
+      "message": "0050 RSI=82.0 過熱，Margin 風險高",
+      "rsi": 82.04419738130494,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "0056",
+      "alert_type": "WATCH",
+      "severity": "MEDIUM",
+      "message": "0056 RSI=76.9 偏高，注意風險",
+      "rsi": 76.88044497311559,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "00878",
+      "alert_type": "OVERBOUGHT_MARGIN",
+      "severity": "HIGH",
+      "message": "00878 RSI=86.4 過熱，Margin 風險高",
+      "rsi": 86.36361797322893,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "00646",
+      "alert_type": "OVERBOUGHT_MARGIN",
+      "severity": "HIGH",
+      "message": "00646 RSI=85.7 過熱，Margin 風險高",
+      "rsi": 85.71426176015882,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    },
+    {
+      "symbol": "00662",
+      "alert_type": "OVERBOUGHT_MARGIN",
+      "severity": "HIGH",
+      "message": "00662 RSI=88.6 過熱，Margin 風險高",
+      "rsi": 88.58447170434451,
+      "margin_ratio": 0.03,
+      "created_at": "2026-04-29T16:40:49.998740"
+    }
+  ],
+  "updated": 29
+}

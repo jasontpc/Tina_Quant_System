@@ -1,0 +1,58 @@
+{
+  "version": "tier_v1",
+  "created": "2026-04-25",
+  "description": "Nana Tier-based entry/exit strategy - differentiated by stock conviction level",
+  "tiers": {
+    "tier1": {
+      "name": "高確信度核心持股",
+      "stocks": ["2449", "3017", "3665"],
+      "entry": {
+        "score_min": 25,
+        "rsi_max": 65,
+        "bias_max": 8.0,
+        "vol_min": 0.8
+      },
+      "exit": {
+        "rsi_exit": 80,
+        "bias_exit": 5.0
+      },
+      "max_hold_days": 7,
+      "position_size_pct": 100
+    },
+    "tier2": {
+      "name": "中確信度衛星倉",
+      "stocks": ["2382", "2345", "2474"],
+      "entry": {
+        "score_min": 22,
+        "rsi_max": 70,
+        "bias_max": 10.0,
+        "vol_min": 0.8
+      },
+      "exit": {
+        "rsi_exit": 82,
+        "bias_exit": 7.0
+      },
+      "max_hold_days": 5,
+      "position_size_pct": 70
+    },
+    "tier3": {
+      "name": "ETF/防禦性標的",
+      "stocks": ["0050", "0056", "00891", "00713", "00900", "00902"],
+      "entry": {
+        "score_min": 20,
+        "rsi_max": 75,
+        "bias_max": 12.0,
+        "vol_min": 0.6
+      },
+      "exit": {
+        "rsi_exit": 85,
+        "bias_exit": 10.0
+      },
+      "max_hold_days": 10,
+      "position_size_pct": 50
+    }
+  },
+  "inst_days_required": 2,
+  "inst_days_note": "F_Consec >= 2 AND T_Consec >= 2 required before entry (73.3% of losses from insufficient institutional days)",
+  "blacklist": ["2451", "2330", "1605", "6230", "2454", "2308", "3034", "3413", "2458", "2379", "8081", "4938", "2353", "2886"]
+}

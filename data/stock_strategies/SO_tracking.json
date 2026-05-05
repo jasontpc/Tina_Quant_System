@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "SO",
+    "name": "Southern Company",
+    "market": "US",
+    "type": "utility",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 96.71,
+      "rsi14": 53.2,
+      "ma20": 95.07,
+      "ma60": 95.1,
+      "bias20": 1.72,
+      "slope20": -0.0813,
+      "atr14": 1.55,
+      "vol": 7186738,
+      "vol_avg20": 4394122.0,
+      "vol_ratio": 1.64,
+      "high_20": 98.49,
+      "low_20": 91.6,
+      "K": 107.6,
+      "D": 108.4
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "SO",
+    "name": "Southern Company",
+    "market": "US",
+    "type": "utility",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 96.71,
+      "rsi14": 53.2,
+      "ma20": 95.07,
+      "ma60": 95.1,
+      "bias20": 1.72,
+      "slope20": -0.0813,
+      "atr14": 1.55,
+      "vol": 7186738,
+      "vol_avg20": 4394122.0,
+      "vol_ratio": 1.64,
+      "high_20": 98.49,
+      "low_20": 91.6,
+      "K": 74.6,
+      "D": 57.9
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "SO",
+    "name": "Southern Company",
+    "market": "US",
+    "type": "utility",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 96.71,
+      "rsi14": 53.2,
+      "ma20": 95.07,
+      "ma60": 95.1,
+      "bias20": 1.72,
+      "slope20": -0.0813,
+      "atr14": 1.55,
+      "vol": 7189300,
+      "vol_avg20": 4394250.0,
+      "vol_ratio": 1.64,
+      "high_20": 98.49,
+      "low_20": 91.6,
+      "K": 74.6,
+      "D": 57.9
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "SO",
+    "name": "Southern Company",
+    "market": "US",
+    "type": "utility",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 96.71,
+      "rsi14": 53.2,
+      "ma20": 95.07,
+      "ma60": 95.1,
+      "bias20": 1.72,
+      "slope20": -0.0813,
+      "atr14": 1.55,
+      "vol": 7189300,
+      "vol_avg20": 4394250.0,
+      "vol_ratio": 1.64,
+      "high_20": 98.49,
+      "low_20": 91.6,
+      "K": 74.6,
+      "D": 57.9
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

@@ -1,0 +1,2939 @@
+{
+  "date": "2026-04-27 11:10",
+  "best_params": {
+    "rsi_period": 14,
+    "rsi_threshold": 55,
+    "hold_days": 30,
+    "take_profit": 8,
+    "stop_loss": 10
+  },
+  "best_metrics": {
+    "total_trades": 102,
+    "wins": 65,
+    "win_rate": 63.725490196078425,
+    "avg_return": 2.6499736428541754,
+    "sharpe": -2.525088189544058,
+    "tp_count": 46,
+    "sl_avg": -11.618482898571758,
+    "score": 41.853815622268016
+  },
+  "grid_size": 243,
+  "all_results": [
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 38.105091548385886,
+      "wr": 57.692307692307686,
+      "avg": 1.343894904876021
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 37.98399933472589,
+      "wr": 57.28155339805825,
+      "avg": 1.386793898924476
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 38.747105594376805,
+      "wr": 59.59595959595959,
+      "avg": 1.5980960890001557
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.51885529710776,
+      "wr": 56.730769230769226,
+      "avg": 1.3128509903592378
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 37.392071469357695,
+      "wr": 56.310679611650485,
+      "avg": 1.3554485871793749
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 38.498766201541834,
+      "wr": 59.59595959595959,
+      "avg": 1.6120489546344172
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 37.400529213624104,
+      "wr": 56.86274509803921,
+      "avg": 1.3677771173091238
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 37.409489350166645,
+      "wr": 56.86274509803921,
+      "avg": 1.3976442391175912
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 38.401530401897475,
+      "wr": 59.59595959595959,
+      "avg": 1.6246299591868618
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 38.35775393144416,
+      "wr": 56.98924731182796,
+      "avg": 1.7122263664625947
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.77417141261291,
+      "wr": 58.24175824175825,
+      "avg": 1.7197655145704855
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 38.69316602066615,
+      "wr": 58.139534883720934,
+      "avg": 1.8841968130731974
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.41579328446768,
+      "wr": 54.83870967741935,
+      "avg": 1.6189525252865533
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 37.81150833383475,
+      "wr": 56.043956043956044,
+      "avg": 1.624441698863102
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.93343358128504,
+      "wr": 56.470588235294116,
+      "avg": 1.8369354670285494
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 36.03414198300958,
+      "wr": 52.22222222222223,
+      "avg": 1.4101029063282309
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 35.73832743399955,
+      "wr": 51.68539325842697,
+      "avg": 1.206409798725106
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.61030961086621,
+      "wr": 54.11764705882353,
+      "avg": 1.5441692911226532
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 39.09169020321761,
+      "wr": 57.49999999999999,
+      "avg": 1.9723006773920588
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 39.272711738009804,
+      "wr": 58.22784810126582,
+      "avg": 1.858406215306945
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 38.882382086924174,
+      "wr": 57.534246575342465,
+      "avg": 1.7768900614367484
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 38.022431931904066,
+      "wr": 55.00000000000001,
+      "avg": 1.949773106346898
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 38.189918551869496,
+      "wr": 55.69620253164557,
+      "avg": 1.8355934851346296
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 38.0456439856828,
+      "wr": 55.55555555555556,
+      "avg": 1.9114058782019383
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 36.633400546650435,
+      "wr": 51.94805194805194,
+      "avg": 1.9598200039863107
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 35.96838198198241,
+      "wr": 50.649350649350644,
+      "avg": 1.4746931866946562
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.85526435372264,
+      "wr": 52.77777777777778,
+      "avg": 1.8786589568532461
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.62257716220516,
+      "wr": 56.060606060606055,
+      "avg": 1.0904087225020702
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 37.16604217349233,
+      "wr": 54.961832061068705,
+      "avg": 0.9478759472645096
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 37.44161134638858,
+      "wr": 55.81395348837209,
+      "avg": 1.071521025429625
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.18325189038987,
+      "wr": 55.72519083969466,
+      "avg": 1.1324681333606526
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.75828720736528,
+      "wr": 54.61538461538461,
+      "avg": 0.9891624860894076
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.183683690167626,
+      "wr": 55.81395348837209,
+      "avg": 1.1161549362176901
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 37.02276536373409,
+      "wr": 55.81395348837209,
+      "avg": 1.2257553468138849
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.71120063329623,
+      "wr": 55.03875968992248,
+      "avg": 1.0915990102122546
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.91877355005771,
+      "wr": 55.46875,
+      "avg": 1.265703500192344
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.360070544598216,
+      "wr": 53.71900826446281,
+      "avg": 1.4894913470078412
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.71839441457692,
+      "wr": 57.26495726495726,
+      "avg": 1.8390924930341825
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 38.788956876062414,
+      "wr": 57.52212389380531,
+      "avg": 1.8776438641608606
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 36.49923122133015,
+      "wr": 52.10084033613446,
+      "avg": 1.5380536509324156
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 37.83887237150915,
+      "wr": 55.65217391304348,
+      "avg": 1.85421225285659
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.880110242610975,
+      "wr": 55.85585585585585,
+      "avg": 1.8976647726672338
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 34.57290551474728,
+      "wr": 48.275862068965516,
+      "avg": 1.1912942445599122
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 35.359388780945146,
+      "wr": 50.442477876106196,
+      "avg": 1.3602044910560775
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 35.86709489821714,
+      "wr": 51.81818181818182,
+      "avg": 1.5266799637541137
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 38.317840569790064,
+      "wr": 55.33980582524271,
+      "avg": 1.690536527131931
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 39.33816951020832,
+      "wr": 57.99999999999999,
+      "avg": 1.9605650340277294
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 39.97258081600656,
+      "wr": 59.57446808510638,
+      "avg": 2.178106266121175
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.3196360981919,
+      "wr": 53.0,
+      "avg": 1.732120327306339
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 38.3259915353381,
+      "wr": 55.670103092783506,
+      "avg": 1.9629271109208026
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 38.690539167865445,
+      "wr": 56.666666666666664,
+      "avg": 2.1166120410329734
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.73982358141408,
+      "wr": 49.473684210526315,
+      "avg": 1.852043516994298
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.13230019946884,
+      "wr": 50.53763440860215,
+      "avg": 1.820928980308316
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.131483876988796,
+      "wr": 52.87356321839081,
+      "avg": 2.2965171378553855
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 36.398192680178475,
+      "wr": 52.121212121212125,
+      "avg": 1.2768038834231856
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 36.2713211438984,
+      "wr": 51.829268292682926,
+      "avg": 1.270257471531256
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 36.45371438015881,
+      "wr": 52.46913580246913,
+      "avg": 1.2860438186363519
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 35.57778960003636,
+      "wr": 50.920245398773,
+      "avg": 1.2204438610618944
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 35.50768991738576,
+      "wr": 50.617283950617285,
+      "avg": 1.2190486958126487
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 35.67474230966401,
+      "wr": 51.24999999999999,
+      "avg": 1.2074743655467053
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.393343541940745,
+      "wr": 50.931677018633536,
+      "avg": 1.3836089079184584
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 35.386622845747674,
+      "wr": 50.931677018633536,
+      "avg": 1.3612065872748786
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 35.33082589971139,
+      "wr": 50.943396226415096,
+      "avg": 1.3438431457885036
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.35010152927167,
+      "wr": 53.90070921985816,
+      "avg": 1.2970287382341819
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.694782471402334,
+      "wr": 57.35294117647059,
+      "avg": 1.678686669380337
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 39.05791571313305,
+      "wr": 58.2089552238806,
+      "avg": 1.8099677999957455
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 35.727623290406676,
+      "wr": 50.72463768115942,
+      "avg": 1.0485993738193693
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 37.5287738677518,
+      "wr": 55.223880597014926,
+      "avg": 1.5635745840482893
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.21130916453818,
+      "wr": 54.54545454545454,
+      "avg": 1.4871921646222281
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 34.2345704095936,
+      "wr": 47.40740740740741,
+      "avg": 0.9670865504971786
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 35.77751168407098,
+      "wr": 51.515151515151516,
+      "avg": 1.3795844014487213
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 35.64822847937161,
+      "wr": 51.14503816793893,
+      "avg": 1.3592348803481418
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 38.13222110900622,
+      "wr": 54.54545454545454,
+      "avg": 1.721728765557949
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 39.799936020567884,
+      "wr": 58.620689655172406,
+      "avg": 2.235418919134341
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 40.03609540433897,
+      "wr": 59.09090909090909,
+      "avg": 2.3930452871905423
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.28001499615366,
+      "wr": 52.54237288135594,
+      "avg": 1.7525923600602038
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 38.821823776603765,
+      "wr": 56.25,
+      "avg": 2.233460207726838
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 38.95001586322964,
+      "wr": 56.60377358490566,
+      "avg": 2.3491094812057134
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.28441120467825,
+      "wr": 48.214285714285715,
+      "avg": 1.7516087774989206
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 37.3445400798986,
+      "wr": 53.271028037383175,
+      "avg": 2.347843880035852
+    },
+    {
+      "params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.26801063790886,
+      "wr": 52.94117647058824,
+      "avg": 2.560035459696189
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 34.191752551366726,
+      "wr": 47.72727272727273,
+      "avg": 0.4497812318284993
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 34.17105434075707,
+      "wr": 47.72727272727273,
+      "avg": 0.38078719646295817
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 34.41698098213367,
+      "wr": 48.275862068965516,
+      "avg": 0.5278676415950234
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 33.6013300092527,
+      "wr": 47.12643678160919,
+      "avg": 0.2994525212638118
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 33.58039388817626,
+      "wr": 47.12643678160919,
+      "avg": 0.22966545100901165
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 33.82231199686446,
+      "wr": 47.674418604651166,
+      "avg": 0.3766989042768688
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 33.26155442338668,
+      "wr": 46.51162790697674,
+      "avg": 0.25169303919591174
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 33.24037485904191,
+      "wr": 46.51162790697674,
+      "avg": 0.18109449138000933
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 33.481138839254264,
+      "wr": 47.05882352941176,
+      "avg": 0.3292863269259707
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 36.79811859206808,
+      "wr": 53.16455696202531,
+      "avg": 1.2046991043619617
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 37.13415038018772,
+      "wr": 53.94736842105263,
+      "avg": 1.2366416181696043
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 37.759762993165815,
+      "wr": 55.4054054054054,
+      "avg": 1.496507274516683
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 35.91673854389128,
+      "wr": 51.28205128205128,
+      "avg": 1.0472481377572556
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.221995553925446,
+      "wr": 52.0,
+      "avg": 1.073318513084812
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 36.83118765951249,
+      "wr": 53.42465753424658,
+      "avg": 1.3322693673247328
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 34.75459883038227,
+      "wr": 49.35064935064935,
+      "avg": 0.891952811230942
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 34.42553959570224,
+      "wr": 48.64864864864865,
+      "avg": 0.7427896433317845
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 35.60655597871394,
+      "wr": 51.388888888888886,
+      "avg": 1.1885199290465012
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 36.993978042536845,
+      "wr": 52.112676056338024,
+      "avg": 1.6465934751228475
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 37.91509236609093,
+      "wr": 55.072463768115945,
+      "avg": 1.3353320415591492
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 39.13929646330192,
+      "wr": 58.2089552238806,
+      "avg": 1.5837245294143318
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 36.00373531040978,
+      "wr": 50.0,
+      "avg": 1.4410224632707138
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.995948567952496,
+      "wr": 52.94117647058824,
+      "avg": 1.1629658147436106
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 38.24238199893565,
+      "wr": 56.060606060606055,
+      "avg": 1.5150107035228886
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 34.79072310424139,
+      "wr": 47.82608695652174,
+      "avg": 1.5487871590654847
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 35.071789965034455,
+      "wr": 49.25373134328358,
+      "avg": 0.9606929182740449
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.02090965043255,
+      "wr": 53.84615384615385,
+      "avg": 1.7363655014418256
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.479626224749076,
+      "wr": 55.932203389830505,
+      "avg": 1.146776681366981
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 37.78444065865887,
+      "wr": 56.779661016949156,
+      "avg": 1.1741242294278782
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 37.87749040113389,
+      "wr": 56.896551724137936,
+      "avg": 1.4307151302164025
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 36.635315074347744,
+      "wr": 54.700854700854705,
+      "avg": 1.020850817626409
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.94273475982942,
+      "wr": 55.55555555555556,
+      "avg": 1.0484321054143224
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.197736864446995,
+      "wr": 56.03448275862068,
+      "avg": 1.3200424217198645
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 36.11921037692483,
+      "wr": 53.91304347826087,
+      "avg": 0.9046142998943779
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.42744984654483,
+      "wr": 54.78260869565217,
+      "avg": 0.9175864450045202
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.6865228103358,
+      "wr": 55.26315789473685,
+      "avg": 1.2065380227567746
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 36.88275138874489,
+      "wr": 52.475247524752476,
+      "avg": 1.770887467433457
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 37.318520078431526,
+      "wr": 53.535353535353536,
+      "avg": 1.8866494196875758
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 37.353357753338344,
+      "wr": 53.608247422680414,
+      "avg": 1.9854193152515327
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 35.80960456197197,
+      "wr": 50.0,
+      "avg": 1.698681873239926
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.215163818480406,
+      "wr": 51.02040816326531,
+      "avg": 1.77163449697552
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 36.21375634046435,
+      "wr": 51.041666666666664,
+      "avg": 1.8236322459922814
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 34.752699159318816,
+      "wr": 47.95918367346938,
+      "avg": 1.658657061674964
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 34.96974714567129,
+      "wr": 48.45360824742268,
+      "avg": 1.7720093859146333
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 35.19187255227178,
+      "wr": 48.95833333333333,
+      "avg": 1.889575174239259
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.969140342185185,
+      "wr": 54.65116279069767,
+      "avg": 1.7963592801521602
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 39.088477142033476,
+      "wr": 57.647058823529406,
+      "avg": 1.7655120420723993
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 40.530831614158345,
+      "wr": 61.25000000000001,
+      "avg": 2.1861053805278265
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 36.79464979271451,
+      "wr": 51.76470588235295,
+      "avg": 1.7664797012052063
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 37.907159868056155,
+      "wr": 54.761904761904766,
+      "avg": 1.7143424173300486
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 39.30279697049326,
+      "wr": 58.22784810126582,
+      "avg": 2.1696607877201486
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.90758574351483,
+      "wr": 50.0,
+      "avg": 1.8870744296022655
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 37.28317966995378,
+      "wr": 53.65853658536586,
+      "avg": 2.000842802284965
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 38.48872668552238,
+      "wr": 56.41025641025641,
+      "avg": 2.5692598919122056
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.786334748534905,
+      "wr": 55.55555555555556,
+      "avg": 1.6128853757747863
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.01902873880282,
+      "wr": 56.25,
+      "avg": 1.6259291293427203
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 38.60758841243802,
+      "wr": 57.7922077922078,
+      "avg": 1.938714621546655
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 36.22044505334347,
+      "wr": 52.86624203821656,
+      "avg": 1.2974495408688813
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.472698337553034,
+      "wr": 53.5483870967742,
+      "avg": 1.306843920875705
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 36.90209517528912,
+      "wr": 54.666666666666664,
+      "avg": 1.5625394731859772
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 36.18891833001822,
+      "wr": 53.246753246753244,
+      "avg": 1.5604636974633364
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.321713688143426,
+      "wr": 53.59477124183007,
+      "avg": 1.584361531284189
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.71550743448597,
+      "wr": 54.666666666666664,
+      "avg": 1.7183581149532279
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.91861151356241,
+      "wr": 54.74452554744526,
+      "avg": 1.8089970160109652
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.41094542679318,
+      "wr": 56.060606060606055,
+      "avg": 1.9506261701186889
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 39.67591132901409,
+      "wr": 59.34959349593496,
+      "avg": 2.4562897959006227
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 35.18878892047889,
+      "wr": 49.23076923076923,
+      "avg": 1.0139117862117097
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.1795832984048,
+      "wr": 51.587301587301596,
+      "avg": 1.312896708968371
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.63712227904162,
+      "wr": 55.46218487394958,
+      "avg": 1.8296232830799037
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 34.79690963601445,
+      "wr": 48.8,
+      "avg": 1.2563654533814697
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 35.092115057615246,
+      "wr": 49.59349593495935,
+      "avg": 1.4046111676605906
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.490864866011165,
+      "wr": 53.38983050847458,
+      "avg": 1.8057077454609438
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 38.19967210115635,
+      "wr": 53.78151260504202,
+      "avg": 2.304229132706048
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.949098369629596,
+      "wr": 55.75221238938053,
+      "avg": 2.411448842718134
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 40.00001024849198,
+      "wr": 58.252427184466015,
+      "avg": 2.928836750636709
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 36.16888933448938,
+      "wr": 49.557522123893804,
+      "avg": 1.84615028900591
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.750246500252416,
+      "wr": 50.943396226415096,
+      "avg": 1.9347839316589928
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.84316815392996,
+      "wr": 53.608247422680414,
+      "avg": 2.5871928155053676
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.692586834696705,
+      "wr": 48.598130841121495,
+      "avg": 2.4488096982102063
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.224337010620445,
+      "wr": 50.0,
+      "avg": 2.5124959177544186
+    },
+    {
+      "params": {
+        "rsi_period": 12,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.597578088122795,
+      "wr": 53.125,
+      "avg": 3.1881455016106224
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 40.023059524055036,
+      "wr": 62.0253164556962,
+      "avg": 1.8279199325041409
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 40.03892864751346,
+      "wr": 62.0253164556962,
+      "avg": 1.8808170106988966
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 40.00008731293173,
+      "wr": 62.0253164556962,
+      "avg": 1.7513458954264691
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 39.348623658541975,
+      "wr": 61.53846153846154,
+      "avg": 1.8031045028322483
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 39.36469623230115,
+      "wr": 61.53846153846154,
+      "avg": 1.8566797486961677
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 39.325356931891456,
+      "wr": 61.53846153846154,
+      "avg": 1.7255487473305045
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 38.902219420998996,
+      "wr": 61.038961038961034,
+      "avg": 1.7303417929403972
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 38.91850072948232,
+      "wr": 61.038961038961034,
+      "avg": 1.7846128212181338
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 38.81371546413223,
+      "wr": 61.038961038961034,
+      "avg": 1.6517788198347345
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 40.0724195630859,
+      "wr": 60.60606060606061,
+      "avg": 2.3121056143267555
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 40.63365468302809,
+      "wr": 62.121212121212125,
+      "avg": 2.415212579790627
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 40.57940430014583,
+      "wr": 62.121212121212125,
+      "avg": 2.2343779701830937
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 38.864681207699746,
+      "wr": 57.8125,
+      "avg": 2.153104025665811
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 39.44345492514013,
+      "wr": 59.375,
+      "avg": 2.2594330838004284
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 39.3875092177928,
+      "wr": 59.375,
+      "avg": 2.07294739264266
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 37.65984065368339,
+      "wr": 56.25,
+      "avg": 2.043218845611306
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 38.238614371123774,
+      "wr": 57.8125,
+      "avg": 2.149547903745923
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.49894616411461,
+      "wr": 56.25,
+      "avg": 1.7673205470486941
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 41.04255285098643,
+      "wr": 61.29032258064516,
+      "avg": 2.7762514387719963
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 40.99495030248053,
+      "wr": 61.29032258064516,
+      "avg": 2.617576277085655
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 40.91817674448257,
+      "wr": 61.29032258064516,
+      "avg": 2.3616644170924412
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 39.62468078419352,
+      "wr": 58.333333333333336,
+      "avg": 2.6378248362006262
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 39.57549148407075,
+      "wr": 58.333333333333336,
+      "avg": 2.4738605024580735
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 39.53084579960669,
+      "wr": 58.333333333333336,
+      "avg": 2.3250415542445224
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 38.19439241504152,
+      "wr": 55.932203389830505,
+      "avg": 2.5406300840367106
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 38.141876808189366,
+      "wr": 55.932203389830505,
+      "avg": 2.3655780611962083
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 45,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.33749681423197,
+      "wr": 54.23728813559322,
+      "avg": 1.9441984203212659
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.618289323068396,
+      "wr": 56.36363636363636,
+      "avg": 1.3033886526522338
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.03221941809868,
+      "wr": 57.27272727272727,
+      "avg": 1.471034423965281
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 37.85194987737304,
+      "wr": 56.88073394495413,
+      "avg": 1.4483956157082931
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.25529070701221,
+      "wr": 56.36363636363636,
+      "avg": 1.3055144779194996
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 37.62376625658794,
+      "wr": 57.27272727272727,
+      "avg": 1.4731602492325466
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 37.42789568633797,
+      "wr": 56.88073394495413,
+      "avg": 1.4110284345822375
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 37.13665506277327,
+      "wr": 56.481481481481474,
+      "avg": 1.3505786043059733
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 37.48408808031495,
+      "wr": 57.407407407407405,
+      "avg": 1.428441749197974
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.236522002431585,
+      "wr": 57.009345794392516,
+      "avg": 1.3647306623108875
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.32485623497308,
+      "wr": 53.608247422680414,
+      "avg": 1.8904142540339883
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.91534866033553,
+      "wr": 57.446808510638306,
+      "avg": 2.3774033358702047
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 39.6148910106416,
+      "wr": 59.13978494623656,
+      "avg": 2.676876845507855
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.00774737241306,
+      "wr": 52.57731958762887,
+      "avg": 2.2079551589026027
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 38.58811930216187,
+      "wr": 56.38297872340425,
+      "avg": 2.705078524936754
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 39.27024994908284,
+      "wr": 58.06451612903226,
+      "avg": 2.961765063251041
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.850369512274014,
+      "wr": 50.526315789473685,
+      "avg": 2.0450913567028706
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.88724619429638,
+      "wr": 53.191489361702125,
+      "avg": 2.354650434888667
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 37.53325094703857,
+      "wr": 54.83870967741935,
+      "avg": 2.548112475791626
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 39.28935172835422,
+      "wr": 57.647058823529406,
+      "avg": 2.23901556510233
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 40.28659185464085,
+      "wr": 60.24096385542169,
+      "avg": 2.381008993381126
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 41.49148839697777,
+      "wr": 63.29113924050633,
+      "avg": 2.7142440236811782
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 38.77664805039083,
+      "wr": 56.470588235294116,
+      "avg": 2.4907876189498537
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 39.761533871184355,
+      "wr": 59.036144578313255,
+      "avg": 2.6388478437069027
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 40.98284033151272,
+      "wr": 62.0253164556962,
+      "avg": 3.018435915854171
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 38.019320582887765,
+      "wr": 55.55555555555556,
+      "avg": 2.5952661404900805
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 38.89898058603928,
+      "wr": 58.0246913580247,
+      "avg": 2.6468077147811293
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 39.799060769814794,
+      "wr": 59.74025974025974,
+      "avg": 3.153935541343773
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 36.709785344947086,
+      "wr": 53.289473684210535,
+      "avg": 1.2475300971920442
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 37.243432002569065,
+      "wr": 54.666666666666664,
+      "avg": 1.3669955641191036
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 37.13758624601479,
+      "wr": 54.36241610738255,
+      "avg": 1.4541465471186357
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 35.87452280279606,
+      "wr": 52.348993288590606,
+      "avg": 1.1589238840405587
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 36.41021874966232,
+      "wr": 53.74149659863946,
+      "avg": 1.288030752842645
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 36.434474596262234,
+      "wr": 53.74149659863946,
+      "avg": 1.3688835748423653
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.836227471373945,
+      "wr": 52.38095238095239,
+      "avg": 1.4155428184120018
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.37007950937109,
+      "wr": 53.79310344827586,
+      "avg": 1.5209546864093972
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 14,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.203844266328026,
+      "wr": 53.47222222222222,
+      "avg": 1.559110517389727
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 37.3964013630098,
+      "wr": 54.19847328244275,
+      "avg": 1.4612869861140954
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 38.8379682602777,
+      "wr": 57.599999999999994,
+      "avg": 2.0598942009256653
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 39.25200009840534,
+      "wr": 58.536585365853654,
+      "avg": 2.2627645556600746
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 36.423969079067405,
+      "wr": 51.96850393700787,
+      "avg": 1.4526003422981892
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 37.8649712977024,
+      "wr": 55.371900826446286,
+      "avg": 2.070565482699436
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 38.21261336300843,
+      "wr": 56.30252100840336,
+      "avg": 2.2073106498040156
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 35.810949214921706,
+      "wr": 50.806451612903224,
+      "avg": 1.7354221142551542
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 36.662626254583586,
+      "wr": 52.892561983471076,
+      "avg": 2.1949800772620955
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 21,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 36.98280032789564,
+      "wr": 53.78151260504202,
+      "avg": 2.309614538363617
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 6
+      },
+      "score": 38.871971818022196,
+      "wr": 56.25,
+      "avg": 1.9541917743597175
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 8
+      },
+      "score": 40.81728951930914,
+      "wr": 61.32075471698113,
+      "avg": 2.284046825370096
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "score": 41.853815622268016,
+      "wr": 63.725490196078425,
+      "avg": 2.6499736428541754
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 6
+      },
+      "score": 37.710052499361524,
+      "wr": 53.70370370370371,
+      "avg": 2.02733549169891
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 8
+      },
+      "score": 39.972498507235386,
+      "wr": 59.4059405940594,
+      "avg": 2.4990874333588735
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 10,
+        "stop_loss": 10
+      },
+      "score": 41.041445953751136,
+      "wr": 61.855670103092784,
+      "avg": 2.9120275790456827
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 6
+      },
+      "score": 37.18702169998715,
+      "wr": 52.88461538461539,
+      "avg": 2.450328743546907
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 8
+      },
+      "score": 39.41584645249853,
+      "wr": 58.58585858585859,
+      "avg": 2.884985789719118
+    },
+    {
+      "params": {
+        "rsi_period": 14,
+        "rsi_threshold": 55,
+        "hold_days": 30,
+        "take_profit": 12,
+        "stop_loss": 10
+      },
+      "score": 40.416725695287795,
+      "wr": 60.63829787234043,
+      "avg": 3.361135866861946
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "team": "nana",
+  "updated_at": "2026-05-02T08:11:06.410437",
+  "stocks": [
+    {
+      "symbol": "2330",
+      "name": "台積電",
+      "price": 2135.0,
+      "change_pct": -2.06,
+      "rsi": 62.62,
+      "ma": {
+        "ma5": 2196.0,
+        "ma10": 2121.5,
+        "ma20": 2042.75,
+        "ma60": NaN
+      },
+      "bias": 4.52,
+      "institutional": {
+        "buy": 0,
+        "sell": 0,
+        "net": 0
+      },
+      "updated_at": "2026-05-02T08:11:05.496689"
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "price": 312.5,
+      "change_pct": -2.95,
+      "rsi": 44.94,
+      "ma": {
+        "ma5": 320.8,
+        "ma10": 325.3,
+        "ma20": 316.4,
+        "ma60": NaN
+      },
+      "bias": -1.23,
+      "institutional": {
+        "buy": 0,
+        "sell": 0,
+        "net": 0
+      },
+      "updated_at": "2026-05-02T08:11:05.695427"
+    },
+    {
+      "symbol": "3665",
+      "name": "穎崴",
+      "price": 2770.0,
+      "change_pct": -0.36,
+      "rsi": 78.79,
+      "ma": {
+        "ma5": 2715.0,
+        "ma10": 2613.5,
+        "ma20": 2378.0,
+        "ma60": NaN
+      },
+      "bias": 16.48,
+      "institutional": {
+        "buy": 0,
+        "sell": 0,
+        "net": 0
+      },
+      "updated_at": "2026-05-02T08:11:05.938827"
+    },
+    {
+      "symbol": "2317",
+      "name": "鴻海",
+      "price": 219.5,
+      "change_pct": -2.44,
+      "rsi": 70.21,
+      "ma": {
+        "ma5": 223.9,
+        "ma10": 219.0,
+        "ma20": 209.8,
+        "ma60": NaN
+      },
+      "bias": 4.62,
+      "institutional": {
+        "buy": 0,
+        "sell": 0,
+        "net": 0
+      },
+      "updated_at": "2026-05-02T08:11:06.160250"
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "price": 409.0,
+      "change_pct": 0.12,
+      "rsi": 58.62,
+      "ma": {
+        "ma5": 412.9,
+        "ma10": 414.85,
+        "ma20": 405.075,
+        "ma60": NaN
+      },
+      "bias": 0.97,
+      "institutional": {
+        "buy": 0,
+        "sell": 0,
+        "net": 0
+      },
+      "updated_at": "2026-05-02T08:11:06.410437"
+    }
+  ]
+}

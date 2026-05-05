@@ -1,0 +1,107 @@
+{
+  "date": "2026-04-28T21:49:54.360486",
+  "candidates": [
+    {
+      "symbol": "HON",
+      "name": "Honeywell",
+      "sector": "Robotics",
+      "subsector": "Industrial",
+      "price": 212.97999572753906,
+      "rsi": 23.569275643739573,
+      "zone": "OVERSOLD",
+      "from_high": -14.134816363323072,
+      "from_low": 15.028621059057064,
+      "distance": -14.134816363323072
+    }
+  ],
+  "top_picks": [
+    {
+      "symbol": "HON",
+      "name": "Honeywell",
+      "rsi": 23.569275643739573,
+      "action": "嚴重超賣，，立即進場"
+    }
+  ],
+  "sectors": {
+    "Robotics": {
+      "avg_rsi": 34.95477318125472,
+      "count": 2
+    },
+    "AI/Enterprise": {
+      "avg_rsi": 50.72200290797655,
+      "count": 3
+    },
+    "AI/Data": {
+      "avg_rsi": 49.193946094206694,
+      "count": 2
+    },
+    "AI/Semi Equip": {
+      "avg_rsi": 55.1592276901321,
+      "count": 4
+    },
+    "AI/Observability": {
+      "avg_rsi": 49.71057148984951,
+      "count": 1
+    },
+    "AI/Security": {
+      "avg_rsi": 54.594118623990525,
+      "count": 2
+    },
+    "AI/Automation": {
+      "avg_rsi": 52.84916365415652,
+      "count": 1
+    },
+    "Crypto/AI": {
+      "avg_rsi": 59.99892909319738,
+      "count": 1
+    },
+    "Autonomous": {
+      "avg_rsi": 62.22222169894404,
+      "count": 1
+    },
+    "AI/Semi Fab": {
+      "avg_rsi": 65.70575795936432,
+      "count": 1
+    },
+    "AI/Robotics": {
+      "avg_rsi": 67.37105679245931,
+      "count": 1
+    },
+    "AI/Finance": {
+      "avg_rsi": 69.97942966507678,
+      "count": 1
+    },
+    "AI/Social": {
+      "avg_rsi": 72.48056929597837,
+      "count": 1
+    },
+    "AI/Cloud": {
+      "avg_rsi": 79.07808924228635,
+      "count": 2
+    },
+    "AI/Search": {
+      "avg_rsi": 76.41838353458215,
+      "count": 1
+    },
+    "AI/GPU": {
+      "avg_rsi": 80.70108484585232,
+      "count": 2
+    },
+    "AI/Memory": {
+      "avg_rsi": 81.19046598280563,
+      "count": 1
+    },
+    "AI/CPU": {
+      "avg_rsi": 82.19155533380263,
+      "count": 1
+    },
+    "Tech ETF": {
+      "avg_rsi": 82.8302020022998,
+      "count": 1
+    },
+    "Semi ETF": {
+      "avg_rsi": 86.50340705034043,
+      "count": 2
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-04-26 10:39:41",
+  "team": "leo",
+  "best_config": {
+    "rsi_entry_min": 30,
+    "rsi_entry_max": 60,
+    "atr_tp_mult": 2.0,
+    "atr_sl_mult": 2.0,
+    "hold_days": 3,
+    "trailing_atr": 1.5,
+    "score_min": 30,
+    "adx_threshold": 15
+  },
+  "backtest_result": {
+    "total_trades": 140,
+    "win_rate": 59.285714285714285,
+    "avg_return": 0.5832277451478102,
+    "avg_win": 2.564985234822747,
+    "avg_loss": -2.302489301220958,
+    "score": 177.68658048555815
+  }
+}

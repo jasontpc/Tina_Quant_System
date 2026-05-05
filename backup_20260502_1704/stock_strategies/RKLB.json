@@ -1,0 +1,50 @@
+{
+  "stock": "RKLB",
+  "name": "RocketLab",
+  "market": "US",
+  "type": "us_growth",
+  "team": "Nana",
+  "volatility_tier": "high",
+  "stock_character": {
+    "label": "Space/Aerospace",
+    "bias": "High volatility high momentum",
+    "atr_multiplier": 1.4,
+    "noise_level": "high",
+    "suitable_strategy": "Momentum breakout"
+  },
+  "entry": {
+    "rsi_max": 65,
+    "rsi_ideal": "40-55",
+    "rsi_min": 35,
+    "rsi_length": 14,
+    "bias20_max": 10,
+    "bias20_ideal": "0-6",
+    "ma_required": "MA20>MA60",
+    "ma20_slope_min": 1.0,
+    "volume_ratio_min": 1.5
+  },
+  "exit": {
+    "stop_loss_atr": 1.5,
+    "stop_loss_pct": 10,
+    "take_profit_atr": 5.0,
+    "take_profit_pct": 20,
+    "trailing_stop_atr": 2.0,
+    "rsi_overbought_exit": 80,
+    "max_hold_days": 14
+  },
+  "position": {
+    "max_position_pct": 10,
+    "allow_add": false,
+    "add_limit": 0
+  },
+  "risk": {
+    "max_loss_per_trade": 6,
+    "max_daily_loss": 8,
+    "max_total_exposure": 20
+  },
+  "brain_instructions": {
+    "think_context": "RKLB is a high-momentum space stock, very volatile, strong 1M performance",
+    "avoid_mistakes": "High volatility - use tighter stop loss, do not average down",
+    "special_notes": "Revenue growth 36%, PE N/A, momentum driven trade"
+  }
+}

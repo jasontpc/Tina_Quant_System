@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-04 14:45",
+  "twii_rsi": 84.47158368374974,
+  "threshold": {
+    "leo": 40,
+    "nana": 35,
+    "position_mult": 1.0
+  },
+  "signals": []
+}

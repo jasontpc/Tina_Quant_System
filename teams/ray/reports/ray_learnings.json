@@ -1,0 +1,184 @@
+[
+  {
+    "type": "market_state",
+    "data": {
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "position": 100.0,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "dca_knowledge",
+    "data": {
+      "entry_threshold": 50,
+      "best_performing_etf": "00878",
+      "low_threshold": 30,
+      "high_threshold": 75,
+      "note": "threshold=50已驗證最優，位置<50%時DCA勝出"
+    }
+  },
+  {
+    "type": "etf_info",
+    "symbol": "0050",
+    "name": "元大台灣50",
+    "price": 89.95,
+    "1y_high": 89.95,
+    "1y_low": 39.63,
+    "position": 100.0
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00646",
+    "name": "富邦S&P500",
+    "price": 70.35,
+    "1y_high": 70.35,
+    "1y_low": 52.3,
+    "position": 100.0
+  },
+  {
+    "type": "etf_info",
+    "symbol": "0056",
+    "name": "元大高股息",
+    "price": 40.95,
+    "1y_high": 41.61,
+    "1y_low": 28.62,
+    "position": 94.9
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00713",
+    "name": "元大高息低波",
+    "price": 53.45,
+    "1y_high": 54.2,
+    "1y_low": 46.35,
+    "position": 90.4
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00878",
+    "name": "國泰永續高息",
+    "price": 25.0,
+    "1y_high": 25.1,
+    "1y_low": 18.24,
+    "position": 98.5
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00919",
+    "name": "群益台灣精選",
+    "price": 23.5,
+    "1y_high": 23.94,
+    "1y_low": 18.43,
+    "position": 92.0
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00915",
+    "name": "兆豐永續高息",
+    "price": 24.8,
+    "1y_high": 25.06,
+    "1y_low": 20.6,
+    "position": 94.2
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00918",
+    "name": "中信上游半導體",
+    "price": 23.36,
+    "1y_high": 23.83,
+    "1y_low": 18.33,
+    "position": 91.4
+  },
+  {
+    "type": "market_state",
+    "data": {
+      "regime": "OVERBOUGHT",
+      "rsi": 93.3,
+      "position": 100.0,
+      "close": 38932.4
+    }
+  },
+  {
+    "type": "dca_knowledge",
+    "data": {
+      "entry_threshold": 50,
+      "best_performing_etf": "00878",
+      "low_threshold": 30,
+      "high_threshold": 75,
+      "note": "threshold=50已驗證最優，位置<50%時DCA勝出"
+    }
+  },
+  {
+    "type": "etf_info",
+    "symbol": "0050",
+    "name": "元大台灣50",
+    "price": 89.95,
+    "1y_high": 89.95,
+    "1y_low": 39.63,
+    "position": 100.0
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00646",
+    "name": "富邦S&P500",
+    "price": 70.35,
+    "1y_high": 70.35,
+    "1y_low": 52.3,
+    "position": 100.0
+  },
+  {
+    "type": "etf_info",
+    "symbol": "0056",
+    "name": "元大高股息",
+    "price": 40.95,
+    "1y_high": 41.61,
+    "1y_low": 28.62,
+    "position": 94.9
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00713",
+    "name": "元大高息低波",
+    "price": 53.45,
+    "1y_high": 54.2,
+    "1y_low": 46.35,
+    "position": 90.4
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00878",
+    "name": "國泰永續高息",
+    "price": 25.0,
+    "1y_high": 25.1,
+    "1y_low": 18.24,
+    "position": 98.5
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00919",
+    "name": "群益台灣精選",
+    "price": 23.5,
+    "1y_high": 23.94,
+    "1y_low": 18.43,
+    "position": 92.0
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00915",
+    "name": "兆豐永續高息",
+    "price": 24.8,
+    "1y_high": 25.06,
+    "1y_low": 20.6,
+    "position": 94.2
+  },
+  {
+    "type": "etf_info",
+    "symbol": "00918",
+    "name": "中信上游半導體",
+    "price": 23.36,
+    "1y_high": 23.83,
+    "1y_low": 18.33,
+    "position": 91.4
+  }
+]

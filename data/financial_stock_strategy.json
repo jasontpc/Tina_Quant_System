@@ -1,0 +1,479 @@
+{
+  "version": "v1.0",
+  "date": "2026-05-04",
+  "name": "金融股交易策略",
+  "category": "financial_stocks",
+  "strategies": [
+    {
+      "id": "FIN_RSI_35",
+      "name": "Mean Reversion + RSI",
+      "type": "mean_reversion",
+      "entry": "RSI < 35 超賣進場",
+      "exit": "RSI > 60 或持有>10天",
+      "stop_loss": "ATR 1.5x",
+      "max_hold_days": 10,
+      "best_for": [
+        "2892",
+        "2881",
+        "2882",
+        "2891"
+      ],
+      "expected_win_rate": "55-60%",
+      "risk": "medium"
+    },
+    {
+      "id": "FIN_VALUE",
+      "name": "Value Investing + PB",
+      "type": "value",
+      "entry": "RSI < 45 + MA20>MA60",
+      "exit": "RSI > 65 或持有>30天",
+      "stop_loss": "ATR 2x",
+      "max_hold_days": 30,
+      "best_for": [
+        "2892",
+        "2886",
+        "2885"
+      ],
+      "expected_win_rate": "50-55%",
+      "risk": "low"
+    },
+    {
+      "id": "FIN_MACRO",
+      "name": "Interest Rate Sensitive",
+      "type": "macro",
+      "entry": "央行信號改變 + RSI<40",
+      "exit": "RSI > 55",
+      "stop_loss": "ATR 2x",
+      "max_hold_days": 15,
+      "best_for": [
+        "2883",
+        "2887",
+        "2890"
+      ],
+      "expected_win_rate": "52-58%",
+      "risk": "medium"
+    },
+    {
+      "id": "FIN_DIV",
+      "name": "Dividend Capture",
+      "type": "dividend",
+      "entry": "除息日前5天 + RSI<50 + MA20>MA60",
+      "exit": "除息日+3天或 RSI>60",
+      "stop_loss": "ATR 1.5x",
+      "max_hold_days": 8,
+      "best_for": [
+        "2884",
+        "2885",
+        "2891"
+      ],
+      "expected_win_rate": "60-65%",
+      "risk": "low"
+    }
+  ],
+  "backtest_results": {
+    "mean_reversion": {
+      "2892": {
+        "win_rate": 37.5,
+        "avg_pnl": -0.26,
+        "pf": 1.32
+      },
+      "台灣最大集團": {
+        "win_rate": 54.5,
+        "avg_pnl": 1.04,
+        "pf": 1.56
+      },
+      "2881": {
+        "win_rate": 40.0,
+        "avg_pnl": 0.53,
+        "pf": 1.93
+      },
+      "2882": {
+        "win_rate": 36.4,
+        "avg_pnl": -1.71,
+        "pf": 0.9
+      },
+      "2884": {
+        "win_rate": 45.5,
+        "avg_pnl": 1.3,
+        "pf": 3.09
+      },
+      "2885": {
+        "win_rate": 50.0,
+        "avg_pnl": 0.83,
+        "pf": 1.39
+      },
+      "2886": {
+        "win_rate": 50.0,
+        "avg_pnl": 0.9,
+        "pf": 2.11
+      },
+      "2887": {
+        "win_rate": 53.8,
+        "avg_pnl": 0.27,
+        "pf": 0.98
+      },
+      "2891": {
+        "win_rate": 50.0,
+        "avg_pnl": -1.03,
+        "pf": 0.57
+      }
+    },
+    "value": {
+      "2892": {
+        "win_rate": 50.0,
+        "avg_pnl": 0.56,
+        "pf": 1.47
+      },
+      "2881": {
+        "win_rate": 54.5,
+        "avg_pnl": 1.6,
+        "pf": 1.55
+      },
+      "2882": {
+        "win_rate": 45.5,
+        "avg_pnl": -0.55,
+        "pf": 0.95
+      },
+      "2884": {
+        "win_rate": 50.0,
+        "avg_pnl": 0.75,
+        "pf": 1.44
+      },
+      "2885": {
+        "win_rate": 77.8,
+        "avg_pnl": 2.18,
+        "pf": 0.7
+      },
+      "2886": {
+        "win_rate": 50.0,
+        "avg_pnl": -0.84,
+        "pf": 0.62
+      },
+      "2887": {
+        "win_rate": 60.0,
+        "avg_pnl": 2.0,
+        "pf": 1.22
+      },
+      "2891": {
+        "win_rate": 70.0,
+        "avg_pnl": -0.72,
+        "pf": 0.3
+      }
+    }
+  },
+  "key_findings": [
+    "金融股波動性低（ATR 1-3%），MA策略無效",
+    "元大金(2885) Value策略勝率77.8%最佳",
+    "玉山金(2884) Mean Reversion PF 3.09最高",
+    "兆豐金(2886) Mean Reversion PF 2.11",
+    "除息前5天進場策略勝率60-65%最佳",
+    "RSI<35超賣進場比RSI<45更有效"
+  ],
+  "optimized_params": {
+    "2892.TW_MR": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        55,
+        65
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 21,
+      "win_rate": 61.904761904761905,
+      "avg_pnl": 0.6776827000475155,
+      "avg_win": 2.362032033295834,
+      "avg_loss": -2.0593849664810024,
+      "pf": 1.1469599282022453,
+      "score": 43.00833104440237
+    },
+    "2892.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        60,
+        70
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 25,
+      "win_rate": 68.0,
+      "avg_pnl": 0.12468914858820696,
+      "avg_win": 1.3905943441681723,
+      "avg_loss": -2.5653593920192197,
+      "pf": 0.5420660935439622,
+      "score": 33.8675524213217
+    },
+    "2881.TW_MR": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 18,
+      "win_rate": 66.66666666666666,
+      "avg_pnl": 2.0154628584678798,
+      "avg_win": 4.704475915585795,
+      "avg_loss": -3.36256325576795,
+      "pf": 1.3990743244802917,
+      "score": 60.812038496148375
+    },
+    "2881.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 8,
+      "total_trades": 26,
+      "win_rate": 73.07692307692307,
+      "avg_pnl": 0.7474553866957722,
+      "avg_win": 1.58669859021089,
+      "avg_loss": -1.5304904514166908,
+      "pf": 1.036725572996663,
+      "score": 47.072578827693576
+    },
+    "2882.TW_MR": {
+      "rsi_entry": [
+        40,
+        50
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.0,
+      "max_hold": 15,
+      "total_trades": 22,
+      "win_rate": 63.63636363636363,
+      "avg_pnl": 1.5441109422091506,
+      "avg_win": 4.372691004775062,
+      "avg_loss": -3.405904167281193,
+      "pf": 1.2838561480329669,
+      "score": 53.73421635696663
+    },
+    "2882.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.0,
+      "max_hold": 8,
+      "total_trades": 22,
+      "win_rate": 68.18181818181817,
+      "avg_pnl": 1.094744981603891,
+      "avg_win": 2.776898260995666,
+      "avg_loss": -2.509869188521342,
+      "pf": 1.1063916293707883,
+      "score": 49.28409338247406
+    },
+    "2884.TW_MR": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 18,
+      "win_rate": 66.66666666666666,
+      "avg_pnl": 0.7654119460215809,
+      "avg_win": 3.1312541883674014,
+      "avg_loss": -3.96627253867006,
+      "pf": 0.7894702539572204,
+      "score": 42.215488666454675
+    },
+    "2884.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.0,
+      "max_hold": 15,
+      "total_trades": 20,
+      "win_rate": 55.00000000000001,
+      "avg_pnl": 0.49598686840829026,
+      "avg_win": 1.7738755281899663,
+      "avg_loss": -1.065877049102647,
+      "pf": 1.6642402889558203,
+      "score": 43.602271573641104
+    },
+    "2885.TW_MR": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.0,
+      "max_hold": 15,
+      "total_trades": 14,
+      "win_rate": 78.57142857142857,
+      "avg_pnl": 2.583735559038478,
+      "avg_win": 4.8221877059571,
+      "avg_loss": -5.623922312996467,
+      "pf": 0.8574420906941375,
+      "score": 65.84034792589759
+    },
+    "2885.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        60,
+        70
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 40,
+      "win_rate": 72.5,
+      "avg_pnl": 1.5109016691511932,
+      "avg_win": 2.722757180342964,
+      "avg_loss": -1.6839901330816593,
+      "pf": 1.6168486541903826,
+      "score": 60.27750323341576
+    },
+    "2886.TW_MR": {
+      "rsi_entry": [
+        35,
+        45
+      ],
+      "rsi_exit": [
+        55,
+        65
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 22,
+      "win_rate": 63.63636363636363,
+      "avg_pnl": 1.0729593600950602,
+      "avg_win": 2.5573649078039944,
+      "avg_loss": -1.5247503483955738,
+      "pf": 1.6772351686917104,
+      "score": 52.95649074241316
+    },
+    "2886.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 10,
+      "total_trades": 18,
+      "win_rate": 66.66666666666666,
+      "avg_pnl": 0.3533581450680528,
+      "avg_win": 1.4084239245559436,
+      "avg_loss": -1.7567734139077278,
+      "pf": 0.8017106323479001,
+      "score": 38.21735444082619
+    },
+    "2887.TW_MR": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        60,
+        70
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 21,
+      "win_rate": 52.38095238095239,
+      "avg_pnl": 1.4109431586181873,
+      "avg_win": 5.49762418378593,
+      "avg_loss": -3.084405969066328,
+      "pf": 1.7823931865396112,
+      "score": 52.885744403958945
+    },
+    "2887.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        60,
+        70
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 8,
+      "total_trades": 22,
+      "win_rate": 72.72727272727273,
+      "avg_pnl": 0.9626884573377862,
+      "avg_win": 2.782779120255746,
+      "avg_loss": -3.8908866437767724,
+      "pf": 0.7152043672890408,
+      "score": 45.869837337177366
+    },
+    "2891.TW_MR": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 16,
+      "win_rate": 75.0,
+      "avg_pnl": 2.508281920559211,
+      "avg_win": 5.103624650626302,
+      "avg_loss": -5.277746269642064,
+      "pf": 0.9670083383853975,
+      "score": 64.75290258944608
+    },
+    "2891.TW_VAL": {
+      "rsi_entry": [
+        30,
+        40
+      ],
+      "rsi_exit": [
+        65,
+        75
+      ],
+      "atr_mult": 2.5,
+      "max_hold": 15,
+      "total_trades": 30,
+      "win_rate": 76.66666666666667,
+      "avg_pnl": 1.8318852688041305,
+      "avg_win": 3.1596452453438086,
+      "avg_loss": -2.530754654111953,
+      "pf": 1.2484992333057803,
+      "score": 61.47051168776578
+    }
+  },
+  "last_optimized": "2026-05-04 13:25"
+}

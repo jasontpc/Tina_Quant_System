@@ -1,0 +1,14 @@
+{
+  "symbol": "5880",
+  "name": "合庫金",
+  "scraped_at": "2026-04-28 06:26:32",
+  "data": {
+    "price": 39616.0,
+    "change_pct": 1.76,
+    "volume": null,
+    "rsi": null,
+    "ma5": 10.0,
+    "ma10": 20.0,
+    "ma20": 60.0
+  }
+}

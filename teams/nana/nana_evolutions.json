@@ -1,0 +1,82 @@
+[
+  {
+    "timestamp": "2026-04-25 15:32:56",
+    "iteration": 1,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_adjustments": [
+      {
+        "param": "ENTRY_RSI_MAX",
+        "action": "降低",
+        "reason": "勝率<40%，過度宽进的进场条件导致亏损"
+      }
+    ],
+    "performance_before": {},
+    "performance_after": {}
+  },
+  {
+    "timestamp": "2026-04-25 16:06:47",
+    "iteration": 2,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_adjustments": [
+      {
+        "param": "ENTRY_RSI_MAX",
+        "action": "降低",
+        "reason": "勝率<40%，過度宽进的进场条件导致亏损"
+      }
+    ],
+    "performance_before": {},
+    "performance_after": {}
+  },
+  {
+    "timestamp": "2026-04-25 18:04:13",
+    "iteration": 3,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_adjustments": [
+      {
+        "param": "ENTRY_RSI_MAX",
+        "action": "降低",
+        "reason": "勝率<40%，過度宽进的进场条件导致亏损"
+      }
+    ],
+    "performance_before": {},
+    "performance_after": {}
+  },
+  {
+    "timestamp": "2026-04-26 00:03:44",
+    "iteration": 4,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_adjustments": [
+      {
+        "param": "ENTRY_RSI_MAX",
+        "action": "降低",
+        "reason": "勝率<40%，過度宽进的进场条件导致亏损"
+      }
+    ],
+    "performance_before": {},
+    "performance_after": {}
+  },
+  {
+    "timestamp": "2026-04-26 00:04:30",
+    "iteration": 5,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_adjustments": [
+      {
+        "param": "ENTRY_RSI_MAX",
+        "action": "降低",
+        "reason": "勝率<40%，過度宽进的进场条件导致亏损"
+      }
+    ],
+    "performance_before": {},
+    "performance_after": {}
+  }
+]

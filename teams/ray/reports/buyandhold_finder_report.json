@@ -1,0 +1,451 @@
+[
+  {
+    "etf_id": "0050",
+    "name": "元大台灣50",
+    "price": 89.95,
+    "ma60": 76.95,
+    "ma120": 70.11,
+    "low_52w": 71.5,
+    "low_26w": 72.35,
+    "deviations": {
+      "low_52w_pct": 25.8,
+      "ma120_pct": 28.31
+    },
+    "rsi": 94.2,
+    "institutional": {
+      "fi_buy_days": 10,
+      "fi_net_total": 326516155
+    },
+    "score": 2,
+    "details": [
+      "RSI=94.2 過熱 (-3分)",
+      "外援連續買超 10 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:42:56.943396"
+  },
+  {
+    "etf_id": "0056",
+    "name": "元大高股息",
+    "price": 40.95,
+    "ma60": 37.93,
+    "ma120": 36.43,
+    "low_52w": 36.26,
+    "low_26w": 36.26,
+    "deviations": {
+      "low_52w_pct": 12.94,
+      "ma120_pct": 12.4
+    },
+    "rsi": 83.8,
+    "institutional": {
+      "fi_buy_days": 5,
+      "fi_net_total": -42556303
+    },
+    "score": 2,
+    "details": [
+      "RSI=83.8 過熱 (-3分)",
+      "外援連續買超 5 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:42:59.706234"
+  },
+  {
+    "etf_id": "00878",
+    "name": "國泰永續高息",
+    "price": 25.0,
+    "ma60": 22.83,
+    "ma120": 21.88,
+    "low_52w": 21.75,
+    "low_26w": 21.81,
+    "deviations": {
+      "low_52w_pct": 14.94,
+      "ma120_pct": 14.24
+    },
+    "rsi": 88.0,
+    "institutional": {
+      "fi_buy_days": 13,
+      "fi_net_total": 373673185
+    },
+    "score": 2,
+    "details": [
+      "RSI=88.0 過熱 (-3分)",
+      "外援連續買超 13 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:02.361334"
+  },
+  {
+    "etf_id": "00891",
+    "name": "中信低碳",
+    "price": 30.73,
+    "ma60": 24.54,
+    "ma120": 21.69,
+    "low_52w": 22.4,
+    "low_26w": 23.17,
+    "deviations": {
+      "low_52w_pct": 37.17,
+      "ma120_pct": 41.65
+    },
+    "rsi": 95.6,
+    "institutional": {
+      "fi_buy_days": 7,
+      "fi_net_total": 19663076
+    },
+    "score": 2,
+    "details": [
+      "RSI=95.6 過熱 (-3分)",
+      "外援連續買超 7 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:05.912567"
+  },
+  {
+    "etf_id": "00919",
+    "name": "群益台灣精選",
+    "price": 23.5,
+    "ma60": 22.97,
+    "ma120": 21.95,
+    "low_52w": 22.02,
+    "low_26w": 22.02,
+    "deviations": {
+      "low_52w_pct": 6.72,
+      "ma120_pct": 7.05
+    },
+    "rsi": 71.7,
+    "institutional": {
+      "fi_buy_days": 11,
+      "fi_net_total": 209536877
+    },
+    "score": 8,
+    "details": [
+      "52W低點偏離 6.7% (+3分)",
+      "MA120偏離 7.0% (+3分)",
+      "RSI=71.7 過熱 (-3分)",
+      "外援連續買超 11 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:08.305890"
+  },
+  {
+    "etf_id": "00927",
+    "name": "統一手創未來",
+    "price": 29.19,
+    "ma60": 24.48,
+    "ma120": 22.17,
+    "low_52w": 22.39,
+    "low_26w": 22.62,
+    "deviations": {
+      "low_52w_pct": 30.38,
+      "ma120_pct": 31.66
+    },
+    "rsi": 87.9,
+    "institutional": {
+      "fi_buy_days": 8,
+      "fi_net_total": 24301534
+    },
+    "score": 2,
+    "details": [
+      "RSI=87.9 過熱 (-3分)",
+      "外援連續買超 8 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:11.828124"
+  },
+  {
+    "etf_id": "00713",
+    "name": "元大高息低波",
+    "price": 53.45,
+    "ma60": 51.85,
+    "ma120": 50.72,
+    "low_52w": 50.09,
+    "low_26w": 50.65,
+    "deviations": {
+      "low_52w_pct": 6.7,
+      "ma120_pct": 5.37
+    },
+    "rsi": 76.3,
+    "institutional": {
+      "fi_buy_days": 10,
+      "fi_net_total": 13260356
+    },
+    "score": 8,
+    "details": [
+      "52W低點偏離 6.7% (+3分)",
+      "MA120偏離 5.4% (+3分)",
+      "RSI=76.3 過熱 (-3分)",
+      "外援連續買超 10 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:14.594641"
+  },
+  {
+    "etf_id": "00646",
+    "name": "富邦S&P500",
+    "price": 70.35,
+    "ma60": 67.83,
+    "ma120": 67.39,
+    "low_52w": 64.2,
+    "low_26w": 64.2,
+    "deviations": {
+      "low_52w_pct": 9.58,
+      "ma120_pct": 4.4
+    },
+    "rsi": 88.9,
+    "institutional": {
+      "fi_buy_days": 4,
+      "fi_net_total": -827461
+    },
+    "score": 10,
+    "details": [
+      "52W低點偏離 9.6% (+3分)",
+      "MA120偏離 4.4% (+5分)",
+      "RSI=88.9 過熱 (-3分)",
+      "外援連續買超 4 天 (+5分)"
+    ],
+    "recommendation": "HYBRID",
+    "bh_ratio": 0.5,
+    "desc": "混合策略（中期低點）",
+    "suggested_amount": 50000,
+    "amount_note": "NT$50,000 Buy&Hold + NT$50,000 DCA",
+    "timestamp": "2026-04-24T15:43:17.763253"
+  },
+  {
+    "etf_id": "00662",
+    "name": "富邦NASDAQ",
+    "price": 109.1,
+    "ma60": 101.88,
+    "ma120": 101.95,
+    "low_52w": 95.2,
+    "low_26w": 95.2,
+    "deviations": {
+      "low_52w_pct": 14.6,
+      "ma120_pct": 7.02
+    },
+    "rsi": 92.5,
+    "institutional": {
+      "fi_buy_days": 3,
+      "fi_net_total": -1877074
+    },
+    "score": 5,
+    "details": [
+      "MA120偏離 7.0% (+3分)",
+      "RSI=92.5 過熱 (-3分)",
+      "外援連續買超 3 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:21.625301"
+  },
+  {
+    "etf_id": "00757",
+    "name": "統一大FANG+",
+    "price": 118.6,
+    "ma60": 111.12,
+    "ma120": 115.86,
+    "low_52w": 101.15,
+    "low_26w": 101.15,
+    "deviations": {
+      "low_52w_pct": 17.25,
+      "ma120_pct": 2.36
+    },
+    "rsi": 81.9,
+    "institutional": {
+      "fi_buy_days": 13,
+      "fi_net_total": 8198316
+    },
+    "score": 7,
+    "details": [
+      "MA120偏離 2.4% (+5分)",
+      "RSI=81.9 過熱 (-3分)",
+      "外援連續買超 13 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:25.747903"
+  },
+  {
+    "etf_id": "00923",
+    "name": "凱基優選高股息",
+    "price": 34.99,
+    "ma60": 29.25,
+    "ma120": 26.7,
+    "low_52w": 26.91,
+    "low_26w": 27.52,
+    "deviations": {
+      "low_52w_pct": 30.0,
+      "ma120_pct": 31.04
+    },
+    "rsi": 96.2,
+    "institutional": {
+      "fi_buy_days": 13,
+      "fi_net_total": 31362411
+    },
+    "score": 2,
+    "details": [
+      "RSI=96.2 過熱 (-3分)",
+      "外援連續買超 13 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:28.855822"
+  },
+  {
+    "etf_id": "00915",
+    "name": "兆豐永續高息",
+    "price": 24.8,
+    "ma60": 23.6,
+    "ma120": 22.78,
+    "low_52w": 22.69,
+    "low_26w": 22.8,
+    "deviations": {
+      "low_52w_pct": 9.3,
+      "ma120_pct": 8.88
+    },
+    "rsi": 78.7,
+    "institutional": {
+      "fi_buy_days": 12,
+      "fi_net_total": 21204110
+    },
+    "score": 8,
+    "details": [
+      "52W低點偏離 9.3% (+3分)",
+      "MA120偏離 8.9% (+3分)",
+      "RSI=78.7 過熱 (-3分)",
+      "外援連續買超 12 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:31.057884"
+  },
+  {
+    "etf_id": "00917",
+    "name": "中信關鍵半導體",
+    "price": 21.75,
+    "ma60": 21.35,
+    "ma120": 20.38,
+    "low_52w": 19.93,
+    "low_26w": 19.93,
+    "deviations": {
+      "low_52w_pct": 9.13,
+      "ma120_pct": 6.74
+    },
+    "rsi": 81.4,
+    "institutional": {
+      "fi_buy_days": 7,
+      "fi_net_total": 3302650
+    },
+    "score": 8,
+    "details": [
+      "52W低點偏離 9.1% (+3分)",
+      "MA120偏離 6.7% (+3分)",
+      "RSI=81.4 過熱 (-3分)",
+      "外援連續買超 7 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:32.957226"
+  },
+  {
+    "etf_id": "00918",
+    "name": "中信上游半導體",
+    "price": 23.36,
+    "ma60": 22.63,
+    "ma120": 22.15,
+    "low_52w": 21.6,
+    "low_26w": 21.6,
+    "deviations": {
+      "low_52w_pct": 8.15,
+      "ma120_pct": 5.44
+    },
+    "rsi": 78.8,
+    "institutional": {
+      "fi_buy_days": 13,
+      "fi_net_total": 97407314
+    },
+    "score": 8,
+    "details": [
+      "52W低點偏離 8.1% (+3分)",
+      "MA120偏離 5.4% (+3分)",
+      "RSI=78.8 過熱 (-3分)",
+      "外援連續買超 13 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:35.456464"
+  },
+  {
+    "etf_id": "00920",
+    "name": "中信特選金融",
+    "price": 25.89,
+    "ma60": 21.51,
+    "ma120": 19.89,
+    "low_52w": 19.98,
+    "low_26w": 20.78,
+    "deviations": {
+      "low_52w_pct": 29.58,
+      "ma120_pct": 30.15
+    },
+    "rsi": 94.5,
+    "institutional": {
+      "fi_buy_days": 6,
+      "fi_net_total": 2461121
+    },
+    "score": 2,
+    "details": [
+      "RSI=94.5 過熱 (-3分)",
+      "外援連續買超 6 天 (+5分)"
+    ],
+    "recommendation": "DCA",
+    "bh_ratio": 0.0,
+    "desc": "正常定期定額",
+    "suggested_amount": 10000,
+    "amount_note": "NT$10,000/月 正常 DCA",
+    "timestamp": "2026-04-24T15:43:38.963249"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-30T07:30:00+08:00",
+  "version": "6.8",
+  "scan_type": "cron_scheduled",
+  "market_regime": "OVERBOUGHT",
+  "twii_rsi": 83.7,
+  "scan_result": "0 opportunities",
+  "candidates_found": 0,
+  "notes": "TWII OVERBOUGHT - Entry gate LOCKED until RSI < 70"
+}

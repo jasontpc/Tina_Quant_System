@@ -1,0 +1,84 @@
+{
+  "version": "1.0",
+  "description": "US Value/Growth Stock Monitor Config - Tina Quant System v3.12",
+  "symbols": ["D", "BMY", "SO", "DXCM"],
+  "update_schedule": {
+    "daily_report": "30 8 * * 1-5",
+    "comment": "08:30 EST Mon-Fri (before US market open)"
+  },
+  "telegram_chat_id": "1616824689",
+  "database": "data/us_value_growth.db",
+  "history_db": "data/us_history.db",
+  "log_file": "logs/us_stock_daily.log",
+  "stocks": {
+    "D": {
+      "name": "Dominion Energy",
+      "style": "utility_income",
+      "ideal_rsi_entry": 60,
+      "ideal_rsi_max": 70,
+      "target_div_yield": 4.14,
+      "pe_fair": 18,
+      "pe_overvalued": 22,
+      "atr_period": 14,
+      "atr_stop_pct": 0.05,
+      "profit_target_pct": 0.12,
+      "entry_bias": "below_ma20",
+      "notes": "Defensive utility, hold for 4-5% dividend + capital gain"
+    },
+    "BMY": {
+      "name": "Bristol-Myers Squibb",
+      "style": "pharma_value",
+      "ideal_rsi_entry": 55,
+      "ideal_rsi_max": 65,
+      "target_div_yield": 4.16,
+      "pe_fair": 17,
+      "pe_undervalued": 14,
+      "atr_period": 14,
+      "atr_stop_pct": 0.06,
+      "profit_target_pct": 0.15,
+      "entry_bias": "below_ma60",
+      "notes": "Value play: PE 14-17 entry, PE 18+ fair value"
+    },
+    "SO": {
+      "name": "Southern Company",
+      "style": "utility_income",
+      "ideal_rsi_entry": 58,
+      "ideal_rsi_max": 68,
+      "target_div_yield": 3.14,
+      "pe_fair": 20,
+      "pe_overvalued": 25,
+      "atr_period": 14,
+      "atr_stop_pct": 0.05,
+      "profit_target_pct": 0.10,
+      "entry_bias": "below_ma20",
+      "notes": "Stable utility, 3%+ yield target, low volatility"
+    },
+    "DXCM": {
+      "name": "DexCom",
+      "style": "medtech_growth",
+      "ideal_rsi_entry_max": 50,
+      "ideal_rsi_entry_min": 40,
+      "ideal_rsi_zone": "40-50",
+      "pe_fair": 30,
+      "pe_overvalued": 45,
+      "atr_period": 14,
+      "atr_stop_pct": 0.08,
+      "profit_target_pct": 0.20,
+      "entry_bias": "rsi_reversal",
+      "notes": "Growth pullback play: RSI 40-50 zone entry, momentum reversal target"
+    }
+  },
+  "signal_thresholds": {
+    "strong_buy": {"rsi_max": 45, "pos_52w_min": 0.30, "ma_aligned": true},
+    "buy": {"rsi_max": 55, "pos_52w_min": 0.25},
+    "hold": {"rsi_max": 65},
+    "overbought": {"rsi_min": 70}
+  },
+  "report_format": {
+    "include_fundamentals": true,
+    "include_technicals": true,
+    "include_signals": true,
+    "include_entry_rules": true,
+    "max_stocks_per_report": 4
+  }
+}

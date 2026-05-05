@@ -1,0 +1,557 @@
+{
+  "date": "2026-05-04 13:28",
+  "stocks": {
+    "3037.TW": {
+      "name": "欣興",
+      "team": "Leo",
+      "best": {
+        "total_trades": 28,
+        "win_rate": 60.71428571428571,
+        "avg_pnl": 1.5799024538899562,
+        "avg_win": 5.745857107806904,
+        "avg_loss": -4.858391102163507,
+        "pf": 1.1826666455996504,
+        "sl_pct": 17.857142857142858,
+        "mh_pct": 46.42857142857143,
+        "config": "RSI45_SL2.0_H5_MA",
+        "params": {
+          "rsi_in": 45,
+          "rsi_out": 55,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "3189.TW": {
+      "name": "景碩",
+      "team": "Leo",
+      "best": {
+        "total_trades": 47,
+        "win_rate": 63.829787234042556,
+        "avg_pnl": 1.7736342547736046,
+        "avg_win": 4.7960241822753495,
+        "avg_loss": -3.5599950290530056,
+        "pf": 1.3471996851498806,
+        "sl_pct": 6.382978723404255,
+        "mh_pct": 70.2127659574468,
+        "config": "RSI40_SL2.0_H5_NO",
+        "params": {
+          "rsi_in": 40,
+          "rsi_out": 55,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": false,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2360.TW": {
+      "name": "致茂",
+      "team": "Leo",
+      "best": {
+        "total_trades": 11,
+        "win_rate": 81.81818181818183,
+        "avg_pnl": 4.126844021238633,
+        "avg_win": 7.048667993229557,
+        "avg_loss": -9.021363852720523,
+        "pf": 0.7813306400565951,
+        "sl_pct": 18.181818181818183,
+        "mh_pct": 45.45454545454545,
+        "config": "RSI40_SL2.0_H10_MA",
+        "params": {
+          "rsi_in": 40,
+          "rsi_out": 55,
+          "sl_mult": 2.0,
+          "max_hold": 10,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "3665.TW": {
+      "name": "穎崴",
+      "team": "Leo",
+      "best": {
+        "total_trades": 14,
+        "win_rate": 57.14285714285714,
+        "avg_pnl": 0.6197343905653343,
+        "avg_win": 5.295784488536716,
+        "avg_loss": -5.614999073396508,
+        "pf": 0.9431496638401583,
+        "sl_pct": 21.428571428571427,
+        "mh_pct": 71.42857142857143,
+        "config": "RSI35_SL2.0_H5_MA",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 55,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2345.TW": {
+      "name": "智邦",
+      "team": "Leo",
+      "best": {
+        "total_trades": 12,
+        "win_rate": 75.0,
+        "avg_pnl": 2.326385944502379,
+        "avg_win": 5.423850066577978,
+        "avg_loss": -6.966006421724418,
+        "pf": 0.7786168628359255,
+        "sl_pct": 16.666666666666664,
+        "mh_pct": 66.66666666666666,
+        "config": "RSI35_SL1.5_H5_MA",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 1.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2383.TW": {
+      "name": "台光電",
+      "team": "Leo",
+      "best": {
+        "total_trades": 21,
+        "win_rate": 76.19047619047619,
+        "avg_pnl": 1.8548322945371778,
+        "avg_win": 5.678233789084375,
+        "avg_loss": -10.380052488013856,
+        "pf": 0.5470332443541297,
+        "sl_pct": 14.285714285714285,
+        "mh_pct": 42.857142857142854,
+        "config": "RSI40_SL2.5_H10_NO",
+        "params": {
+          "rsi_in": 40,
+          "rsi_out": 55,
+          "sl_mult": 2.5,
+          "max_hold": 10,
+          "need_ma": false,
+          "min_rsi_out": 40
+        }
+      }
+    },
+    "2449.TW": {
+      "name": "京元電",
+      "team": "Leo",
+      "best": {
+        "total_trades": 14,
+        "win_rate": 64.28571428571429,
+        "avg_pnl": 1.124901046527221,
+        "avg_win": 5.939992445026338,
+        "avg_loss": -7.542263470771192,
+        "pf": 0.7875609845831834,
+        "sl_pct": 35.714285714285715,
+        "mh_pct": 57.14285714285714,
+        "config": "RSI35_SL1.5_H5_MA",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 1.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "3017.TW": {
+      "name": "奇力新",
+      "team": "Leo",
+      "best": {
+        "total_trades": 17,
+        "win_rate": 70.58823529411765,
+        "avg_pnl": 3.2478710407300295,
+        "avg_win": 6.190783300757548,
+        "avg_loss": -3.8151183833360145,
+        "pf": 1.6226975623608844,
+        "sl_pct": 0.0,
+        "mh_pct": 88.23529411764706,
+        "config": "RSI40_SL2.5_H5_MA",
+        "params": {
+          "rsi_in": 40,
+          "rsi_out": 55,
+          "sl_mult": 2.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2454.TW": {
+      "name": "聯發科",
+      "team": "Nana",
+      "best": {
+        "total_trades": 23,
+        "win_rate": 73.91304347826086,
+        "avg_pnl": 2.9994435974305516,
+        "avg_win": 5.653655786303637,
+        "avg_loss": -4.520824271043191,
+        "pf": 1.2505807453115276,
+        "sl_pct": 8.695652173913043,
+        "mh_pct": 65.21739130434783,
+        "config": "RSI35_SL2.0_H5_NO",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": false,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "6442.TW": {
+      "name": "光聖",
+      "team": "Nana",
+      "best": {
+        "total_trades": 24,
+        "win_rate": 70.83333333333334,
+        "avg_pnl": 5.364191364730146,
+        "avg_win": 10.480912033789398,
+        "avg_loss": -7.062130260128038,
+        "pf": 1.4841006392877518,
+        "sl_pct": 4.166666666666666,
+        "mh_pct": 58.333333333333336,
+        "config": "RSI40_SL2.5_H10_NO",
+        "params": {
+          "rsi_in": 40,
+          "rsi_out": 55,
+          "sl_mult": 2.5,
+          "max_hold": 10,
+          "need_ma": false,
+          "min_rsi_out": 40
+        }
+      }
+    },
+    "2359.TW": {
+      "name": "所羅門",
+      "team": "Nana",
+      "best": {
+        "total_trades": 8,
+        "win_rate": 75.0,
+        "avg_pnl": 1.151160361878452,
+        "avg_win": 1.8252414498078338,
+        "avg_loss": -0.8710829019096925,
+        "pf": 2.095370539137343,
+        "sl_pct": 0.0,
+        "mh_pct": 100.0,
+        "config": "RSI30_SL1.5_H5_MA",
+        "params": {
+          "rsi_in": 30,
+          "rsi_out": 50,
+          "sl_mult": 1.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "3231.TW": {
+      "name": "緯創",
+      "team": "Nana",
+      "best": {
+        "total_trades": 31,
+        "win_rate": 67.74193548387096,
+        "avg_pnl": 2.538317163466949,
+        "avg_win": 5.784243586569103,
+        "avg_loss": -4.2781283250475735,
+        "pf": 1.3520500431704046,
+        "sl_pct": 6.451612903225806,
+        "mh_pct": 80.64516129032258,
+        "config": "RSI35_SL2.0_H5_NO",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": false,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2317.TW": {
+      "name": "鴻海",
+      "team": "Nana",
+      "best": {
+        "total_trades": 25,
+        "win_rate": 56.00000000000001,
+        "avg_pnl": 0.10090970267778605,
+        "avg_win": 3.4858214974854937,
+        "avg_loss": -4.207159854350206,
+        "pf": 0.8285450560860321,
+        "sl_pct": 4.0,
+        "mh_pct": 80.0,
+        "config": "RSI50_SL2.5_H5_MA",
+        "params": {
+          "rsi_in": 50,
+          "rsi_out": 60,
+          "sl_mult": 2.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2382.TW": {
+      "name": "廣達",
+      "team": "Nana",
+      "best": {
+        "total_trades": 15,
+        "win_rate": 73.33333333333333,
+        "avg_pnl": 2.5242972481632022,
+        "avg_win": 6.24892578981746,
+        "avg_loss": -7.718431241386007,
+        "pf": 0.8096108644864126,
+        "sl_pct": 6.666666666666667,
+        "mh_pct": 53.333333333333336,
+        "config": "RSI40_SL2.0_H10_MA",
+        "params": {
+          "rsi_in": 40,
+          "rsi_out": 55,
+          "sl_mult": 2.0,
+          "max_hold": 10,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2308.TW": {
+      "name": "台達電",
+      "team": "Nana",
+      "best": {
+        "total_trades": 10,
+        "win_rate": 70.0,
+        "avg_pnl": 2.9183242653556034,
+        "avg_win": 5.704570742534232,
+        "avg_loss": -3.582917514727864,
+        "pf": 1.5921579883112422,
+        "sl_pct": 10.0,
+        "mh_pct": 90.0,
+        "config": "RSI35_SL1.5_H5_MA",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 1.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "3016.TW": {
+      "name": "嘉晶",
+      "team": "Nana",
+      "best": {
+        "total_trades": 31,
+        "win_rate": 58.06451612903226,
+        "avg_pnl": 1.085662850579338,
+        "avg_win": 4.953739651785243,
+        "avg_loss": -4.2701357972442215,
+        "pf": 1.1600894882505126,
+        "sl_pct": 6.451612903225806,
+        "mh_pct": 74.19354838709677,
+        "config": "RSI50_SL2.5_H5_MA",
+        "params": {
+          "rsi_in": 50,
+          "rsi_out": 60,
+          "sl_mult": 2.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "2330.TW": {
+      "name": "台積電",
+      "team": "Nana",
+      "best": {
+        "total_trades": 24,
+        "win_rate": 66.66666666666666,
+        "avg_pnl": 2.4754861412665004,
+        "avg_win": 5.092215262742071,
+        "avg_loss": -2.7579721016846417,
+        "pf": 1.846362136742287,
+        "sl_pct": 4.166666666666666,
+        "mh_pct": 83.33333333333334,
+        "config": "RSI45_SL2.5_H5_MA",
+        "params": {
+          "rsi_in": 45,
+          "rsi_out": 60,
+          "sl_mult": 2.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "6239.TW": {
+      "name": "力成",
+      "team": "Hunter",
+      "best": {
+        "total_trades": 32,
+        "win_rate": 62.5,
+        "avg_pnl": 1.0772850589557086,
+        "avg_win": 4.183975059748081,
+        "avg_loss": -4.100531609031581,
+        "pf": 1.0203494226291814,
+        "sl_pct": 3.125,
+        "mh_pct": 84.375,
+        "config": "RSI35_SL2.0_H5_NO",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": false,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "MSFT": {
+      "name": "Microsoft",
+      "team": "Hunter",
+      "best": {
+        "total_trades": 31,
+        "win_rate": 64.51612903225806,
+        "avg_pnl": 0.3259426883953877,
+        "avg_win": 2.32518049772112,
+        "avg_loss": -3.309035146742308,
+        "pf": 0.7026762771045884,
+        "sl_pct": 16.129032258064516,
+        "mh_pct": 74.19354838709677,
+        "config": "RSI35_SL2.0_H5_NO",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": false,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "PLTR": {
+      "name": "Palantir",
+      "team": "Hunter",
+      "best": {
+        "total_trades": 14,
+        "win_rate": 71.42857142857143,
+        "avg_pnl": 4.993872315262856,
+        "avg_win": 8.039024918349984,
+        "avg_loss": -2.6190091924549583,
+        "pf": 3.0694909133993957,
+        "sl_pct": 0.0,
+        "mh_pct": 64.28571428571429,
+        "config": "RSI30_SL1.5_H5_MA",
+        "params": {
+          "rsi_in": 30,
+          "rsi_out": 50,
+          "sl_mult": 1.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "TSLA": {
+      "name": "Tesla",
+      "team": "Hunter",
+      "best": {
+        "total_trades": 19,
+        "win_rate": 63.1578947368421,
+        "avg_pnl": 0.9919696682760838,
+        "avg_win": 5.901463951577997,
+        "avg_loss": -7.424306245955768,
+        "pf": 0.7948842297275511,
+        "sl_pct": 21.052631578947366,
+        "mh_pct": 68.42105263157895,
+        "config": "RSI35_SL1.5_H5_MA",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 1.5,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "AMD": {
+      "name": "AMD",
+      "team": "Hunter",
+      "best": {
+        "total_trades": 33,
+        "win_rate": 66.66666666666666,
+        "avg_pnl": 2.2809392074549457,
+        "avg_win": 5.455218780649433,
+        "avg_loss": -4.067619938934029,
+        "pf": 1.341132864561344,
+        "sl_pct": 3.0303030303030303,
+        "mh_pct": 84.84848484848484,
+        "config": "RSI35_SL2.0_H5_NO",
+        "params": {
+          "rsi_in": 35,
+          "rsi_out": 50,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": false,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "3443.TW": {
+      "name": "創意",
+      "team": "Hunter",
+      "best": {
+        "total_trades": 30,
+        "win_rate": 66.66666666666666,
+        "avg_pnl": 2.516586701694349,
+        "avg_win": 6.81213235385834,
+        "avg_loss": -6.074504602633631,
+        "pf": 1.1214301082107843,
+        "sl_pct": 10.0,
+        "mh_pct": 76.66666666666667,
+        "config": "RSI45_SL2.0_H5_MA",
+        "params": {
+          "rsi_in": 45,
+          "rsi_out": 55,
+          "sl_mult": 2.0,
+          "max_hold": 5,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    },
+    "3661.TW": {
+      "name": "世芯-KY",
+      "team": "Hunter",
+      "best": {
+        "total_trades": 15,
+        "win_rate": 66.66666666666666,
+        "avg_pnl": 2.0951874065242353,
+        "avg_win": 7.452292650704726,
+        "avg_loss": -8.619023081836747,
+        "pf": 0.8646331005203217,
+        "sl_pct": 20.0,
+        "mh_pct": 40.0,
+        "config": "RSI40_SL2.0_H10_MA",
+        "params": {
+          "rsi_in": 40,
+          "rsi_out": 55,
+          "sl_mult": 2.0,
+          "max_hold": 10,
+          "need_ma": true,
+          "min_rsi_out": 0
+        }
+      }
+    }
+  }
+}

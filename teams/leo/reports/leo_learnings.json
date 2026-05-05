@@ -1,0 +1,235 @@
+[
+  {
+    "type": "market_state",
+    "regime": "OVERBOUGHT",
+    "rsi": 93.3,
+    "position": 100.0
+  },
+  {
+    "type": "swing_rule",
+    "desc": "BIAS>5%時離場，歷史勝率97.4%",
+    "source": "Nana v5.39"
+  },
+  {
+    "type": "swing_knowledge",
+    "data": {
+      "entry_rsi_max": 65,
+      "exit_rsi_min": 80,
+      "take_profit_pct": 20.0,
+      "stop_loss_pct": 8.0,
+      "note": "波段操作1-3個月，目標+20%停損-8%"
+    }
+  },
+  {
+    "type": "market_state",
+    "regime": "OVERBOUGHT",
+    "rsi": 93.3,
+    "position": 100.0
+  },
+  {
+    "type": "swing_rule",
+    "desc": "BIAS>5%時離場，歷史勝率97.4%",
+    "source": "Nana v5.39"
+  },
+  {
+    "type": "swing_knowledge",
+    "data": {
+      "entry_rsi_max": 65,
+      "exit_rsi_min": 80,
+      "take_profit_pct": 20.0,
+      "stop_loss_pct": 8.0,
+      "note": "波段操作1-3個月，目標+20%停損-8%"
+    }
+  },
+  {
+    "type": "market_state",
+    "regime": "OVERBOUGHT",
+    "rsi": 93.3,
+    "position": 100.0
+  },
+  {
+    "type": "swing_rule",
+    "desc": "BIAS>5%時離場，歷史勝率97.4%",
+    "source": "Nana v5.39"
+  },
+  {
+    "type": "swing_knowledge",
+    "data": {
+      "entry_rsi_max": 65,
+      "exit_rsi_min": 80,
+      "take_profit_pct": 20.0,
+      "stop_loss_pct": 8.0,
+      "note": "波段操作1-3個月，目標+20%停損-8%"
+    }
+  },
+  {
+    "type": "market_state",
+    "regime": "OVERBOUGHT",
+    "rsi": 93.3,
+    "position": 100.0
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2330",
+    "name": "台積電",
+    "price": 2185.0,
+    "rsi": 86.4,
+    "pos_ma20": 11.3
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2454",
+    "name": "聯發科",
+    "price": 2435.0,
+    "rsi": 90.8,
+    "pos_ma20": 38.4
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2317",
+    "name": "鴻海",
+    "price": 221.5,
+    "rsi": 82.0,
+    "pos_ma20": 8.6
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2379",
+    "name": "瑞昱",
+    "price": 539.0,
+    "rsi": 68.9,
+    "pos_ma20": 4.4
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2376",
+    "name": "技嘉",
+    "price": 278.0,
+    "rsi": 76.6,
+    "pos_ma20": 8.3
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2382",
+    "name": "廣達",
+    "price": 323.0,
+    "rsi": 67.7,
+    "pos_ma20": 4.5
+  },
+  {
+    "type": "stock_info",
+    "symbol": "3665",
+    "name": "穎崴",
+    "price": 2765.0,
+    "rsi": 93.4,
+    "pos_ma20": 25.6
+  },
+  {
+    "type": "stock_info",
+    "symbol": "3034",
+    "name": "緯穎",
+    "price": 418.0,
+    "rsi": 68.0,
+    "pos_ma20": 4.3
+  },
+  {
+    "type": "swing_rule",
+    "desc": "BIAS>5%時離場，歷史勝率97.4%",
+    "source": "Nana v5.39"
+  },
+  {
+    "type": "swing_knowledge",
+    "data": {
+      "entry_rsi_max": 65,
+      "exit_rsi_min": 80,
+      "take_profit_pct": 20.0,
+      "stop_loss_pct": 8.0,
+      "note": "波段操作1-3個月，目標+20%停損-8%"
+    }
+  },
+  {
+    "type": "market_state",
+    "regime": "OVERBOUGHT",
+    "rsi": 93.3,
+    "position": 100.0
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2330",
+    "name": "台積電",
+    "price": 2185.0,
+    "rsi": 86.4,
+    "pos_ma20": 11.3
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2454",
+    "name": "聯發科",
+    "price": 2435.0,
+    "rsi": 90.8,
+    "pos_ma20": 38.4
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2317",
+    "name": "鴻海",
+    "price": 221.5,
+    "rsi": 82.0,
+    "pos_ma20": 8.6
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2379",
+    "name": "瑞昱",
+    "price": 539.0,
+    "rsi": 68.9,
+    "pos_ma20": 4.4
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2376",
+    "name": "技嘉",
+    "price": 278.0,
+    "rsi": 76.6,
+    "pos_ma20": 8.3
+  },
+  {
+    "type": "stock_info",
+    "symbol": "2382",
+    "name": "廣達",
+    "price": 323.0,
+    "rsi": 67.7,
+    "pos_ma20": 4.5
+  },
+  {
+    "type": "stock_info",
+    "symbol": "3665",
+    "name": "穎崴",
+    "price": 2765.0,
+    "rsi": 93.4,
+    "pos_ma20": 25.6
+  },
+  {
+    "type": "stock_info",
+    "symbol": "3034",
+    "name": "緯穎",
+    "price": 418.0,
+    "rsi": 68.0,
+    "pos_ma20": 4.3
+  },
+  {
+    "type": "swing_rule",
+    "desc": "BIAS>5%時離場，歷史勝率97.4%",
+    "source": "Nana v5.39"
+  },
+  {
+    "type": "swing_knowledge",
+    "data": {
+      "entry_rsi_max": 65,
+      "exit_rsi_min": 80,
+      "take_profit_pct": 20.0,
+      "stop_loss_pct": 8.0,
+      "note": "波段操作1-3個月，目標+20%停損-8%"
+    }
+  }
+]

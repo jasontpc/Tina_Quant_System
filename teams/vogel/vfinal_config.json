@@ -1,0 +1,8 @@
+{
+  "tp_atr": 3.0,
+  "sl_atr": 1.0,
+  "atr_min": 50,
+  "rsi_bounce_max": 50,
+  "rsi_revers_max": 50,
+  "description": "Vogel vFinal - SHORT primary (CCI_ob/SMA_dc), LONG secondary (CCI_ov RSI-confirmed)"
+}

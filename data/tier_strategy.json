@@ -1,0 +1,66 @@
+{
+  "tier1": {
+    "name": "Core ETF Holdings",
+    "symbols": [
+      "0050",
+      "00662",
+      "00646"
+    ],
+    "max_hold_days": 60,
+    "target_return": 0.08,
+    "stop_loss": 0.05
+  },
+  "tier2": {
+    "name": "Growth Stocks",
+    "symbols": [
+      "2330",
+      "2382",
+      "2454",
+      "3034"
+    ],
+    "max_hold_days": 30,
+    "target_return": 0.12,
+    "stop_loss": 0.07
+  },
+  "tier3": {
+    "name": "Short-term Trades",
+    "symbols": [
+      "2379",
+      "2451",
+      "2458",
+      "2474",
+      "2884",
+      "3413",
+      "6230",
+      "8081",
+      "1605",
+      "2308"
+    ],
+    "max_hold_days": 14,
+    "target_return": 0.15,
+    "stop_loss": 0.08,
+    "note": "2308 RSI>70 已自動 VETO; 1605 待觀察"
+  },
+  "veto_rules": {
+    "description": "自動過濾過熱/低量股票",
+    "rules": [
+      {
+        "condition": "RSI > 70",
+        "action": "VETO (overbought)"
+      },
+      {
+        "condition": "VIF < 1.0",
+        "action": "VETO (no volume)"
+      },
+      {
+        "condition": "VIF < 1.2 AND score < 70",
+        "action": "VETO (low volume trap)"
+      },
+      {
+        "condition": "ADX > 45 AND VIF < 1.5",
+        "action": "VETO (exhaustion)"
+      }
+    ],
+    "note": "Veto 規則來自 v3.17_veto_rules.py"
+  }
+}

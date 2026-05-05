@@ -1,0 +1,30 @@
+{
+  "date": "2026-04-29",
+  "total_stocks": 22,
+  "upstream": 7,
+  "midstream": 9,
+  "downstream": 6,
+  "analysis": {
+    "message": "No closed trades to analyze",
+    "params": {
+      "rsi_entry_min": 30,
+      "rsi_entry_max": 40,
+      "hold_days_min": 5,
+      "hold_days_max": 10,
+      "tp_pct": 5,
+      "sl_pct": 8,
+      "win_rate": 85.7,
+      "avg_return": 3.14
+    }
+  },
+  "params": {
+    "rsi_entry_min": 30,
+    "rsi_entry_max": 40,
+    "hold_days_min": 5,
+    "hold_days_max": 10,
+    "tp_pct": 5,
+    "sl_pct": 8,
+    "win_rate": 85.7,
+    "avg_return": 3.14
+  }
+}

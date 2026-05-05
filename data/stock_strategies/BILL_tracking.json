@@ -1,0 +1,70 @@
+[
+  {
+    "stock": "BILL",
+    "name": "Bill Holdings",
+    "market": "US",
+    "type": "fintech",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 39.07,
+      "rsi14": 59.4,
+      "ma20": 37.94,
+      "ma60": 40.99,
+      "bias20": 2.99,
+      "slope20": -0.0131,
+      "atr14": 1.7,
+      "vol": 1622961,
+      "vol_avg20": 1618718.0,
+      "vol_ratio": 1.0,
+      "high_20": 40.81,
+      "low_20": 34.44,
+      "K": 63.7,
+      "D": 65.1
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "BILL",
+    "name": "Bill Holdings",
+    "market": "US",
+    "type": "fintech",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 39.07,
+      "rsi14": 59.4,
+      "ma20": 37.94,
+      "ma60": 40.99,
+      "bias20": 2.99,
+      "slope20": -0.0131,
+      "atr14": 1.7,
+      "vol": 1622961,
+      "vol_avg20": 1618718.0,
+      "vol_ratio": 1.0,
+      "high_20": 40.81,
+      "low_20": 34.44,
+      "K": 45.0,
+      "D": 42.3
+    },
+    "updated_at": "2026-05-02 08:11"
+  }
+]

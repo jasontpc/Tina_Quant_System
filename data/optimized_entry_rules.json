@@ -1,0 +1,62 @@
+{
+  "LEO": {
+    "rsi_min": 25,
+    "rsi_max": 40,
+    "filter": "vol_1.5x",
+    "filter_desc": "量能>1.5x",
+    "total_trades": 6,
+    "overall_wr": 83.3,
+    "stock_details": {
+      "5269.TW": {
+        "win_rate": 50.0,
+        "avg_gain": 10.4,
+        "avg_loss": 5.4,
+        "pf": 1.93
+      },
+      "4966.TWO": {
+        "win_rate": 100.0,
+        "avg_gain": 7.8,
+        "avg_loss": 0,
+        "pf": 999
+      }
+    }
+  },
+  "MAGGY": {
+    "rsi_min": 25,
+    "rsi_max": 40,
+    "filter": "none",
+    "filter_desc": "無過濾",
+    "total_trades": 8,
+    "overall_wr": 37.5,
+    "stock_details": {
+      "MSFT": {
+        "win_rate": 42.9,
+        "avg_gain": 6.2,
+        "avg_loss": 2.8,
+        "pf": 2.26
+      },
+      "CRM": {
+        "win_rate": 0.0,
+        "avg_gain": 0,
+        "avg_loss": 3.0,
+        "pf": 0.0
+      }
+    }
+  },
+  "NANA": {
+    "rsi_min": 35,
+    "rsi_max": 50,
+    "filter": "ma20_above_ma60",
+    "filter_desc": "MA20>MA60",
+    "total_trades": 5,
+    "overall_wr": 100.0,
+    "stock_details": {
+      "3324.TWO": {
+        "win_rate": 100.0,
+        "avg_gain": 9.9,
+        "avg_loss": 0,
+        "pf": 999
+      }
+    }
+  }
+}

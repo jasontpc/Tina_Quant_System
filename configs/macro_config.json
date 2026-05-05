@@ -1,0 +1,102 @@
+{
+  "database": {
+    "path": "./data/macro_institutional.db",
+    "retention_days": 730
+  },
+  "schedule": {
+    "daily_report_time": "16:30",
+    "premarket_report_time": "09:00",
+    "weekly_report_day": 5,
+    "weekly_report_time": "18:00",
+    "monthly_report_day": "last",
+    "monthly_report_time": "20:00"
+  },
+  "telegram": {
+    "enabled": true,
+    "chat_id": "1616824689",
+    "bot_token": "8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q"
+  },
+  "data_sources": {
+    "finmind_base": "https://api.finmindtrade.com/api/v4/data",
+    "twse_base": "https://www.twse.com.tw",
+    "yfinance_enabled": true
+  },
+  "macro_indicators": {
+    "vix_symbol": "^VIX",
+    "dxy_symbol": "DX-Y.NYB",
+    "us10y_symbol": "^TNX",
+    "us2y_symbol": "^TYX",
+    "ted_spread_symbol": "TED spread",
+    "refresh_interval_hours": 4
+  },
+  "sectors": [
+    "半導體",
+    "電子零組件",
+    "電腦及週邊設備",
+    "光電",
+    "通信網路",
+    "電子通路",
+    "資訊服務",
+    "一般塑料",
+    "鋼鐵",
+    "航運",
+    "金融",
+    "壽險",
+    "證券",
+    "綠能",
+    "生技醫療"
+  ],
+  "etf_watchlist": [
+    "0050",
+    "0051",
+    "0052",
+    "0053",
+    "0054",
+    "0055",
+    "0056",
+    "0057",
+    "0058",
+    "006201",
+    "006203",
+    "006204",
+    "006208",
+    "00631L",
+    "00632R",
+    "00713",
+    "00715",
+    "00725B",
+    "00735",
+    "00757",
+    "00881",
+    "00882",
+    "00891",
+    "00892",
+    "00893",
+    "00894",
+    "00895",
+    "00896",
+    "00897",
+    "00900",
+    "00901",
+    "00904",
+    "00905",
+    "00915",
+    "00918",
+    "00922",
+    "00923",
+    "00929",
+    "00930",
+    "00932",
+    "00937A",
+    "00938",
+    "00940",
+    "00946"
+  ],
+  "alert_thresholds": {
+    "institutional_net_sell_billion": 50,
+    "vix_extreme": 25,
+    "vix_fear": 20,
+    "margin_call_pct": 10,
+    "consecutive_sell_days": 5
+  }
+}

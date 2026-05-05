@@ -1,0 +1,20 @@
+{
+  "version": "v5.20_full_backtest",
+  "timestamp": "2026-04-24 09:45",
+  "market": "過熱",
+  "max_hold": 4,
+  "scan_total": 25,
+  "tradeable": 21,
+  "wr": 57.55102040816327,
+  "avg_return": 0.9081528283946873,
+  "total_trades": 245,
+  "top_picks": [],
+  "fixes_applied": [
+    "BLACKLIST_2308_3413_2458_8081_3034",
+    "EXPAND_TIER1_2303_2317",
+    "EXPAND_ETF_00713",
+    "EXTREME_VALUE_FILTER_80",
+    "FULL_BACKTEST_MODE",
+    "OVERBOUGHT_RELAXED_25_22_20"
+  ]
+}

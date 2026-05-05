@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "2317",
+    "name": "鴻海",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 219.5,
+      "rsi14": 70.2,
+      "ma20": 209.8,
+      "ma60": 214.22,
+      "bias20": 4.62,
+      "slope20": 1.45,
+      "atr14": 7.75,
+      "vol": 71802349,
+      "vol_avg20": 66451572.0,
+      "vol_ratio": 1.08,
+      "high_20": 234.0,
+      "low_20": 189.5,
+      "K": 59.1,
+      "D": 74.7
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "2317",
+    "name": "鴻海",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 219.5,
+      "rsi14": 70.2,
+      "ma20": 209.8,
+      "ma60": 214.22,
+      "bias20": 4.62,
+      "slope20": 1.45,
+      "atr14": 7.75,
+      "vol": 71802349,
+      "vol_avg20": 66451572.0,
+      "vol_ratio": 1.08,
+      "high_20": 234.0,
+      "low_20": 189.5,
+      "K": 66.2,
+      "D": 72.7
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "2317",
+    "name": "鴻海",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 219.5,
+      "rsi14": 70.2,
+      "ma20": 209.8,
+      "ma60": 214.22,
+      "bias20": 4.62,
+      "slope20": 1.45,
+      "atr14": 7.75,
+      "vol": 71802349,
+      "vol_avg20": 66451572.0,
+      "vol_ratio": 1.08,
+      "high_20": 234.0,
+      "low_20": 189.5,
+      "K": 66.2,
+      "D": 72.7
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "2317",
+    "name": "鴻海",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 219.5,
+      "rsi14": 70.2,
+      "ma20": 209.8,
+      "ma60": 214.22,
+      "bias20": 4.62,
+      "slope20": 1.45,
+      "atr14": 7.75,
+      "vol": 71802349,
+      "vol_avg20": 66451572.0,
+      "vol_ratio": 1.08,
+      "high_20": 234.0,
+      "low_20": 189.5,
+      "K": 66.2,
+      "D": 72.7
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

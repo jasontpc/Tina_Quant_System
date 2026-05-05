@@ -1,0 +1,15 @@
+{
+  "timestamp": "",
+  "source": "backtest_optimizer grid_search",
+  "version": "6.3",
+  "best_params": {
+    "rsi_entry_min": 35,
+    "rsi_entry_max": 55,
+    "atr_tp_mult": 4.0,
+    "atr_sl_mult": 1.5,
+    "hold_days": 10,
+    "trailing_atr": 2.0,
+    "score_min": 35,
+    "adx_threshold": 20
+  }
+}

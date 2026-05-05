@@ -1,0 +1,65 @@
+{
+  "description": "Tina 自主決策邊界規則",
+  "version": "1.0",
+  "last_updated": "2026-05-02",
+
+  "decision_boundaries": {
+    "rsi_entry": {
+      "min": 20,
+      "max": 80,
+      "description": "RSI 進場區間不可超出 20-80"
+    },
+    "rsi_optimal_adjustment": {
+      "min_shift": 5,
+      "max_shift": 25,
+      "description": "單次調整幅度最多 25 點"
+    },
+    "stop_loss": {
+      "max_pct": -15.0,
+      "description": "停損不可超過 -15%"
+    },
+    "max_position_size": {
+      "max_pct": 30,
+      "description": "單筆倉位不可超過總資金 30%"
+    }
+  },
+
+  "allowed_modifications": [
+    "entry_rsi_min",
+    "entry_rsi_max",
+    "exit_rsi_min",
+    "exit_rsi_max",
+    "stop_loss_pct",
+    "take_profit_pct",
+    "position_size_pct"
+  ],
+
+  "forbidden_modifications": [
+    "main_strategy_logic",
+    "trade_execution_code",
+    "api_keys",
+    "risk_management_core"
+  ],
+
+  "patch_naming": {
+    "prefix": "tina_v",
+    "suffix": "_auto_patch.py",
+    "start_version": 2,
+    "description": "新策略命名：tina_v{N}_auto_patch.py（N = 2, 3, 4...）"
+  },
+
+  "approval_required": {
+    "new_strategy": true,
+    "parameter_changes": false,
+    "report_generation": true,
+    "backtest_only": false
+  },
+
+  "notification": {
+    "telegram_on_activation": true,
+    "telegram_on_patch_created": true,
+    "telegram_on_backtest_pass": true,
+    "telegram_on_backtest_fail": true,
+    "telegram_on_manual_intervention": true
+  }
+}

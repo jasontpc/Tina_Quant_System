@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "00646",
+    "name": "富邦S&P500",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 70.95,
+      "rsi14": 84.1,
+      "ma20": 69.04,
+      "ma60": 68.01,
+      "bias20": 2.76,
+      "slope20": 0.294,
+      "atr14": 0.47,
+      "vol": 2885324,
+      "vol_avg20": 2464701.0,
+      "vol_ratio": 1.17,
+      "high_20": 71.2,
+      "low_20": 65.3,
+      "K": 93.5,
+      "D": 106.2
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "00646",
+    "name": "富邦S&P500",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 70.95,
+      "rsi14": 84.1,
+      "ma20": 69.04,
+      "ma60": 68.01,
+      "bias20": 2.76,
+      "slope20": 0.294,
+      "atr14": 0.47,
+      "vol": 2885324,
+      "vol_avg20": 2464701.0,
+      "vol_ratio": 1.17,
+      "high_20": 71.2,
+      "low_20": 65.3,
+      "K": 86.0,
+      "D": 89.3
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "00646",
+    "name": "富邦S&P500",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 70.95,
+      "rsi14": 84.1,
+      "ma20": 69.04,
+      "ma60": 68.01,
+      "bias20": 2.76,
+      "slope20": 0.294,
+      "atr14": 0.47,
+      "vol": 2885324,
+      "vol_avg20": 2464701.0,
+      "vol_ratio": 1.17,
+      "high_20": 71.2,
+      "low_20": 65.3,
+      "K": 86.0,
+      "D": 89.3
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "00646",
+    "name": "富邦S&P500",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 70.95,
+      "rsi14": 84.1,
+      "ma20": 69.04,
+      "ma60": 68.01,
+      "bias20": 2.76,
+      "slope20": 0.294,
+      "atr14": 0.47,
+      "vol": 2885324,
+      "vol_avg20": 2464701.0,
+      "vol_ratio": 1.17,
+      "high_20": 71.2,
+      "low_20": 65.3,
+      "K": 86.0,
+      "D": 89.3
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

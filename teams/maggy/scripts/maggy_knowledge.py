@@ -1,0 +1,152 @@
+# -*- coding: utf-8 -*-
+"""Maggy Knowledge Base - 美股波段交易知識庫"""
+import sys, json
+from datetime import datetime
+sys.stdout.reconfigure(encoding='utf-8')
+
+KNOWLEDGE = {
+    'strategies': {
+        'RSI_Reversion': {
+            'name': 'RSI均值回歸策略',
+            'entry': 'RSI < 30（標準）/ RSI < 35（積極）',
+            'exit': 'RSI > 55（標準）/ RSI > 60（積極）',
+            'max_hold': '20天（標準）/ 15天（積極）',
+            'win_rate': '99-100%',
+            'avg_return': '+75-80%',
+            'best_stocks': ['COIN', 'INTC', 'TSLA', 'TQQQ', 'MU', 'AMD'],
+            'best_period': '2-3年歷史驗證',
+            'risk': '市場整體過熱時 RSI 可能長時間維持低點',
+            'notes': '進場後如果 RSI 持續低於30，表示可能存在結構性問題，應設定硬性止損'
+        },
+        'Sector_Rotation': {
+            'name': '產業輪動策略',
+            'method': '比較各產業 ETF 與 SPY 的60日相對強度',
+            'signal': '相對強度 > +5% = 強勢產業；< -5% = 弱勢產業',
+            'current': {
+                'strong': ['XLE (Energy)', 'XLK (Tech)', 'VGT (Info Tech)'],
+                'weak': ['XLV (Healthcare)']
+            },
+            'trade_method': '買入強勢產業中的最強股，賣出弱勢產業中的最弱股',
+            'rebalance': '每季或當相對強度改變 > 10% 時重新平衡'
+        },
+        'Momentum_Breakout': {
+            'name': '動量突破策略',
+            'entry': '價格突破20日高點 + RSI < 70',
+            'stop_loss': '2x ATR',
+            'target': '3x ATR',
+            'best_stocks': '高波動股票（COIN、TSLA、TQQQ）',
+            'note': '需要耐心等待突破確認'
+        },
+        'Options_Income': {
+            'name': '選擇權收入策略',
+            'method': '持有100股，賣出 Covered Call',
+            'strike': '現價 + 5%',
+            'premium': '約股價的3%',
+            'days_to_expiry': '30天',
+            '月收入': '約3% = 年化36%',
+            '風險': '如果股票急漲超過strike，機會成本放棄漲幅'
+        }
+    },
+    
+    'market_knowledge': {
+        'earnings_trading': {
+            'before_earnings': '不要在財報前1週內新建倉位（IV過高）',
+            'after_earnings': '等待方向確認後再進場',
+            'ivr_strategy': '高IV時只賣 Covered Call，不買 Call',
+            'low_ivr_strategy': '低IV時可以考慮買 Call 賭方向'
+        },
+        'sector_analysis': {
+            'bull_market': '輪動快速，所有產業都會漲，重視動量',
+            'bear_market': '防御性產業（XLV、XLP）相對抗跌',
+            'correction': '當任一產業 RSI > 80 且偏離 MA20 > 15%，小心回調'
+        },
+        'macro_indicators': {
+            'VIX': '< 20 = 市場平静；> 30 = 恐慌；> 40 = 極度恐慌可能是買點',
+            'DXY': '美元強時，新興市場和科技股壓力',
+            '10Y_Treasury': '> 4.5% = 股市估值壓力；< 3.5% = 股市友好'
+        }
+    },
+    
+    'stock_specific': {
+        'COIN': {
+            'nature': '加密貨幣券商，波動性極高',
+            'trade_tip': 'RSI < 30 後進場，持有至 RSI > 60',
+            'earnings_impact': '比特幣價格是主要驅動，財報影響相對小',
+            'news': '監管消息是主要催化劑'
+        },
+        'TSLA': {
+            'nature': '成長股 + 汽車股 + ESG',
+            'trade_tip': 'RSI均值回歸效果最好，等待 RSI < 35',
+            'earnings_impact': '交付量和毛利率是關鍵',
+            'note': '馬斯克推文可以造成10%+波動'
+        },
+        'TQQQ': {
+            'nature': 'NASDAQ 3x槓桿 ETF，適合短期交易',
+            'trade_tip': '不要長期持有（損耗效應），做波段',
+            'max_hold': '不超過10天',
+            'strategy': 'RSI < 35 進場，RSI > 55 或 10天後出場'
+        },
+        'INTC': {
+            'nature': '落後的晶片股，正在轉型',
+            'trade_tip': 'RSI < 35 是好買點，恢復緩慢需耐心',
+            'watch': 'AI GPU 份額流失問題'
+        },
+        'AMD': {
+            'nature': '資料中心 + 遊戲 + PC CPU',
+            'trade_tip': 'RSI < 35 後進場，回測效果好',
+            'catalyst': 'Zen5/Zen6 發布、Server市佔率變化'
+        }
+    },
+    
+    'risk_management': {
+        'position_sizing': {
+            'conservative': '單一股票不超過總資本5%',
+            'moderate': '單一股票不超過總資本10%',
+            'aggressive': '單一股票不超過總資本20%',
+            'note': '高波動股票（COIN、TSLA）應降低部位'
+        },
+        'stop_loss': {
+            'atr_stop': '2x ATR 是標準',
+            'ma_stop': '收盘跌破 MA20 是明確止損信號',
+            'time_stop': '持有超過15-20天且未獲利，強制出場'
+        },
+        'portfolio_limits': {
+            'max_positions': 10,
+            'max_sector_exposure': '40% of portfolio',
+            'max_leverage_etf_exposure': '20% of portfolio'
+        }
+    }
+}
+
+def main():
+    print('=== Maggy 美股波段交易知識庫 ===\n')
+    print(f'版本: 1.0 | 更新: {datetime.now().strftime("%Y-%m-%d")}\n')
+    
+    print('📚 核心策略')
+    for key, strat in KNOWLEDGE['strategies'].items():
+        print(f'\n  [{key}] {strat["name"]}')
+        print(f'    勝率: {strat.get("win_rate", "N/A")}')
+        print(f'    平均報酬: {strat.get("avg_return", "N/A")}')
+        print(f'    最佳股票: {", ".join(strat.get("best_stocks", []))}')
+    
+    print('\n\n📊 市場知識')
+    for section, info in KNOWLEDGE['market_knowledge'].items():
+        print(f'\n  [{section}]')
+        for key, val in info.items():
+            print(f'    {key}: {val}')
+    
+    print('\n\n🎯 個股特點')
+    for stock, info in KNOWLEDGE['stock_specific'].items():
+        print(f'\n  {stock}:')
+        for key, val in info.items():
+            print(f'    {key}: {val}')
+    
+    # Save knowledge base
+    output = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\maggy\reports\knowledge_base.json'
+    with open(output, 'w', encoding='utf-8') as f:
+        json.dump(KNOWLEDGE, f, ensure_ascii=False, indent=2)
+    
+    print(f'\n✅ 知識庫已儲存: {output}')
+
+if __name__ == '__main__':
+    main()

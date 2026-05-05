@@ -1,0 +1,43 @@
+{
+  "market_regime": {
+    "TWII": {
+      "symbol": "^TWII",
+      "price": 38926.62890625,
+      "change_pct": -0.96,
+      "regime": "OVERBOUGHT",
+      "trend": "UP",
+      "rsi": 79.87,
+      "updated_at": "2026-05-02T08:05:48.323976"
+    },
+    "Nasdaq": {
+      "symbol": "^IXIC",
+      "price": 25114.443359375,
+      "change_pct": 0.89,
+      "regime": "OVERBOUGHT",
+      "trend": "UP",
+      "rsi": 79.86,
+      "updated_at": "2026-05-02T08:05:48.515016"
+    },
+    "S&P500": {
+      "symbol": "^GSPC",
+      "price": 7230.1201171875,
+      "change_pct": 0.29,
+      "regime": "OVERBOUGHT",
+      "trend": "UP",
+      "rsi": 78.52,
+      "updated_at": "2026-05-02T08:05:48.735780"
+    },
+    "VIX": {
+      "symbol": "^VIX",
+      "price": 16.989999771118164,
+      "change_pct": 0.59,
+      "regime": "NEUTRAL",
+      "trend": "DOWN",
+      "rsi": 38.31,
+      "updated_at": "2026-05-02T08:05:48.959346"
+    }
+  },
+  "vix": 16.989999771118164,
+  "fear_level": "NEUTRAL",
+  "updated_at": "2026-05-02T08:05:48.960346"
+}

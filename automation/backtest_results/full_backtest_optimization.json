@@ -1,0 +1,535 @@
+{
+  "timestamp": "2026-04-26 03:05:17",
+  "data_period": "2021-04-26 ~ 2026-04-24",
+  "nana": {
+    "best_params": {
+      "entry_rsi_max": 45,
+      "entry_score_min": 25,
+      "entry_bias_max": 3,
+      "bias_exit": 6,
+      "atr_stop": 1.5,
+      "atr_target": 3.0
+    },
+    "best_result": {
+      "total_trades": 45,
+      "win_rate": 31.11111111111111,
+      "avg_return": 1.0255583947836415,
+      "max_gain": 16.373261499874232,
+      "max_loss": -4.734047852235514
+    },
+    "top10": [
+      {
+        "params": {
+          "entry_rsi_max": 45,
+          "entry_score_min": 25,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 45,
+          "win_rate": 31.11111111111111,
+          "avg_return": 1.0255583947836415,
+          "max_gain": 16.373261499874232,
+          "max_loss": -4.734047852235514
+        },
+        "score": 25.81113950339197
+      },
+      {
+        "params": {
+          "entry_rsi_max": 45,
+          "entry_score_min": 30,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 45,
+          "win_rate": 31.11111111111111,
+          "avg_return": 1.0255583947836415,
+          "max_gain": 16.373261499874232,
+          "max_loss": -4.734047852235514
+        },
+        "score": 25.81113950339197
+      },
+      {
+        "params": {
+          "entry_rsi_max": 45,
+          "entry_score_min": 35,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 45,
+          "win_rate": 31.11111111111111,
+          "avg_return": 1.0255583947836415,
+          "max_gain": 16.373261499874232,
+          "max_loss": -4.734047852235514
+        },
+        "score": 25.81113950339197
+      },
+      {
+        "params": {
+          "entry_rsi_max": 45,
+          "entry_score_min": 40,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 45,
+          "win_rate": 31.11111111111111,
+          "avg_return": 1.0255583947836415,
+          "max_gain": 16.373261499874232,
+          "max_loss": -4.734047852235514
+        },
+        "score": 25.81113950339197
+      },
+      {
+        "params": {
+          "entry_rsi_max": 55,
+          "entry_score_min": 25,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 72,
+          "win_rate": 29.166666666666668,
+          "avg_return": 0.9628263339762017,
+          "max_gain": 18.30090792788659,
+          "max_loss": -3.2906356086419724
+        },
+        "score": 24.21159667309535
+      },
+      {
+        "params": {
+          "entry_rsi_max": 55,
+          "entry_score_min": 30,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 72,
+          "win_rate": 29.166666666666668,
+          "avg_return": 0.9628263339762017,
+          "max_gain": 18.30090792788659,
+          "max_loss": -3.2906356086419724
+        },
+        "score": 24.21159667309535
+      },
+      {
+        "params": {
+          "entry_rsi_max": 55,
+          "entry_score_min": 35,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 72,
+          "win_rate": 29.166666666666668,
+          "avg_return": 0.9628263339762017,
+          "max_gain": 18.30090792788659,
+          "max_loss": -3.2906356086419724
+        },
+        "score": 24.21159667309535
+      },
+      {
+        "params": {
+          "entry_rsi_max": 65,
+          "entry_score_min": 25,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 74,
+          "win_rate": 29.72972972972973,
+          "avg_return": 0.930470658489108,
+          "max_gain": 16.638664311713853,
+          "max_loss": -3.394843575243557
+        },
+        "score": 24.169571449755946
+      },
+      {
+        "params": {
+          "entry_rsi_max": 65,
+          "entry_score_min": 30,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 74,
+          "win_rate": 29.72972972972973,
+          "avg_return": 0.930470658489108,
+          "max_gain": 16.638664311713853,
+          "max_loss": -3.394843575243557
+        },
+        "score": 24.169571449755946
+      },
+      {
+        "params": {
+          "entry_rsi_max": 65,
+          "entry_score_min": 35,
+          "entry_bias_max": 3,
+          "bias_exit": 6,
+          "atr_stop": 1.5,
+          "atr_target": 3.0
+        },
+        "result": {
+          "total_trades": 74,
+          "win_rate": 29.72972972972973,
+          "avg_return": 0.930470658489108,
+          "max_gain": 16.638664311713853,
+          "max_loss": -3.394843575243557
+        },
+        "score": 24.169571449755946
+      }
+    ]
+  },
+  "leo": {
+    "best_params": {
+      "entry_rsi_max": 65,
+      "take_profit_pct": 25,
+      "stop_loss_pct": 10
+    },
+    "best_result": {
+      "total_trades": 17,
+      "win_rate": 76.47058823529412,
+      "avg_return": 4.708929098832457,
+      "max_gain": 25.36039483914554,
+      "max_loss": -12.818755043836932
+    },
+    "top10": [
+      {
+        "params": {
+          "entry_rsi_max": 65,
+          "take_profit_pct": 25,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 17,
+          "win_rate": 76.47058823529412,
+          "avg_return": 4.708929098832457,
+          "max_gain": 25.36039483914554,
+          "max_loss": -12.818755043836932
+        },
+        "score": 85.32458510597164
+      },
+      {
+        "params": {
+          "entry_rsi_max": 65,
+          "take_profit_pct": 20,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 17,
+          "win_rate": 76.47058823529412,
+          "avg_return": 4.68250504300599,
+          "max_gain": 20.060334033009518,
+          "max_loss": -12.818755043836932
+        },
+        "score": 85.06034454770696
+      },
+      {
+        "params": {
+          "entry_rsi_max": 70,
+          "take_profit_pct": 20,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 17,
+          "win_rate": 76.47058823529412,
+          "avg_return": 4.549775474076889,
+          "max_gain": 21.117698547487404,
+          "max_loss": -13.595141029750204
+        },
+        "score": 83.73304885841594
+      },
+      {
+        "params": {
+          "entry_rsi_max": 55,
+          "take_profit_pct": 25,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 17,
+          "win_rate": 76.47058823529412,
+          "avg_return": 4.509097399238217,
+          "max_gain": 25.595170563919016,
+          "max_loss": -13.563335576673252
+        },
+        "score": 83.32626811002923
+      },
+      {
+        "params": {
+          "entry_rsi_max": 70,
+          "take_profit_pct": 25,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 17,
+          "win_rate": 76.47058823529412,
+          "avg_return": 4.426220165267809,
+          "max_gain": 25.56872441988361,
+          "max_loss": -13.595141029750204
+        },
+        "score": 82.49749577032514
+      },
+      {
+        "params": {
+          "entry_rsi_max": 60,
+          "take_profit_pct": 25,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 17,
+          "win_rate": 76.47058823529412,
+          "avg_return": 4.394281752066171,
+          "max_gain": 25.595170563919016,
+          "max_loss": -12.818755043836932
+        },
+        "score": 82.17811163830876
+      },
+      {
+        "params": {
+          "entry_rsi_max": 55,
+          "take_profit_pct": 15,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 18,
+          "win_rate": 77.77777777777779,
+          "avg_return": 4.312724859610548,
+          "max_gain": 15.473819650232615,
+          "max_loss": -13.563335576673252
+        },
+        "score": 82.01613748499437
+      },
+      {
+        "params": {
+          "entry_rsi_max": 65,
+          "take_profit_pct": 25,
+          "stop_loss_pct": 8
+        },
+        "result": {
+          "total_trades": 18,
+          "win_rate": 72.22222222222221,
+          "avg_return": 4.543468652188098,
+          "max_gain": 25.36039483914554,
+          "max_loss": -9.170921192218463
+        },
+        "score": 81.54579763299208
+      },
+      {
+        "params": {
+          "entry_rsi_max": 65,
+          "take_profit_pct": 20,
+          "stop_loss_pct": 8
+        },
+        "result": {
+          "total_trades": 18,
+          "win_rate": 72.22222222222221,
+          "avg_return": 4.518512599463101,
+          "max_gain": 20.060334033009518,
+          "max_loss": -9.170921192218463
+        },
+        "score": 81.29623710574211
+      },
+      {
+        "params": {
+          "entry_rsi_max": 55,
+          "take_profit_pct": 20,
+          "stop_loss_pct": 10
+        },
+        "result": {
+          "total_trades": 17,
+          "win_rate": 76.47058823529412,
+          "avg_return": 4.18345885192096,
+          "max_gain": 20.059315259525647,
+          "max_loss": -13.563335576673252
+        },
+        "score": 80.06988263685666
+      }
+    ]
+  },
+  "ray": {
+    "best_params": {
+      "entry_threshold": 40,
+      "low_threshold": 20,
+      "dca_amount": 5000
+    },
+    "best_result": {
+      "total_trades": 196,
+      "total_investment": 1200000.0,
+      "final_value": 3145403.382910623,
+      "total_return": 162.1169485758853,
+      "avg_cost": 14853.064118525976
+    },
+    "top10": [
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 20,
+          "dca_amount": 5000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 1200000.0,
+          "final_value": 3145403.382910623,
+          "total_return": 162.1169485758853,
+          "avg_cost": 14853.064118525976
+        },
+        "score": 324.2338971517706
+      },
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 20,
+          "dca_amount": 10000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 2400000.0,
+          "final_value": 6290806.765821246,
+          "total_return": 162.1169485758853,
+          "avg_cost": 14853.064118525976
+        },
+        "score": 324.2338971517706
+      },
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 25,
+          "dca_amount": 5000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 1270000.0,
+          "final_value": 3320602.4320419277,
+          "total_return": 161.46475842849824,
+          "avg_cost": 14890.113172994475
+        },
+        "score": 322.9295168569965
+      },
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 25,
+          "dca_amount": 10000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 2540000.0,
+          "final_value": 6641204.864083855,
+          "total_return": 161.46475842849824,
+          "avg_cost": 14890.113172994475
+        },
+        "score": 322.9295168569965
+      },
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 30,
+          "dca_amount": 5000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 1337500.0,
+          "final_value": 3490112.4047794556,
+          "total_return": 160.94298353491257,
+          "avg_cost": 14919.887061186715
+        },
+        "score": 321.88596706982514
+      },
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 30,
+          "dca_amount": 10000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 2675000.0,
+          "final_value": 6980224.809558911,
+          "total_return": 160.94298353491257,
+          "avg_cost": 14919.887061186715
+        },
+        "score": 321.88596706982514
+      },
+      {
+        "params": {
+          "entry_threshold": 45,
+          "low_threshold": 20,
+          "dca_amount": 5000
+        },
+        "result": {
+          "total_trades": 204,
+          "total_investment": 1240000.0,
+          "final_value": 3229921.33073491,
+          "total_return": 160.47752667217017,
+          "avg_cost": 14946.5479555552
+        },
+        "score": 320.95505334434034
+      },
+      {
+        "params": {
+          "entry_threshold": 45,
+          "low_threshold": 20,
+          "dca_amount": 10000
+        },
+        "result": {
+          "total_trades": 204,
+          "total_investment": 2480000.0,
+          "final_value": 6459842.66146982,
+          "total_return": 160.47752667217017,
+          "avg_cost": 14946.5479555552
+        },
+        "score": 320.95505334434034
+      },
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 35,
+          "dca_amount": 5000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 1415000.0,
+          "final_value": 3685570.9194297376,
+          "total_return": 160.46437593143023,
+          "avg_cost": 14947.302600701654
+        },
+        "score": 320.92875186286045
+      },
+      {
+        "params": {
+          "entry_threshold": 40,
+          "low_threshold": 35,
+          "dca_amount": 10000
+        },
+        "result": {
+          "total_trades": 196,
+          "total_investment": 2830000.0,
+          "final_value": 7371141.838859475,
+          "total_return": 160.46437593143023,
+          "avg_cost": 14947.302600701654
+        },
+        "score": 320.92875186286045
+      }
+    ]
+  }
+}

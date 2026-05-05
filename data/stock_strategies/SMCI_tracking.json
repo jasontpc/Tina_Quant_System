@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "SMCI",
+    "name": "Super Micro Computer",
+    "market": "US",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 27.09,
+      "rsi14": 54.3,
+      "ma20": 26.61,
+      "ma60": 28.41,
+      "bias20": 1.81,
+      "slope20": 0.2272,
+      "atr14": 1.66,
+      "vol": 24792811,
+      "vol_avg20": 29458111.0,
+      "vol_ratio": 0.84,
+      "high_20": 29.94,
+      "low_20": 21.79,
+      "K": 36.5,
+      "D": 41.1
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "SMCI",
+    "name": "Super Micro Computer",
+    "market": "US",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 27.09,
+      "rsi14": 54.3,
+      "ma20": 26.61,
+      "ma60": 28.41,
+      "bias20": 1.81,
+      "slope20": 0.2272,
+      "atr14": 1.66,
+      "vol": 24792811,
+      "vol_avg20": 29458111.0,
+      "vol_ratio": 0.84,
+      "high_20": 29.94,
+      "low_20": 21.79,
+      "K": 40.4,
+      "D": 49.1
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "SMCI",
+    "name": "Super Micro Computer",
+    "market": "US",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 27.09,
+      "rsi14": 54.3,
+      "ma20": 26.61,
+      "ma60": 28.41,
+      "bias20": 1.81,
+      "slope20": 0.2272,
+      "atr14": 1.66,
+      "vol": 25006200,
+      "vol_avg20": 29468780.0,
+      "vol_ratio": 0.85,
+      "high_20": 29.94,
+      "low_20": 21.79,
+      "K": 40.4,
+      "D": 49.1
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "SMCI",
+    "name": "Super Micro Computer",
+    "market": "US",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 2,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 27.09,
+      "rsi14": 54.3,
+      "ma20": 26.61,
+      "ma60": 28.41,
+      "bias20": 1.81,
+      "slope20": 0.2272,
+      "atr14": 1.66,
+      "vol": 25006200,
+      "vol_avg20": 29468780.0,
+      "vol_ratio": 0.85,
+      "high_20": 29.94,
+      "low_20": 21.79,
+      "K": 40.4,
+      "D": 49.1
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

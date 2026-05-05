@@ -1,0 +1,370 @@
+{
+  "generated_at": "2026-04-24 16:02:03",
+  "title": "TWII 歷史大盤 DCA 回測報告",
+  "periods": {
+    "2019-2020": {
+      "period": "2019-2020",
+      "start": "2019-01-01",
+      "end": "2020-12-31",
+      "twii_start": 9554.14,
+      "twii_end": 14687.7,
+      "twii_return": 53.73,
+      "strategies": {
+        "fixed_date_dca": {
+          "return": "+30.39%",
+          "sharpe": 20.45,
+          "max_drawdown": "0.00%",
+          "volatility": "424.40%",
+          "avg_cost": 11264.46,
+          "trades": 10,
+          "final_value": 130390.0
+        },
+        "price_triggered_dca": {
+          "return": "+57.84%",
+          "sharpe": 22.13,
+          "max_drawdown": "0.00%",
+          "volatility": "418.23%",
+          "avg_cost": 9305.5,
+          "trades": 8,
+          "final_value": 126271.0
+        },
+        "monthly_dca": {
+          "return": "+31.11%",
+          "sharpe": 15.17,
+          "max_drawdown": "-4.73%",
+          "volatility": "381.28%",
+          "avg_cost": 11202.92,
+          "trades": 17,
+          "final_value": 222880.0
+        },
+        "weekly_dca": {
+          "return": "+29.95%",
+          "sharpe": 7.24,
+          "max_drawdown": "-17.22%",
+          "volatility": "192.52%",
+          "avg_cost": 11302.8,
+          "trades": 100,
+          "final_value": 1299474.0
+        },
+        "buy_and_hold": {
+          "return": "+53.73%",
+          "sharpe": 1.36,
+          "max_drawdown": "0.00%",
+          "volatility": "16.82%",
+          "avg_cost": 9554.14,
+          "trades": 1,
+          "final_value": 153731.0
+        }
+      }
+    },
+    "2020-2021": {
+      "period": "2020-2021",
+      "start": "2020-01-01",
+      "end": "2021-12-31",
+      "twii_start": 12100.48,
+      "twii_end": 18218.84,
+      "twii_return": 50.56,
+      "strategies": {
+        "fixed_date_dca": {
+          "return": "+26.54%",
+          "sharpe": 15.42,
+          "max_drawdown": "0.00%",
+          "volatility": "467.35%",
+          "avg_cost": 14397.94,
+          "trades": 13,
+          "final_value": 164499.0
+        },
+        "price_triggered_dca": {
+          "return": "+95.79%",
+          "sharpe": 22.13,
+          "max_drawdown": "0.00%",
+          "volatility": "418.23%",
+          "avg_cost": 9305.5,
+          "trades": 8,
+          "final_value": 156629.0
+        },
+        "monthly_dca": {
+          "return": "+28.16%",
+          "sharpe": 16.58,
+          "max_drawdown": "0.00%",
+          "volatility": "344.00%",
+          "avg_cost": 14215.7,
+          "trades": 17,
+          "final_value": 217872.0
+        },
+        "weekly_dca": {
+          "return": "+31.94%",
+          "sharpe": 7.42,
+          "max_drawdown": "-9.80%",
+          "volatility": "194.63%",
+          "avg_cost": 13807.99,
+          "trades": 96,
+          "final_value": 1266664.0
+        },
+        "buy_and_hold": {
+          "return": "+50.56%",
+          "sharpe": 1.14,
+          "max_drawdown": "0.00%",
+          "volatility": "19.29%",
+          "avg_cost": 12100.48,
+          "trades": 1,
+          "final_value": 150563.0
+        }
+      }
+    },
+    "2022-2023": {
+      "period": "2022-2023",
+      "start": "2022-01-01",
+      "end": "2023-12-31",
+      "twii_start": 18270.51,
+      "twii_end": 17930.81,
+      "twii_return": -1.86,
+      "strategies": {
+        "fixed_date_dca": {
+          "return": "+13.24%",
+          "sharpe": 16.17,
+          "max_drawdown": "0.00%",
+          "volatility": "373.78%",
+          "avg_cost": 15834.39,
+          "trades": 15,
+          "final_value": 169859.0
+        },
+        "price_triggered_dca": {
+          "return": "+0.00%",
+          "sharpe": 0,
+          "max_drawdown": "0.00%",
+          "volatility": "0.00%",
+          "avg_cost": 0,
+          "trades": 0,
+          "final_value": 0
+        },
+        "monthly_dca": {
+          "return": "+11.95%",
+          "sharpe": 15.72,
+          "max_drawdown": "0.00%",
+          "volatility": "347.65%",
+          "avg_cost": 16016.72,
+          "trades": 17,
+          "final_value": 190316.0
+        },
+        "weekly_dca": {
+          "return": "+12.78%",
+          "sharpe": 7.37,
+          "max_drawdown": "-3.58%",
+          "volatility": "193.97%",
+          "avg_cost": 15898.31,
+          "trades": 93,
+          "final_value": 1048894.0
+        },
+        "buy_and_hold": {
+          "return": "-1.86%",
+          "sharpe": -0.03,
+          "max_drawdown": "0.00%",
+          "volatility": "16.76%",
+          "avg_cost": 18270.51,
+          "trades": 1,
+          "final_value": 98141.0
+        }
+      }
+    },
+    "2023-2024": {
+      "period": "2023-2024",
+      "start": "2023-01-01",
+      "end": "2024-12-31",
+      "twii_start": 14224.12,
+      "twii_end": 23190.2,
+      "twii_return": 63.03,
+      "strategies": {
+        "fixed_date_dca": {
+          "return": "+26.12%",
+          "sharpe": 16.78,
+          "max_drawdown": "0.00%",
+          "volatility": "399.12%",
+          "avg_cost": 18387.3,
+          "trades": 14,
+          "final_value": 176569.0
+        },
+        "price_triggered_dca": {
+          "return": "+15.03%",
+          "sharpe": 0.0,
+          "max_drawdown": "0.00%",
+          "volatility": "0.00%",
+          "avg_cost": 20160.38,
+          "trades": 2,
+          "final_value": 23006.0
+        },
+        "monthly_dca": {
+          "return": "+25.36%",
+          "sharpe": 15.23,
+          "max_drawdown": "-2.98%",
+          "volatility": "376.86%",
+          "avg_cost": 18498.44,
+          "trades": 17,
+          "final_value": 213117.0
+        },
+        "weekly_dca": {
+          "return": "+24.74%",
+          "sharpe": 7.3,
+          "max_drawdown": "-14.11%",
+          "volatility": "196.26%",
+          "avg_cost": 18591.14,
+          "trades": 96,
+          "final_value": 1197484.0
+        },
+        "buy_and_hold": {
+          "return": "+63.03%",
+          "sharpe": 1.52,
+          "max_drawdown": "0.00%",
+          "volatility": "17.19%",
+          "avg_cost": 14224.12,
+          "trades": 1,
+          "final_value": 163034.0
+        }
+      }
+    },
+    "2024-2026": {
+      "period": "2024-2026",
+      "start": "2024-01-01",
+      "end": "2026-03-31",
+      "twii_start": 17853.76,
+      "twii_end": 32518.16,
+      "twii_return": 82.14,
+      "strategies": {
+        "fixed_date_dca": {
+          "return": "+46.23%",
+          "sharpe": 16.63,
+          "max_drawdown": "0.00%",
+          "volatility": "428.53%",
+          "avg_cost": 22236.94,
+          "trades": 13,
+          "final_value": 190105.0
+        },
+        "price_triggered_dca": {
+          "return": "+70.99%",
+          "sharpe": 24.41,
+          "max_drawdown": "0.00%",
+          "volatility": "471.57%",
+          "avg_cost": 19017.34,
+          "trades": 6,
+          "final_value": 102595.0
+        },
+        "monthly_dca": {
+          "return": "+44.92%",
+          "sharpe": 14.68,
+          "max_drawdown": "-2.48%",
+          "volatility": "389.81%",
+          "avg_cost": 22438.57,
+          "trades": 18,
+          "final_value": 260857.0
+        },
+        "weekly_dca": {
+          "return": "+41.04%",
+          "sharpe": 7.05,
+          "max_drawdown": "-9.93%",
+          "volatility": "184.86%",
+          "avg_cost": 23055.35,
+          "trades": 111,
+          "final_value": 1565587.0
+        },
+        "buy_and_hold": {
+          "return": "+82.14%",
+          "sharpe": 1.29,
+          "max_drawdown": "0.00%",
+          "volatility": "23.18%",
+          "avg_cost": 17853.76,
+          "trades": 1,
+          "final_value": 182136.0
+        }
+      }
+    },
+    "2019-2026": {
+      "period": "2019-2026",
+      "start": "2019-01-01",
+      "end": "2026-03-31",
+      "twii_start": 9554.14,
+      "twii_end": 32518.16,
+      "twii_return": 240.36,
+      "strategies": {
+        "fixed_date_dca": {
+          "return": "+104.49%",
+          "sharpe": 10.17,
+          "max_drawdown": "-11.46%",
+          "volatility": "279.51%",
+          "avg_cost": 15902.37,
+          "trades": 46,
+          "final_value": 940637.0
+        },
+        "price_triggered_dca": {
+          "return": "+172.97%",
+          "sharpe": 13.38,
+          "max_drawdown": "-1.10%",
+          "volatility": "587.78%",
+          "avg_cost": 11912.78,
+          "trades": 14,
+          "final_value": 382156.0
+        },
+        "monthly_dca": {
+          "return": "+108.37%",
+          "sharpe": 9.29,
+          "max_drawdown": "-11.36%",
+          "volatility": "248.91%",
+          "avg_cost": 15606.05,
+          "trades": 61,
+          "final_value": 1271050.0
+        },
+        "weekly_dca": {
+          "return": "+106.59%",
+          "sharpe": 4.61,
+          "max_drawdown": "-17.45%",
+          "volatility": "114.43%",
+          "avg_cost": 15740.58,
+          "trades": 349,
+          "final_value": 7209922.0
+        },
+        "buy_and_hold": {
+          "return": "+240.36%",
+          "sharpe": 0.97,
+          "max_drawdown": "0.00%",
+          "volatility": "19.02%",
+          "avg_cost": 9554.14,
+          "trades": 1,
+          "final_value": 340357.0
+        }
+      }
+    }
+  },
+  "summary": {
+    "best_per_period": {
+      "2019-2020": {
+        "strategy": "price_triggered_dca",
+        "return": "+57.84%"
+      },
+      "2020-2021": {
+        "strategy": "price_triggered_dca",
+        "return": "+95.79%"
+      },
+      "2022-2023": {
+        "strategy": "fixed_date_dca",
+        "return": "+13.24%"
+      },
+      "2023-2024": {
+        "strategy": "buy_and_hold",
+        "return": "+63.03%"
+      },
+      "2024-2026": {
+        "strategy": "buy_and_hold",
+        "return": "+82.14%"
+      },
+      "2019-2026": {
+        "strategy": "buy_and_hold",
+        "return": "+240.36%"
+      }
+    },
+    "overall_best": {
+      "strategy": "buy_and_hold",
+      "return": "+240.36%",
+      "period": "2019-2026"
+    },
+    "dca_beats_bh_count": 3
+  }
+}

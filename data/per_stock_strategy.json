@@ -1,0 +1,262 @@
+{
+  "updated": "2026-05-04 06:47",
+  "description": "19檔觀察名單專屬策略（基於全量回測結果）",
+  "strategy_type": "MA20>MA60黃金交叉 + 個股參數優化",
+  "base_params": {
+    "rsi_entry_max": 65,
+    "hold_days": 5,
+    "atr_sl_mult": 2.0
+  },
+  "stocks": {
+    "MSFT": {
+      "name": "Microsoft",
+      "win_rate": 41.2, "avg_pnl": -0.24, "trades": 17, "pf": 1.17,
+      "verdict": "MA交叉策略禁用",
+      "root_cause": "進場RSI 59.2偏高，SL觸發率35.3%，距離MA20太近1.21%",
+      "adjusted_strategy": {
+        "strategy_type": "RSI超賣抄底",
+        "rsi_oversold": 35,
+        "rsi_overbought_exit": 60,
+        "atr_sl_mult": 3.0,
+        "hold_days": 10,
+        "note": "不再使用MA60交叉，改用RSI<35超賣進場"
+      }
+    },
+    "3037.TW": {
+      "name": "欣興",
+      "win_rate": 75.9, "avg_pnl": 4.53, "trades": 87, "pf": 1.55,
+      "verdict": "MA交叉策略適用，勝率最高",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "維持現有策略，SL放寬至ATR 2.5x"
+      }
+    },
+    "MU": {
+      "name": "Micron",
+      "win_rate": 59.6, "avg_pnl": 0.46, "trades": 52, "pf": 0.77,
+      "verdict": "MA交叉策略勉强適用，但盈虧比差",
+      "root_cause": "勝率一般(59.6%)，但盈虧比<1，贏時+3.21%輸時-4.12%",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "min_dist_ma20_pct": 1.0,
+        "hold_days": 5,
+        "note": "記憶體景氣相關性高，需配合DRAM現貨價進場"
+      }
+    },
+    "PLTR": {
+      "name": "Palantir",
+      "win_rate": 45.0, "avg_pnl": -0.09, "trades": 20, "pf": 1.19,
+      "verdict": "MA交叉策略禁用",
+      "root_cause": "勝率45%，SL觸發30%，進場RSI 58.1偏高",
+      "adjusted_strategy": {
+        "strategy_type": "動能突破策略",
+        "rsi_oversold": 40,
+        "atr_sl_mult": 3.0,
+        "min_vol_spike": 1.5,
+        "hold_days": 7,
+        "note": "國防AI軟體，波動大，需更大停損空間"
+      }
+    },
+    "TSLA": {
+      "name": "Tesla",
+      "win_rate": 45.7, "avg_pnl": -0.34, "trades": 35, "pf": 1.01,
+      "verdict": "MA交叉策略禁用",
+      "root_cause": "勝率45.7%，SL觸發率17.1%低但平均報酬為負",
+      "adjusted_strategy": {
+        "strategy_type": "區間突破",
+        "breakout_threshold": 3.0,
+        "atr_sl_mult": 3.0,
+        "rsi_entry_max": 60,
+        "hold_days": 10,
+        "note": "FSD/Robotaxi題材主導，技術策略效果差"
+      }
+    },
+    "AMD": {
+      "name": "AMD",
+      "win_rate": 35.7, "avg_pnl": -4.11, "trades": 14, "pf": 0.46,
+      "verdict": "MA交叉策略禁用，最差表現",
+      "root_cause": "勝率35.7%倒數第一，均損-8.21%最大，盈虧比0.46",
+      "adjusted_strategy": {
+        "strategy_type": "消息面追蹤",
+        "rsi_oversold": 30,
+        "atr_sl_mult": 3.5,
+        "hold_days": 10,
+        "note": "GPU市場競爭激烈，應等MI300X實際數據出爐再進場"
+      }
+    },
+    "3443.TW": {
+      "name": "創意",
+      "win_rate": 46.2, "avg_pnl": -0.20, "trades": 52, "pf": 1.10,
+      "verdict": "MA交叉策略需調整",
+      "root_cause": "SL觸發32.7%，偏離MA20 5.63%追高，輸時-6.45%大赔",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 3.0,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "ASIC波動大，停損放寬至ATR 3x，偏離>4%不放進場"
+      }
+    },
+    "3661.TW": {
+      "name": "世芯-KY",
+      "win_rate": 39.1, "avg_pnl": -1.32, "trades": 23, "pf": 0.94,
+      "verdict": "MA交叉策略禁用",
+      "root_cause": "勝率39.1%倒數第二，ASIC消息面主導，技術面慢半拍",
+      "adjusted_strategy": {
+        "strategy_type": "消息面+區間策略",
+        "rsi_oversold": 40,
+        "atr_sl_mult": 3.0,
+        "hold_days": 7,
+        "note": "不再使用MA60交叉，等大單消息進場"
+      }
+    },
+    "2345.TW": {
+      "name": "智邦",
+      "win_rate": 69.0, "avg_pnl": 3.80, "trades": 58, "pf": 1.58,
+      "verdict": "MA交叉策略適用",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "維持現有策略"
+      }
+    },
+    "3189.TW": {
+      "name": "景碩",
+      "win_rate": 71.1, "avg_pnl": 4.56, "trades": 76, "pf": 1.75,
+      "verdict": "MA交叉策略適用，勝率第二",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "維持現有策略"
+      }
+    },
+    "2359.TW": {
+      "name": "所羅門",
+      "win_rate": 53.3, "avg_pnl": 0.86, "trades": 30, "pf": 1.18,
+      "verdict": "MA交叉策略可用但需調整",
+      "root_cause": "SL觸發46.7%過高，停損太窄",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "Edge AI波動大，停損放寬"
+      }
+    },
+    "2383.TW": {
+      "name": "台光電",
+      "win_rate": 62.2, "avg_pnl": 4.01, "trades": 74, "pf": 2.15,
+      "verdict": "MA交叉策略適用，盈虧比最高",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "維持現有策略，盈虧比最優"
+      }
+    },
+    "1519.TW": {
+      "name": "華城",
+      "win_rate": 46.2, "avg_pnl": -0.69, "trades": 26, "pf": 0.92,
+      "verdict": "MA交叉策略禁用",
+      "root_cause": "電力基建不適合MA策略，贏時RSI 59.4反而更高（反常）",
+      "adjusted_strategy": {
+        "strategy_type": "區間突破或RSI超賣",
+        "rsi_oversold": 35,
+        "atr_sl_mult": 3.0,
+        "hold_days": 7,
+        "note": "電力基建報價特性不同，改用區間突破"
+      }
+    },
+    "2360.TW": {
+      "name": "致茂",
+      "win_rate": 71.4, "avg_pnl": 4.21, "trades": 77, "pf": 1.87,
+      "verdict": "MA交叉策略適用，新進首選",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "維持現有策略，CPO測試設備需求旺"
+      }
+    },
+    "6239.TW": {
+      "name": "力成",
+      "win_rate": 29.6, "avg_pnl": -1.82, "trades": 27, "pf": 1.27,
+      "verdict": "MA交叉策略禁用",
+      "root_cause": "勝率29.6%倒數第一，HBM封測但技術策略效果差",
+      "adjusted_strategy": {
+        "strategy_type": "消息面追蹤",
+        "rsi_oversold": 35,
+        "atr_sl_mult": 3.0,
+        "hold_days": 7,
+        "note": "等HBM漲價實際效益顯現再進場"
+      }
+    },
+    "6442.TW": {
+      "name": "光聖",
+      "win_rate": 54.2, "avg_pnl": 1.72, "trades": 72, "pf": 1.24,
+      "verdict": "MA交叉策略勉强適用",
+      "root_cause": "SL觸發31.9%，進場RSI 59.0略高",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "CPO題材發酵中，RSI門檻降至55"
+      }
+    },
+    "2454.TW": {
+      "name": "聯發科",
+      "win_rate": 60.6, "avg_pnl": 1.10, "trades": 33, "pf": 1.07,
+      "verdict": "MA交叉策略可用但SL觸發過高",
+      "root_cause": "SL觸發48.5%過高，接近一半被停損掃出",
+      "adjusted_strategy": {
+        "rsi_entry_max": 55,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "停損應放寬至ATR 2.5x"
+      }
+    },
+    "3532.TW": {
+      "name": "台勝科",
+      "win_rate": 46.7, "avg_pnl": 0.66, "trades": 45, "pf": 1.38,
+      "verdict": "MA交叉策略需調整",
+      "root_cause": "勝率46.7%偏低，進場RSI 57.2偏高",
+      "adjusted_strategy": {
+        "rsi_entry_max": 50,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 4.0,
+        "hold_days": 5,
+        "note": "矽晶圓景氣循環明確，等RSI<50進場"
+      }
+    },
+    "2449.TW": {
+      "name": "京元電子",
+      "win_rate": 63.5, "avg_pnl": 1.97, "trades": 63, "pf": 1.10,
+      "verdict": "MA交叉策略適用",
+      "adjusted_strategy": {
+        "rsi_entry_max": 60,
+        "atr_sl_mult": 2.5,
+        "max_dist_ma20_pct": 5.0,
+        "hold_days": 5,
+        "note": "維持現有策略，NVIDIA生態系支撐"
+      }
+    }
+  },
+  "strategy_summary": {
+    "MA交叉適用(直接使用)": ["3037.TW","2345.TW","3189.TW","2383.TW","2360.TW","2449.TW"],
+    "MA交叉需調整(RSI/ATR)": ["MU","3443.TW","2359.TW","6442.TW","2454.TW","3532.TW"],
+    "MA交叉禁用(改策略)": ["MSFT","PLTR","TSLA","AMD","3661.TW","1519.TW","6239.TW"]
+  }
+}

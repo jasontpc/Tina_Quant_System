@@ -1,0 +1,208 @@
+{
+  "description": "Tina Quant System - Cron Schedule Configuration Backup",
+  "last_updated": "2026-05-02",
+  "cron_jobs": [
+    {
+      "name": "NANA Watchlist 更新",
+      "schedule": "0 8,12,16,20 * * 1-5",
+      "script": "python scripts/nana_db_updater.py",
+      "description": "每個工作日 08:00, 12:00, 16:00, 20:00 更新 NANA watchlist",
+      "team": "nana"
+    },
+    {
+      "name": "LEO Watchlist 更新",
+      "schedule": "0 8,12,16,20 * * 1-5",
+      "script": "python scripts/leo_db_updater.py",
+      "description": "每個工作日 08:00, 12:00, 16:00, 20:00 更新 LEO watchlist",
+      "team": "leo"
+    },
+    {
+      "name": "RAY Watchlist 更新",
+      "schedule": "0 16 * * 1-5",
+      "script": "python scripts/ray_db_updater.py",
+      "description": "每個工作日 16:00 更新 RAY watchlist",
+      "team": "ray"
+    },
+    {
+      "name": "MAGGY Watchlist 更新",
+      "schedule": "0 16 * * 1-5",
+      "script": "python scripts/maggy_db_updater.py",
+      "description": "每個工作日 16:00 更新 MAGGY watchlist",
+      "team": "maggy"
+    },
+    {
+      "name": "CORE 市場體制更新",
+      "schedule": "0 8,12,16,20 * * 1-5",
+      "script": "python scripts/core_db_updater.py",
+      "description": "每個工作日 08:00, 12:00, 16:00, 20:00 更新市場體制資料",
+      "team": "core"
+    },
+    {
+      "name": "DB 健康檢查",
+      "schedule": "0 8 * * 6",
+      "script": "python scripts/db_check_suite.py --weekly",
+      "description": "每週六 08:00 執行完整資料庫健康檢查",
+      "team": "system"
+    },
+    {
+      "name": "過時資料警報",
+      "schedule": "0 * * * *",
+      "script": "python scripts/stale_data_alert.py",
+      "description": "每小時檢查所有 watchlist 是否過時（>12h），過時則發送警報",
+      "team": "system"
+    }
+  ],
+  "existing_jobs": [
+    {
+      "name": "Leo v7.0 每日分析報告",
+      "schedule": "0 10 * * *",
+      "status": "ok"
+    },
+    {
+      "name": "RSI 數值覆核",
+      "schedule": "0 8,16,22 * * *",
+      "status": "error"
+    },
+    {
+      "name": "資料庫數據檢核覆核",
+      "schedule": "0 8,16,22 * * *",
+      "status": "ok"
+    },
+    {
+      "name": "Ray DCA 市場分析",
+      "schedule": "0 16 * * *",
+      "status": "ok"
+    },
+    {
+      "name": "Tina 系統健檢（夜間）",
+      "schedule": "0 22 * * *",
+      "status": "ok"
+    },
+    {
+      "name": "Tina 全系統健康檢查（早晨）",
+      "schedule": "0 7 * * *",
+      "status": "error"
+    },
+    {
+      "name": "Ray 每週DCA檢視（週一早晨）",
+      "schedule": "0 7 * * 1",
+      "status": "ok"
+    },
+    {
+      "name": "US Margin 每日分析",
+      "schedule": "0 8 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Leo v6.5 科技股波段（分散排程）",
+      "schedule": "0 8,11,14,17,21 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Maggy 美股每日檢查",
+      "schedule": "0 8 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "TW ETF 每日分析",
+      "schedule": "0 8 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "每日開盤前策略報告",
+      "schedule": "0 8 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "US AI Tech 每日分析",
+      "schedule": "0 8 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "TW AI Tech 每日分析",
+      "schedule": "0 8 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Nana 波段v6.4（分散排程）",
+      "schedule": "0 8,10,13,15,17 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "TW ETF 報酬/殖利率/EPS分析",
+      "schedule": "0 9 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Macro 宏觀分析",
+      "schedule": "0 9 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Leo 法人資金流向（盤中2次）",
+      "schedule": "0 9,13,15 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Price Check 價格檢核（每日3次）",
+      "schedule": "0 9,14,20 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Trending Stocks RSI追蹤",
+      "schedule": "0 9,14,20 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "USD/TWD 匯率追蹤",
+      "schedule": "0 9,15 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Leo 整合優化主腳本（每日）",
+      "schedule": "0 10 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Unified 全系統整合分析",
+      "schedule": "0 10 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "US Fund Flow 每日更新",
+      "schedule": "0 16 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Leo AI產業鏈每日追蹤",
+      "schedule": "0 16 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Leo AI半導體產業鏈每日追蹤",
+      "schedule": "0 16 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "US ETF 報酬/殖利率分析",
+      "schedule": "0 20 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "TW AI Tech 盤後分析",
+      "schedule": "0 23 * * 1-5",
+      "status": "ok"
+    },
+    {
+      "name": "Leo 盤後科技股掃描",
+      "schedule": "0 23 * * 1-5",
+      "status": "ok"
+    }
+  ],
+  "notes": [
+    "整合腳本已建立：db_check_suite.py, quick_check_suite.py, db_monitor.py, stale_data_alert.py",
+    "所有 cron jobs 設定已記錄，configs/cron_schedule_config.json 為備份檔",
+    "NANA/LEO watchlist 每4小時更新（8,12,16,20時），RAY/MAGGY 每日16:00",
+    "stale_data_alert.py 每小時執行，檢查 >12h 未更新的 watchlist 並發送警報"
+  ]
+}

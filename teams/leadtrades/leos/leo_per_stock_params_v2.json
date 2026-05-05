@@ -1,0 +1,161 @@
+{
+  "date": "2026-04-27 06:03",
+  "version": "v2.0",
+  "stocks": {
+    "2330": {
+      "name": "台積電",
+      "original_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 45,
+        "take_profit": 5,
+        "stop_loss": 8
+      },
+      "adjusted_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 35,
+        "rsi_threshold_max": 50,
+        "hold_days": 45,
+        "take_profit": 5,
+        "stop_loss": 6,
+        "hold_days_min": 14,
+        "weight": 1.0
+      },
+      "original_metrics": {
+        "total_trades": 22,
+        "wins": 18,
+        "win_rate": 81.81818181818183,
+        "avg_return": 3.0548245479702754,
+        "sharpe": -2.7658078813541653,
+        "tp_count": 15,
+        "tp_rate": 68.18181818181817,
+        "score": 50.143720091663816
+      },
+      "adjustment_reason": "失敗分析：進場RSI均36.43（偏低），持有<14d最危險"
+    },
+    "2382": {
+      "name": "廣達",
+      "original_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 30,
+        "take_profit": 5,
+        "stop_loss": 8
+      },
+      "adjusted_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 40,
+        "rsi_threshold_max": 55,
+        "hold_days": 30,
+        "take_profit": 5,
+        "stop_loss": 6,
+        "hold_days_min": 14,
+        "weight": 1.0
+      },
+      "original_metrics": {
+        "total_trades": 19,
+        "wins": 15,
+        "win_rate": 78.94736842105263,
+        "avg_return": 3.529403336524186,
+        "sharpe": -1.134402446638372,
+        "tp_count": 14,
+        "tp_rate": 73.68421052631578,
+        "score": 48.51760800238256
+      },
+      "adjustment_reason": "失敗分析：進場RSI均43.40，動量平均0.08（最强），可放寬"
+    },
+    "3665": {
+      "name": "穎崴",
+      "original_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 50,
+        "hold_days": 60,
+        "take_profit": 8,
+        "stop_loss": 10
+      },
+      "adjusted_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "rsi_threshold_max": 55,
+        "hold_days": 60,
+        "take_profit": 8,
+        "stop_loss": 6,
+        "hold_days_min": 21,
+        "weight": 0.5
+      },
+      "original_metrics": {
+        "total_trades": 19,
+        "wins": 16,
+        "win_rate": 84.21052631578947,
+        "avg_return": 6.888402307556827,
+        "sharpe": 5.3499483488353015,
+        "tp_count": 15,
+        "tp_rate": 78.94736842105263,
+        "score": 52.603223470908134
+      },
+      "adjustment_reason": "失敗分析：平均虧損-10.71%最嚴重，進場RSI均47.05偏高，需嚴格限制"
+    },
+    "2317": {
+      "name": "鴻海",
+      "original_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 55,
+        "hold_days": 60,
+        "take_profit": 5,
+        "stop_loss": 10
+      },
+      "adjusted_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 45,
+        "rsi_threshold_max": 55,
+        "hold_days": 60,
+        "take_profit": 5,
+        "stop_loss": 8,
+        "hold_days_min": 21,
+        "weight": 1.0
+      },
+      "original_metrics": {
+        "total_trades": 16,
+        "wins": 12,
+        "win_rate": 75.0,
+        "avg_return": 1.9309780216259096,
+        "sharpe": -4.146073723505558,
+        "tp_count": 11,
+        "tp_rate": 68.75,
+        "score": 44.07929340648777
+      },
+      "adjustment_reason": "失敗分析：進場RSI均47.13偏高，最大虧損-14.29%，需嚴格進場"
+    },
+    "3034": {
+      "name": "緯穎",
+      "original_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 40,
+        "hold_days": 30,
+        "take_profit": 5,
+        "stop_loss": 8
+      },
+      "adjusted_params": {
+        "rsi_period": 10,
+        "rsi_threshold": 35,
+        "rsi_threshold_max": 55,
+        "hold_days": 30,
+        "take_profit": 5,
+        "stop_loss": 8,
+        "hold_days_min": 14,
+        "weight": 1.5
+      },
+      "original_metrics": {
+        "total_trades": 9,
+        "wins": 9,
+        "win_rate": 100.0,
+        "avg_return": 4.687700730093099,
+        "sharpe": 4.832589329538408,
+        "tp_count": 6,
+        "tp_rate": 66.66666666666666,
+        "score": 50.681198618458694
+      },
+      "adjustment_reason": "失敗分析：100%勝率但交易量少(9筆)，需擴大進場範圍"
+    }
+  }
+}

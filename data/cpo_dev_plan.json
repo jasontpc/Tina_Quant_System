@@ -1,0 +1,168 @@
+{
+  "date": "2026-05-03 15:42",
+  "chain": {
+    "散熱模組": [
+      "6230.TW",
+      "3324.TWO",
+      "6278.TWO",
+      "3653.TW",
+      "6120.TW"
+    ],
+    "風扇/馬達": [
+      "6592.TW",
+      "6236.TW"
+    ],
+    "VC/均熱板": [
+      "3711.TW",
+      "6269.TW"
+    ],
+    "導熱管": [
+      "3017.TW",
+      "2486.TW"
+    ],
+    "散熱膏/材料": [
+      "3128.TW",
+      "4908.TW"
+    ],
+    "基板/模造": [
+      "5227.TW",
+      "6109.TW",
+      "6243.TW"
+    ]
+  },
+  "projects": {
+    "CPO_DEDICATED_TEAM": {
+      "name": "CPO 散熱產業專屬團隊",
+      "category": "散熱",
+      "core_stocks": [
+        "6230.TW",
+        "3324.TWO",
+        "6278.TWO",
+        "3653.TW",
+        "3711.TW"
+      ],
+      "expand_stocks": [
+        "6120.TW",
+        "6592.TW",
+        "3017.TW",
+        "5227.TW"
+      ],
+      "strategy": "RSI 30-50 + MACD>0 + MA多頭 + Vol放量",
+      "backtest_period": "90d",
+      "notes": "AI伺服器 HBM 熱密度飆升，散熱需求爆發"
+    },
+    "CPO_DB_BUILDER": {
+      "name": "CPO 產業資料庫擴充",
+      "purpose": "建立 CPO 完整歷史資料",
+      "priority": "HIGH",
+      "notes": "補足 CPO 所有個股的 SMA20/SMA60/RSI/MACD"
+    },
+    "CPO_LEARNING_ENGINE": {
+      "name": "CPO 學習引擎",
+      "purpose": "CPO 專屬回測 + 參數優化",
+      "schedule": "weekly Sunday 10:00",
+      "priority": "HIGH"
+    }
+  },
+  "scripts": {
+    "cpo_sector_analysis.py": {
+      "purpose": "CPO 散熱產業技術面掃描",
+      "team": "CPO",
+      "schedule": "daily 09:00 + 14:00"
+    },
+    "cpo_learning_engine.py": {
+      "purpose": "CPO 專屬學習引擎（與 team_learning 整合）",
+      "team": "CPO",
+      "schedule": "weekly Sunday 10:00"
+    },
+    "cpo_db_builder.py": {
+      "purpose": "CPO 個股 yfinance 資料庫建立/更新",
+      "team": "CPO",
+      "schedule": "weekly"
+    },
+    "cpo_sentiment_tracker.py": {
+      "purpose": "CPO 社群情緒追蹤（散熱/AI伺服器關鍵字）",
+      "team": "CPO",
+      "schedule": "daily 07:30"
+    },
+    "cpo_event_trigger.py": {
+      "purpose": "CPO 事件驅動（GB200出貨、NVIDIA財報、CoWoS產能）",
+      "team": "CPO",
+      "trigger": "event-driven"
+    }
+  },
+  "strategy": {
+    "entry": {
+      "rsi_min": 30,
+      "rsi_max": 50,
+      "macd_positive": true,
+      "ma_bull": true,
+      "vol_ratio_min": 1.3
+    },
+    "exit": {
+      "take_profit": "3x ATR",
+      "stop_loss": "1.5x ATR",
+      "max_hold_days": 10
+    },
+    "position": {
+      "max_single": 10,
+      "max_total": 40
+    },
+    "expected_winrate": 65,
+    "expected_trades_per_quarter": 8
+  },
+  "data_gaps": {
+    "3324.TWO": {
+      "in_db": true,
+      "rows": 60,
+      "issue": "資料期太短"
+    },
+    "6278.TWO": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "6120.TW": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "6592.TW": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "6269.TW": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "2486.TW": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "3128.TW": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "5227.TW": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "6109.TW": {
+      "in_db": false,
+      "issue": "完全缺失"
+    },
+    "6243.TWO": {
+      "in_db": false,
+      "issue": "完全缺失"
+    }
+  },
+  "missing_symbols": [
+    "6278.TWO",
+    "6120.TW",
+    "6592.TW",
+    "6269.TW",
+    "2486.TW",
+    "3128.TW",
+    "5227.TW",
+    "6109.TW",
+    "6243.TWO"
+  ]
+}

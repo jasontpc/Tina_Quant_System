@@ -1,0 +1,88 @@
+{
+  "backtest_date": "2026-04-25T01:03:00",
+  "current_state": {
+    "regime": "OVERBOUGHT",
+    "close": 37714.15,
+    "rsi": 83.7,
+    "note": "RSI jumped from 76.6 to 83.7 in ~25 min - rapidly escalating"
+  },
+  "regime_stats": {
+    "OVERBOUGHT": {
+      "episodes": 31,
+      "avg_rsi": 85.55,
+      "avg_bias": 10.01,
+      "avg_atr_pct": 2.6491,
+      "avg_vol": 18315587,
+      "win_rate": 83.33,
+      "avg_return_pct": 2.4493
+    },
+    "BULL": {
+      "episodes": 118,
+      "avg_rsi": 66.05,
+      "avg_bias": 5.76,
+      "avg_atr_pct": 3.0463,
+      "avg_vol": 19388292,
+      "win_rate": 62.39,
+      "avg_return_pct": 0.7112
+    },
+    "CONSOLIDATE": {
+      "episodes": 10,
+      "avg_rsi": 53.53,
+      "avg_bias": -0.58,
+      "avg_atr_pct": 3.4676,
+      "avg_vol": 16850050,
+      "win_rate": 77.78,
+      "avg_return_pct": 3.7277
+    },
+    "BEAR": {
+      "episodes": 34,
+      "avg_rsi": 45.63,
+      "avg_bias": -0.51,
+      "avg_atr_pct": 3.5045,
+      "avg_vol": 16165538,
+      "win_rate": 60.61,
+      "avg_return_pct": 0.9437
+    },
+    "OVERSOLD": {
+      "episodes": 45,
+      "avg_rsi": 30.73,
+      "avg_bias": -6.65,
+      "avg_atr_pct": 3.7039,
+      "avg_vol": 14829484,
+      "win_rate": 52.27,
+      "avg_return_pct": 0.7266
+    }
+  },
+  "param_recommendations": {
+    "OVERBOUGHT": {
+      "atr_stop_loss": 3.9736,
+      "atr_target_profit": 7.9473,
+      "hold_days_max": 10,
+      "entry_rsi_max": 25
+    },
+    "BULL": {
+      "atr_stop_loss": 4.5694,
+      "atr_target_profit": 9.1389,
+      "hold_days_max": 10,
+      "entry_rsi_max": 25
+    },
+    "CONSOLIDATE": {
+      "atr_stop_loss": 5.2014,
+      "atr_target_profit": 10.4028,
+      "hold_days_max": 7,
+      "entry_rsi_max": 25
+    },
+    "BEAR": {
+      "atr_stop_loss": 5.2568,
+      "atr_target_profit": 10.5135,
+      "hold_days_max": 7,
+      "entry_rsi_max": 25
+    },
+    "OVERSOLD": {
+      "atr_stop_loss": 5.5558,
+      "atr_target_profit": 11.1117,
+      "hold_days_max": 7,
+      "entry_rsi_max": 25
+    }
+  }
+}

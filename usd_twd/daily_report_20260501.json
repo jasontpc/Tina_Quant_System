@@ -1,0 +1,22 @@
+{
+  "date": "2026-05-01T15:03:15.522472",
+  "rate": {
+    "symbol": "USDTWD",
+    "price": 31.606000900268555,
+    "prev": 31.62649917602539,
+    "change_pct": -0.06481360976043389
+  },
+  "signals": [
+    {
+      "signal": "DOWNTREND",
+      "level": "TECHNICAL",
+      "price": 31.606000900268555,
+      "ma20": 31.61472005844116,
+      "threshold": "MA20",
+      "interpretation": "Price below MA20",
+      "action": "TWD 回升"
+    }
+  ],
+  "level": "MEDIUM",
+  "signal": "NEUTRAL"
+}

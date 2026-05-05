@@ -1,0 +1,19 @@
+{
+  "time": "2026-04-26 15:03",
+  "version": "6.4",
+  "market": "BEAR RSI=50",
+  "market_watch": "TWII RSI ~93 (OVERBOUGHT). All trades on hold.",
+  "candidates": 10,
+  "candidates_detail": [
+    {"code": "2881", "price": 87.80, "rsi": 39.1, "momentum": -0.23, "adx": 10, "score": 45, "target": 91.49, "stop": 85.96, "name": "國泰金", "signal": "oversold"},
+    {"code": "6579", "price": 117.0, "rsi": 42.3, "momentum": -0.85, "adx": 10, "score": 45, "target": 126.75, "stop": 112.12, "name": "全景軟", "signal": "soft_oversold"},
+    {"code": "6770", "price": 52.90, "rsi": 38.5, "momentum": +0.57, "adx": 10, "score": 40, "target": 62.11, "stop": 48.29, "name": "力旺", "signal": "oversold"},
+    {"code": "2887", "price": 23.95, "rsi": 36.8, "momentum": -1.44, "adx": 10, "score": 35, "target": 25.41, "stop": 23.22, "name": "富邦金", "signal": "oversold"},
+    {"code": "2890", "price": 31.95, "rsi": 39.7, "momentum": -2.29, "adx": 10, "score": 35, "target": 33.71, "stop": 31.07, "name": "中信金", "signal": "oversold"},
+    {"code": "2892", "price": 28.30, "rsi": 39.6, "momentum": -1.74, "adx": 10, "score": 35, "target": 29.32, "stop": 27.79, "name": "遠傳", "signal": "oversold"},
+    {"code": "6446", "price": 620.0, "rsi": 36.8, "momentum": -5.05, "adx": 10, "score": 35, "target": 679.57, "stop": 590.21, "name": "秧訊", "signal": "oversold"},
+    {"code": "6550", "price": 17.45, "rsi": 34.8, "momentum": -7.18, "adx": 10.8, "score": 35, "target": 19.90, "stop": 16.22, "name": "長科", "signal": "oversold"},
+    {"code": "8131", "price": 57.90, "rsi": 37.4, "momentum": -4.61, "adx": 10, "score": 35, "target": 67.44, "stop": 53.13, "name": "立端", "signal": "oversold"},
+    {"code": "9914", "price": 57.50, "rsi": 35.5, "momentum": -5.58, "adx": 14.6, "score": 35, "target": 63.54, "stop": 54.48, "name": "美利肯", "signal": "oversold"}
+  ]
+}

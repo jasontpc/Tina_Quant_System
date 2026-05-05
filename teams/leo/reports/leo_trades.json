@@ -1,0 +1,11 @@
+{
+  "trades": [],
+  "open_positions": [],
+  "stats": {
+    "total_trades": 0,
+    "win_rate": 0,
+    "avg_return": 0,
+    "open_positions": 0,
+    "last_updated": "2026-04-25 16:05"
+  }
+}

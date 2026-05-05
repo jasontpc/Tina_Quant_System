@@ -1,0 +1,35 @@
+{
+  "updated": "2026-05-04 17:01",
+  "twii_rsi": 84.47158368374974,
+  "method_3_tiered_entry": {
+    "A": {
+      "rsi_max": 35,
+      "position": 5.0
+    },
+    "B": {
+      "rsi_max": 50,
+      "position": 2.5
+    },
+    "C": {
+      "rsi_max": 75,
+      "position": 1.0
+    }
+  },
+  "method_4_momentum_break": {
+    "enabled": true,
+    "condition": "price > high_20d AND RSI < 65"
+  },
+  "method_5_short_hold": {
+    "max_hold_days": 5,
+    "note": "原本10天縮短至5天"
+  },
+  "actionable_stocks": [
+    "致茂",
+    "台積電",
+    "光聖",
+    "緯創",
+    "廣達",
+    "台積電"
+  ],
+  "total_actionable": 6
+}

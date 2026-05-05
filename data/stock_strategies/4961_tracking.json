@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "4961",
+    "name": "力旺",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 6,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 152.5,
+      "rsi14": 49.5,
+      "ma20": 155.0,
+      "ma60": 149.0,
+      "bias20": -1.61,
+      "slope20": 0.465,
+      "atr14": 6.5,
+      "vol": 1378955,
+      "vol_avg20": 1498928.0,
+      "vol_ratio": 0.92,
+      "high_20": 178.0,
+      "low_20": 148.0,
+      "K": 9.7,
+      "D": 15.6
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "4961",
+    "name": "力旺",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 6,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 152.5,
+      "rsi14": 49.5,
+      "ma20": 155.0,
+      "ma60": 149.0,
+      "bias20": -1.61,
+      "slope20": 0.465,
+      "atr14": 6.5,
+      "vol": 1378955,
+      "vol_avg20": 1498928.0,
+      "vol_ratio": 0.92,
+      "high_20": 178.0,
+      "low_20": 148.0,
+      "K": 25.0,
+      "D": 38.7
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "4961",
+    "name": "力旺",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 6,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 152.5,
+      "rsi14": 49.5,
+      "ma20": 155.0,
+      "ma60": 149.0,
+      "bias20": -1.61,
+      "slope20": 0.465,
+      "atr14": 6.5,
+      "vol": 1378955,
+      "vol_avg20": 1498928.0,
+      "vol_ratio": 0.92,
+      "high_20": 178.0,
+      "low_20": 148.0,
+      "K": 25.0,
+      "D": 38.7
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "4961",
+    "name": "力旺",
+    "market": "TW",
+    "type": "tech",
+    "signal": "ENTRY_WATCH",
+    "score": 6,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 152.5,
+      "rsi14": 49.5,
+      "ma20": 155.0,
+      "ma60": 149.0,
+      "bias20": -1.61,
+      "slope20": 0.465,
+      "atr14": 6.5,
+      "vol": 1378955,
+      "vol_avg20": 1498928.0,
+      "vol_ratio": 0.92,
+      "high_20": 178.0,
+      "low_20": 148.0,
+      "K": 25.0,
+      "D": 38.7
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

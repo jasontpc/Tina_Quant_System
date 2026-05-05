@@ -1,0 +1,51 @@
+{
+  "stock": "GEN",
+  "name": "Gen Digital",
+  "market": "US",
+  "type": "us_growth",
+  "team": "Nana",
+  "volatility_tier": "medium",
+  "stock_character": {
+    "label": "US Cybersecurity",
+    "bias": "Medium growth stable",
+    "atr_multiplier": 1.1,
+    "noise_level": "medium",
+    "suitable_strategy": "Growth value hybrid"
+  },
+  "entry": {
+    "rsi_max": 65,
+    "rsi_ideal": "40-55",
+    "rsi_min": 35,
+    "rsi_length": 14,
+    "bias20_max": 6,
+    "bias20_ideal": "0-4",
+    "ma_required": "MA20>MA60",
+    "ma20_slope_min": 0.4,
+    "volume_ratio_min": 1.2
+  },
+  "exit": {
+    "stop_loss_atr": 1.8,
+    "stop_loss_pct": 7,
+    "take_profit_atr": 4.5,
+    "take_profit_pct": 15,
+    "trailing_stop_atr": 2.0,
+    "rsi_overbought_exit": 75,
+    "max_hold_days": 14
+  },
+  "position": {
+    "max_position_pct": 15,
+    "allow_add": true,
+    "add_condition": "RSI < 50",
+    "add_limit": 1
+  },
+  "risk": {
+    "max_loss_per_trade": 4,
+    "max_daily_loss": 6,
+    "max_total_exposure": 25
+  },
+  "brain_instructions": {
+    "think_context": "GEN is a cybersecurity company with stable growth",
+    "avoid_mistakes": "Watch for RSI > 65 signals",
+    "special_notes": "PE 20, revenue growth 26%, reasonable valuation"
+  }
+}

@@ -1,0 +1,4 @@
+[
+  {"id":"1101","name":"台泥","sector":"defense","tier":"3","wr":55.0,"note":"移至defense_old - 水泥/營造非真正國防"},
+  {"id":"2002","name":"中鋼","sector":"defense","tier":"3","wr":52.0,"note":"移至defense_old - 鋼鐵非真正國防"}
+]

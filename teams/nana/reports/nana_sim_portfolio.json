@@ -1,0 +1,23 @@
+{
+  "positions": [
+    {
+      "symbol": "2881",
+      "name": "國泰金",
+      "entry_price": 87.8,
+      "entry_date": "2026-04-26",
+      "target": 91.49,
+      "stop": 85.96,
+      "ma20_stop": 87.71,
+      "hold_days": 7,
+      "score": 45,
+      "rsi": 39.1,
+      "mom": -0.23,
+      "atr": 1.23,
+      "day_count": 0,
+      "current_price": 87.8,
+      "unrealized_pct": 0.0
+    }
+  ],
+  "cash": 0,
+  "last_updated": "2026-04-26 16:54:54"
+}

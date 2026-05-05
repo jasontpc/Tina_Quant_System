@@ -1,0 +1,48 @@
+{
+  "version": "2026-05-02",
+  "description": "Tina 量化系統 - 資料庫更新排程設定",
+  "teams": {
+    "nana": {
+      "updater": "nana_db_updater.py",
+      "output": "data/nana_watchlist.json",
+      "symbols": ["2330.TW", "2382.TW", "3665.TW", "2317.TW", "3034.TW"],
+      "schedule": "daily_08:00, daily_16:00"
+    },
+    "leo": {
+      "updater": "leo_db_updater.py",
+      "output": "data/leo_watchlist.json",
+      "symbols": ["2454.TW", "2345.TW", "3017.TW", "3034.TW", "4961.TW"],
+      "schedule": "daily_08:00, daily_16:00"
+    },
+    "ray": {
+      "updater": "ray_db_updater.py",
+      "output": "data/ray_watchlist.json",
+      "symbols": ["0050.TW", "00646.TW", "00713.TW", "0056.TW"],
+      "schedule": "daily_08:00, daily_16:00"
+    },
+    "maggy": {
+      "updater": "maggy_db_updater.py",
+      "output": "data/maggy_watchlist.json",
+      "symbols": ["D", "BMY", "SO", "DXCM", "COIN", "NET"],
+      "schedule": "daily_08:00, daily_16:00"
+    },
+    "core": {
+      "updater": "core_db_updater.py",
+      "output": "data/market_regime.json",
+      "symbols": ["^TWII", "^IXIC", "^GSPC", "^VIX"],
+      "schedule": "daily_08:00, daily_16:00, hourly"
+    }
+  },
+  "health_check": {
+    "script": "db_health_check.py",
+    "schedule": "daily_08:30, weekly_sat_10:00"
+  },
+  "optimizer": {
+    "script": "db_optimizer.py",
+    "schedule": "weekly_sat_10:30"
+  },
+  "master_scheduler": {
+    "script": "master_db_scheduler.py",
+    "schedule": "daily_08:00"
+  }
+}

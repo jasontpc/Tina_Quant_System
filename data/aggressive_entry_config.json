@@ -1,0 +1,15 @@
+{
+  "updated": "2026-05-04 17:11",
+  "mode": "AGGRESSIVE",
+  "twii_rsi": 84.5,
+  "leo_rsi_limit": 75,
+  "nana_rsi_limit": 60,
+  "actionable": [
+    "致茂",
+    "台積電",
+    "光聖",
+    "緯創",
+    "廣達"
+  ],
+  "total_position_pct": 8.0
+}

@@ -1,0 +1,45 @@
+{
+  "alerts": {
+    "vix_spike": {
+      "enabled": true,
+      "threshold": 25,
+      "message": "⚠️ VIX 恐慌飆升: {value}"
+    },
+    "vix_fear": {
+      "enabled": true,
+      "threshold": 20,
+      "message": "⚠️ VIX 進入恐懼區: {value}"
+    },
+    "institutional_large_sell": {
+      "enabled": true,
+      "threshold_billion": 50,
+      "message": "🚨 三大法人大賣超: {value}億 連續{sell_days}天賣超"
+    },
+    "margin_call_ratio": {
+      "enabled": true,
+      "threshold_pct": 10,
+      "message": "📉 融資餘額大增: {value}%"
+    },
+    "foreign_consecutive_buy": {
+      "enabled": true,
+      "threshold_days": 5,
+      "message": "🇺🇸 外資連續買超: {days}天"
+    },
+    "foreign_consecutive_sell": {
+      "enabled": true,
+      "threshold_days": 5,
+      "message": "🇺🇸 外資連續賣超: {days}天"
+    },
+    "us10y_spread_invert": {
+      "enabled": true,
+      "message": "📊 美債 2Y-10Y 殖利率倒掛: {spread}"
+    }
+  },
+  "notification_channels": [
+    {
+      "type": "telegram",
+      "enabled": true,
+      "chat_id": "1616824689"
+    }
+  ]
+}

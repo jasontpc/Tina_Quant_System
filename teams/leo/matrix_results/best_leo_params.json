@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-04-26 12:05:55",
+  "source": "leo_matrix_optimizer",
+  "best_config": {
+    "rsi_period": 12,
+    "rsi_threshold": 40,
+    "hold_days": 10,
+    "tp_pct": 10,
+    "sl_pct": 8
+  },
+  "train_wr": 76.19047619047619,
+  "val_wr": 72.72727272727273,
+  "train_sharpe": 10.115326293652174,
+  "val_sharpe": 5.0780441242337,
+  "val_pl_ratio": 0.8603099923928906,
+  "val_recovery": 1.8683427594934572,
+  "score": 80.3216207559205,
+  "symbols": [
+    "2379"
+  ]
+}

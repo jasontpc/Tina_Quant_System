@@ -1,0 +1,120 @@
+{
+  "date": "2026-05-05T18:03:37.957299",
+  "total_stocks": 17,
+  "high_risk_count": 8,
+  "alerts_count": 3,
+  "high_risk": [
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "price": 95.77999877929688,
+      "rsi_14": 82.81665519229756,
+      "short_ratio": 1.38,
+      "days_to_cover": 0.0,
+      "change_pct": -3.854651537255561
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 383.25,
+      "rsi_14": 82.19494800728081,
+      "short_ratio": 2.72,
+      "days_to_cover": 0.0,
+      "change_pct": -0.6326330539970202
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 272.04998779296875,
+      "rsi_14": 80.48718312311563,
+      "short_ratio": 2.02,
+      "days_to_cover": 0.0,
+      "change_pct": 1.4128002271583455
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Nasdaq 100",
+      "price": 672.8800048828125,
+      "rsi_14": 78.90342259130178,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.18838826451928672
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "ProShares 3x Long",
+      "price": 64.91000366210938,
+      "rsi_14": 78.13113718153842,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.5972425289770934
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 341.5400085449219,
+      "rsi_14": 73.94627317953918,
+      "short_ratio": 1.08,
+      "days_to_cover": 0.0,
+      "change_pct": -5.269872843427493
+    },
+    {
+      "symbol": "SPY",
+      "name": "S&P 500 ETF",
+      "price": 718.010009765625,
+      "rsi_14": 71.94781348371617,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.36633796697419274
+    },
+    {
+      "symbol": "SPXL",
+      "name": "3x Long S&P 500",
+      "price": 245.72999572753906,
+      "rsi_14": 70.73307565489446,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -1.1067289308131687
+    }
+  ],
+  "short_squeeze": [],
+  "alerts": [
+    {
+      "symbol": "GOOGL",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 383.25,
+      "margin_ratio": null,
+      "reason": "RSI=82.2 overbought, margin risk high",
+      "timestamp": "2026-05-05T18:03:37.955298"
+    },
+    {
+      "symbol": "AMZN",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 272.04998779296875,
+      "margin_ratio": null,
+      "reason": "RSI=80.5 overbought, margin risk high",
+      "timestamp": "2026-05-05T18:03:37.955298"
+    },
+    {
+      "symbol": "INTC",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 95.77999877929688,
+      "margin_ratio": null,
+      "reason": "RSI=82.8 overbought, margin risk high",
+      "timestamp": "2026-05-05T18:03:37.955298"
+    }
+  ],
+  "params": {
+    "initial_margin": 0.5,
+    "maintenance_margin": 0.25,
+    "margin_call_threshold": 0.3,
+    "max_margin_ratio": 0.4
+  },
+  "summary": {
+    "high_severity": 3,
+    "medium_severity": 0
+  }
+}

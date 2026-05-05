@@ -1,0 +1,82 @@
+{
+  "stock": "3665",
+  "name": "穎崴",
+  "market": "TW",
+  "type": "tech",
+  "team": "Nana",
+  "entry": {
+    "rsi_max": 58,
+    "rsi_ideal": "35-50",
+    "rsi_min": 30,
+    "bias20_max": 6,
+    "bias20_ideal": "-2-4",
+    "ma_required": "MA20>MA60",
+    "ma20_slope_min": 0.2,
+    "volume_min": 100000,
+    "volume_ratio_min": 1.4,
+    "inst_required": true,
+    "inst_days": 2,
+    "inst_net_min": 200,
+    "rsi_length": 14
+  },
+  "exit": {
+    "stop_loss_atr": 2.5,
+    "stop_loss_pct": 7,
+    "take_profit_atr": 5.0,
+    "take_profit_pct": 14,
+    "trailing_stop_atr": 3.0,
+    "rsi_overbought_exit": 70,
+    "rsi_divergence_exit": true,
+    "max_hold_days": 8,
+    "exit_on_bearish_ma": true,
+    "rsi_length": 14
+  },
+  "position": {
+    "max_position_pct": 12,
+    "allow_add": false,
+    "add_condition": null,
+    "add_limit": 0,
+    "dividend_handling": "skip_exdate"
+  },
+  "risk": {
+    "max_loss_per_trade": 3,
+    "max_daily_loss": 5,
+    "max_total_exposure": 25,
+    "volatility_tier": "high"
+  },
+  "atr_params": {
+    "period": 14,
+    "typical_price": true
+  },
+  "notes": "穎崴是高價IC測試介面股，波動極大。禁止加碼，最多持有8天，ATR 設定較寬鬆。",
+  "volatility_tier": "high",
+  "stock_character": {
+    "label": "AI/半導體",
+    "bias": "高波動高動能",
+    "atr_multiplier": 1.2,
+    "noise_level": "high",
+    "suitable_strategy": "動能驅動，突破進場，嚴守停損"
+  },
+  "brain_instructions": {
+    "think_context": "穎崴是高動能科技股，波動大，需嚴守停損紀律",
+    "avoid_mistakes": "不要在 RSI > 65 時進場，不要在 MA20 < MA60 時進場",
+    "special_notes": "科技股動能強，突破 MA20 是核心進場信號"
+  },
+  "rsi_max": 75,
+  "rsi_overbought_exit": 85,
+  "stop_loss_pct": 8,
+  "trailing_stop_atr": 2.5,
+  "optimization_log": [
+    {
+      "date": "2026-05-02T15:21:01.321884",
+      "situation": "強勢多頭",
+      "recommendation": "趨勢追蹤",
+      "confidence": 0.75,
+      "audit": {
+        "approved": true,
+        "win_rate": 0.5,
+        "avg_pnl": 0
+      }
+    }
+  ]
+}

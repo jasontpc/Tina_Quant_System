@@ -1,0 +1,14 @@
+{
+  "symbol": "2883",
+  "name": "開發金",
+  "scraped_at": "2026-04-28 06:25:16",
+  "data": {
+    "price": 39616.0,
+    "change_pct": 1.76,
+    "volume": null,
+    "rsi": null,
+    "ma5": 10.0,
+    "ma10": 20.0,
+    "ma20": 60.0
+  }
+}

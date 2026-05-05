@@ -1,0 +1,41 @@
+{
+  "updated": "2026-05-04 14:19",
+  "version": "v3.13",
+  "description": "Tina Brain 大腦整合報告（v3.13）",
+  
+  "team_structure": {
+    "Leo": {"stocks": 11, "focus": "AI科技股波段MA_OK", "win_rate": "62-76%"},
+    "Nana": {"stocks": 10, "focus": "AI波段MA_ADJUST", "win_rate": "57-76%"},
+    "Hunter": {"stocks": 12, "focus": "替代策略MA_BAN", "win_rate": "35-71%"},
+    "Ray": {"stocks": 6, "focus": "ETF DCA", "win_rate": "N/A"}
+  },
+
+  "key_findings": {
+    "rsi_threshold": "<35-40 is optimal (not <55)",
+    "光聖": {"win_rate": "75%", "avg_pnl": "+5.77%", "pf": 2.33},
+    "創意": {"win_rate": "71%", "avg_pnl": "+4.59%", "pf": 1.78},
+    "世芯KY": {"win_rate": "71%", "avg_pnl": "+4.78%", "pf": 1.78}
+  },
+
+  "cron_schedule": {
+    "08:00": "Tina大腦晨報",
+    "09:00-17:00": "台股相關Cron",
+    "18:00": "美股/社群情緒（US AI/Margin/Fund/Reddit/StockTwits/Tavily）"
+  },
+
+  "new_databases": [
+    "sector_analysis.db",
+    "backtest_archive.db",
+    "trade_journal.db",
+    "risk_metrics.db",
+    "insider_tracking.db",
+    "short_interest.db"
+  ],
+
+  "system_health": {
+    "Leo": "95/100",
+    "Nana": "95/100",
+    "Hunter": "90/100",
+    "Tina": "95/100"
+  }
+}

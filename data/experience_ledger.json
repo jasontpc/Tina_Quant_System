@@ -1,0 +1,131 @@
+[
+  {
+    "date": "2026-05-03",
+    "symbol": "AAPL",
+    "score": 50,
+    "win_rate": 0.0,
+    "vol_type": "穩健墊高",
+    "atr_pct": 2.4,
+    "tags": [
+      "RSI過熱66",
+      "MACD多頭",
+      "量能放大1.7x",
+      "MA20多頭"
+    ],
+    "source": "hunter_v2",
+    "status": "watch",
+    "trades": 0,
+    "pf": 0,
+    "rsi": 66.4,
+    "ma_bull": true
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "MSFT",
+    "team": "MAGGY",
+    "score": 45,
+    "win_rate": 0.28600000000000003,
+    "trades": 21,
+    "source": "hunter_v2",
+    "pf": 2.49,
+    "atr_pct": 3.0,
+    "status": "ready",
+    "rsi": 54.5,
+    "ma_bull": true
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "YANG",
+    "score": 45,
+    "win_rate": 0.0,
+    "vol_type": "穩健墊高",
+    "atr_pct": 3.6,
+    "tags": [
+      "RSI偏低",
+      "MACD多頭"
+    ],
+    "source": "hunter_v2",
+    "status": "watch",
+    "trades": 4,
+    "pf": 0.0,
+    "rsi": 46.6,
+    "ma_bull": true
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "5269.TW",
+    "team": "LEO",
+    "score": 35,
+    "win_rate": 23.3,
+    "trades": 30,
+    "source": "team_learning"
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "2359.TW",
+    "team": "LEO",
+    "score": 45,
+    "win_rate": 0.0,
+    "trades": 10,
+    "source": "team_learning"
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "4966.TWO",
+    "team": "LEO",
+    "score": 45,
+    "win_rate": 20.0,
+    "trades": 25,
+    "source": "team_learning"
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "CRM",
+    "team": "MAGGY",
+    "score": 45,
+    "win_rate": 0.0,
+    "trades": 0,
+    "source": "hunter_v2",
+    "pf": 0,
+    "atr_pct": 3.7,
+    "status": "watch",
+    "rsi": 51.3,
+    "ma_bull": false
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "2464.TW",
+    "team": "NANA",
+    "score": 35,
+    "win_rate": 0.0,
+    "trades": 4,
+    "source": "team_learning"
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "3324.TWO",
+    "team": "NANA",
+    "score": 45,
+    "win_rate": 100.0,
+    "trades": 4,
+    "source": "team_learning"
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "1590.TW",
+    "team": "NANA",
+    "score": 35,
+    "win_rate": 50.0,
+    "trades": 10,
+    "source": "team_learning"
+  },
+  {
+    "date": "2026-05-03",
+    "symbol": "8299.TW",
+    "team": "LEO",
+    "score": 45,
+    "win_rate": 100.0,
+    "trades": 1,
+    "source": "team_learning"
+  }
+]

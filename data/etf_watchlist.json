@@ -1,0 +1,168 @@
+{
+  "updated": "2026-05-04 16:35",
+  "version": "v1",
+  "description": "ETF觀察名單（FinMind版）",
+  "data_note": "FinMind可確認ETF存在，但價格需用yfinance或TWSE查詢",
+  "etfs": [
+    {
+      "symbol": "0050.TW",
+      "name": "元大台灣50",
+      "category": "台股大型",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "006208.TW",
+      "name": "富邦台灣50",
+      "category": "台股大型",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00631L.TW",
+      "name": "元大台灣50正2",
+      "category": "台股槓桿",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00632R.TW",
+      "name": "元大台灣50反1",
+      "category": "台股反向",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "0056.TW",
+      "name": "元大高股息",
+      "category": "高股息",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00713.TW",
+      "name": "元大高息低波",
+      "category": "高股息低波",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00878.TW",
+      "name": "國泰永續高股息",
+      "category": "高股息ESG",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00918.TW",
+      "name": "群益台灣精選高息",
+      "category": "高股息",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00919.TW",
+      "name": "群益台ESG低碳50",
+      "category": "高股息ESG",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00927.TW",
+      "name": "群益半導體收益",
+      "category": "高股息科技",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00646.TW",
+      "name": "富邦S&P500",
+      "category": "美股大盤",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00662.TW",
+      "name": "富邦NASDAQ100",
+      "category": "美股科技",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00757.TW",
+      "name": "統一FANG+",
+      "category": "美股科技",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00891.TW",
+      "name": "中信關鍵半導體",
+      "category": "半導體",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00892.TW",
+      "name": "富邦台灣半導體",
+      "category": "半導體",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00895.TW",
+      "name": "富邦未來車",
+      "category": "電動車",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00946.TW",
+      "name": "群益科技高息成長",
+      "category": "科技高息",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00928.TW",
+      "name": "中信上櫃ESG 30",
+      "category": "ESG",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "006201.TW",
+      "name": "元大富櫃50",
+      "category": "中小型",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    },
+    {
+      "symbol": "00888.TW",
+      "name": "永豐台灣ESG",
+      "category": "ESG",
+      "status": "active",
+      "data_source": "FinMind",
+      "yfinance_note": "Yahoo可能無資料，需手動查詢"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "date": "2026-05-03",
+  "config": {
+    "MSFT": {
+      "strategy": "rsi_mean_reversion",
+      "rsi_min": 35,
+      "rsi_max": 50,
+      "macd_min": 0,
+      "ma_required": true,
+      "note": "均值回歸，歷史WR=66.7%"
+    },
+    "CRM": {
+      "strategy": "macd_crossover",
+      "rsi_min": 0,
+      "rsi_max": 999,
+      "macd_cross": true,
+      "ma_required": true,
+      "note": "MACD金叉，歷史WR=75%"
+    },
+    "AVGO": {
+      "strategy": "trend_following",
+      "rsi_min": 40,
+      "rsi_max": 80,
+      "macd_min": 0,
+      "vol_min": 1.0,
+      "note": "順勢突破 v2"
+    },
+    "GOOGL": {
+      "strategy": "trend_following",
+      "rsi_min": 40,
+      "rsi_max": 80,
+      "macd_min": 0,
+      "vol_min": 1.0,
+      "note": "順勢突破 v2"
+    },
+    "META": {
+      "strategy": "low_rsi_reversion",
+      "rsi_min": 30,
+      "rsi_max": 55,
+      "macd_min": 0,
+      "ma_required": false,
+      "note": "超跌反彈，RSI<45進場"
+    }
+  },
+  "results": [
+    {
+      "symbol": "MSFT",
+      "trades": 66,
+      "win_rate": 22.7,
+      "wins": 15,
+      "avg_gain": 6.44,
+      "avg_loss": -2.85,
+      "pf": 2.26
+    },
+    {
+      "symbol": "CRM",
+      "trades": 4,
+      "win_rate": 75.0,
+      "wins": 3,
+      "avg_gain": 7.43,
+      "avg_loss": -4.22,
+      "pf": 1.76
+    }
+  ],
+  "summary": {
+    "total_trades": 70,
+    "win_rate": 25.7
+  },
+  "insights": {
+    "MSFT": {
+      "rsi_35_50_pct": 41.0,
+      "rsi_below_40_pct": 20.8,
+      "rsi_50_70_pct": 29.2,
+      "macd_pos_pct": 49.0,
+      "ma_bull_pct": 43.0,
+      "chg_yy": 3.5,
+      "latest_rsi": 54.5,
+      "latest_macd": 0.466
+    },
+    "CRM": {
+      "rsi_35_50_pct": 41.0,
+      "rsi_below_40_pct": 24.4,
+      "rsi_50_70_pct": 40.6,
+      "macd_pos_pct": 54.2,
+      "ma_bull_pct": 33.9,
+      "chg_yy": -31.9,
+      "latest_rsi": 51.3,
+      "latest_macd": 0.783
+    },
+    "AVGO": {
+      "rsi_35_50_pct": 28.6,
+      "rsi_below_40_pct": 50.8,
+      "rsi_50_70_pct": 12.7,
+      "macd_pos_pct": 55.6,
+      "ma_bull_pct": 100.0,
+      "chg_yy": 27.5,
+      "latest_rsi": 68.3,
+      "latest_macd": 0.335
+    },
+    "GOOGL": {
+      "rsi_35_50_pct": 17.5,
+      "rsi_below_40_pct": 58.7,
+      "rsi_50_70_pct": 19.0,
+      "macd_pos_pct": 60.3,
+      "ma_bull_pct": 100.0,
+      "chg_yy": 12.3,
+      "latest_rsi": 82.1,
+      "latest_macd": 4.881
+    },
+    "META": {
+      "rsi_35_50_pct": 11.1,
+      "rsi_below_40_pct": 69.8,
+      "rsi_50_70_pct": 25.4,
+      "macd_pos_pct": 44.4,
+      "ma_bull_pct": 66.7,
+      "chg_yy": -13.8,
+      "latest_rsi": 40.0,
+      "latest_macd": -5.168
+    }
+  }
+}

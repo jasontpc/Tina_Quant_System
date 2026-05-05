@@ -1,0 +1,61 @@
+{
+  "stock": "2886",
+  "name": "兆豐金控",
+  "market": "TW",
+  "type": "金融",
+  "team": "nana",
+  "entry": {
+    "rsi_max": 60,
+    "rsi_ideal": "35-50",
+    "rsi_min": 30,
+    "bias20_max": 8,
+    "bias20_ideal": "0-5",
+    "ma_required": "MA20>MA60",
+    "volume_ratio_min": 1.0,
+    "inst_required": false,
+    "rsi_length": 14
+  },
+  "exit": {
+    "stop_loss_atr": 2.0,
+    "stop_loss_pct": 5,
+    "take_profit_atr": 4.0,
+    "take_profit_pct": 12,
+    "trailing_stop_atr": 2.0,
+    "rsi_overbought_exit": 70,
+    "max_hold_days": 14,
+    "rsi_length": 14
+  },
+  "position": {
+    "max_position_pct": 12,
+    "allow_add": true,
+    "add_condition": "RSI < 45 and price > entry + 2%",
+    "add_limit": 1
+  },
+  "risk": {
+    "max_loss_per_trade": 4,
+    "max_total_exposure": 30,
+    "volatility_tier": "medium"
+  },
+  "atr_params": {
+    "period": 14,
+    "typical_price": true
+  },
+  "dividend": {
+    "yield_approx": 5.5,
+    "ex_date_handling": "skip"
+  },
+  "notes": "兆豐金控公股龍頭，股息殖利率高達 5.5%，銀行業務穩健。適合長抱，股息再投入。波段操作可在 RSI 35-50 進場。",
+  "volatility_tier": "low",
+  "stock_character": {
+    "label": "金融藍籌",
+    "bias": "穩健價值",
+    "atr_multiplier": 0.8,
+    "noise_level": "low",
+    "suitable_strategy": "價值投資，區間操作"
+  },
+  "brain_instructions": {
+    "think_context": "兆豐金控是金融藍籌股，穩健價值型，關注殖利率和淨值",
+    "avoid_mistakes": "不要在景氣下行時急於進場，等基本面確認",
+    "special_notes": "金融股適合價值投資，耐心持有"
+  }
+}

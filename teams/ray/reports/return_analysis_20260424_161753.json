@@ -1,0 +1,156 @@
+{
+  "timestamp": "2026-04-24",
+  "etf_count": 15,
+  "return_data": [
+    {
+      "etf_id": "0050",
+      "1y_return": 124.47,
+      "3y_return": 48.46,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 1,
+      "rank_3y": 1,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "0056",
+      "1y_return": 42.58,
+      "3y_return": 26.18,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 6,
+      "rank_3y": 7,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00713",
+      "1y_return": 15.49,
+      "3y_return": 20.14,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 15,
+      "rank_3y": 12,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00891",
+      "1y_return": 120.68,
+      "3y_return": 45.22,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 2,
+      "rank_3y": 2,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00646",
+      "1y_return": 27.68,
+      "3y_return": 23.59,
+      "5y_return": null,
+      "since_inception": 14.17,
+      "rank_1y": 11,
+      "rank_3y": 10,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00662",
+      "1y_return": 37.93,
+      "3y_return": 31.83,
+      "5y_return": null,
+      "since_inception": 18.8,
+      "rank_1y": 8,
+      "rank_3y": 5,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00757",
+      "1y_return": 30.91,
+      "3y_return": 43.54,
+      "5y_return": null,
+      "since_inception": 23.55,
+      "rank_1y": 10,
+      "rank_3y": 3,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00919",
+      "1y_return": 25.24,
+      "3y_return": 20.38,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 13,
+      "rank_3y": 11,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00927",
+      "1y_return": 104.64,
+      "3y_return": null,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 5,
+      "rank_3y": null,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00915",
+      "1y_return": 20.61,
+      "3y_return": 25.57,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 14,
+      "rank_3y": 8,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00917",
+      "1y_return": 40.53,
+      "3y_return": 27.8,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 7,
+      "rank_3y": 6,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00918",
+      "1y_return": 27.54,
+      "3y_return": 25.02,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 12,
+      "rank_3y": 9,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00920",
+      "1y_return": 119.04,
+      "3y_return": 16.55,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 3,
+      "rank_3y": 14,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00923",
+      "1y_return": 107.9,
+      "3y_return": 43.2,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 4,
+      "rank_3y": 4,
+      "rank_5y": null
+    },
+    {
+      "etf_id": "00900",
+      "1y_return": 34.33,
+      "3y_return": 19.14,
+      "5y_return": null,
+      "since_inception": null,
+      "rank_1y": 9,
+      "rank_3y": 13,
+      "rank_5y": null
+    }
+  ]
+}

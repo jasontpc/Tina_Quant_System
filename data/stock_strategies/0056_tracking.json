@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "0056",
+    "name": "元大高股息",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 40.9,
+      "rsi14": 74.9,
+      "ma20": 39.57,
+      "ma60": 38.21,
+      "bias20": 3.36,
+      "slope20": 0.1921,
+      "atr14": 0.59,
+      "vol": 45814404,
+      "vol_avg20": 79347021.0,
+      "vol_ratio": 0.58,
+      "high_20": 41.99,
+      "low_20": 36.82,
+      "K": 54.9,
+      "D": 71.9
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "0056",
+    "name": "元大高股息",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 40.9,
+      "rsi14": 74.9,
+      "ma20": 39.57,
+      "ma60": 38.21,
+      "bias20": 3.36,
+      "slope20": 0.1921,
+      "atr14": 0.59,
+      "vol": 45814404,
+      "vol_avg20": 79347021.0,
+      "vol_ratio": 0.58,
+      "high_20": 41.99,
+      "low_20": 36.82,
+      "K": 55.3,
+      "D": 67.3
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "0056",
+    "name": "元大高股息",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 40.9,
+      "rsi14": 74.9,
+      "ma20": 39.57,
+      "ma60": 38.21,
+      "bias20": 3.36,
+      "slope20": 0.1921,
+      "atr14": 0.59,
+      "vol": 45814404,
+      "vol_avg20": 79347021.0,
+      "vol_ratio": 0.58,
+      "high_20": 41.99,
+      "low_20": 36.82,
+      "K": 55.3,
+      "D": 67.3
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "0056",
+    "name": "元大高股息",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 40.9,
+      "rsi14": 74.9,
+      "ma20": 39.57,
+      "ma60": 38.21,
+      "bias20": 3.36,
+      "slope20": 0.1921,
+      "atr14": 0.59,
+      "vol": 45814404,
+      "vol_avg20": 79347021.0,
+      "vol_ratio": 0.58,
+      "high_20": 41.99,
+      "low_20": 36.82,
+      "K": 55.3,
+      "D": 67.3
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

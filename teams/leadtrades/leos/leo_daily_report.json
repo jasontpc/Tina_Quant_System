@@ -1,0 +1,45 @@
+{
+  "date": "2026-05-05 10:04:16",
+  "version": "vOfficial",
+  "metrics": {
+    "total": 86,
+    "wins": 70,
+    "losses": 16,
+    "win_rate": 81.3953488372093,
+    "avg_return": 3.759799172701973,
+    "tp_count": 61,
+    "sl_count": 12
+  },
+  "rules": [
+    {
+      "id": "RULE_001",
+      "rule": "RSI 進場閾值維持 40-55",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_002",
+      "rule": "避免擴大 RSI 進場範圍（不要 < 30）",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_003",
+      "rule": "持有天數維持 30-45 天",
+      "confidence": "MEDIUM"
+    },
+    {
+      "id": "RULE_004",
+      "rule": "TP 5-8%，SL 8-10%，TP/SL > 2.0",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_005",
+      "rule": "失敗數據庫需 > 50 筆才具統計顯著性",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "RULE_006",
+      "rule": "全量數據分析優先於失敗數據分析",
+      "confidence": "HIGH"
+    }
+  ]
+}

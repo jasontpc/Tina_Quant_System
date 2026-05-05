@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "3017",
+    "name": "奇鋐",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": false,
+      "volume": true
+    },
+    "indicators": {
+      "price": 2835.0,
+      "rsi14": 75.0,
+      "ma20": 2463.75,
+      "ma60": 1990.67,
+      "bias20": 15.07,
+      "slope20": 33.325,
+      "atr14": 164.29,
+      "vol": 3160772,
+      "vol_avg20": 4104897.0,
+      "vol_ratio": 0.77,
+      "high_20": 3010.0,
+      "low_20": 2015.0,
+      "K": 81.6,
+      "D": 100.6
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "3017",
+    "name": "奇鋐",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": false,
+      "volume": true
+    },
+    "indicators": {
+      "price": 2835.0,
+      "rsi14": 75.0,
+      "ma20": 2463.75,
+      "ma60": 1990.67,
+      "bias20": 15.07,
+      "slope20": 33.325,
+      "atr14": 164.29,
+      "vol": 3160772,
+      "vol_avg20": 4104897.0,
+      "vol_ratio": 0.77,
+      "high_20": 3010.0,
+      "low_20": 2015.0,
+      "K": 74.2,
+      "D": 77.9
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "3017",
+    "name": "奇鋐",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": false,
+      "volume": true
+    },
+    "indicators": {
+      "price": 2835.0,
+      "rsi14": 75.0,
+      "ma20": 2463.75,
+      "ma60": 1990.67,
+      "bias20": 15.07,
+      "slope20": 33.325,
+      "atr14": 164.29,
+      "vol": 3160772,
+      "vol_avg20": 4104897.0,
+      "vol_ratio": 0.77,
+      "high_20": 3010.0,
+      "low_20": 2015.0,
+      "K": 74.2,
+      "D": 77.9
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "3017",
+    "name": "奇鋐",
+    "market": "TW",
+    "type": "tech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": true,
+      "bias": false,
+      "volume": true
+    },
+    "indicators": {
+      "price": 2835.0,
+      "rsi14": 75.0,
+      "ma20": 2463.75,
+      "ma60": 1990.67,
+      "bias20": 15.07,
+      "slope20": 33.325,
+      "atr14": 164.29,
+      "vol": 3160772,
+      "vol_avg20": 4104897.0,
+      "vol_ratio": 0.77,
+      "high_20": 3010.0,
+      "low_20": 2015.0,
+      "K": 74.2,
+      "D": 77.9
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

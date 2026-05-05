@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-26 11:04:52",
+  "asset": "2330",
+  "rsi_period": 12,
+  "rsi_threshold": 40,
+  "ma_period": 60,
+  "hold_days": 5,
+  "train_wr": 52.63157894736842,
+  "val_wr": 50.0,
+  "train_sharpe": 1.0729269759137094,
+  "val_sharpe": 1.4197968300053645,
+  "score": 37.06424043820053
+}

@@ -1,0 +1,40 @@
+{
+  "date": "2026-04-28T21:24:01.164367",
+  "total_value": 39766,
+  "positions": [
+    {
+      "symbol": "XOM",
+      "name": "Exxon",
+      "price": 148,
+      "rsi": 23.9,
+      "qty": 67,
+      "value": 9916
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "price": 225,
+      "rsi": 29.7,
+      "qty": 44,
+      "value": 9900
+    },
+    {
+      "symbol": "XLE",
+      "name": "Energy Sector ETF",
+      "price": 57,
+      "rsi": 31.8,
+      "qty": 175,
+      "value": 9975
+    },
+    {
+      "symbol": "EOG",
+      "name": "EOG Resources",
+      "price": 133,
+      "rsi": 32.3,
+      "qty": 75,
+      "value": 9975
+    }
+  ],
+  "strategy": "RSI<35進場, RSI>65出场, 最多20天",
+  "stop_loss": "RSI重新突破50或持有20天"
+}

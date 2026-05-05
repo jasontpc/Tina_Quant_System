@@ -1,0 +1,59 @@
+{
+  "date": "2026-04-27 06:18",
+  "version": "vFinal",
+  "description": "根據 RSI 區間深度分析優化（RSI 30-40 = 100%勝率）",
+  "params": {
+    "2330": {
+      "rsi_period": 10,
+      "rsi_threshold": 30,
+      "rsi_threshold_max": 50,
+      "hold_days": 30,
+      "hold_days_max": 45,
+      "take_profit": 8,
+      "stop_loss": 6
+    },
+    "2382": {
+      "rsi_period": 10,
+      "rsi_threshold": 30,
+      "rsi_threshold_max": 50,
+      "hold_days": 21,
+      "hold_days_max": 45,
+      "take_profit": 8,
+      "stop_loss": 6
+    },
+    "3665": {
+      "rsi_period": 10,
+      "rsi_threshold": 35,
+      "rsi_threshold_max": 55,
+      "hold_days": 45,
+      "hold_days_max": 60,
+      "take_profit": 8,
+      "stop_loss": 6
+    },
+    "2317": {
+      "rsi_period": 10,
+      "rsi_threshold": 35,
+      "rsi_threshold_max": 55,
+      "hold_days": 30,
+      "hold_days_max": 60,
+      "take_profit": 6,
+      "stop_loss": 8
+    },
+    "3034": {
+      "rsi_period": 10,
+      "rsi_threshold": 30,
+      "rsi_threshold_max": 50,
+      "hold_days": 21,
+      "hold_days_max": 45,
+      "take_profit": 6,
+      "stop_loss": 8
+    }
+  },
+  "stocks": {
+    "2330": "台積電",
+    "2382": "廣達",
+    "3665": "穎崴",
+    "2317": "鴻海",
+    "3034": "緯穎"
+  }
+}

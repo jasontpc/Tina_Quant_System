@@ -1,0 +1,19 @@
+{
+  "date": "2026-05-05T08:15:25.214148",
+  "oversold_count": 0,
+  "neutral_count": 26,
+  "overbought_count": 13,
+  "dca_buy": [],
+  "dca_watch": [
+    "EFA",
+    "TLT",
+    "XLV",
+    "XLU",
+    "VHT",
+    "GLD",
+    "SLV",
+    "LQD",
+    "AGG",
+    "BND"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "date": "2026-05-04 13:16",
+  "best": [
+    {
+      "symbol": "2308.TW",
+      "name": "台達電",
+      "note": "AI電源",
+      "config": "RSI35_SL1.5_5d",
+      "win_rate": 71.42857142857143,
+      "avg_pnl": 3.2683214484253873,
+      "pf": 1.5226725230321567,
+      "total_trades": 7,
+      "sl_mult": 1.5,
+      "max_hold": 5,
+      "rsi_in": 35,
+      "rsi_out": 50
+    },
+    {
+      "symbol": "3016.TW",
+      "name": "嘉晶",
+      "note": "矽磊晶",
+      "config": "RSI35_SL1.5_5d",
+      "win_rate": 71.42857142857143,
+      "avg_pnl": 2.61669291043864,
+      "pf": 0.7527558596414071,
+      "total_trades": 7,
+      "sl_mult": 1.5,
+      "max_hold": 5,
+      "rsi_in": 35,
+      "rsi_out": 50
+    },
+    {
+      "symbol": "3532.TW",
+      "name": "台勝科",
+      "note": "矽晶圓",
+      "config": "RSI35_SL2.0_5d",
+      "win_rate": 57.14285714285714,
+      "avg_pnl": -1.4413726181997946,
+      "pf": 0.4981796225879511,
+      "total_trades": 7,
+      "sl_mult": 2.0,
+      "max_hold": 5,
+      "rsi_in": 35,
+      "rsi_out": 50
+    },
+    {
+      "symbol": "6239.TW",
+      "name": "力成",
+      "note": "先進封測",
+      "config": "RSI35_SL2.0_5d",
+      "win_rate": 58.333333333333336,
+      "avg_pnl": 0.2077947350883179,
+      "pf": 0.7729816726925676,
+      "total_trades": 12,
+      "sl_mult": 2.0,
+      "max_hold": 5,
+      "rsi_in": 35,
+      "rsi_out": 50
+    },
+    {
+      "symbol": "6541.TW",
+      "name": "長科*",
+      "note": "電源導線架",
+      "config": "RSI45_SL2.0_10d",
+      "win_rate": 42.857142857142854,
+      "avg_pnl": -3.0362582176590007,
+      "pf": 0.5050051525737572,
+      "total_trades": 14,
+      "sl_mult": 2.0,
+      "max_hold": 10,
+      "rsi_in": 45,
+      "rsi_out": 55
+    },
+    {
+      "symbol": "2330.TW",
+      "name": "台積電",
+      "note": "AI先進製程",
+      "config": "RSI45_SL2.0_5d",
+      "win_rate": 68.75,
+      "avg_pnl": 1.2131095185151053,
+      "pf": 0.7739133920908,
+      "total_trades": 16,
+      "sl_mult": 2.0,
+      "max_hold": 5,
+      "rsi_in": 45,
+      "rsi_out": 55
+    }
+  ]
+}

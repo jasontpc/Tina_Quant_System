@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "RIVN",
+    "name": "Rivian",
+    "market": "US",
+    "type": "ev",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 15.02,
+      "rsi14": 43.0,
+      "ma20": 16.19,
+      "ma60": 15.64,
+      "bias20": -7.24,
+      "slope20": 0.0497,
+      "atr14": 0.76,
+      "vol": 53120980,
+      "vol_avg20": 25403219.0,
+      "vol_ratio": 2.09,
+      "high_20": 18.07,
+      "low_20": 14.43,
+      "K": -22.8,
+      "D": -23.5
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "RIVN",
+    "name": "Rivian",
+    "market": "US",
+    "type": "ev",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 15.02,
+      "rsi14": 43.0,
+      "ma20": 16.19,
+      "ma60": 15.64,
+      "bias20": -7.24,
+      "slope20": 0.0497,
+      "atr14": 0.76,
+      "vol": 53120980,
+      "vol_avg20": 25403219.0,
+      "vol_ratio": 2.09,
+      "high_20": 18.07,
+      "low_20": 14.43,
+      "K": 17.9,
+      "D": 32.7
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "RIVN",
+    "name": "Rivian",
+    "market": "US",
+    "type": "ev",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 15.02,
+      "rsi14": 43.0,
+      "ma20": 16.19,
+      "ma60": 15.64,
+      "bias20": -7.24,
+      "slope20": 0.0497,
+      "atr14": 0.76,
+      "vol": 53282000,
+      "vol_avg20": 25411270.0,
+      "vol_ratio": 2.1,
+      "high_20": 18.07,
+      "low_20": 14.43,
+      "K": 17.9,
+      "D": 32.7
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "RIVN",
+    "name": "Rivian",
+    "market": "US",
+    "type": "ev",
+    "signal": "ENTRY_WATCH",
+    "score": 5,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 15.02,
+      "rsi14": 43.0,
+      "ma20": 16.19,
+      "ma60": 15.64,
+      "bias20": -7.24,
+      "slope20": 0.0497,
+      "atr14": 0.76,
+      "vol": 53282000,
+      "vol_avg20": 25411270.0,
+      "vol_ratio": 2.1,
+      "high_20": 18.07,
+      "low_20": 14.43,
+      "K": 17.9,
+      "D": 32.7
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

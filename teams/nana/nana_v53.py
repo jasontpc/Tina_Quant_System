@@ -86,7 +86,7 @@ def get_market_status():
         curr = close[-1]
         ret = (curr / ma20 - 1) * 100 if ma20 > 0 else 0
         if rsi > 80 or ret > 8: return 'OVERBOUGHT', 3, '過熱'
-        elif curr > ma20 and rsi > 55: return 'BULLISH', 5, '多頭'
+        elif curr > ma20 and rsi > 55: return 'BULLISH', 5, '多頭'  # v5.4: revert to 5 (4 hurt performance)
         elif curr < ma20 and rsi < 45: return 'BEARISH', 2, '空頭'
         else: return 'NEUTRAL', 3, '盤整'
     except: return 'NEUTRAL', 3, '未知'
@@ -137,6 +137,13 @@ def analyze(symbol):
         bias_arr = (close - ma20_s.values) / ma20_s.values * 100
         bias = last_valid(pd.Series(bias_arr), 0)
         
+        # Volume 5-day MA for vol_ratio check (v5.4)
+        vol_arr = df['Volume'].values if 'Volume' in df.columns else np.full(len(close), np.nan)
+        vol_ma5_arr = pd.Series(vol_arr).rolling(5).mean().values
+        last_vol_ma5 = vol_ma5_arr[-1] if len(vol_ma5_arr) > 0 and not np.isnan(vol_ma5_arr[-1]) else (vol_arr[-1] if len(vol_arr) > 0 and not np.isnan(vol_arr[-1]) else 1.0)
+        last_vol = vol_arr[-1] if len(vol_arr) > 0 and not np.isnan(vol_arr[-1]) else 1.0
+        vol_ratio = round(last_vol / last_vol_ma5, 2) if last_vol_ma5 and last_vol_ma5 > 0 and last_vol else 1.0
+        
         today_chg = (close[-1] / close[-2] - 1) * 100 if len(close) >= 2 else 0.0
         
         conn = sqlite3.connect(DB_PATH)
@@ -176,7 +183,9 @@ def analyze(symbol):
         # Volume ratio >= 0.8 (from failure analysis)
         # Bias < 10% (new from v4.23 recommendation)
         # Also check for INST_REVERSAL: if foreign consecutive sell >= 2 days + RSI > 65, block
-        can_trade = bool(total >= 35 and rsi < 65 and ma20 > ma60 and atr_pct >= 0.3)
+        # v5.4 FIX: Volume ratio check added to can_trade
+        # vol_ratio check: fail_log shows 2379 had vr=0.7 (below 0.8) causing loss
+        can_trade = bool(total >= 35 and rsi < 65 and ma20 > ma60 and atr_pct >= 0.3 and bias < 10 and vol_ratio >= 0.8)
         
         # Check inst reversal condition
         conn = sqlite3.connect(DB_PATH)
@@ -199,6 +208,7 @@ def analyze(symbol):
             'f_days': f_days, 't_days': t_days,
             'ma20': round(ma20, 0), 'ma60': round(ma60, 0),
             'price': round(close[-1], 0), 'today_chg': round(today_chg, 2),
+            'vol_ratio': round(vol_ratio, 2),
             'can_trade': can_trade, 'ma20_above': ma20 > ma60,
             'inst_reversal': inst_reversal}
     except Exception as e:
@@ -338,7 +348,8 @@ class NanaSystem:
             chg_str = f"{r['today_chg']:+.2f}%"
             trade_tag = '✓' if r['can_trade'] else ' '
             reversal_tag = ' [REV]' if r.get('inst_reversal', False) else ''
-            print(f'{i:<4} {r["symbol"]:<8} {r["name"]:<8} {icon}{r["tier"]:<5} {r["score"]:<6.1f} {r["f_days"]:<6} {r["rsi"]:<6.1f} {r["bias"]:<6.1f} {r["atr"]:<6} {chg_str}{reversal_tag}')
+            vr_tag = f" VR={r.get('vol_ratio',0):.1f}" if r.get('vol_ratio',0) < 1.0 else ''
+            print(f'{i:<4} {r["symbol"]:<8} {r["name"]:<8} {icon}{r["tier"]:<5} {r["score"]:<6.1f} {r["f_days"]:<6} {r["rsi"]:<6.1f} {r["bias"]:<6.1f} {r["atr"]:<6} {chg_str}{reversal_tag}{vr_tag}')
         
         print()
         print('-'*70)

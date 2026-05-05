@@ -1,0 +1,13 @@
+[
+  {"id":"2891","name":"中信金","sector":"finance","tier":"1","wr":85.7},
+  {"id":"2886","name":"兆豐金","sector":"finance","tier":"1","wr":75.0},
+  {"id":"2881","name":"華南金","sector":"finance","tier":"1","wr":0},
+  {"id":"2882","name":"國泰金","sector":"finance","tier":"1","wr":0},
+  {"id":"2883","name":"開發金","sector":"finance","tier":"1","wr":0},
+  {"id":"2884","name":"玉山金","sector":"finance","tier":"1","wr":0},
+  {"id":"2892","name":"第一金","sector":"finance","tier":"1","wr":0},
+  {"id":"2885","name":"元大金","sector":"finance","tier":"2","wr":67.9},
+  {"id":"6005","name":"群益證","sector":"finance","tier":"2","wr":0},
+  {"id":"2887","name":"台新金","sector":"finance","tier":"2","wr":0},
+  {"id":"2890","name":"永豐金","sector":"finance","tier":"2","wr":0}
+]

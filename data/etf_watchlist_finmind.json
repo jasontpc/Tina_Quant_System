@@ -1,0 +1,609 @@
+{
+  "updated": "2026-05-04 16:35",
+  "version": "v1_finmind",
+  "description": "使用FinMind建立的ETF觀察名單",
+  "total_etfs": 497,
+  "tracked_etfs": [],
+  "all_etfs": [
+    {
+      "symbol": "00835B.TW",
+      "name": "第一金科技債10+",
+      "type": "tpex",
+      "date": "2020-06-24"
+    },
+    {
+      "symbol": "00837B.TW",
+      "name": "永豐15年金融債",
+      "type": "tpex",
+      "date": "2020-07-02"
+    },
+    {
+      "symbol": "00798B.TW",
+      "name": "國泰中企A級債7+",
+      "type": "tpex",
+      "date": "2020-07-16"
+    },
+    {
+      "symbol": "00833B.TW",
+      "name": "第一金美債20+",
+      "type": "tpex",
+      "date": "2020-12-03"
+    },
+    {
+      "symbol": "00855B.TW",
+      "name": "富邦全球能源債",
+      "type": "tpex",
+      "date": "2020-12-04"
+    },
+    {
+      "symbol": "00854B.TW",
+      "name": "富邦全球保險債",
+      "type": "tpex",
+      "date": "2020-12-04"
+    },
+    {
+      "symbol": "00874B.TW",
+      "name": "凱基BBB公司債15+",
+      "type": "tpex",
+      "date": "2021-02-23"
+    },
+    {
+      "symbol": "00873B.TW",
+      "name": "凱基新興債1-5",
+      "type": "tpex",
+      "date": "2021-02-23"
+    },
+    {
+      "symbol": "00871B.TW",
+      "name": "元大中國政金債",
+      "type": "tpex",
+      "date": "2021-03-03"
+    },
+    {
+      "symbol": "00868B.TW",
+      "name": "FT1-3年美公債",
+      "type": "tpex",
+      "date": "2021-05-14"
+    },
+    {
+      "symbol": "00839B.TW",
+      "name": "凱基醫療保健債",
+      "type": "tpex",
+      "date": "2021-08-05"
+    },
+    {
+      "symbol": "00869B.TW",
+      "name": "FT10-25年公司債",
+      "type": "tpex",
+      "date": "2021-08-19"
+    },
+    {
+      "symbol": "00832B.TW",
+      "name": "新光美債20+",
+      "type": "tpex",
+      "date": "2021-09-11"
+    },
+    {
+      "symbol": "00880B.TW",
+      "name": "第一金電信債15+",
+      "type": "tpex",
+      "date": "2021-10-08"
+    },
+    {
+      "symbol": "00879B.TW",
+      "name": "第一金美債0-1",
+      "type": "tpex",
+      "date": "2021-10-08"
+    },
+    {
+      "symbol": "00872B.TW",
+      "name": "凱基美債1-3",
+      "type": "tpex",
+      "date": "2021-10-08"
+    },
+    {
+      "symbol": "00838B.TW",
+      "name": "永豐7-10年中國債",
+      "type": "tpex",
+      "date": "2022-06-02"
+    },
+    {
+      "symbol": "00889B.TW",
+      "name": "凱基ESG新興債15+",
+      "type": "tpex",
+      "date": "2022-06-24"
+    },
+    {
+      "symbol": "00843B.TW",
+      "name": "台新中國政策債",
+      "type": "tpex",
+      "date": "2022-07-22"
+    },
+    {
+      "symbol": "00796B.TW",
+      "name": "中信中國債7-10",
+      "type": "tpex",
+      "date": "2022-08-27"
+    },
+    {
+      "symbol": "00745B.TW",
+      "name": "富邦中政債0-1",
+      "type": "tpex",
+      "date": "2022-12-11"
+    },
+    {
+      "symbol": "00747B.TW",
+      "name": "FH中國政策債",
+      "type": "tpex",
+      "date": "2022-12-28"
+    },
+    {
+      "symbol": "00748B.TW",
+      "name": "凱基中國債3-10",
+      "type": "tpex",
+      "date": "2023-02-22"
+    },
+    {
+      "symbol": "00765B.TW",
+      "name": "群益中國政金債",
+      "type": "tpex",
+      "date": "2023-06-01"
+    },
+    {
+      "symbol": "00744B.TW",
+      "name": "國泰中國政金債5+",
+      "type": "tpex",
+      "date": "2023-11-22"
+    },
+    {
+      "symbol": "00831B.TW",
+      "name": "新光美債1-3",
+      "type": "tpex",
+      "date": "2024-07-20"
+    },
+    {
+      "symbol": "00721B.TW",
+      "name": "元大中國債3-5",
+      "type": "tpex",
+      "date": "2024-10-16"
+    },
+    {
+      "symbol": "00774B.TW",
+      "name": "新光中國政金綠債",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00767.TW",
+      "name": "FH美國金融股",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00776.TW",
+      "name": "新光ICE美國權值",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00906.TW",
+      "name": "大華元宇宙科技50",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00766L.TW",
+      "name": "台新MSCI中國正2",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00743.TW",
+      "name": "國泰中國A150",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00742.TW",
+      "name": "新光內需收益",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00732.TW",
+      "name": "國泰RMB短期報酬",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00729R.TW",
+      "name": "第一金工業30反1",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00774C.TW",
+      "name": "新光中政金綠債+R",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00866.TW",
+      "name": "新光Shiller CAPE",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "0080.TW",
+      "name": "恒中國",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "0081.TW",
+      "name": "恒香港",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "0060.TW",
+      "name": "新台灣",
+      "type": "twse",
+      "date": "2024-12-04"
+    },
+    {
+      "symbol": "00799B.TW",
+      "name": "國泰A級醫療債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00754B.TW",
+      "name": "群益AAA-AA公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00792B.TW",
+      "name": "群益A級公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00793B.TW",
+      "name": "群益AAA-A醫療債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00755B.TW",
+      "name": "群益投資級公用債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00760B.TW",
+      "name": "復華新興企業債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00864B.TW",
+      "name": "中信美國公債0-1",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00756B.TW",
+      "name": "群益投等新興公債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00863B.TW",
+      "name": "中信全球電信債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00859B.TW",
+      "name": "群益0-1年美債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00862B.TW",
+      "name": "中信投資級公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00758B.TW",
+      "name": "復華能源債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00860B.TW",
+      "name": "群益1-5Y投資級債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00759B.TW",
+      "name": "復華製藥債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00858.TW",
+      "name": "永豐美國500大",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00780B.TW",
+      "name": "國泰A級金融債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00857B.TW",
+      "name": "永豐20年美公債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00842B.TW",
+      "name": "台新美元銀行債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00782B.TW",
+      "name": "國泰A級公用債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00779B.TW",
+      "name": "凱基美債25+",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00844B.TW",
+      "name": "新光15年IG金融債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00784B.TW",
+      "name": "富邦中國投等債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00785B.TW",
+      "name": "富邦金融投等債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00841B.TW",
+      "name": "凱基AAA-AA公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00778B.TW",
+      "name": "凱基金融債20+",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00840B.TW",
+      "name": "凱基IG精選15+",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00845B.TW",
+      "name": "富邦新興投等債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00846B.TW",
+      "name": "富邦歐洲銀行債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00777B.TW",
+      "name": "凱基AAA至A公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00751B.TW",
+      "name": "元大AAA至A公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00773B.TW",
+      "name": "中信優先金融債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00761B.TW",
+      "name": "國泰A級公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00786B.TW",
+      "name": "元大10年IG銀行債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00847B.TW",
+      "name": "中信美國市政債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00787B.TW",
+      "name": "元大10年IG醫療債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00836B.TW",
+      "name": "永豐10年A公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00848B.TW",
+      "name": "中信新興亞洲債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00849B.TW",
+      "name": "中信EM主權債0-5",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00788B.TW",
+      "name": "元大10年IG電能債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00834B.TW",
+      "name": "第一金金融債10+",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00768B.TW",
+      "name": "復華20年美債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00789B.TW",
+      "name": "復華公司債A3",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00853B.TW",
+      "name": "統一美債10年Aa-A",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00790B.TW",
+      "name": "復華次順位金融債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00781B.TW",
+      "name": "國泰A級科技債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00764B.TW",
+      "name": "群益25年美債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00856B.TW",
+      "name": "永豐1-3年美公債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00772B.TW",
+      "name": "中信高評級公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00791B.TW",
+      "name": "復華信用債1-5",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00734B.TW",
+      "name": "台新JPM新興債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00750B.TW",
+      "name": "凱基科技債10+",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00722B.TW",
+      "name": "群益投資級電信債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00720B.TW",
+      "name": "元大投資級公司債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00719B.TW",
+      "name": "元大美債1-3",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00718B.TW",
+      "name": "富邦中國政策債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00928.TW",
+      "name": "中信上櫃ESG 30",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00931B.TW",
+      "name": "統一美債20年",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00933B.TW",
+      "name": "國泰10Y+金融債",
+      "type": "tpex",
+      "date": "2024-12-30"
+    },
+    {
+      "symbol": "00937B.TW",
+      "name": "群益ESG投等債20+",
+      "type": "tpex",
+      "date": "2024-12-30"
+    }
+  ]
+}

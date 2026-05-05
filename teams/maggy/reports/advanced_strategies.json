@@ -1,0 +1,96 @@
+{
+  "timestamp": "2026-04-28T15:51:35.559951",
+  "sector_rotation": [
+    {
+      "sector_etf": "XLE",
+      "sector_name": "Energy",
+      "60d_return": 11.931287545839478,
+      "spy_return": 3.6350078424900394,
+      "relative_strength": 8.296279703349438,
+      "signal": "STRONG"
+    },
+    {
+      "sector_etf": "XLK",
+      "sector_name": "Technology",
+      "60d_return": 11.738698912070163,
+      "spy_return": 3.6350078424900394,
+      "relative_strength": 8.103691069580123,
+      "signal": "STRONG"
+    },
+    {
+      "sector_etf": "VGT",
+      "sector_name": "Info Tech",
+      "60d_return": 11.700132217483668,
+      "spy_return": 3.6350078424900394,
+      "relative_strength": 8.06512437499363,
+      "signal": "STRONG"
+    },
+    {
+      "sector_etf": "XLV",
+      "sector_name": "Healthcare",
+      "60d_return": -6.908515076258065,
+      "spy_return": 3.6350078424900394,
+      "relative_strength": -10.543522918748105,
+      "signal": "WEAK"
+    }
+  ],
+  "earnings_setups": [
+    {
+      "symbol": "AAPL",
+      "date": "2026-05-01"
+    },
+    {
+      "symbol": "MSFT",
+      "date": "2026-04-28",
+      "type": "EARNINGS_SETUP",
+      "direction": "OVERBOUGHT",
+      "reason": "RSI 75.4 too high, premium selling only",
+      "iv_rank": 0.0010000000000000002
+    },
+    {
+      "symbol": "GOOGL",
+      "date": "2026-04-29",
+      "type": "EARNINGS_SETUP",
+      "direction": "OVERBOUGHT",
+      "reason": "RSI 82.4 too high, premium selling only",
+      "iv_rank": 0.0010000000000000002
+    },
+    {
+      "symbol": "AMZN",
+      "date": "2026-05-01",
+      "type": "EARNINGS_SETUP",
+      "direction": "OVERBOUGHT",
+      "reason": "RSI 90.0 too high, premium selling only",
+      "iv_rank": 0.0010000000000000002
+    },
+    {
+      "symbol": "META",
+      "date": "2026-05-01",
+      "type": "EARNINGS_SETUP",
+      "direction": "OVERBOUGHT",
+      "reason": "RSI 79.7 too high, premium selling only",
+      "iv_rank": 0.0010000000000000002
+    },
+    {
+      "symbol": "NVDA",
+      "date": "2026-05-15",
+      "type": "EARNINGS_SETUP",
+      "direction": "OVERBOUGHT",
+      "reason": "RSI 88.8 too high, premium selling only",
+      "iv_rank": 0.0010000000000000002
+    },
+    {
+      "symbol": "TSLA",
+      "date": "2026-04-23"
+    },
+    {
+      "symbol": "AMD",
+      "date": "2026-05-05",
+      "type": "EARNINGS_SETUP",
+      "direction": "OVERBOUGHT",
+      "reason": "RSI 88.6 too high, premium selling only",
+      "iv_rank": 0.0010000000000000002
+    }
+  ],
+  "momentum_breakouts": []
+}

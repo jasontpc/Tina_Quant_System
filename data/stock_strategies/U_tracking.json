@@ -1,0 +1,70 @@
+[
+  {
+    "stock": "U",
+    "name": "Unity Software",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 1,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": false,
+      "volume": false
+    },
+    "indicators": {
+      "price": 27.13,
+      "rsi14": 70.3,
+      "ma20": 24.68,
+      "ma60": 21.66,
+      "bias20": 9.92,
+      "slope20": 0.2333,
+      "atr14": 1.47,
+      "vol": 8970934,
+      "vol_avg20": 10377367.0,
+      "vol_ratio": 0.86,
+      "high_20": 27.6,
+      "low_20": 20.88,
+      "K": 94.7,
+      "D": 100.9
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "U",
+    "name": "Unity Software",
+    "market": "US",
+    "type": "cloud",
+    "signal": "NO_SIGNAL",
+    "score": 1,
+    "max_score": 7,
+    "checks": {
+      "rsi": false,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": false,
+      "volume": false
+    },
+    "indicators": {
+      "price": 27.13,
+      "rsi14": 70.3,
+      "ma20": 24.68,
+      "ma60": 21.66,
+      "bias20": 9.92,
+      "slope20": 0.2333,
+      "atr14": 1.47,
+      "vol": 8970934,
+      "vol_avg20": 10377367.0,
+      "vol_ratio": 0.86,
+      "high_20": 27.6,
+      "low_20": 20.88,
+      "K": 78.5,
+      "D": 76.7
+    },
+    "updated_at": "2026-05-02 08:11"
+  }
+]

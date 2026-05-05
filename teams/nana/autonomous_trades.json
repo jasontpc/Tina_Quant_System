@@ -1,0 +1,14 @@
+{
+  "trades": [],
+  "open_positions": [],
+  "stats": {
+    "total_trades": 0,
+    "win_rate": 0.0,
+    "avg_return": 0.0,
+    "max_loss": 0.0,
+    "max_gain": 0.0,
+    "total_profit": 0.0
+  },
+  "last_updated": "2026-04-28T15:28:50.808619",
+  "note": "v5.41 reset - cleared WR=28.6% bad history, fresh start with tightened entry rules"
+}

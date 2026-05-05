@@ -1,0 +1,20 @@
+{
+  "vacuum_schedule": "monthly",
+  "integrity_check_schedule": "weekly",
+  "stale_data_days": 90,
+  "active_dbs": [
+    "tw_history.db",
+    "us_history.db",
+    "financial_history.db",
+    "tina_master.db",
+    "portfolio.db",
+    "stock_trends.db",
+    "macro_institutional.db"
+  ],
+  "description": "DB maintenance configuration - Tina Quant System",
+  "stale_cleanup": {
+    "rsi_signals_days": 90,
+    "trades_days": 365
+  },
+  "created": "2026-05-02"
+}

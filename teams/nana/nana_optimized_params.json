@@ -1,0 +1,17 @@
+{
+  "params": {
+    "entry_rsi_max": 45,
+    "entry_score_min": 25,
+    "entry_bias_max": 3,
+    "bias_exit": 6,
+    "atr_stop": 1.5,
+    "atr_target": 3.0
+  },
+  "result": {
+    "total_trades": 45,
+    "win_rate": 31.11111111111111,
+    "avg_return": 1.0255583947836415,
+    "max_gain": 16.373261499874232,
+    "max_loss": -4.734047852235514
+  }
+}

@@ -1,0 +1,26 @@
+{
+    "virtual_holdings":  [
+
+                         ],
+    "created":  "2026-04-24",
+    "trades":  [
+                   {
+                       "exit_reason":  "sync_from_autonomous",
+                       "recorded_at":  "2026-04-24T18:21:55.660Z",
+                       "exit_date":  "2026-04-24",
+                       "stock_id":  "2382",
+                       "name":  "¼s¹F",
+                       "entry_price":  323,
+                       "return_pct":  0,
+                       "exit_price":  323
+                   }
+               ],
+    "stats":  {
+                  "max_loss":  0,
+                  "avg_return":  0,
+                  "win_rate":  0,
+                  "total_trades":  1,
+                  "max_gain":  0
+              },
+    "tier":  "tier2"
+}

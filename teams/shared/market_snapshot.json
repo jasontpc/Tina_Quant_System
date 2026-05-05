@@ -1,10 +1,76 @@
 {
-  "timestamp": "2026-04-23 17:49",
-  "twii": 37212,
-  "sp500": 5230,
-  "vix": 18.5,
-  "usdtwd": null,
-  "market_status": "bull",
-  "breadth": {},
-  "sector_rotation": []
+  "timestamp": "2026-04-25T01:17:00+08:00",
+  "twii": {
+    "current": 37714.1484375,
+    "low": 31705.990234375,
+    "high": 38921.94921875,
+    "position_pct": 83.26208915730676
+  },
+  "etfs": [
+    {
+      "name": "0050",
+      "price": NaN,
+      "low": 39.48553301586269,
+      "high": 88.80000305175781,
+      "position_pct": NaN
+    },
+    {
+      "name": "0056",
+      "price": NaN,
+      "low": 28.61386055008657,
+      "high": 41.9900016784668,
+      "position_pct": NaN
+    },
+    {
+      "name": "00878",
+      "price": NaN,
+      "low": 18.22694874180521,
+      "high": 25.280000686645508,
+      "position_pct": NaN
+    },
+    {
+      "name": "00919",
+      "price": NaN,
+      "low": 18.425439834594727,
+      "high": 24.010000228881836,
+      "position_pct": NaN
+    },
+    {
+      "name": "00927",
+      "price": 29.190000534057617,
+      "low": 14.174514770507812,
+      "high": 29.790000915527344,
+      "position_pct": 96.15765800758568
+    },
+    {
+      "name": "00713",
+      "price": NaN,
+      "low": 46.30057796026931,
+      "high": 54.400001525878906,
+      "position_pct": NaN
+    },
+    {
+      "name": "00646",
+      "price": NaN,
+      "low": 52.04999923706055,
+      "high": 70.5999984741211,
+      "position_pct": NaN
+    },
+    {
+      "name": "00891",
+      "price": NaN,
+      "low": 13.772931540796849,
+      "high": 30.8799991607666,
+      "position_pct": NaN
+    },
+    {
+      "name": "00917",
+      "price": NaN,
+      "low": 15.243395232321909,
+      "high": 27.200000762939453,
+      "position_pct": NaN
+    }
+  ],
+  "market_state": "NEUTRAL",
+  "recommendation": "市場中性，維持正常DCA金額"
 }

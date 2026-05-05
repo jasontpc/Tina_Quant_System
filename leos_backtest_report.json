@@ -1,0 +1,262 @@
+{
+  "date": "2026-04-26 16:43",
+  "params": {
+    "RSI_Period": 12,
+    "RSI_Threshold": 40,
+    "Hold_Days": 10,
+    "Take_Profit": 10.0,
+    "Stop_Loss": 8.0
+  },
+  "performance": {
+    "total_trades": 24,
+    "wins": 8,
+    "losses": 16,
+    "win_rate": 33.33333333333333,
+    "avg_return": -1.3072576477626958,
+    "sharpe_ratio": -11.784540788576216,
+    "max_drawdown": -41.64555696656103,
+    "total_return": -31.3741835463047
+  },
+  "trades": [
+    {
+      "ticker": "2454.TW",
+      "entry_date": "2024-03-27",
+      "exit_date": "2024-04-08",
+      "entry_price": 1074.055419921875,
+      "exit_price": 1060.2264404296875,
+      "pnl_pct": -1.2875480385540439,
+      "exit_reason": "HOLD",
+      "name": "聯發科"
+    },
+    {
+      "ticker": "2454.TW",
+      "entry_date": "2025-08-13",
+      "exit_date": "2025-08-25",
+      "entry_price": 1343.947509765625,
+      "exit_price": 1383.1868896484375,
+      "pnl_pct": 2.9197107474573594,
+      "exit_reason": "HOLD",
+      "name": "聯發科"
+    },
+    {
+      "ticker": "2454.TW",
+      "entry_date": "2026-03-16",
+      "exit_date": "2026-03-26",
+      "entry_price": 1710.0,
+      "exit_price": 1590.0,
+      "pnl_pct": -7.017543859649122,
+      "exit_reason": "HOLD",
+      "name": "聯發科"
+    },
+    {
+      "ticker": "2317.TW",
+      "entry_date": "2024-04-23",
+      "exit_date": "2024-04-29",
+      "entry_price": 135.4796600341797,
+      "exit_price": 149.1217041015625,
+      "pnl_pct": 10.069440729288152,
+      "exit_reason": "TP",
+      "name": "鴻海"
+    },
+    {
+      "ticker": "2317.TW",
+      "entry_date": "2024-07-31",
+      "exit_date": "2024-08-05",
+      "entry_price": 191.06105041503906,
+      "exit_price": 162.11241149902344,
+      "pnl_pct": -15.151512489401126,
+      "exit_reason": "SL",
+      "name": "鴻海"
+    },
+    {
+      "ticker": "2379.TW",
+      "entry_date": "2023-08-17",
+      "exit_date": "2023-08-28",
+      "entry_price": 353.64141845703125,
+      "exit_price": 370.5641174316406,
+      "pnl_pct": 4.7852706417830255,
+      "exit_reason": "HOLD",
+      "name": "瑞昱"
+    },
+    {
+      "ticker": "2379.TW",
+      "entry_date": "2025-01-17",
+      "exit_date": "2025-02-03",
+      "entry_price": 512.594482421875,
+      "exit_price": 504.01947021484375,
+      "pnl_pct": -1.6728647110122132,
+      "exit_reason": "HOLD",
+      "name": "瑞昱"
+    },
+    {
+      "ticker": "2376.TW",
+      "entry_date": "2022-10-05",
+      "exit_date": "2022-10-11",
+      "entry_price": 83.49602508544922,
+      "exit_price": 76.39978790283203,
+      "pnl_pct": -8.498892223138707,
+      "exit_reason": "SL",
+      "name": "技嘉"
+    },
+    {
+      "ticker": "2376.TW",
+      "entry_date": "2024-03-06",
+      "exit_date": "2024-03-13",
+      "entry_price": 341.1989440917969,
+      "exit_price": 308.7261962890625,
+      "pnl_pct": -9.517247449041882,
+      "exit_reason": "SL",
+      "name": "技嘉"
+    },
+    {
+      "ticker": "2376.TW",
+      "entry_date": "2024-03-27",
+      "exit_date": "2024-04-08",
+      "entry_price": 291.7839050292969,
+      "exit_price": 320.02105712890625,
+      "pnl_pct": 9.67741935483871,
+      "exit_reason": "HOLD",
+      "name": "技嘉"
+    },
+    {
+      "ticker": "2376.TW",
+      "entry_date": "2024-11-25",
+      "exit_date": "2024-12-05",
+      "entry_price": 272.9822998046875,
+      "exit_price": 271.535400390625,
+      "pnl_pct": -0.5300341506016042,
+      "exit_reason": "HOLD",
+      "name": "技嘉"
+    },
+    {
+      "ticker": "2376.TW",
+      "entry_date": "2025-10-27",
+      "exit_date": "2025-11-06",
+      "entry_price": 285.0,
+      "exit_price": 278.5,
+      "pnl_pct": -2.280701754385965,
+      "exit_reason": "HOLD",
+      "name": "技嘉"
+    },
+    {
+      "ticker": "2382.TW",
+      "entry_date": "2023-09-04",
+      "exit_date": "2023-09-12",
+      "entry_price": 227.37088012695312,
+      "exit_price": 207.03689575195312,
+      "pnl_pct": -8.943090849473103,
+      "exit_reason": "SL",
+      "name": "廣達"
+    },
+    {
+      "ticker": "2382.TW",
+      "entry_date": "2024-04-24",
+      "exit_date": "2024-05-06",
+      "entry_price": 248.6383514404297,
+      "exit_price": 250.07005310058594,
+      "pnl_pct": 0.5758169051001233,
+      "exit_reason": "HOLD",
+      "name": "廣達"
+    },
+    {
+      "ticker": "2382.TW",
+      "entry_date": "2024-11-25",
+      "exit_date": "2024-12-05",
+      "entry_price": 285.3852844238281,
+      "exit_price": 280.61297607421875,
+      "pnl_pct": -1.6722335067991727,
+      "exit_reason": "HOLD",
+      "name": "廣達"
+    },
+    {
+      "ticker": "3665.TW",
+      "entry_date": "2022-05-23",
+      "exit_date": "2022-06-02",
+      "entry_price": 279.94940185546875,
+      "exit_price": 266.2393798828125,
+      "pnl_pct": -4.897321402291979,
+      "exit_reason": "HOLD",
+      "name": "穎崴"
+    },
+    {
+      "ticker": "3665.TW",
+      "entry_date": "2022-09-16",
+      "exit_date": "2022-09-26",
+      "entry_price": 290.04510498046875,
+      "exit_price": 260.8581848144531,
+      "pnl_pct": -10.062890103930917,
+      "exit_reason": "SL",
+      "name": "穎崴"
+    },
+    {
+      "ticker": "3665.TW",
+      "entry_date": "2023-03-22",
+      "exit_date": "2023-04-06",
+      "entry_price": 251.7372589111328,
+      "exit_price": 247.17678833007812,
+      "pnl_pct": -1.8115993638687409,
+      "exit_reason": "HOLD",
+      "name": "穎崴"
+    },
+    {
+      "ticker": "3665.TW",
+      "entry_date": "2024-09-12",
+      "exit_date": "2024-09-23",
+      "entry_price": 411.8652038574219,
+      "exit_price": 441.2142639160156,
+      "pnl_pct": 7.125889680341559,
+      "exit_reason": "HOLD",
+      "name": "穎崴"
+    },
+    {
+      "ticker": "3665.TW",
+      "entry_date": "2025-01-02",
+      "exit_date": "2025-01-13",
+      "entry_price": 591.872802734375,
+      "exit_price": 580.1331787109375,
+      "pnl_pct": -1.9834707675706622,
+      "exit_reason": "HOLD",
+      "name": "穎崴"
+    },
+    {
+      "ticker": "3665.TW",
+      "entry_date": "2025-10-07",
+      "exit_date": "2025-10-15",
+      "entry_price": 1030.0,
+      "exit_price": 1185.0,
+      "pnl_pct": 15.048543689320388,
+      "exit_reason": "TP",
+      "name": "穎崴"
+    },
+    {
+      "ticker": "3034.TW",
+      "entry_date": "2023-05-03",
+      "exit_date": "2023-05-15",
+      "entry_price": 349.8315734863281,
+      "exit_price": 328.5053405761719,
+      "pnl_pct": -6.096142980356148,
+      "exit_reason": "HOLD",
+      "name": "緯穎"
+    },
+    {
+      "ticker": "3034.TW",
+      "entry_date": "2023-07-07",
+      "exit_date": "2023-07-17",
+      "entry_price": 357.21368408203125,
+      "exit_price": 364.32952880859375,
+      "pnl_pct": 1.9920414708772476,
+      "exit_reason": "HOLD",
+      "name": "緯穎"
+    },
+    {
+      "ticker": "3034.TW",
+      "entry_date": "2024-05-21",
+      "exit_date": "2024-05-31",
+      "entry_price": 543.80224609375,
+      "exit_price": 532.136474609375,
+      "pnl_pct": -2.1452231152358747,
+      "exit_reason": "HOLD",
+      "name": "緯穎"
+    }
+  ]
+}

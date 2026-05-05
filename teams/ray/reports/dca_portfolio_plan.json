@@ -1,0 +1,36 @@
+{
+  "date": "2026-04-26",
+  "jo_capital": 2500000,
+  "goal_years": 4,
+  "allocation": {
+    "core": {
+      "amount": 1750000.0,
+      "target_pct": 0.7,
+      "etfs": [
+        "0050",
+        "00646"
+      ]
+    },
+    "satellite": {
+      "amount": 500000.0,
+      "target_pct": 0.2,
+      "etfs": [
+        "00878",
+        "00919"
+      ]
+    },
+    "cash": {
+      "amount": 250000.0,
+      "target_pct": 0.1,
+      "etfs": [
+        "2618"
+      ]
+    }
+  },
+  "monthly_dca": {
+    "total": 26041,
+    "core": 18228,
+    "satellite": 5208,
+    "cash": 2605
+  }
+}

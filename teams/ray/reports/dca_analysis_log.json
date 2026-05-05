@@ -89,5 +89,31 @@
     "entry_willingness": "觀望",
     "amount_suggestion": "暫停",
     "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-24 15:20",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.5,
+    "position_pct": 92.0,
+    "rsi": 71.7,
+    "fi_net": 190054507,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
+  },
+  {
+    "date": "2026-04-25 15:43",
+    "etf": "00919",
+    "name": "群益台灣精選",
+    "price": 23.5,
+    "position_pct": 92.0,
+    "rsi": 71.7,
+    "fi_net": 160985458,
+    "it_net": 0,
+    "entry_willingness": "觀望",
+    "amount_suggestion": "暫停",
+    "action": "觀望/等"
   }
 ]

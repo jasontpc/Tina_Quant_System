@@ -1,0 +1,76 @@
+{
+  "version": "v5.7_partial_exit",
+  "timestamp": "2026-04-24 18:11",
+  "market": "過熱",
+  "max_hold": 2,
+  "scan_total": 51,
+  "tradeable": 7,
+  "wr": 62.22222222222222,
+  "avg_return": 0.2857979976826139,
+  "total_trades": 90,
+  "v57_fixes": {
+    "partial_exit": "+1.5% → sell 50%, trailing BE for remaining 50%",
+    "full_exit": "+2% → sell remaining 50%",
+    "be_stop": "After partial, remaining 50% has BE stop",
+    "max_hold": "2 days (from 3)",
+    "atr_stop": "1.5x ATR for non-partial trades"
+  },
+  "top_picks": [
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "score": 46.0,
+      "rsi": 59.9,
+      "bias": 4.4,
+      "tier": 1
+    },
+    {
+      "symbol": "2353",
+      "name": "宏碁",
+      "score": 42.0,
+      "rsi": 50.7,
+      "bias": 0.3,
+      "tier": 1
+    },
+    {
+      "symbol": "3231",
+      "name": "緯創",
+      "score": 40.2,
+      "rsi": 60.4,
+      "bias": 6.4,
+      "tier": 1
+    },
+    {
+      "symbol": "4938",
+      "name": "和碩",
+      "score": 38.0,
+      "rsi": 66.7,
+      "bias": 4.8,
+      "tier": 1
+    },
+    {
+      "symbol": "3034",
+      "name": "聯詠",
+      "score": 38.0,
+      "rsi": 58.9,
+      "bias": 4.3,
+      "tier": 1
+    },
+    {
+      "symbol": "2885",
+      "name": "元大金",
+      "score": 30.0,
+      "rsi": 62.0,
+      "bias": 3.7,
+      "tier": 3
+    },
+    {
+      "symbol": "2891",
+      "name": "中信金",
+      "score": 28.8,
+      "rsi": 49.0,
+      "bias": -1.1,
+      "tier": 3
+    }
+  ]
+}

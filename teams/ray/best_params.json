@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-04-26 10:39:41",
+  "team": "ray",
+  "best_config": {
+    "rsi_entry_min": 40,
+    "rsi_entry_max": 50,
+    "atr_tp_mult": 3.5,
+    "atr_sl_mult": 2.0,
+    "hold_days": 7,
+    "trailing_atr": 2.0,
+    "score_min": 40,
+    "adx_threshold": 25
+  },
+  "backtest_result": {
+    "total_trades": 37,
+    "win_rate": 62.16216216216216,
+    "avg_return": 0.71001191012828,
+    "avg_win": 2.205527577875312,
+    "avg_loss": -1.7469066868847007,
+    "score": 153.68196350451777
+  }
+}

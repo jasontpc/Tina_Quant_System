@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "layer_weights": {
+    "base": {
+      "price_max": 100,
+      "vol_min": 500000,
+      "mcap_min": 1000000000.0
+    },
+    "fund": {
+      "pe_max": 30,
+      "pe_min": 0,
+      "roe_min": 5,
+      "rev_growth_min": 0,
+      "op_margin_min": 0,
+      "debt_ratio_max": 80,
+      "div_yield_min": 0
+    },
+    "tech": {
+      "rsi_min": 30,
+      "rsi_max": 70,
+      "bias20_max": 15,
+      "vol_surge": 1.5
+    }
+  },
+  "market_regime": "normal",
+  "trade_count": 0,
+  "win_count": 0,
+  "total_return": 0.0,
+  "avg_return": 0.0,
+  "updated_at": "2026-05-02 07:41"
+}

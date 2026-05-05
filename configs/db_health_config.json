@@ -1,0 +1,28 @@
+{
+  "version": "2026-05-02",
+  "description": "Tina 量化系統 - 資料庫健康檢查設定",
+  "databases": {
+    "tw_history": { "path": "data/tw_history.db", "critical": true },
+    "us_history": { "path": "data/us_history.db", "critical": true },
+    "unified_trading": { "path": "unified_db/unified_trading.db", "critical": true },
+    "portfolio": { "path": "data/portfolio.db", "critical": true },
+    "tina_master": { "path": "data/tina_master.db", "critical": false },
+    "maggy": { "path": "data/maggy.db", "critical": false },
+    "sherry_etf": { "path": "data/sherry_etf.db", "critical": false },
+    "vogel": { "path": "data/vogel.db", "critical": false }
+  },
+  "watchlists": {
+    "nana_watchlist": { "path": "data/nana_watchlist.json", "max_age_minutes": 1440 },
+    "leo_watchlist": { "path": "data/leo_watchlist.json", "max_age_minutes": 1440 },
+    "ray_watchlist": { "path": "data/ray_watchlist.json", "max_age_minutes": 1440 },
+    "maggy_watchlist": { "path": "data/maggy_watchlist.json", "max_age_minutes": 1440 },
+    "market_regime": { "path": "data/market_regime.json", "max_age_minutes": 60 }
+  },
+  "freshness_thresholds": {
+    "FRESH": 60,
+    "STALE": 240,
+    "OLD": 1440,
+    "ANCIENT": 10080
+  },
+  "alert_on": ["MISSING", "ANCIENT"]
+}

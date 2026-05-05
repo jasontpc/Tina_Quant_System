@@ -1,0 +1,5 @@
+content = open(r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\tw_financial\tw_financial_database.py', 'r', encoding='utf-8').read()
+content = content.replace("emoji = 'V' if reco == 'BUY' else 'X' if reco == 'SELL' else '-'", "reco_str = f'[{reco}]' if reco else '-'")
+content = content.replace('{emoji}{reco:<5}', '{reco_str:<7}')
+open(r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\tw_financial\tw_financial_database.py', 'w', encoding='utf-8').write(content)
+print('done')

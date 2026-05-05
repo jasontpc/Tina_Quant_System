@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-26 17:22:39",
+  "twii_rsi": 93.3,
+  "news_count": 2,
+  "news_titles": [
+    "",
+    ""
+  ],
+  "sentiment_score": 0,
+  "sentiment_label": "中立",
+  "matched_keywords": [],
+  "action": "建議觀望（TWII RSI 過熱）"
+}

@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-05-02 07:24",
+  "cron": {
+    "total": 29,
+    "ok": 0,
+    "error": 0,
+    "errors": []
+  },
+  "scripts": {
+    "nana_v64": {
+      "exists": true,
+      "path": "C:\\Users\\USER\\.openclaw\\workspace\\Tina_Quant_System\\teams\\nana\\nana_v64.py"
+    },
+    "leo_v70": {
+      "exists": false,
+      "path": "C:\\Users\\USER\\.openclaw\\workspace\\Tina_Quant_System\\leadtrades\\leos\\leo_v70.py"
+    },
+    "ray_dca": {
+      "exists": true,
+      "path": "C:\\Users\\USER\\.openclaw\\workspace\\Tina_Quant_System\\teams\\ray\\dca_market_brief.py"
+    }
+  }
+}

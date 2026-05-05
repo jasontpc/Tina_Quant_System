@@ -1,0 +1,48 @@
+{
+  "date": "2026-05-04",
+  "source": "FinMind API",
+  "stocks": {
+    "2454": {
+      "name": "聯發科",
+      "price": null,
+      "buy": 0,
+      "sell": 0,
+      "net": 0
+    },
+    "6442": {
+      "name": "光聖",
+      "price": null,
+      "buy": 0,
+      "sell": 0,
+      "net": 0
+    },
+    "2382": {
+      "name": "廣達",
+      "price": null,
+      "buy": 0,
+      "sell": 0,
+      "net": 0
+    },
+    "2330": {
+      "name": "台積電",
+      "price": null,
+      "buy": 0,
+      "sell": 0,
+      "net": 0
+    },
+    "2317": {
+      "name": "鴻海",
+      "price": null,
+      "buy": 0,
+      "sell": 0,
+      "net": 0
+    },
+    "3231": {
+      "name": "緯創",
+      "price": null,
+      "buy": 0,
+      "sell": 0,
+      "net": 0
+    }
+  }
+}

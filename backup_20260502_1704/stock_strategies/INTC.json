@@ -1,0 +1,57 @@
+{
+  "stock": "INTC",
+  "name": "Intel",
+  "market": "US",
+  "type": "cpu",
+  "team": "maggy",
+  "entry": {
+    "rsi_max": 60,
+    "rsi_ideal": "35-50",
+    "rsi_min": 30,
+    "bias20_max": 8,
+    "bias20_ideal": "0-5",
+    "ma_required": "MA20>MA60",
+    "volume_ratio_min": 1.5,
+    "inst_required": false,
+    "rsi_length": 14
+  },
+  "exit": {
+    "stop_loss_atr": 2.0,
+    "stop_loss_pct": 8,
+    "take_profit_atr": 3.0,
+    "take_profit_pct": 10,
+    "trailing_stop_atr": 2.0,
+    "rsi_overbought_exit": 70,
+    "max_hold_days": 7,
+    "rsi_length": 14
+  },
+  "position": {
+    "max_position_pct": 10,
+    "allow_add": false,
+    "add_condition": null,
+    "add_limit": 0
+  },
+  "risk": {
+    "max_loss_per_trade": 5,
+    "max_total_exposure": 25,
+    "volatility_tier": "high"
+  },
+  "atr_params": {
+    "period": 14,
+    "typical_price": true
+  },
+  "notes": "Intel 價值型陷阱，需保守。可能的併購傳聞會造成大幅波動。控制倉位，不加碼。RSI 35-50 進場，設較短停損。",
+  "volatility_tier": "high",
+  "stock_character": {
+    "label": "美股成長",
+    "bias": "高波動高成長",
+    "atr_multiplier": 1.3,
+    "noise_level": "high",
+    "suitable_strategy": "動能投資，突破進場"
+  },
+  "brain_instructions": {
+    "think_context": "Intel是美股成長股，國外市場，波動大",
+    "avoid_mistakes": "注意匯率風險，不要重倉单一股票",
+    "special_notes": "美股没有漲跌幅限制，需特別注意風險管理"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "updated": "2026-05-04 13:10",
+  "version": "v2_hunter_config",
+  "description": "Hunter cron config - AI產業鏈完整分類",
+  "hunters": {
+    "MSFT": {"priority":"high","scan_freq":"daily","sim_win_rate":41.2,"vol_type":"題材驅動","reason":"AI Agent雲端領導"},
+    "PLTR": {"priority":"high","scan_freq":"daily","sim_win_rate":45.0,"vol_type":"題材驅動","reason":"國防AI政策受益"},
+    "TSLA": {"priority":"high","scan_freq":"daily","sim_win_rate":45.7,"vol_type":"題材驅動","reason":"Robotaxi/自駕"},
+    "AMD": {"priority":"high","scan_freq":"daily","sim_win_rate":35.7,"vol_type":"消息面","reason":"MI300X數據追蹤"},
+    "3443.TW": {"priority":"high","scan_freq":"daily","sim_win_rate":46.2,"vol_type":"ASIC設計","reason":"ASIC大單，先進製程"},
+    "3661.TW": {"priority":"high","scan_freq":"daily","sim_win_rate":39.1,"vol_type":"ASIC設計","reason":"AI伺服器處理器"},
+    "3532.TW": {"priority":"medium","scan_freq":"daily","sim_win_rate":39.5,"vol_type":"價值投資","reason":"矽晶圓需求回升"},
+    "ASML": {"priority":"high","scan_freq":"daily","sim_win_rate":0,"vol_type":"題材驅動","reason":"WFE需求，半導體設備"},
+    "SIMO": {"priority":"high","scan_freq":"daily","sim_win_rate":0,"vol_type":"題材驅動","reason":"Q1歷史新高，SSD控制IC"}
+  }
+}

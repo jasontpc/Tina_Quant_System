@@ -1,0 +1,24 @@
+{
+  "tier": "tier3",
+  "created": "2026-04-24",
+  "trades": [
+    {
+      "stock_id": "1101",
+      "name": "台泥",
+      "entry_price": 24.45,
+      "exit_price": 24.45,
+      "exit_date": "2026-04-24",
+      "return_pct": 0,
+      "exit_reason": "sync_from_autonomous",
+      "recorded_at": "2026-04-24T18:21:55.660Z"
+    }
+  ],
+  "stats": {
+    "total_trades": 1,
+    "win_rate": 0,
+    "avg_return": 0,
+    "max_loss": 0,
+    "max_gain": 0
+  },
+  "virtual_holdings": []
+}

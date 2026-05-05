@@ -1,0 +1,83 @@
+{
+  "candidates": [],
+  "learned": [
+    {
+      "symbol": "3665.TW",
+      "added_at": "2026-05-03T07:57:55.810192",
+      "rows_added": 3669,
+      "reason": "Leo 高勝率波段標的 (84.2% in backtest)",
+      "source": "leo_v7"
+    },
+    {
+      "symbol": "YANG",
+      "added_at": "2026-05-03T07:57:56.440103",
+      "rows_added": 4127,
+      "reason": "3x inverse China (空頭對沖工具)",
+      "source": "leverage_scan"
+    },
+    {
+      "symbol": "SOXS",
+      "added_at": "2026-05-03T07:57:57.050672",
+      "rows_added": 4061,
+      "reason": "3x inverse semicon (OVERSOUGHT, RSI 15)",
+      "source": "leverage_scan"
+    },
+    {
+      "symbol": "AAPL",
+      "added_at": "2026-05-03T08:06:47.219722",
+      "rows_added": 11438,
+      "reason": "manual test from analysis",
+      "source": "analysis"
+    },
+    {
+      "symbol": "MSFT",
+      "added_at": "2026-05-03T08:06:48.708839",
+      "rows_added": 10112,
+      "reason": "manual test from analysis",
+      "source": "analysis"
+    },
+    {
+      "symbol": "4938.TW",
+      "added_at": "2026-05-04T17:15:02.648449",
+      "rows_added": 4232,
+      "reason": "百元內動能篩選 RSI正常 MA多頭",
+      "source": "analysis"
+    },
+    {
+      "symbol": "CAR",
+      "added_at": "2026-05-04T17:15:04.416111",
+      "rows_added": 10742,
+      "reason": "Reddit社群熱門 (social sentiment score > 40)",
+      "source": "analysis"
+    },
+    {
+      "symbol": "00702.TW",
+      "added_at": "2026-05-04T17:15:04.894451",
+      "rows_added": 2120,
+      "reason": "ETF資料庫掃描進場候選",
+      "source": "analysis"
+    },
+    {
+      "symbol": "00703.TW",
+      "added_at": "2026-05-04T17:15:05.315261",
+      "rows_added": 2125,
+      "reason": "ETF資料庫掃描進場候選",
+      "source": "analysis"
+    },
+    {
+      "symbol": "00632R.TW",
+      "added_at": "2026-05-04T17:15:05.810422",
+      "rows_added": 2807,
+      "reason": "ETF資料庫掃描進場候選",
+      "source": "analysis"
+    },
+    {
+      "symbol": "00634R.TW",
+      "added_at": "2026-05-04T17:15:06.320737",
+      "rows_added": 2789,
+      "reason": "ETF資料庫掃描進場候選",
+      "source": "analysis"
+    }
+  ],
+  "rejected": []
+}

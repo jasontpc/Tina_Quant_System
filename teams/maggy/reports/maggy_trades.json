@@ -1,0 +1,128 @@
+{
+  "trades": [],
+  "stats": {},
+  "last_updated": null,
+  "signals": [
+    {
+      "symbol": "AAPL",
+      "close": 267.6099853515625,
+      "rsi": 64.43035256606322,
+      "signal": "HOLD",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "AMZN",
+      "close": 261.1199951171875,
+      "rsi": 89.95780847163036,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "ARKK",
+      "close": 76.55000305175781,
+      "rsi": 69.08375987736166,
+      "signal": "HOLD",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "FANG",
+      "close": 196.4199981689453,
+      "rsi": 51.14655774054361,
+      "signal": "WATCH",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "GOOGL",
+      "close": 350.3399963378906,
+      "rsi": 82.41839343973194,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "META",
+      "close": 678.6199951171875,
+      "rsi": 79.73930779549399,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "MSFT",
+      "close": 424.82000732421875,
+      "rsi": 75.44318182154122,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "NVDA",
+      "close": 216.61000061035156,
+      "rsi": 88.79712496260625,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "QLD",
+      "close": 80.29000091552734,
+      "rsi": 90.66409122667629,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "QQQ",
+      "close": 664.22998046875,
+      "rsi": 91.08193347649586,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "SPXL",
+      "close": 243.3000030517578,
+      "rsi": 86.08435315959835,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "SPY",
+      "close": 715.1699829101562,
+      "rsi": 87.55542044978749,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "SSO",
+      "close": 62.41999816894531,
+      "rsi": 86.94603842857687,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "TQQQ",
+      "close": 62.63999938964844,
+      "rsi": 90.45953013595353,
+      "signal": "OVERBOUGHT_EXIT",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    },
+    {
+      "symbol": "TSLA",
+      "close": 378.6700134277344,
+      "rsi": 65.86720108205809,
+      "signal": "HOLD",
+      "confidence": 0,
+      "strategy": "RSI_Oversold_Aggressive"
+    }
+  ],
+  "last_check": "2026-04-28T15:45:13.703539"
+}

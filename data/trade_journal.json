@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-05-04",
+    "time": "18:29",
+    "symbol": "2382.TW",
+    "name": "廣達",
+    "action": "SELL",
+    "shares": 300,
+    "price": null,
+    "loss": -212,
+    "loss_pct": null,
+    "reason": "手動賣出",
+    "note": "300股已賣出（$212虧損），今已全數出場",
+    "status": "closed"
+  }
+]

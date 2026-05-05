@@ -1,0 +1,30 @@
+{
+  "performance": {
+    "total_trades": 7,
+    "open_positions": 0,
+    "closed_trades": 7,
+    "win_rate": 28.6,
+    "avg_return": -0.28,
+    "total_profit": -1930.92,
+    "last_updated": "2026-04-26 00:04"
+  },
+  "schedule_plan": [
+    {
+      "action": "增加分析頻率",
+      "cron": "*/15 * * * *",
+      "desc": "勝率低，增加分析密度以捕捉更多機會"
+    },
+    {
+      "action": "增加預測頻率",
+      "cron": "*/10 * * * *",
+      "desc": "OVERBOUGHT市場，高頻監控風險"
+    }
+  ],
+  "regime": "OVERBOUGHT",
+  "recommended_intervals": {
+    "OVERBOUGHT": "*/10",
+    "BULL": "*/15",
+    "NEUTRAL": "*/20",
+    "BEAR": "*/30"
+  }
+}

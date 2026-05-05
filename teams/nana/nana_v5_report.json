@@ -1,27 +1,91 @@
 {
-  "version": "v5.3_fixed",
-  "timestamp": "2026-04-24 00:55",
-  "market": "多頭",
-  "max_hold": 5,
+  "version": "v5.5_ultra_relaxed",
+  "timestamp": "2026-04-24 08:39",
+  "market": "過熱",
+  "max_hold": 4,
   "scan_total": 51,
-  "tradeable": 1,
-  "wr": 66.66666666666666,
-  "avg_return": 1.1630177115569056,
-  "total_trades": 3,
+  "tradeable": 22,
+  "wr": 48.275862068965516,
+  "avg_return": 0.5462219369116766,
+  "total_trades": 290,
   "top_picks": [
+    {
+      "symbol": "3231",
+      "name": "緯創",
+      "score": 44.2,
+      "rsi": 58.0,
+      "bias": 5.4
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "score": 44.2,
+      "rsi": 61.3,
+      "bias": 5.5
+    },
+    {
+      "symbol": "3034",
+      "name": "聯詠",
+      "score": 38.0,
+      "rsi": 53.9,
+      "bias": 1.8
+    },
+    {
+      "symbol": "6230",
+      "name": "尼吉康",
+      "score": 38.0,
+      "rsi": 48.9,
+      "bias": 1.0
+    },
+    {
+      "symbol": "4938",
+      "name": "和碩",
+      "score": 38.0,
+      "rsi": 66.1,
+      "bias": 4.9
+    },
     {
       "symbol": "2353",
       "name": "宏碁",
-      "score": 42.0,
-      "rsi": 57.0,
-      "bias": 2.8
+      "score": 36.8,
+      "rsi": 48.5,
+      "bias": -0.3
+    },
+    {
+      "symbol": "2885",
+      "name": "元大金",
+      "score": 30.0,
+      "rsi": 63.8,
+      "bias": 4.6
+    },
+    {
+      "symbol": "2891",
+      "name": "中信金",
+      "score": 28.8,
+      "rsi": 47.8,
+      "bias": -1.4
+    },
+    {
+      "symbol": "0050",
+      "name": "元大台灣50",
+      "score": 26.5,
+      "rsi": 69.6,
+      "bias": 8.9
+    },
+    {
+      "symbol": "6269",
+      "name": "台郡",
+      "score": 26.2,
+      "rsi": 57.7,
+      "bias": 5.3
     }
   ],
   "fixes_applied": [
-    "RSI<65_strict",
-    "Bias<10%_veto",
-    "Inst_reversal_check",
-    "Volume_ratio>=0.8",
-    "ATR_exit_adjusted"
+    "OVERBOUGHT_Score_25_22_20",
+    "RSI<75",
+    "Bias<15%",
+    "ATR>=0.15%",
+    "vol_ratio>=0.4",
+    "skip_inst_reversal_in_overbought"
   ]
 }

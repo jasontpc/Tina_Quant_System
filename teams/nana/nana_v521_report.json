@@ -1,0 +1,14 @@
+{
+  "version": "v5.21_full_backtest",
+  "timestamp": "2026-04-24 09:56",
+  "market": "過熱",
+  "wr": 60.75949367088608,
+  "avg_return": 1.3140450610632142,
+  "total_trades": 237,
+  "etf_trades": 77,
+  "stock_trades": 160,
+  "etf_wr": 66.23376623376623,
+  "etf_avg": 0.5252789326963427,
+  "stock_wr": 58.12500000000001,
+  "stock_avg": 1.6936387603397716
+}

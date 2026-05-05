@@ -1,0 +1,811 @@
+{
+  "updated": "2026-05-03",
+  "updated_by": "brain_backtest_sandbox.py",
+  "note": "RSI blacklist applied: leverage ETFs and high-diff symbols flagged",
+  "backtest_result": {
+    "old_strategy": {
+      "name": "RSI 35-50 + MACD>0 + MA多頭",
+      "trades": 295,
+      "wr": "37.3%"
+    },
+    "new_strategy": {
+      "name": "RSI 25-60 + MACD>0 + MA多頭",
+      "trades": 3020,
+      "wr": "43.3%"
+    },
+    "improvement": {
+      "wr": "+6.0%",
+      "trades": "+2725"
+    }
+  },
+  "new_params": {
+    "rsi_min": 25,
+    "rsi_max": 60,
+    "macd_positive": true,
+    "ma_bull": true,
+    "vol_filter": "off",
+    "stop_loss": "1.5x ATR",
+    "take_profit": "3.0x ATR"
+  },
+  "teams": {
+    "LEO": {
+      "watch_list": [
+        {
+          "symbol": "3711.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "8299.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2467.TW",
+          "strategy": "STRONG_UPTREND",
+          "params": {
+            "rsi_min": 40,
+            "rsi_max": 70,
+            "macd_positive": true,
+            "ma_bull": true,
+            "sl_atr": 2.0,
+            "tp_atr": 4.0,
+            "strategy_type": "STRONG_UPTREND"
+          }
+        },
+        {
+          "symbol": "5269.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2359.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "4966.TWO",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        {
+          "symbol": "2408.TW",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        {
+          "symbol": "2344.TW",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        {
+          "symbol": "7730.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        }
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "AI科技+記憶體+半導體設備",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    },
+    "NANA": {
+      "watch_list": [
+        {
+          "symbol": "2464.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "3324.TWO",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "3037.TW",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        {
+          "symbol": "1590.TW",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        }
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "波段操作（散熱/機電/光電）",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    },
+    "MAGGY": {
+      "watch_list": [
+        {
+          "symbol": "MSFT",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        {
+          "symbol": "CRM",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        }
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "美股AI科技",
+      "notes": "MSFT: RSI均值回歸 | CRM: MACD金叉",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    },
+    "SHERKY": {
+      "watch_list": [
+        {
+          "symbol": "1519.TW",
+          "strategy": "STRONG_UPTREND",
+          "params": {
+            "rsi_min": 40,
+            "rsi_max": 70,
+            "macd_positive": true,
+            "ma_bull": true,
+            "sl_atr": 2.0,
+            "tp_atr": 4.0,
+            "strategy_type": "STRONG_UPTREND"
+          }
+        }
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "ETF/能源",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    },
+    "AION": {
+      "watch_list": [
+        {
+          "symbol": "2201.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2207.TW",
+          "strategy": "RANGE_BOUND",
+          "params": {
+            "rsi_min": 25,
+            "rsi_max": 60,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.0,
+            "tp_atr": 2.0,
+            "strategy_type": "RANGE_BOUND"
+          }
+        }
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "新能源車",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    },
+    "GUARD": {
+      "watch_list": [
+        {
+          "symbol": "2634.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2313.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        }
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "軍工/國防",
+      "notes": "注意：MACD 修復後確認多空方向",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    },
+    "FINMAX": {
+      "watch_list": [
+        {
+          "symbol": "2881.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2882.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2883.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2884.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2885.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2891.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2892.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        }
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "金融/金控",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    },
+    "CPO": {
+      "watch_list": [
+        {
+          "symbol": "6230.TW",
+          "strategy": "RANGE_BOUND",
+          "params": {
+            "rsi_min": 25,
+            "rsi_max": 60,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.0,
+            "tp_atr": 2.0,
+            "strategy_type": "RANGE_BOUND"
+          }
+        },
+        {
+          "symbol": "3324.TWO",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "4966.TWO",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        {
+          "symbol": "2464.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2359.TW",
+          "strategy": "MEAN_REVERSION",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 50,
+            "macd_positive": false,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MEAN_REVERSION"
+          }
+        },
+        {
+          "symbol": "2344.TW",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        {
+          "symbol": "2408.TW",
+          "strategy": "MIXED",
+          "params": {
+            "rsi_min": 30,
+            "rsi_max": 55,
+            "macd_positive": true,
+            "ma_bull": false,
+            "sl_atr": 1.5,
+            "tp_atr": 3.0,
+            "strategy_type": "MIXED"
+          }
+        },
+        "3163.TWO"
+      ],
+      "rsi_min": 25,
+      "rsi_max": 60,
+      "macd_required": true,
+      "ma_bull_required": true,
+      "vol_filter": 1.0,
+      "strategy": "散熱產業",
+      "params": {
+        "rsi_min": 25,
+        "rsi_max": 60,
+        "macd_positive": true,
+        "ma_bull": true,
+        "sl_atr": 1.5,
+        "tp_atr": 3.0,
+        "rsi_entry_min": 25,
+        "rsi_entry_max": 60,
+        "rsi_blacklist": [
+          "00646.TW",
+          "00662.TW",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "SPY",
+          "QQQ"
+        ],
+        "rsi_warn_threshold": 5
+      }
+    }
+  },
+  "complete_watch": {
+    "LEO": [
+      "3711.TW",
+      "8299.TW",
+      "2467.TW",
+      "5269.TW",
+      "2359.TW",
+      "4966.TWO",
+      "2408.TW",
+      "2344.TW",
+      "7730.TW"
+    ],
+    "NANA": [
+      "2464.TW",
+      "3324.TWO",
+      "3037.TW",
+      "1590.TW"
+    ],
+    "MAGGY": [
+      "MSFT",
+      "CRM"
+    ],
+    "SHERKY": [
+      "1519.TW"
+    ],
+    "AION": [
+      "2201.TW",
+      "2207.TW"
+    ],
+    "GUARD": [
+      "2634.TW",
+      "2313.TW"
+    ],
+    "FINMAX": [
+      "2881.TW",
+      "2882.TW",
+      "2883.TW",
+      "2884.TW",
+      "2885.TW",
+      "2891.TW",
+      "2892.TW"
+    ],
+    "CPO": [
+      "6230.TW",
+      "3324.TWO",
+      "4966.TWO",
+      "2464.TW",
+      "2359.TW",
+      "2344.TW",
+      "2408.TW",
+      "3163.TWO"
+    ]
+  },
+  "all_symbols": [
+    "2464.TW",
+    "1590.TW",
+    "2891.TW",
+    "2201.TW",
+    "4966.TWO",
+    "2344.TW",
+    "MSFT",
+    "2885.TW",
+    "2892.TW",
+    "3711.TW",
+    "3037.TW",
+    "2467.TW",
+    "2359.TW",
+    "2313.TW",
+    "2882.TW",
+    "2884.TW",
+    "8299.TW",
+    "5269.TW",
+    "2883.TW",
+    "CRM",
+    "7730.TW",
+    "3324.TWO",
+    "2634.TW",
+    "2408.TW",
+    "1519.TW",
+    "2207.TW",
+    "2881.TW",
+    "6230.TW",
+    "3163.TWO"
+  ],
+  "rsi_unreliable": [
+    "00646.TW",
+    "00662.TW",
+    "TQQQ",
+    "UPRO",
+    "SPXL",
+    "SPY",
+    "QQQ"
+  ],
+  "rsi_audit_date": "2026-05-03"
+}

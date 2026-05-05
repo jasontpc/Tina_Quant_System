@@ -1,0 +1,62 @@
+{
+  "description": "Tina 自主決策系統觸發條件設定",
+  "version": "1.0",
+  "last_updated": "2026-05-02",
+  
+  "trigger_conditions": {
+    "consecutive_losses": {
+      "threshold": 5,
+      "check_window": "recent_20_trades",
+      "description": "近20筆交易中連續5筆虧損",
+      "severity": "HIGH",
+      "auto_action": "analyze_and_patch"
+    },
+    "single_loss_threshold": {
+      "threshold_pct": -10.0,
+      "description": "單筆虧損超過10%",
+      "severity": "CRITICAL",
+      "auto_action": "analyze_and_patch"
+    },
+    "environment_invalid": {
+      "rsi_fail_count": 10,
+      "check_window": "recent_20_trades",
+      "description": "RSI系統連續失敗10次，判定市場環境失效",
+      "severity": "HIGH",
+      "auto_action": "analyze_and_patch"
+    }
+  },
+
+  "backtest_validation": {
+    "min_win_rate": 55.0,
+    "min_profit_factor": 1.2,
+    "min_trade_count": 100,
+    "validation_mode": "kline_100",
+    "description": "回測通過條件：勝率>55% 且 獲利因子>1.2，最少100筆交易"
+  },
+
+  "safety_rails": {
+    "never_modify": [
+      "main.py",
+      "tina_main.py",
+      "scripts/tina_main_run.py"
+    ],
+    "always_create_new": true,
+    "preserve_old_versions": true,
+    "require_telegram_report": true,
+    "max_autonomous_patches_per_week": 3,
+    "cooldown_hours_after_patch": 24
+  },
+
+  "monitoring": {
+    "check_interval_hours": 24,
+    "store_trade_results": true,
+    "track_rsi_effectiveness": true
+  },
+
+  "active_version": "v1",
+  "registered_strategies": [
+    "tina_v1_base",
+    "tina_v2_auto_patch",
+    "tina_v3_auto_patch"
+  ]
+}

@@ -1,0 +1,138 @@
+[
+  {
+    "stock": "00713",
+    "name": "元大高息低波",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 52.85,
+      "rsi14": 55.1,
+      "ma20": 52.95,
+      "ma60": 51.98,
+      "bias20": -0.2,
+      "slope20": 0.0855,
+      "atr14": 0.48,
+      "vol": 13727997,
+      "vol_avg20": 14718236.0,
+      "vol_ratio": 0.93,
+      "high_20": 54.4,
+      "low_20": 51.1,
+      "K": 7.5,
+      "D": 16.1
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "00713",
+    "name": "元大高息低波",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 52.85,
+      "rsi14": 55.1,
+      "ma20": 52.95,
+      "ma60": 51.98,
+      "bias20": -0.2,
+      "slope20": 0.0855,
+      "atr14": 0.48,
+      "vol": 13727997,
+      "vol_avg20": 14718236.0,
+      "vol_ratio": 0.93,
+      "high_20": 54.4,
+      "low_20": 51.1,
+      "K": 20.2,
+      "D": 37.4
+    },
+    "updated_at": "2026-05-02 08:11"
+  },
+  {
+    "stock": "00713",
+    "name": "元大高息低波",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 52.85,
+      "rsi14": 55.1,
+      "ma20": 52.95,
+      "ma60": 51.98,
+      "bias20": -0.2,
+      "slope20": 0.0855,
+      "atr14": 0.48,
+      "vol": 13727997,
+      "vol_avg20": 14718236.0,
+      "vol_ratio": 0.93,
+      "high_20": 54.4,
+      "low_20": 51.1,
+      "K": 20.2,
+      "D": 37.4
+    },
+    "updated_at": "2026-05-02 12:03"
+  },
+  {
+    "stock": "00713",
+    "name": "元大高息低波",
+    "market": "TW",
+    "type": "etf",
+    "signal": "NO_SIGNAL",
+    "score": 4,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": false,
+      "ma_arrange": true,
+      "ma_slope": false,
+      "bias": true,
+      "volume": true
+    },
+    "indicators": {
+      "price": 52.85,
+      "rsi14": 55.1,
+      "ma20": 52.95,
+      "ma60": 51.98,
+      "bias20": -0.2,
+      "slope20": 0.0855,
+      "atr14": 0.48,
+      "vol": 13727997,
+      "vol_avg20": 14718236.0,
+      "vol_ratio": 0.93,
+      "high_20": 54.4,
+      "low_20": 51.1,
+      "K": 20.2,
+      "D": 37.4
+    },
+    "updated_at": "2026-05-02 16:05"
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "ticker": "2330",
+    "name": "台積電",
+    "price": 2250.0,
+    "rsi": 71.02803738317758,
+    "momentum": -0.6622516556291425,
+    "ma60": null,
+    "ma_bull": true,
+    "signal": "HOLD",
+    "params": {
+      "rsi_period": 10,
+      "rsi_threshold": 50,
+      "hold_days": 45,
+      "take_profit": 5,
+      "stop_loss": 8
+    }
+  },
+  {
+    "ticker": "2382",
+    "name": "廣達",
+    "price": 316.0,
+    "rsi": 38.18181818181818,
+    "momentum": -2.9185867895545337,
+    "ma60": null,
+    "ma_bull": true,
+    "signal": "HOLD",
+    "params": {
+      "rsi_period": 10,
+      "rsi_threshold": 50,
+      "hold_days": 30,
+      "take_profit": 5,
+      "stop_loss": 8
+    }
+  },
+  {
+    "ticker": "3665",
+    "name": "穎崴",
+    "price": 2870.0,
+    "rsi": 72.52747252747253,
+    "momentum": 9.125475285171092,
+    "ma60": null,
+    "ma_bull": true,
+    "signal": "HOLD",
+    "params": {
+      "rsi_period": 10,
+      "rsi_threshold": 50,
+      "hold_days": 60,
+      "take_profit": 8,
+      "stop_loss": 10
+    }
+  },
+  {
+    "ticker": "2317",
+    "name": "鴻海",
+    "price": 229.5,
+    "rsi": 73.91304347826087,
+    "momentum": 0.6578947368421018,
+    "ma60": null,
+    "ma_bull": true,
+    "signal": "HOLD",
+    "params": {
+      "rsi_period": 10,
+      "rsi_threshold": 55,
+      "hold_days": 60,
+      "take_profit": 5,
+      "stop_loss": 10
+    }
+  },
+  {
+    "ticker": "3034",
+    "name": "緯穎",
+    "price": 416.0,
+    "rsi": 50.68493150684931,
+    "momentum": -0.12004801920768582,
+    "ma60": null,
+    "ma_bull": true,
+    "signal": "HOLD",
+    "params": {
+      "rsi_period": 10,
+      "rsi_threshold": 40,
+      "hold_days": 30,
+      "take_profit": 5,
+      "stop_loss": 8
+    }
+  }
+]

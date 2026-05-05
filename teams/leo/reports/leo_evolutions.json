@@ -1,0 +1,72 @@
+[
+  {
+    "timestamp": "2026-04-25 15:54:54",
+    "iteration": 1,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_changes": [
+      {
+        "param": "entry_rsi_max",
+        "from": 65,
+        "to": 60
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-04-25 17:03:29",
+    "iteration": 2,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_changes": [
+      {
+        "param": "entry_rsi_max",
+        "from": 65,
+        "to": 60
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-04-25 17:04:47",
+    "iteration": 3,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_changes": [
+      {
+        "param": "entry_rsi_max",
+        "from": 65,
+        "to": 60
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-04-25 17:05:05",
+    "iteration": 4,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_changes": [
+      {
+        "param": "entry_rsi_max",
+        "from": 65,
+        "to": 60
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-04-25 23:28:59",
+    "iteration": 5,
+    "learnings": [
+      "勝率過低，收緊進場條件"
+    ],
+    "param_changes": [
+      {
+        "param": "entry_rsi_max",
+        "from": 65,
+        "to": 60
+      }
+    ]
+  }
+]

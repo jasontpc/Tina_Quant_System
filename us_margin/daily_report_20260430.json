@@ -1,0 +1,165 @@
+{
+  "date": "2026-04-30T08:08:01.413464",
+  "total_stocks": 17,
+  "high_risk_count": 10,
+  "alerts_count": 6,
+  "high_risk": [
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "price": 94.75,
+      "rsi_14": 87.28831194066129,
+      "short_ratio": 1.38,
+      "days_to_cover": 0.0,
+      "change_pct": 12.103648560394035
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 263.0400085449219,
+      "rsi_14": 83.29937879092785,
+      "short_ratio": 2.02,
+      "days_to_cover": 0.0,
+      "change_pct": 1.2860978748156549
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 337.1099853515625,
+      "rsi_14": 82.08878441500163,
+      "short_ratio": 1.08,
+      "days_to_cover": 0.0,
+      "change_pct": 4.30060773613686
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Nasdaq 100",
+      "price": 661.5700073242188,
+      "rsi_14": 81.65356119014172,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 0.6113633344809236
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "ProShares 3x Long",
+      "price": 61.86000061035156,
+      "rsi_14": 80.62679889507766,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 1.843923116455595
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 349.94000244140625,
+      "rsi_14": 77.63137150597427,
+      "short_ratio": 2.72,
+      "days_to_cover": 0.0,
+      "change_pct": 0.04574408561603708
+    },
+    {
+      "symbol": "SPY",
+      "name": "S&P 500 ETF",
+      "price": 711.5800170898438,
+      "rsi_14": 77.59200490068874,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.01545410939948607
+    },
+    {
+      "symbol": "SPXL",
+      "name": "3x Long S&P 500",
+      "price": 239.60000610351562,
+      "rsi_14": 75.9209715218318,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.045889035614131074
+    },
+    {
+      "symbol": "NVDA",
+      "name": "Nvidia",
+      "price": 209.25,
+      "rsi_14": 74.75577869671122,
+      "short_ratio": 1.68,
+      "days_to_cover": 0.0,
+      "change_pct": -1.8389070707025879
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "price": 424.4599914550781,
+      "rsi_14": 73.54097950891747,
+      "short_ratio": 2.53,
+      "days_to_cover": 0.0,
+      "change_pct": -1.1159018159398661
+    }
+  ],
+  "short_squeeze": [],
+  "alerts": [
+    {
+      "symbol": "AMD",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 337.1099853515625,
+      "margin_ratio": null,
+      "reason": "RSI=82.1 overbought, margin risk high",
+      "timestamp": "2026-04-30T08:08:01.410468"
+    },
+    {
+      "symbol": "AMZN",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 263.0400085449219,
+      "margin_ratio": null,
+      "reason": "RSI=83.3 overbought, margin risk high",
+      "timestamp": "2026-04-30T08:08:01.410468"
+    },
+    {
+      "symbol": "INTC",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 94.75,
+      "margin_ratio": null,
+      "reason": "RSI=87.3 overbought, margin risk high",
+      "timestamp": "2026-04-30T08:08:01.410468"
+    },
+    {
+      "symbol": "INTC",
+      "alert_type": "SHORT_SQUEEZE_RISK",
+      "severity": "HIGH",
+      "price": 94.75,
+      "margin_ratio": null,
+      "reason": "+12.1% in one day, short squeeze risk",
+      "timestamp": "2026-04-30T08:08:01.410468"
+    },
+    {
+      "symbol": "QQQ",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 661.5700073242188,
+      "margin_ratio": null,
+      "reason": "RSI=81.7 overbought, margin risk high",
+      "timestamp": "2026-04-30T08:08:01.410468"
+    },
+    {
+      "symbol": "TQQQ",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 61.86000061035156,
+      "margin_ratio": null,
+      "reason": "RSI=80.6 overbought, margin risk high",
+      "timestamp": "2026-04-30T08:08:01.410468"
+    }
+  ],
+  "params": {
+    "initial_margin": 0.5,
+    "maintenance_margin": 0.25,
+    "margin_call_threshold": 0.3,
+    "max_margin_ratio": 0.4
+  },
+  "summary": {
+    "high_severity": 6,
+    "medium_severity": 0
+  }
+}

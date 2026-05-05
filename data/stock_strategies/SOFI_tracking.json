@@ -1,0 +1,70 @@
+[
+  {
+    "stock": "SOFI",
+    "name": "SoFi Technologies",
+    "market": "US",
+    "type": "fintech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 16.43,
+      "rsi14": 46.4,
+      "ma20": 17.64,
+      "ma60": 18.01,
+      "bias20": -6.88,
+      "slope20": 0.0396,
+      "atr14": 0.99,
+      "vol": 77799959,
+      "vol_avg20": 64771758.0,
+      "vol_ratio": 1.2,
+      "high_20": 20.13,
+      "low_20": 15.5,
+      "K": 3.6,
+      "D": -6.5
+    },
+    "updated_at": "2026-05-02 08:08"
+  },
+  {
+    "stock": "SOFI",
+    "name": "SoFi Technologies",
+    "market": "US",
+    "type": "fintech",
+    "signal": "NO_SIGNAL",
+    "score": 3,
+    "max_score": 7,
+    "checks": {
+      "rsi": true,
+      "rsi_ideal": true,
+      "ma_arrange": false,
+      "ma_slope": false,
+      "bias": true,
+      "volume": false
+    },
+    "indicators": {
+      "price": 16.43,
+      "rsi14": 46.4,
+      "ma20": 17.64,
+      "ma60": 18.01,
+      "bias20": -6.88,
+      "slope20": 0.0396,
+      "atr14": 0.99,
+      "vol": 77799959,
+      "vol_avg20": 64771758.0,
+      "vol_ratio": 1.2,
+      "high_20": 20.13,
+      "low_20": 15.5,
+      "K": 22.7,
+      "D": 33.5
+    },
+    "updated_at": "2026-05-02 08:11"
+  }
+]

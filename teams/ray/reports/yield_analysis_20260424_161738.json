@@ -1,0 +1,294 @@
+{
+  "timestamp": "2026-04-24",
+  "etf_count": 15,
+  "yield_ranking": [
+    {
+      "etf_id": "00917",
+      "current_yield": 17.1,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 1,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00919",
+      "current_yield": 11.8,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 2,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00918",
+      "current_yield": 11.22,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 3,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "0056",
+      "current_yield": 9.93,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 4,
+      "expense_ratio": 0.6
+    },
+    {
+      "etf_id": "00923",
+      "current_yield": 9.61,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 5,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00891",
+      "current_yield": 9.42,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 6,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00900",
+      "current_yield": 8.09,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 7,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00927",
+      "current_yield": 7.4,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 8,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00713",
+      "current_yield": 6.78,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 9,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00915",
+      "current_yield": 5.38,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 10,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "0050",
+      "current_yield": 1.89,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 11,
+      "expense_ratio": 0.32
+    }
+  ],
+  "all_data": [
+    {
+      "etf_id": "0050",
+      "current_yield": 1.89,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 11,
+      "expense_ratio": 0.32
+    },
+    {
+      "etf_id": "0056",
+      "current_yield": 9.93,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 4,
+      "expense_ratio": 0.6
+    },
+    {
+      "etf_id": "00713",
+      "current_yield": 6.78,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 9,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00891",
+      "current_yield": 9.42,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 6,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00646",
+      "current_yield": null,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": null,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00662",
+      "current_yield": null,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": null,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00757",
+      "current_yield": null,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": null,
+      "expense_ratio": 0.4
+    },
+    {
+      "etf_id": "00919",
+      "current_yield": 11.8,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 2,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00927",
+      "current_yield": 7.4,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 8,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00915",
+      "current_yield": 5.38,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 10,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00917",
+      "current_yield": 17.1,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 1,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00918",
+      "current_yield": 11.22,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 3,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00920",
+      "current_yield": null,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": null,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00923",
+      "current_yield": 9.61,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 5,
+      "expense_ratio": 0.35
+    },
+    {
+      "etf_id": "00900",
+      "current_yield": 8.09,
+      "avg_yield_1y": null,
+      "avg_yield_3y": null,
+      "avg_yield_5y": null,
+      "std_dev": null,
+      "yield_trend": "不確定",
+      "yield_rank": 7,
+      "expense_ratio": 0.35
+    }
+  ]
+}
