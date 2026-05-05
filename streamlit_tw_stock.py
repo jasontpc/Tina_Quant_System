@@ -309,9 +309,10 @@ with tw_tab:
                 "BB%": f"{r['bb_pct']:.0f}%",
                 "BIAS5": f"{r['bias5']:+.1f}%",
                 "Vol": f"{r['vol_ratio']:.1f}x",
-                "MA": "Y" if r['ma20_above_ma60'] else "N",
-                "MACD": "+" if r['macd_hist'] > 0 else "-",
-                "BULL": r['bullish'],
+                "MA20": f"${r['ma20']:.0f}",
+                "MA60": f"${r['ma60']:.0f}" if r['ma60'] else "N/A",
+                "MACD": f"{r['macd_hist']:+.2f}",
+                "MA Bull": "Y" if r['ma20_above_ma60'] else "N",
                 "Tier": r['tier'],
             })
         df = pd.DataFrame(rows)
@@ -420,9 +421,10 @@ with us_tab:
                 "BB%": f"{r['bb_pct']:.0f}%",
                 "BIAS5": f"{r['bias5']:+.1f}%",
                 "Vol": f"{r['vol_ratio']:.1f}x",
-                "MA": "Y" if r['ma20_above_ma60'] else "N",
-                "MACD": "+" if r['macd_hist'] > 0 else "-",
-                "BULL": r['bullish'],
+                "MA20": f"${r['ma20']:.0f}",
+                "MA60": f"${r['ma60']:.0f}" if r['ma60'] else "N/A",
+                "MACD": f"{r['macd_hist']:+.2f}",
+                "MA Bull": "Y" if r['ma20_above_ma60'] else "N",
                 "Tier": r['tier'],
             })
         df = pd.DataFrame(rows)
