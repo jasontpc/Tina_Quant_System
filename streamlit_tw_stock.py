@@ -485,7 +485,7 @@ with tw_tab:
         st.dataframe(df, use_container_width=True, height=400, hide_index=True)
 
         with st.expander("Send to Telegram"):
-            grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="tw_grade")
+            grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="tw_grade_send")
             grade_filtered = [r for r in filtered if r['tier'] in grade_filter]
             sel = st.multiselect("Select", [f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" for r in grade_filtered], key="tw_sel")
             sel_rows = [r for r in grade_filtered if f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" in sel]
@@ -645,7 +645,7 @@ with us_tab:
         st.dataframe(df, use_container_width=True, height=400, hide_index=True)
 
         with st.expander("Send to Telegram"):
-            grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="us_grade")
+            grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="us_grade_send")
             grade_filtered = [r for r in filtered if r['tier'] in grade_filter]
             sel = st.multiselect("Select", [f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" for r in grade_filtered], key="us_sel")
             sel_rows = [r for r in grade_filtered if f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" in sel]
