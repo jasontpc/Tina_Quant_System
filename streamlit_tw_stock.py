@@ -574,7 +574,7 @@ with tw_tab:
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
             st.download_button("CSV", csv, f"tw_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="tw_csv")
-    # --- Single Stock Deep Analysis ---
+    # --- Single Stock Deep Analysis --- 
     st.divider()
     st.subheader("Single Stock Deep Analysis")
     col_code, col_btn = st.columns([2, 1])
@@ -587,52 +587,140 @@ with tw_tab:
         with st.spinner(f"Analyzing {single_code}..."):
             r = analyze(single_code, "TW")
         if r:
-            m1, m2, m3, m4 = st.columns(4)
-            m1.metric("Price", f"${r['price']:.2f}")
-            m2.metric("Change", f"{r['chg']:+.2f}%")
-            m3.metric("RSI", f"{r['rsi']:.0f}")
-            m4.metric("Tier", r['tier'])
-            m1, m2, m3, m4 = st.columns(4)
-            m1.metric("K", f"{r['k']:.0f}")
-            m2.metric("D", f"{r['d']:.0f}")
-            m3.metric("BB%", f"{r['bb_pct']:.0f}%")
-            m4.metric("BIAS5", f"{r['bias5']:+.1f}%")
-            m1, m2, m3, m4 = st.columns(4)
-            m1.metric("MA20", f"${r['ma20']:.0f}")
-            m2.metric("MA60", f"${r['ma60']:.0f}" if r['ma60'] else "N/A")
-            m3.metric("Vol Ratio", f"{r['vol_ratio']:.1f}x")
-            m4.metric("MACD Hist", f"{r['macd_hist']:+.2f}")
+            # ── Score Bar ──
+            score = r['score']
+            tier = r['tier']
+            tier_color = {"A": "green", "B": "blue", "C": "orange", "D": "red"}.get(tier, "gray")
+            st.markdown(f"""<div style='display:flex; align-items:center; gap:12px; margin-bottom:8px'>
+                <span style='font-size:24px; font-weight:bold; color:{tier_color}'>[{tier}]</span>
+                <span style='font-size:20px'>{r['name']}</span>
+                <span style='font-size:20px'>{r['code']}</span>
+                <span style='font-size:24px; font-weight:bold'>Score {score:.0f}/1000</span>
+            </div>""", unsafe_allow_html=True)
+            # Score progress bar
+            bar_color = "#00cc66" if score >= 700 else ("#00aaff" if score >= 500 else ("#ffaa00" if score >= 300 else "#ff4444"))
+            st.markdown(f"""<div style='background:#eee; border-radius:8px; height:24px; margin-bottom:4px'>
+                <div style='width:{score/10}%; background:{bar_color}; height:24px; border-radius:8px'></div>
+            </div>""", unsafe_allow_html=True)
+            # Score breakdown 7 indicators
+            col1, col2, col3, col4, col5, col6, col7 = st.columns([1,1,1,1,1,1,1])
+            score_items = [
+                ("RSI 250", r['rsi'], 250, [30,35,40,45,50,55,65,70,100], [250,220,175,130,90,55,30,15,5,0]),
+                ("MACD 200", r['macd_hist'], 200, [2,1,0.5,0,-0.5,-999], [200,170,130,80,40,0]),
+                ("K 150", r['k'], 150, [20,30,40,50,60,70,999], [150,130,90,50,25,10,0]),
+                ("D 100", r['d'], 100, [20,30,40,50,60,999], [100,80,50,25,10,0]),
+                ("BB% 150", r['bb_pct'], 150, [10,20,30,40,50,70,999], [150,130,100,60,30,10,0]),
+                ("MA 100", 100 if r['ma20_above_ma60'] else 0, 100, [50], [100,0]),
+                ("Vol 50", r['vol_ratio'], 50, [2.0,1.5,1.2,1.0,0], [50,40,30,15,5]),
+            ]
+            for i, (label, val, max_score, thresholds, points) in enumerate(score_items):
+                col = [col1,col2,col3,col4,col5,col6,col7][i]
+                col.markdown(f"**{label.split()[0]}**\n`{val:.1f}`→`{points[0]}`")
+            # ── Price + Change row ──
+            m1, m2, m3, m4, m5 = st.columns(5)
+            chg_color = "#00cc66" if r['chg'] >= 0 else "#ff4444"
+            m1.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>Price</div>
+                <div style='font-size:22px;font-weight:bold'>${r['price']:.2f}</div>
+                <div style='font-size:16px;color:{chg_color}'>{r['chg']:+.2f}%</div>
+            </div>""", unsafe_allow_html=True)
+            m2.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>RSI</div>
+                <div style='font-size:22px;font-weight:bold;color:{'red' if r['rsi']>70 else 'orange' if r['rsi']>50 else 'green'}'>{r['rsi']:.0f}</div>
+                <div style='font-size:11px'>14日</div>
+            </div>""", unsafe_allow_html=True)
+            m3.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>K / D</div>
+                <div style='font-size:22px;font-weight:bold'>{r['k']:.0f} / {r['d']:.0f}</div>
+                <div style='font-size:11px; color:{'#00cc66' if r['kd_golden'] else '#888'}'>{'KD金叉!' if r['kd_golden'] else 'OK'}</div>
+            </div>""", unsafe_allow_html=True)
+            m4.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>BB%</div>
+                <div style='font-size:22px;font-weight:bold'>{r['bb_pct']:.0f}%</div>
+                <div style='font-size:11px'>{'超賣' if r['bb_pct']<20 else '中性' if r['bb_pct']<50 else '超買'}</div>
+            </div>""", unsafe_allow_html=True)
+            m5.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>BIAS5</div>
+                <div style='font-size:22px;font-weight:bold;color:{'red' if r['bias5']>3 else 'green' if r['bias5']<-3 else 'gray'}'>{r['bias5']:+.1f}%</div>
+                <div style='font-size:11px'>{'偏離' if abs(r['bias5'])>3 else '中性'}</div>
+            </div>""", unsafe_allow_html=True)
+            # ── MA + MACD row ──
+            m1, m2, m3, m4, m5 = st.columns(5)
+            ma20 = r['ma20']
+            ma60 = r['ma60']
+            m1.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>MA20</div>
+                <div style='font-size:20px;font-weight:bold'>${ma20:.0f}</div>
+                <div style='font-size:11px'>{'▲MA20>60' if r['ma20_above_ma60'] else '▼MA20<60'}</div>
+            </div>""", unsafe_allow_html=True)
+            m2.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>MA60</div>
+                <div style='font-size:20px;font-weight:bold'>{f'${ma60:.0f}' if ma60 else 'N/A'}</div>
+                <div style='font-size:11px'>60日均線</div>
+            </div>""", unsafe_allow_html=True)
+            m3.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>MACD</div>
+                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r['macd_hist']>0 else '#ff4444'}'>{r['macd_hist']:+.2f}</div>
+                <div style='font-size:11px'>histogram</div>
+            </div>""", unsafe_allow_html=True)
+            m4.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>Vol Ratio</div>
+                <div style='font-size:20px;font-weight:bold'>{r['vol_ratio']:.1f}x</div>
+                <div style='font-size:11px'>{'放量' if r['vol_ratio']>1.5 else '正常' if r['vol_ratio']>0.8 else '縮量'}</div>
+            </div>""", unsafe_allow_html=True)
+            m5.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>多空</div>
+                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r.get('bullish')=='Y' else '#ffaa00' if r.get('bullish')=='W' else '#888'}'>{r.get('bullish','N')}</div>
+                <div style='font-size:11px'>{'多頭' if r.get('bullish')=='Y' else '偏多' if r.get('bullish')=='W' else '中立'}</div>
+            </div>""", unsafe_allow_html=True)
+            # ── Technical Signals ──
             sigs = []
-            if r['kd_golden']: sigs.append("KD Golden Cross")
-            if r['ma20_above_ma60']: sigs.append("MA Bullish")
-            if r['macd_hist'] > 0: sigs.append("MACD+")
-            if r['bb_pct'] < 20: sigs.append("BB Oversold")
-            if r['rsi'] < 35: sigs.append("RSI Oversold")
-            if r['rsi'] > 70: sigs.append("RSI Overbought")
+            if r['kd_golden']: sigs.append(("✅", "KD Golden Cross", "#00cc66"))
+            if r['ma20_above_ma60']: sigs.append(("✅", "MA 多頭排列", "#00cc66"))
+            if r['macd_hist'] > 0: sigs.append(("✅", "MACD 紅柱", "#00cc66"))
+            if r['bb_pct'] < 20: sigs.append(("📉", "BB 超賣區", "#00aaff"))
+            if r['rsi'] < 35: sigs.append(("📉", "RSI 超賣 <35", "#00aaff"))
+            if r['rsi'] > 70: sigs.append(("📈", "RSI 超買 >70", "#ff4444"))
+            if r['bias5'] < -5: sigs.append(("⬇️", "BIAS5 偏離下方", "#00aaff"))
+            if r['bias5'] > 5: sigs.append(("⬆️", "BIAS5 偏離上方", "#ff4444"))
+            if r['vol_ratio'] > 2.0: sigs.append(("📊", "成交量放大", "#ffaa00"))
+            if r['bb_pct'] > 80: sigs.append(("📈", "BB 超買區", "#ff4444"))
+            sigs_html = " ".join([f"<span style='background:#f0f0f0;padding:4px 8px;border-radius:4px;margin:2px;display:inline-block;color:{c}'>{ico} {txt}</span>" for ico,txt,c in sigs])
+            if sigs_html:
+                st.markdown(f"<div style='margin-top:8px'>{sigs_html}</div>", unsafe_allow_html=True)
+            # ── Institutional ──
             inst = r.get("inst") or {}
             if inst:
-                st.caption("Institutional: F={:+,.0f} T={:+,.0f} D={:+,.0f}".format(
-                    inst.get("foreign",0), inst.get("trust",0), inst.get("dealer",0)))
-            st.caption(" | ".join(sigs) if sigs else "No special signals")
-            # ── Send to Telegram ──
-            if r:
-                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
-                macd_hist = r.get('macd_hist', 0)
-                macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
-                tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
-                msg = f"📊 **{single_code} {r['name'][:12]}** Deep Analysis\n" \
-                      f"─────────────────────\n" \
-                      f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n" \
-                      f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n" \
-                      f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n" \
-                      f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_hist:+.2f}{macd_warn}\n" \
-                      f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n" \
-                      f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}"
-                ok, err = push_telegram(msg)
-                if ok:
-                    st.success("📨 Telegram sent!")
-                else:
-                    st.error(f"Telegram failed: {err}")
+                f = inst.get("foreign",0); t = inst.get("trust",0); d = inst.get("dealer",0)
+                f_color = "#00cc66" if f > 0 else "#ff4444"
+                t_color = "#00cc66" if t > 0 else "#ff4444"
+                d_color = "#00cc66" if d > 0 else "#ff4444"
+                st.markdown(f"""<div style='margin-top:8px; background:#f8f8f8; padding:10px; border-radius:8px'>
+                    <span style='font-size:12px;color:#888'>法人籌碼：</span>
+                    <span style='font-weight:bold;color:{f_color}'>外商 {f:+,}</span>
+                    <span style='font-weight:bold;color:{t_color}'> 投信 {t:+,}</span>
+                    <span style='font-weight:bold;color:{d_color}'> 自營 {d:+,.0f}</span>
+                </div>""", unsafe_allow_html=True)
+            # ── Telegram Send ──
+            tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+            macd_hist = r.get('macd_hist', 0)
+            macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
+            tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
+            # Build score detail
+            score_detail = f"RSI={r['rsi']:.0f}/250 MACD={macd_hist:+.2f}/200 K={r['k']:.0f}/150 D={r['d']:.0f}/100 BB%={r['bb_pct']:.0f}/150 MA={'Y' if r['ma20_above_ma60'] else 'N'}/100 Vol={r['vol_ratio']:.1f}x/50"
+            msg = (f"📊 **{single_code} {r['name'][:12]}** Deep Analysis\n"
+                   f"─────────────────────\n"
+                   f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
+                   f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
+                   f"📈 {score_detail}\n"
+                   f"📉 BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
+                   f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
+                   f"📦 {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}")
+            ok, err = push_telegram(msg)
+            if ok:
+                st.success("📨 Telegram sent!")
+            else:
+                st.error(f"Telegram failed: {err}")
         else:
             st.warning(f"Cannot find data for {single_code}")
 
@@ -779,37 +867,128 @@ with us_tab:
             m3.metric("BB%", f"{r['bb_pct']:.0f}%")
             m4.metric("BIAS5", f"{r['bias5']:+.1f}%")
             m1, m2, m3, m4 = st.columns(4)
-            m1.metric("MA20", f"${r['ma20']:.0f}")
-            m2.metric("MA60", f"${r['ma60']:.0f}" if r['ma60'] else "N/A")
-            m3.metric("Vol Ratio", f"{r['vol_ratio']:.1f}x")
-            m4.metric("MACD Hist", f"{r['macd_hist']:+.2f}")
-            sigs = []
-            if r['kd_golden']: sigs.append("KD Golden Cross")
-            if r['ma20_above_ma60']: sigs.append("MA Bullish")
-            if r['macd_hist'] > 0: sigs.append("MACD+")
-            if r['bb_pct'] < 20: sigs.append("BB Oversold")
-            if r['rsi'] < 35: sigs.append("RSI Oversold")
-            if r['rsi'] > 70: sigs.append("RSI Overbought")
             st.caption(" | ".join(sigs) if sigs else "No special signals")
-            # ── Send to Telegram ──
-            if r:
-                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
-                macd_hist = r.get('macd_hist', 0)
-                macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
-                tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
-                msg = f"📊 **{us_single_code} {r['name'][:12]}** Deep Analysis\n" \
-                      f"─────────────────────\n" \
-                      f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n" \
-                      f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n" \
-                      f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n" \
-                      f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_hist:+.2f}{macd_warn}\n" \
-                      f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n" \
-                      f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}"
-                ok, err = push_telegram(msg)
-                if ok:
-                    st.success("📨 Telegram sent!")
-                else:
-                    st.error(f"Telegram failed: {err}")
+            # ── Score Bar ──
+            score = r['score']
+            tier = r['tier']
+            tier_color = {"A": "green", "B": "blue", "C": "orange", "D": "red"}.get(tier, "gray")
+            st.markdown(f"""<div style='display:flex; align-items:center; gap:12px; margin-bottom:8px'>
+                <span style='font-size:24px; font-weight:bold; color:{tier_color}'>[{tier}]</span>
+                <span style='font-size:20px'>{r['name']}</span>
+                <span style='font-size:20px'>{us_single_code}</span>
+                <span style='font-size:24px; font-weight:bold'>Score {score:.0f}/1000</span>
+            </div>""", unsafe_allow_html=True)
+            bar_color = "#00cc66" if score >= 700 else ("#00aaff" if score >= 500 else ("#ffaa00" if score >= 300 else "#ff4444"))
+            st.markdown(f"""<div style='background:#eee; border-radius:8px; height:24px; margin-bottom:4px'>
+                <div style='width:{score/10}%; background:{bar_color}; height:24px; border-radius:8px'></div>
+            </div>""", unsafe_allow_html=True)
+            col1, col2, col3, col4, col5, col6, col7 = st.columns([1,1,1,1,1,1,1])
+            score_items = [
+                ("RSI", r['rsi'], [30,35,40,45,50,55,65,70,100], [250,220,175,130,90,55,30,15,5,0]),
+                ("MACD", r['macd_hist'], [2,1,0.5,0,-0.5,-999], [200,170,130,80,40,0]),
+                ("K", r['k'], [20,30,40,50,60,70,999], [150,130,90,50,25,10,0]),
+                ("D", r['d'], [20,30,40,50,60,999], [100,80,50,25,10,0]),
+                ("BB%", r['bb_pct'], [10,20,30,40,50,70,999], [150,130,100,60,30,10,0]),
+                ("MA", 100 if r['ma20_above_ma60'] else 0, [50], [100,0]),
+                ("Vol", r['vol_ratio'], [2.0,1.5,1.2,1.0,0], [50,40,30,15,5]),
+            ]
+            def get_score(val, thresholds, points):
+                for i, t in enumerate(thresholds):
+                    if val < t:
+                        return points[i]
+                return points[-1]
+            for i, (label, val, thresholds, points) in enumerate(score_items):
+                col = [col1,col2,col3,col4,col5,col6,col7][i]
+                sc = get_score(val, thresholds, points)
+                col.markdown(f"**{label}**\n`{val:.1f}`→`{sc}`")
+            # ── Price + Change row ──
+            m1, m2, m3, m4, m5 = st.columns(5)
+            chg_color = "#00cc66" if r['chg'] >= 0 else "#ff4444"
+            m1.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>Price</div>
+                <div style='font-size:22px;font-weight:bold'>${r['price']:.2f}</div>
+                <div style='font-size:16px;color:{chg_color}'>{r['chg']:+.2f}%</div>
+            </div>""", unsafe_allow_html=True)
+            m2.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>RSI</div>
+                <div style='font-size:22px;font-weight:bold;color:{'red' if r['rsi']>70 else 'orange' if r['rsi']>50 else 'green'}'>{r['rsi']:.0f}</div>
+                <div style='font-size:11px'>14日</div>
+            </div>""", unsafe_allow_html=True)
+            m3.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>K / D</div>
+                <div style='font-size:22px;font-weight:bold'>{r['k']:.0f} / {r['d']:.0f}</div>
+                <div style='font-size:11px; color:{'#00cc66' if r['kd_golden'] else '#888'}'>{'KD金叉!' if r['kd_golden'] else 'OK'}</div>
+            </div>""", unsafe_allow_html=True)
+            m4.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>BB%</div>
+                <div style='font-size:22px;font-weight:bold'>{r['bb_pct']:.0f}%</div>
+                <div style='font-size:11px'>{'超賣' if r['bb_pct']<20 else '中性' if r['bb_pct']<50 else '超買'}</div>
+            </div>""", unsafe_allow_html=True)
+            m5.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>BIAS5</div>
+                <div style='font-size:22px;font-weight:bold;color:{'red' if r['bias5']>3 else 'green' if r['bias5']<-3 else 'gray'}'>{r['bias5']:+.1f}%</div>
+                <div style='font-size:11px'>{'偏離' if abs(r['bias5'])>3 else '中性'}</div>
+            </div>""", unsafe_allow_html=True)
+            # ── MA + MACD row ──
+            m1, m2, m3, m4, m5 = st.columns(5)
+            ma60 = r['ma60']
+            m1.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>MA20</div>
+                <div style='font-size:20px;font-weight:bold'>${r['ma20']:.0f}</div>
+                <div style='font-size:11px'>{'▲MA20>60' if r['ma20_above_ma60'] else '▼MA20<60'}</div>
+            </div>""", unsafe_allow_html=True)
+            m2.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>MA60</div>
+                <div style='font-size:20px;font-weight:bold'>{f'${ma60:.0f}' if ma60 else 'N/A'}</div>
+                <div style='font-size:11px'>60日均線</div>
+            </div>""", unsafe_allow_html=True)
+            m3.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>MACD</div>
+                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r['macd_hist']>0 else '#ff4444'}'>{r['macd_hist']:+.2f}</div>
+                <div style='font-size:11px'>histogram</div>
+            </div>""", unsafe_allow_html=True)
+            m4.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>Vol Ratio</div>
+                <div style='font-size:20px;font-weight:bold'>{r['vol_ratio']:.1f}x</div>
+                <div style='font-size:11px'>{'放量' if r['vol_ratio']>1.5 else '正常' if r['vol_ratio']>0.8 else '縮量'}</div>
+            </div>""", unsafe_allow_html=True)
+            m5.markdown(f"""<div style='text-align:center'>
+                <div style='font-size:11px;color:#888'>多空</div>
+                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r.get('bullish')=='Y' else '#ffaa00' if r.get('bullish')=='W' else '#888'}'>{r.get('bullish','N')}</div>
+                <div style='font-size:11px'>{'多頭' if r.get('bullish')=='Y' else '偏多' if r.get('bullish')=='W' else '中立'}</div>
+            </div>""", unsafe_allow_html=True)
+            # ── Technical Signals ──
+            sigs = []
+            if r['kd_golden']: sigs.append(("✅", "KD Golden Cross", "#00cc66"))
+            if r['ma20_above_ma60']: sigs.append(("✅", "MA 多頭排列", "#00cc66"))
+            if r['macd_hist'] > 0: sigs.append(("✅", "MACD 紅柱", "#00cc66"))
+            if r['bb_pct'] < 20: sigs.append(("📉", "BB 超賣區", "#00aaff"))
+            if r['rsi'] < 35: sigs.append(("📉", "RSI 超賣 <35", "#00aaff"))
+            if r['rsi'] > 70: sigs.append(("📈", "RSI 超買 >70", "#ff4444"))
+            if r['bias5'] < -5: sigs.append(("⬇️", "BIAS5 偏離下方", "#00aaff"))
+            if r['bias5'] > 5: sigs.append(("⬆️", "BIAS5 偏離上方", "#ff4444"))
+            if r['vol_ratio'] > 2.0: sigs.append(("📊", "成交量放大", "#ffaa00"))
+            if r['bb_pct'] > 80: sigs.append(("📈", "BB 超買區", "#ff4444"))
+            sigs_html = " ".join([f"<span style='background:#f0f0f0;padding:4px 8px;border-radius:4px;margin:2px;display:inline-block;color:{c}'>{ico} {txt}</span>" for ico,txt,c in sigs])
+            if sigs_html:
+                st.markdown(f"<div style='margin-top:8px'>{sigs_html}</div>", unsafe_allow_html=True)
+            # ── Telegram ──
+            tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+            macd_h = r.get('macd_hist', 0)
+            tier_d = tier_icon if not (tier_icon == 'A' and macd_h < 0) else 'B'
+            msg = (f"📊 **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
+                   f"─────────────────────\n"
+                   f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
+                   f"🏆 Tier: [{tier_d}] | Score: {r['score']:.0f}/1000\n"
+                   f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n"
+                   f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_h:+.2f}\n"
+                   f"📊 MA20=${r['ma20']:.0f} MA60={f"${ma60:.0f}" if ma60 else 'N/A'}\n"
+                   f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}")
+            ok, err = push_telegram(msg)
+            if ok:
+                st.success("📨 Telegram sent!")
+            else:
+                st.error(f"Telegram failed: {err}")
         else:
             st.warning(f"Cannot find data for {us_single_code}")
 
