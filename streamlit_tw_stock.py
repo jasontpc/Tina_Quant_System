@@ -83,6 +83,8 @@ TW_CATS = {
     "全部": [],
 }
 US_CATS = {
+    "S&P 500": ["NVDA","AVGO","AMD","MRVL","MU","INTC","QCOM","AMAT","LRCX","KLAC","SNPS","CDNS","NXPI","ASML","TSM","AMZN","MSFT","GOOGL","META","ANET","VRT","DELL","ORCL","EQIX","DLR","TXN","ADI","MPWR","TER","MCHP","ON","CRDO","ALAB","ENTG","MTSI","ASX","AMKR","COHR","LITE","CSCO","WDC","STX","ETN","AMSC","SBGSY","NVT","SMCI","AI","HOOD","COIN","PYPL","DT"],
+    "費半 (SOXX)": ["AMD","AVGO","MU","NVDA","INTC","MRVL","AMAT","MPWR","TXN","NXPI","QCOM","KLAC","ADI","LRCX","TER","MCHP","TSM","ASML","ON","CRDO","ALAB","ENTG","MTSI","ASX"],
     "XPU & Design": ["NVDA","AVGO","AMD","MRVL","ARM"],
     "光通訊/CPO": ["ANET","CSCO","COHR","LITE","GLW"],
     "記憶體/儲存": ["MU","WDC","STX"],
@@ -91,7 +93,6 @@ US_CATS = {
     "先進封裝/雲端": ["AMKR","EQIX","DLR","ORCL"],
     "AI 雲端": ["NVDA","AMD","AVGO","MRVL","AMZN","MSFT","GOOGL","META","ANET","VRT","DELL"],
     "5G": ["QCOM","NOK","ERIC","AMAT","LRCX","MU","SWKS","RF","VZ","T","TMUS"],
-    "半導體": ["NVDA","AMD","INTC","QCOM","AVGO","MRVL","TSM","MU","AMAT","LRCX","KLAC","SNPS","CDNS","NXPI","ASML"],
     "FinTech": ["PYPL","SQ","AFRM","COIN","HOOD","DB","BAC","GS","V","MA"],
     "ETF": ["QQQ","SOXX","SMH","XLF","ARKK","FXI","GDX","XLE"],
     "全部": [],
@@ -127,14 +128,19 @@ TW_NAMES = {
     "5351": "5351", "4923": "4923", "3265": "3265",
 }
 US_NAMES = {
-    # AI 算力 / XPU & Design
-    "NVDA": "NVIDIA", "AVGO": "Broadcom", "AMD": "AMD", "MRVL": "Marvell", "ARM": "ARM",
+    # S&P 500 stocks
+    "NVDA": "NVIDIA", "AVGO": "Broadcom", "AMD": "AMD", "MRVL": "Marvell", "MU": "Micron",
+    "INTC": "Intel", "QCOM": "Qualcomm", "AMAT": "Applied Mat", "LRCX": "Lam Research",
+    "KLAC": "KLA", "SNPS": "Synopsys", "CDNS": "Cadence", "NXPI": "NXP", "ASML": "ASML",
+    "TSM": "TSM", "TXN": "Texas Instr", "ADI": "Analog Devices", "MPWR": "Monolithic Power",
+    "TER": "Teradyne", "MCHP": "Microchip", "ON": "ON Semi", "CRDO": "Credo", "ALAB": "Astera Labs",
+    "ENTG": "Entegris", "MTSI": "MACOM", "ASX": "ASE Tech",
+    # XPU / Design
+    "ARM": "ARM",
     # 光通訊 / CPO
     "ANET": "Arista", "CSCO": "Cisco", "COHR": "Coherent", "LITE": "Lumentum", "GLW": "Corning",
     # 記憶體 / 儲存
-    "MU": "Micron", "WDC": "Western Digital", "STX": "Seagate",
-    # 半導體設備
-    "ASML": "ASML", "AMAT": "Applied Mat", "LRCX": "Lam Research", "KLAC": "KLA", "CAMT": "Camtek",
+    "WDC": "Western Digital", "STX": "Seagate",
     # 電力 / 散熱
     "VRT": "Vertiv", "ETN": "Eaton", "AMSC": "AMSC", "SBGSY": "Schneider", "NVT": "nVent",
     # 先進封裝 / 雲端
@@ -142,13 +148,15 @@ US_NAMES = {
     # AI 雲端
     "AMZN": "Amazon", "MSFT": "Microsoft", "GOOGL": "Google", "META": "Meta", "DELL": "Dell",
     # 5G
-    "QCOM": "Qualcomm", "NOK": "Nokia", "ERIC": "Ericsson", "SWKS": "Skyworks", "RF": "RF Micro",
+    "NOK": "Nokia", "ERIC": "Ericsson", "SWKS": "Skyworks", "RF": "RF Micro",
     "VZ": "Verizon", "T": "AT&T", "TMUS": "T-Mobile",
-    # 半導體
-    "INTC": "Intel", "TSM": "TSM", "SNPS": "Synopsys", "CDNS": "Cadence", "NXPI": "NXP",
+    # 設備
+    "CAMT": "Camtek",
     # FinTech
     "PYPL": "PayPal", "SQ": "Block", "AFRM": "Affirm", "COIN": "Coinbase", "HOOD": "Robinhood",
     "DB": "Deutsche Bank", "BAC": "Bank of America", "GS": "Goldman", "V": "Visa", "MA": "Mastercard",
+    # 其他
+    "SMCI": "SuperMicro", "AI": "C3.ai", "DT": "Dynatrace",
     # ETF
     "QQQ": "QQQ ETF", "SOXX": "SOX ETF", "SMH": "SMH ETF",
     "XLF": "Financial ETF", "ARKK": "ARK ETF", "FXI": "China ETF",
