@@ -96,13 +96,16 @@ US_CATS = {
     'UTI - Utilities': ['AEE','AEP','AES','ATO','AWK','CEG','CMS','CNP','D','DTE','DUK','ED','EIX','ES','ETR','EVRG','EXC','FE','LNT','NEE','NI','NRG','PCG','PEG','PNW','PPL','SO','SRE','VST','WEC','XEL'],
     'RE - Real Estate': ['AMT','ARE','AVB','BXP','CBRE','CCI','CPT','CSGP','DLR','DOC','EQIX','EQR','ESS','EXR','FRT','HST','INVH','IRM','KIM','MAA','O','PLD','PSA','REG','SBAC','SPG','UDR','VICI','VTR','WELL','WY'],
     'MAT - Materials': ['ALB','AMCR','APD','AVY','BALL','CF','CRH','CTVA','DD','DOW','ECL','FCX','IFF','IP','LIN','LYB','MLM','MOS','NEM','NUE','PKG','PPG','SHW','STLD','SW','VMC'],
-    # ─── 主題分類（跨 GICS 板塊）───
-    'AI 雲端': ['NVDA','AMD','AVGO','MRVL','AMZN','MSFT','GOOGL','META','ANET','VRT','DELL','PLTR','NOW','ORCL'],
-    '電力/散熱': ['VRT','ETN','AMSC','SBGSY','NVT'],
-    '光通訊/CPO': ['ANET','CSCO','COHR','LITE','GLW'],
+    # ─── 主題精選（跨 GICS 板塊）───
+    'AI 基礎設施': ['NVDA','AMD','AVGO','MRVL','AMZN','MSFT','GOOGL','META','ANET','VRT','DELL','PLTR','NOW','ORCL','COHR','LITE','GLW','AMSC','NVT','SBGSY','EQIX','DLR','AMKR'],
+    '金融科技': ['PYPL','SQ','AFRM','COIN','HOOD','DB','AFC','GREM','UPST','LC','RBLX','NU','SOFI'],
+    '電動車/綠能': ['TSLA','RIVN','LCID','F','GM','HYLN','ENPH','SEDG','SPWR','FSLR','RUN','ALB','NIO','XPEV','CHPT','BLNK','CCID','NOVA'],
+    # ─── 美股 ETF ───
     '美股 ETF': ['QQQ','SOXX','SMH','XLF','ARKK','FXI','GDX','XLE'],
     '全部': [],
 }
+
+
 
 
 
