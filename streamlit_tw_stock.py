@@ -9,7 +9,53 @@ import yfinance as yf
 import numpy as np
 import pandas as pd
 import time
+import urllib.request
+import json
 from datetime import datetime
+
+# ── Telegram ───────────────────────────────────────────────────────────────────
+TELEGRAM_BOT_TOKEN = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'
+TELEGRAM_CHAT_ID = '1616824689'
+
+def push_telegram(message):
+    """Send message to Telegram bot."""
+    url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
+    data = json.dumps({'chat_id': TELEGRAM_CHAT_ID, 'text': message, 'parse_mode': 'Markdown'}).encode()
+    req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
+    try:
+        with urllib.request.urlopen(req, timeout=10):
+            return True, 'OK'
+    except Exception as e:
+        return False, str(e)
+
+def format_telegram_table(results, title):
+    """Format results as a Telegram-friendly table."""
+    if not results:
+        return "No results"
+    lines = [
+        f"📊 *{title}* | {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        "`" + "="*48 + "`"
+    ]
+    for r in results[:20]:
+        tier_icon = {"A": "🥇", "B": "🥈", "C": "🥉", "D": "❌"}.get(r.get('tier','?'), '?')
+        ma_icon = "✅" if r.get('ma20_above_ma60') else "❌"
+        macd_icon = "✅" if r.get('macd_hist', 0) > 0 else "❌"
+        bull = r.get('bullish', '❌')
+        kd = "💎" if r.get('kd_golden') else ""
+        lines.append(
+            f"[{tier_icon}] {r['code']} {r['name'][:6]}"
+            f" ${r['price']:.0f} ({r['chg']:+.2f}%)"
+            f" R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
+            f" M={macd_icon} MA={ma_icon} {bull} {kd}"
+        )
+    a = sum(1 for r in results if r.get('tier') == 'A')
+    b = sum(1 for r in results if r.get('tier') == 'B')
+    c = sum(1 for r in results if r.get('tier') == 'C')
+    lines.append("`" + "="*48 + "`")
+    lines.append(f"🥇A={a} 🥈B={b} 🥉C={c} | Total={len(results)}")
+    if len(results) > 20:
+        lines.append(f"(Showing 20 of {len(results)})")
+    return "\n".join(lines)
 
 # ── Session Cache ──────────────────────────────────────────────────────────────
 SESSION_CACHE = {}
@@ -228,6 +274,16 @@ if st.button("🔍 開始分析", type="primary", use_container_width=True):
         st.success(f"✅ 分析完成：{len(results)} 檔可用 | 篩選後：{len(filtered)} 檔")
 
         if filtered:
+            # Telegram button
+            if st.button("📤 傳送到 Telegram", use_container_width=True):
+                with st.spinner("傳送中..."):
+                    msg = format_telegram_table(filtered, f"TW-{cat}")
+                    ok, err = push_telegram(msg)
+                    if ok:
+                        st.success("✅ 已發送到 Telegram！")
+                    else:
+                        st.error(f"❌ 發送失敗：{err}")
+
             rows = []
             for r in filtered:
                 rows.append({
