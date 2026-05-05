@@ -70,7 +70,7 @@ def format_telegram(results, title):
     return chunks
 
 SESSION_CACHE = {}
-CACHE_TTL = 3600
+CACHE_TTL = 300  # 5 min fresh cache, then re-fetch live
 
 TW_CATS = {
     "熱門台股": ["2330","2454","2317","2382","3034","3665","2881","2603","2303","1216"],
