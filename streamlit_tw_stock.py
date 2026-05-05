@@ -29,8 +29,8 @@ def push_telegram(message):
 
 def format_telegram_table(results, title):
     if not results:
-        return "No results"
-    lines = [
+        return ["No results"]
+    all_lines = [
         f"📊 *{title}* | {datetime.now().strftime('%Y-%m-%d %H:%M')}",
         "`" + "="*48 + "`"
     ]
@@ -40,20 +40,33 @@ def format_telegram_table(results, title):
         macd_icon = "✅" if r.get('macd_hist', 0) > 0 else "❌"
         bull = r.get('bullish', '❌')
         kd = "💎" if r.get('kd_golden') else ""
-        lines.append(
+        all_lines.append(
             f"[{tier_icon}] {r['code']} {r['name'][:6]}"
             f" ${r['price']:.0f} ({r['chg']:+.2f}%)"
             f" R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
+            f" BB%={r['bb_pct']:.0f} BIAS={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x"
             f" M={macd_icon} MA={ma_icon} {bull} {kd}"
         )
     a = sum(1 for r in results if r.get('tier') == 'A')
     b = sum(1 for r in results if r.get('tier') == 'B')
     c = sum(1 for r in results if r.get('tier') == 'C')
-    lines.append("`" + "="*48 + "`")
-    lines.append(f"🥇A={a} 🥈B={b} 🥉C={c} | Total={len(results)}")
-    if len(results) > 20:
-        lines.append(f"(Showing all {len(results)} stocks)")
-    return "\n".join(lines)
+    all_lines.append("`" + "="*48 + "`")
+    all_lines.append(f"🥇A={a} 🥈B={b} 🥉C={c} | Total={len(results)}")
+
+    # Split into chunks of 4096 chars
+    chunks = []
+    chunk = []
+    chunk_len = 0
+    for line in all_lines:
+        if chunk_len + len(line) + 1 > 4000 and chunk:
+            chunks.append("\n".join(chunk))
+            chunk = []
+            chunk_len = 0
+        chunk.append(line)
+        chunk_len += len(line) + 1
+    if chunk:
+        chunks.append("\n".join(chunk))
+    return chunks
 
 # ── Session Cache ──────────────────────────────────────────────────────────────
 SESSION_CACHE = {}
@@ -322,21 +335,33 @@ if filtered:
     with c1:
         if st.button(f"📤 傳送已選擇 ({sel_count})", use_container_width=True, disabled=(sel_count==0)):
             with st.spinner("傳送中..."):
-                msg = format_telegram_table(selected_rows, f"TW-{cat}")
-                ok, err = push_telegram(msg)
-                if ok:
-                    st.success(f"✅ 已發送 {sel_count} 檔到 Telegram！")
+                chunks = format_telegram_table(selected_rows, f"TW-{cat}")
+                ok_all = True
+                err_msg = ""
+                for chunk in chunks:
+                    ok, err = push_telegram(chunk)
+                    if not ok:
+                        ok_all = False
+                        err_msg = err
+                if ok_all:
+                    st.success(f"✅ 已發送 {sel_count} 檔 ({len(chunks)}則)到 Telegram！")
                 else:
-                    st.error(f"❌ 發送失敗：{err}")
+                    st.error(f"❌ 發送失敗：{err_msg}")
     with c2:
         if st.button(f"📤 傳送全部 ({len(filtered)})", use_container_width=True):
             with st.spinner("傳送中..."):
-                msg = format_telegram_table(filtered, f"TW-{cat}")
-                ok, err = push_telegram(msg)
-                if ok:
-                    st.success(f"✅ 已發送 {len(filtered)} 檔到 Telegram！")
+                chunks = format_telegram_table(filtered, f"TW-{cat}")
+                ok_all = True
+                err_msg = ""
+                for chunk in chunks:
+                    ok, err = push_telegram(chunk)
+                    if not ok:
+                        ok_all = False
+                        err_msg = err
+                if ok_all:
+                    st.success(f"✅ 已發送 {len(filtered)} 檔 ({len(chunks)}則)到 Telegram！")
                 else:
-                    st.error(f"❌ 發送失敗：{err}")
+                    st.error(f"❌ 發送失敗：{err_msg}")
 
     csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig') if results else b""
     st.download_button("📥 下載 CSV", csv, f"tina_tw_{cat}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv")
