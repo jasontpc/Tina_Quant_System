@@ -404,6 +404,8 @@ with tw_tab:
     with col_side:
         st.header("Filters")
         tw_cat = st.selectbox("Category", list(TW_CATS.keys()), key="tw_cat")
+        tw_grade = st.multiselect("Grade", ["A","B","C","D"], default=["A","B","C","D"], key="tw_grade")
+        tw_score_min = st.slider("Score Min", 0, 1000, 0, key="tw_score")
         tw_rsi_max = st.slider("RSI Max", 30, 100, 100, key="tw_rsi")
         codes = TW_CATS.get(tw_cat, [])
         st.info(f"{len(codes)} stocks")
@@ -425,7 +427,10 @@ with tw_tab:
                 bar.progress((i+1) / len(codes))
                 time.sleep(0.12)
             bar.empty()
-            filtered = [r for r in results if r['rsi'] <= tw_rsi_max]
+            filtered = [r for r in results
+                        if r['rsi'] <= tw_rsi_max
+                        and r['tier'] in tw_grade
+                        and r['score'] >= tw_score_min]
             filtered.sort(key=lambda x: x['score'], reverse=True)
             st.session_state.tw_results = results
             st.session_state.tw_filtered = filtered
@@ -564,6 +569,8 @@ with us_tab:
     with col_side:
         st.header("Filters")
         us_cat = st.selectbox("Category", list(US_CATS.keys()), key="us_cat")
+        us_grade = st.multiselect("Grade", ["A","B","C","D"], default=["A","B","C","D"], key="us_grade")
+        us_score_min = st.slider("Score Min", 0, 1000, 0, key="us_score")
         us_rsi_max = st.slider("RSI Max", 30, 100, 100, key="us_rsi")
         codes = US_CATS.get(us_cat, [])
         st.info(f"{len(codes)} stocks")
@@ -585,7 +592,10 @@ with us_tab:
                 bar.progress((i+1) / len(codes))
                 time.sleep(0.12)
             bar.empty()
-            filtered = [r for r in results if r['rsi'] <= us_rsi_max]
+            filtered = [r for r in results
+                        if r['rsi'] <= us_rsi_max
+                        and r['tier'] in us_grade
+                        and r['score'] >= us_score_min]
             filtered.sort(key=lambda x: x['score'], reverse=True)
             st.session_state.us_results = results
             st.session_state.us_filtered = filtered
