@@ -127,6 +127,11 @@ US_CATS = {
     'ETF - 股息與價值': ['SCHD','VYM','VTV','DGRO'],
     'ETF - 債券與配置': ['BND','TLT','SHY','AGG'],
     'ETF - 全球與其他': ['VT','VXUS','VWO'],
+    # ─── 2x Leveraged ETF（槓桿型，Jo 提供）───
+    '2x 指數類': ['SSO','QLD','MVV','UWM','DDM'],
+    '2x 產業類': ['USD','ROM','UYG','DIG','UXI'],
+    '2x 債券/匯率': ['UBT','UST','UUP'],
+    '2x 反向 (看空)': ['SDS','QID','TWM','DXD'],
     '全部': [],
 }
 
@@ -204,9 +209,11 @@ US_NAMES = {
     # ─── ETF - 全球與其他 ───
     'VT': "Vanguard 全球股票", 'VXUS': "Vanguard 非美股市", 'VWO': "Vanguard 新興市場",
     # 舊 ETF
-    'SOXX': "SOX ETF", 'SMH': "SMH ETF",
-    'XLF': "Financial ETF", 'ARKK': "ARK ETF", 'FXI': "China ETF",
-    'GDX': "Gold ETF", 'XLE': "Energy ETF",
+    # ─── 2x Leveraged ETF ───
+    'SSO': "ProShares 2x S&P500", 'QLD': "ProShares 2x QQQ", 'MVV': "ProShares 2x MidCap400", 'UWM': "ProShares 2x Russell2000", 'DDM': "ProShares 2x Dow30",
+    'USD': "ProShares 2x 半導體", 'ROM': "ProShares 2x 科技", 'UYG': "ProShares 2x 金融", 'DIG': "ProShares 2x 油氣", 'UXI': "ProShares 2x 工業",
+    'UBT': "ProShares 2x 長債", 'UST': "ProShares 2x 中債", 'UUP': "Invesco 美元指數",
+    'SDS': "ProShares -2x S&P500", 'QID': "ProShares -2x QQQ", 'TWM': "ProShares -2x Russell2000", 'DXD': "ProShares -2x Dow30",
 }
 
 def calc_rsi(close, period=14):
