@@ -298,7 +298,6 @@ if st.button("🔍 開始分析", type="primary", use_container_width=True):
                 if st.session_state.get(key, False):
                     selected.append(r)
                 cb = st.checkbox("", value=st.session_state.get(key, False), key=key)
-                st.session_state[key] = cb
                 tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
                 bull_emoji = r.get('bullish', '❌')
                 st.write(f"`{r['code']}` {r['name'][:8]} ${r['price']:.0f} ({r['chg']:+.2f}%) R={r['rsi']:.0f} M={'Y' if r['macd_hist']>0 else 'N'} MA={'Y' if r['ma20_above_ma60'] else 'N'} {bull_emoji} [{tier_icon}]")
