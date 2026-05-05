@@ -162,25 +162,37 @@ def calc_macd(close):
 # ── Data Fetch ──────────────────────────────────────────────────────────────
 
 def fetch_institutional(code):
-    """Fetch F/T/D from local macro_institutional.db (has real data up to 2026-04-30)"""
+    """Fetch F/T/D from FinMind TaiwanStockInstitutionalInvestorsBuySell (real-time)"""
     try:
-        db_path = os.path.join(os.path.dirname(__file__), 'data', 'macro_institutional.db')
-        if not os.path.exists(db_path):
-            return None
-        conn = sqlite3.connect(db_path)
-        c = conn.cursor()
-        row = c.execute('''
-            SELECT foreign_net, trust_net, dealer_net
-            FROM institutional_daily
-            WHERE stock_id=? AND date >= '2026-04-25'
-            ORDER BY date DESC LIMIT 1
-        ''', (str(code).zfill(4),)).fetchone()
-        conn.close()
-        if row and (row[0] or row[1] or row[2]):
-            return {'foreign': row[0], 'trust': row[1], 'dealer': row[2]}
+        import urllib.request
+        params = {
+            'dataset': 'TaiwanStockInstitutionalInvestorsBuySell',
+            'data_id': str(code).zfill(4),
+            'start_date': '2026-05-04',
+            'end_date': '2026-05-05',
+            'token': FINMIND_TOKEN
+        }
+        url = 'https://api.finmindtrade.com/api/v4/data?' + '&'.join(f'{k}={v}' for k, v in params.items())
+        with urllib.request.urlopen(url, timeout=8) as resp:
+            data = json.loads(resp.read())
+            rows = data.get('data', [])
+            if not rows:
+                return None
+            latest_date = max(r['date'] for r in rows)
+            day_rows = [r for r in rows if r['date'] == latest_date]
+            result = {'foreign': 0, 'trust': 0, 'dealer': 0}
+            for r in day_rows:
+                name = r.get('name', '')
+                net = r.get('buy', 0) - r.get('sell', 0)
+                if name == 'Foreign_Investor':
+                    result['foreign'] = net
+                elif name == 'Investment_Trust':
+                    result['trust'] = net
+                elif 'Dealer' in name:
+                    result['dealer'] += net
+            return result if (result['foreign'] or result['trust'] or result['dealer']) else None
     except:
-        pass
-    return None
+        return None
 
 def fetch_price(code, market='TW'):
     cache_key = f"{market}:{code}"
