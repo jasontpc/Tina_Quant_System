@@ -391,13 +391,15 @@ with tw_tab:
         st.dataframe(df, use_container_width=True, height=400, hide_index=True)
 
         with st.expander("Send to Telegram"):
-            sel = st.multiselect("Select", [f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in filtered], key="tw_sel")
-            sel_rows = [r for r in filtered if f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
+            grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="tw_grade")
+            grade_filtered = [r for r in filtered if r['tier'] in grade_filter]
+            sel = st.multiselect("Select", [f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in grade_filtered], key="tw_sel")
+            sel_rows = [r for r in grade_filtered if f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
             sc = len(sel_rows)
             r1, r2 = st.columns(2)
-            if r1.button(f"Send ({sc})", disabled=(sc==0), use_container_width=True):
+            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True):
                 with st.spinner("Sending..."):
-                    chunks = format_telegram(sel_rows, f"TW-{cat_saved}")
+                    chunks = format_telegram(sel_rows, f"TW-{cat_saved} ({','.join(grade_filter)})")
                     ok_all = True
                     for chunk in chunks:
                         ok, err = push_telegram(chunk)
@@ -407,9 +409,9 @@ with tw_tab:
                             break
                     if ok_all:
                         st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
-            if r2.button(f"Send All ({len(filtered)})", use_container_width=True):
+            if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", use_container_width=True):
                 with st.spinner("Sending..."):
-                    chunks = format_telegram(filtered, f"TW-{cat_saved}")
+                    chunks = format_telegram(grade_filtered, f"TW-{cat_saved} ({','.join(grade_filter)})")
                     ok_all = True
                     for chunk in chunks:
                         ok, err = push_telegram(chunk)
@@ -418,7 +420,7 @@ with tw_tab:
                             st.error(f"Error: {err}")
                             break
                     if ok_all:
-                        st.success(f"Sent {len(filtered)} stocks ({len(chunks)} msgs)")
+                        st.success(f"Sent {len(grade_filtered)} stocks ({len(chunks)} msgs)")
 
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
@@ -544,13 +546,15 @@ with us_tab:
         st.dataframe(df, use_container_width=True, height=400, hide_index=True)
 
         with st.expander("Send to Telegram"):
-            sel = st.multiselect("Select", [f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in filtered], key="us_sel")
-            sel_rows = [r for r in filtered if f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
+            grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="us_grade")
+            grade_filtered = [r for r in filtered if r['tier'] in grade_filter]
+            sel = st.multiselect("Select", [f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in grade_filtered], key="us_sel")
+            sel_rows = [r for r in grade_filtered if f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
             sc = len(sel_rows)
             r1, r2 = st.columns(2)
-            if r1.button(f"Send ({sc})", disabled=(sc==0), use_container_width=True):
+            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True):
                 with st.spinner("Sending..."):
-                    chunks = format_telegram(sel_rows, f"US-{cat_saved}")
+                    chunks = format_telegram(sel_rows, f"US-{cat_saved} ({','.join(grade_filter)})")
                     ok_all = True
                     for chunk in chunks:
                         ok, err = push_telegram(chunk)
@@ -560,9 +564,9 @@ with us_tab:
                             break
                     if ok_all:
                         st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
-            if r2.button(f"Send All ({len(filtered)})", use_container_width=True):
+            if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", use_container_width=True):
                 with st.spinner("Sending..."):
-                    chunks = format_telegram(filtered, f"US-{cat_saved}")
+                    chunks = format_telegram(grade_filtered, f"US-{cat_saved} ({','.join(grade_filter)})")
                     ok_all = True
                     for chunk in chunks:
                         ok, err = push_telegram(chunk)
@@ -571,7 +575,7 @@ with us_tab:
                             st.error(f"Error: {err}")
                             break
                     if ok_all:
-                        st.success(f"Sent {len(filtered)} stocks ({len(chunks)} msgs)")
+                        st.success(f"Sent {len(grade_filtered)} stocks ({len(chunks)} msgs)")
 
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
