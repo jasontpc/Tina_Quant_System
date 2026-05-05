@@ -43,12 +43,15 @@ def format_telegram(results, title):
         t_val = inst.get('trust', 0)
         d_val = inst.get('dealer', 0)
         inst_str = f" F:{f_val:+,} T:{t_val:+,} D:{d_val:,}" if inst else ""
+        macd_hist = r.get('macd_hist', 0)
+        macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
+        tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'  # downgrade A if MACD<
         all_lines.append(
-            f"[{tier_icon}] {r['code']} {r['name'][:8]}"
+            f"[{tier_display}] {r['code']} {r['name'][:8]}"
             f" ${r['price']:.2f} ({r['chg']:+.2f}%)"
             f" S={r['score']:.0f}/1000 R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
             f" BB%={r['bb_pct']:.0f} BIAS={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x"
-            f" M={macd_icon} MA={ma_icon} {bull} {kd}{inst_str}"
+            f" M={macd_icon} MACD={macd_hist:+.2f}{macd_warn} MA={ma_icon} {bull} {kd}{inst_str}"
         )
     a = sum(1 for r in results if r.get('tier') == 'A')
     b = sum(1 for r in results if r.get('tier') == 'B')
@@ -418,6 +421,7 @@ with tw_tab:
         tw_grade = st.multiselect("Grade", ["A","B","C","D"], default=["A","B","C","D"], key="tw_grade")
         tw_score_min = st.slider("Score Min", 0, 1000, 0, key="tw_score")
         tw_rsi_max = st.slider("RSI Max", 30, 100, 100, key="tw_rsi")
+        tw_macd_filter = st.checkbox("排除 MACD < 0", value=False, key="tw_macd_filter")
         codes = TW_CATS.get(tw_cat, [])
         st.info(f"{len(codes)} stocks")
         analyze_tw = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_analyze")
@@ -441,7 +445,8 @@ with tw_tab:
             filtered = [r for r in results
                         if r['rsi'] <= tw_rsi_max
                         and r['tier'] in tw_grade
-                        and r['score'] >= tw_score_min]
+                        and r['score'] >= tw_score_min
+                        and (not tw_macd_filter or r['macd_hist'] >= 0)]
             filtered.sort(key=lambda x: x['score'], reverse=True)
             st.session_state.tw_results = results
             st.session_state.tw_filtered = filtered
@@ -583,6 +588,7 @@ with us_tab:
         us_grade = st.multiselect("Grade", ["A","B","C","D"], default=["A","B","C","D"], key="us_grade")
         us_score_min = st.slider("Score Min", 0, 1000, 0, key="us_score")
         us_rsi_max = st.slider("RSI Max", 30, 100, 100, key="us_rsi")
+        us_macd_filter = st.checkbox("排除 MACD < 0", value=False, key="us_macd_filter")
         codes = US_CATS.get(us_cat, [])
         st.info(f"{len(codes)} stocks")
         analyze_us = st.button("Analyze", type="primary", use_container_width=True, key="btn_us_analyze")
@@ -606,7 +612,8 @@ with us_tab:
             filtered = [r for r in results
                         if r['rsi'] <= us_rsi_max
                         and r['tier'] in us_grade
-                        and r['score'] >= us_score_min]
+                        and r['score'] >= us_score_min
+                        and (not us_macd_filter or r['macd_hist'] >= 0)]
             filtered.sort(key=lambda x: x['score'], reverse=True)
             st.session_state.us_results = results
             st.session_state.us_filtered = filtered
