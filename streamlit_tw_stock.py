@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Tina Scanner v2.2 - TW+US Stock Analysis with Institutional Data + Telegram
+"""
 import streamlit as st
 import yfinance as yf
 import numpy as np
@@ -10,6 +13,7 @@ from datetime import datetime
 
 TELEGRAM_BOT_TOKEN = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'
 TELEGRAM_CHAT_ID = '1616824689'
+FINMIND_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
 
 def push_telegram(message):
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
@@ -34,12 +38,17 @@ def format_telegram(results, title):
         macd_icon = "+" if r.get('macd_hist', 0) > 0 else "-"
         bull = r.get('bullish', 'N')
         kd = "K+D+" if r.get('kd_golden') else ""
+        inst = r.get('inst') or {}
+        f_val = inst.get('foreign', 0)
+        t_val = inst.get('trust', 0)
+        d_val = inst.get('dealer', 0)
+        inst_str = f" F:{f_val:+,} T:{t_val:+,} D:{d_val:,}" if inst else ""
         all_lines.append(
             f"[{tier_icon}] {r['code']} {r['name'][:8]}"
             f" ${r['price']:.2f} ({r['chg']:+.2f}%)"
             f" R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
             f" BB%={r['bb_pct']:.0f} BIAS={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x"
-            f" M={macd_icon} MA={ma_icon} {bull} {kd}"
+            f" M={macd_icon} MA={ma_icon} {bull} {kd}{inst_str}"
         )
     a = sum(1 for r in results if r.get('tier') == 'A')
     b = sum(1 for r in results if r.get('tier') == 'B')
@@ -114,7 +123,7 @@ TW_NAMES = {
 }
 US_NAMES = {
     "NVDA": "NVIDIA", "AMD": "AMD", "INTC": "Intel", "QCOM": "Qualcomm",
-    "AVGO": "Broadcom", "MRVL": "Marvell", "TSM": "TSMC", "MU": "Micron",
+    "AVGO": "Broadcom", "MRVL": "Marvell", "TSM": "TSM", "MU": "Micron",
     "AMZN": "Amazon", "MSFT": "Microsoft", "GOOGL": "Google", "META": "Meta",
     "ANET": "Arista", "VRT": "Vertiv", "DELL": "Dell", "HPE": "HPE",
     "SMCI": "SuperMicro", "AI": "C3.ai", "PATH": "UiPath", "DT": "Dynatrace",
@@ -150,6 +159,32 @@ def calc_macd(close):
     macd_signal = macd.ewm(span=9, adjust=False).mean()
     return float(macd.iloc[-1]), float(macd_signal.iloc[-1]), float((macd - macd_signal).iloc[-1])
 
+def fetch_institutional(code):
+    """Fetch foreign/trust/dealer from FinMind"""
+    try:
+        params = {
+            'dataset': 'TaiwanFuturesInstitutionalInvestors',
+            'data_id': str(code).zfill(4),
+            'start_date': '2026-05-01',
+            'end_date': '2026-05-05',
+            'token': FINMIND_TOKEN
+        }
+        url = 'https://api.finmindtrade.com/api/v4/data?' + '&'.join(f'{k}={v}' for k, v in params.items())
+        with urllib.request.urlopen(url, timeout=8) as resp:
+            data = json.loads(resp.read())
+            if data.get('status') == 200 and data.get('data', {}).get('data'):
+                rows = data['data']['data']
+                if rows:
+                    latest = rows[-1]
+                    return {
+                        'foreign': int(latest.get('Buy', 0) - latest.get('Sell', 0)),
+                        'trust': int(latest.get('TrustBuy', 0) - latest.get('TrustSell', 0)),
+                        'dealer': int(latest.get('DealerBuy', 0) - latest.get('DealerSell', 0)),
+                    }
+    except:
+        pass
+    return None
+
 def fetch_price(code, market='TW'):
     cache_key = f"{market}:{code}"
     now = time.time()
@@ -179,6 +214,7 @@ def analyze(code, market='TW'):
     price_hist = fetch_price(code, market)
     if price_hist is None:
         return None
+    inst = fetch_institutional(code) if market == 'TW' else None
     try:
         close = price_hist['Close'].astype(float)
         price = float(close.iloc[-1])
@@ -226,6 +262,7 @@ def analyze(code, market='TW'):
             'bb_upper': bb_upper, 'bb_lower': bb_lower, 'bb_pct': bb_pct,
             'bias5': bias5, 'vol_ratio': vol_ratio,
             'bullish': bullish,
+            'inst': inst,
             'score': score, 'tier': get_tier(rsi),
         }
     except:
@@ -233,14 +270,11 @@ def analyze(code, market='TW'):
 
 # ── Page Setup ──────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Tina Scanner", page_icon="📈", layout="wide")
-st.title("📈 Tina Scanner v2.1")
+st.title("📈 Tina Scanner v2.2")
 
-# ── Tabs ───────────────────────────────────────────────────────────────────
 tw_tab, us_tab = st.tabs(["Taiwan", "US"])
 
-# ═══════════════════════════════════════════════════════════════════
-# TW TAB
-# ═══════════════════════════════════════════════════════════════════
+# ═══════════════════════════ TW TAB ═══════════════════════════
 with tw_tab:
     col_side, col_main = st.columns([1, 4], vertical_alignment="top")
     with col_side:
@@ -251,14 +285,13 @@ with tw_tab:
         st.info(f"{len(codes)} stocks")
         analyze_tw = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_analyze")
 
-    # Store state after analysis
     if 'tw_results' not in st.session_state:
         st.session_state.tw_results = None
         st.session_state.tw_filtered = None
         st.session_state.tw_cat_saved = None
 
     if analyze_tw:
-        with st.spinner("Analyzing..."):
+        with st.spinner("Analyzing + Fetching Institutional..."):
             results = []
             bar = st.progress(0)
             for i, code in enumerate(codes):
@@ -274,7 +307,6 @@ with tw_tab:
             st.session_state.tw_filtered = filtered
             st.session_state.tw_cat_saved = tw_cat
 
-    # Retrieve stored results
     results = st.session_state.tw_results
     filtered = st.session_state.tw_filtered
     cat_saved = st.session_state.tw_cat_saved
@@ -298,6 +330,10 @@ with tw_tab:
     if filtered:
         rows = []
         for r in filtered:
+            inst = r.get('inst') or {}
+            f_val = inst.get('foreign', 0)
+            t_val = inst.get('trust', 0)
+            d_val = inst.get('dealer', 0)
             rows.append({
                 "Code": r['code'],
                 "Name": r['name'],
@@ -312,18 +348,21 @@ with tw_tab:
                 "MA20": f"${r['ma20']:.0f}",
                 "MA60": f"${r['ma60']:.0f}" if r['ma60'] else "N/A",
                 "MACD": f"{r['macd_hist']:+.2f}",
-                "MA Bull": "Y" if r['ma20_above_ma60'] else "N",
+                "MA": "Y" if r['ma20_above_ma60'] else "N",
+                "F": f"{f_val:+,}" if f_val != 0 else "-",
+                "T": f"{t_val:+,}" if t_val != 0 else "-",
+                "D": f"{d_val:+,}" if d_val != 0 else "-",
                 "Tier": r['tier'],
             })
         df = pd.DataFrame(rows)
         st.dataframe(df, use_container_width=True, height=400, hide_index=True)
 
         with st.expander("Send to Telegram"):
-            sel = st.multiselect("Select stocks", [f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in filtered], key="tw_sel")
+            sel = st.multiselect("Select", [f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in filtered], key="tw_sel")
             sel_rows = [r for r in filtered if f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
             sc = len(sel_rows)
-            row1, row2 = st.columns(2)
-            if row1.button(f"Send Selected ({sc})", use_container_width=True, disabled=(sc==0)):
+            r1, r2 = st.columns(2)
+            if r1.button(f"Send ({sc})", disabled=(sc==0), use_container_width=True):
                 with st.spinner("Sending..."):
                     chunks = format_telegram(sel_rows, f"TW-{cat_saved}")
                     ok_all = True
@@ -334,8 +373,8 @@ with tw_tab:
                             st.error(f"Error: {err}")
                             break
                     if ok_all:
-                        st.success(f"Sent {sc} stocks ({len(chunks)} messages)")
-            if row2.button(f"Send All ({len(filtered)})", use_container_width=True):
+                        st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
+            if r2.button(f"Send All ({len(filtered)})", use_container_width=True):
                 with st.spinner("Sending..."):
                     chunks = format_telegram(filtered, f"TW-{cat_saved}")
                     ok_all = True
@@ -346,15 +385,13 @@ with tw_tab:
                             st.error(f"Error: {err}")
                             break
                     if ok_all:
-                        st.success(f"Sent {len(filtered)} stocks ({len(chunks)} messages)")
+                        st.success(f"Sent {len(filtered)} stocks ({len(chunks)} msgs)")
 
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
-            st.download_button("Download CSV", csv, f"tw_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="tw_csv")
+            st.download_button("CSV", csv, f"tw_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="tw_csv")
 
-# ═══════════════════════════════════════════════════════════════════
-# US TAB
-# ═══════════════════════════════════════════════════════════════════
+# ═══════════════════════════ US TAB ═══════════════════════════
 with us_tab:
     col_side, col_main = st.columns([1, 4], vertical_alignment="top")
     with col_side:
@@ -424,18 +461,18 @@ with us_tab:
                 "MA20": f"${r['ma20']:.0f}",
                 "MA60": f"${r['ma60']:.0f}" if r['ma60'] else "N/A",
                 "MACD": f"{r['macd_hist']:+.2f}",
-                "MA Bull": "Y" if r['ma20_above_ma60'] else "N",
+                "MA": "Y" if r['ma20_above_ma60'] else "N",
                 "Tier": r['tier'],
             })
         df = pd.DataFrame(rows)
         st.dataframe(df, use_container_width=True, height=400, hide_index=True)
 
         with st.expander("Send to Telegram"):
-            sel = st.multiselect("Select stocks", [f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in filtered], key="us_sel")
+            sel = st.multiselect("Select", [f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in filtered], key="us_sel")
             sel_rows = [r for r in filtered if f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
             sc = len(sel_rows)
-            row1, row2 = st.columns(2)
-            if row1.button(f"Send Selected ({sc})", use_container_width=True, disabled=(sc==0)):
+            r1, r2 = st.columns(2)
+            if r1.button(f"Send ({sc})", disabled=(sc==0), use_container_width=True):
                 with st.spinner("Sending..."):
                     chunks = format_telegram(sel_rows, f"US-{cat_saved}")
                     ok_all = True
@@ -446,8 +483,8 @@ with us_tab:
                             st.error(f"Error: {err}")
                             break
                     if ok_all:
-                        st.success(f"Sent {sc} stocks ({len(chunks)} messages)")
-            if row2.button(f"Send All ({len(filtered)})", use_container_width=True):
+                        st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
+            if r2.button(f"Send All ({len(filtered)})", use_container_width=True):
                 with st.spinner("Sending..."):
                     chunks = format_telegram(filtered, f"US-{cat_saved}")
                     ok_all = True
@@ -458,11 +495,11 @@ with us_tab:
                             st.error(f"Error: {err}")
                             break
                     if ok_all:
-                        st.success(f"Sent {len(filtered)} stocks ({len(chunks)} messages)")
+                        st.success(f"Sent {len(filtered)} stocks ({len(chunks)} msgs)")
 
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
-            st.download_button("Download CSV", csv, f"us_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="us_csv")
+            st.download_button("CSV", csv, f"us_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="us_csv")
 
 st.divider()
-st.caption("Data: yfinance | For reference only | Tina Scanner v2.1")
+st.caption("Data: yfinance + FinMind Institutional | For reference only | Tina Scanner v2.2")
