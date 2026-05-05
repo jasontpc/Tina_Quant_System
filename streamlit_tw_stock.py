@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Tina Scanner v2.2 - TW+US Stock Analysis with Institutional Data + Telegram
+Tina Scanner v3.0 - TW+US Stock Analysis | 1000 Tech Scoring + Institutional Data + Telegram
 """
 import streamlit as st
 import yfinance as yf
@@ -46,7 +46,7 @@ def format_telegram(results, title):
         all_lines.append(
             f"[{tier_icon}] {r['code']} {r['name'][:8]}"
             f" ${r['price']:.2f} ({r['chg']:+.2f}%)"
-            f" R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
+            f" S={r['score']:.0f}/1000 R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
             f" BB%={r['bb_pct']:.0f} BIAS={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x"
             f" M={macd_icon} MA={ma_icon} {bull} {kd}{inst_str}"
         )
@@ -280,12 +280,102 @@ def analyze(code, market='TW'):
         vol_ma5 = float(vol.rolling(5).mean().iloc[-1])
         vol_ratio = float(vol.iloc[-1] / vol_ma5) if vol_ma5 > 0 else 1.0
         bullish = "Y" if (ma_bull and macd_bull) else ("W" if macd_bull else "N")
-        rsi_score = (100 - rsi) / 100 * 30 if rsi <= 100 else 0
-        macd_score = (macd_hist / 5 + 2) * 20 if macd_hist > 0 else max(macd_hist + 2, 0) * 10
-        ma_score = 20 if ma_bull else 0
-        kd_bonus = 15 if kd_golden else 0
-        bb_score = (100 - bb_pct) / 100 * 15 if bb_pct <= 100 else 0
-        score = rsi_score + macd_score + ma_score + kd_bonus + bb_score
+        # ── Tina Brain 1000 Tech Score ────────────────────────────────
+        # RSI: 250pts | MACD: 200pts | K: 150pts | D: 100pts
+        # BB%: 150pts | MA: 100pts | Vol: 50pts
+        if rsi < 30:
+            rsi_s = 250
+        elif rsi < 35:
+            rsi_s = 220
+        elif rsi < 40:
+            rsi_s = 175
+        elif rsi < 45:
+            rsi_s = 130
+        elif rsi < 50:
+            rsi_s = 90
+        elif rsi < 55:
+            rsi_s = 55
+        elif rsi < 60:
+            rsi_s = 30
+        elif rsi < 65:
+            rsi_s = 15
+        elif rsi < 70:
+            rsi_s = 5
+        else:
+            rsi_s = 0
+        if macd_hist > 2:
+            macd_s = 200
+        elif macd_hist > 1:
+            macd_s = 170
+        elif macd_hist > 0.5:
+            macd_s = 130
+        elif macd_hist > 0:
+            macd_s = 80
+        elif macd_hist > -0.5:
+            macd_s = 40
+        else:
+            macd_s = 0
+        if k_val < 20:
+            k_s = 150
+        elif k_val < 30:
+            k_s = 130
+        elif k_val < 40:
+            k_s = 90
+        elif k_val < 50:
+            k_s = 50
+        elif k_val < 60:
+            k_s = 25
+        elif k_val < 70:
+            k_s = 10
+        else:
+            k_s = 0
+        if d_val < 20:
+            d_s = 100
+        elif d_val < 30:
+            d_s = 80
+        elif d_val < 40:
+            d_s = 50
+        elif d_val < 50:
+            d_s = 25
+        elif d_val < 60:
+            d_s = 10
+        else:
+            d_s = 0
+        if bb_pct < 10:
+            bb_s = 150
+        elif bb_pct < 20:
+            bb_s = 130
+        elif bb_pct < 30:
+            bb_s = 100
+        elif bb_pct < 40:
+            bb_s = 60
+        elif bb_pct < 50:
+            bb_s = 30
+        elif bb_pct < 70:
+            bb_s = 10
+        else:
+            bb_s = 0
+        ma_s = 100 if ma_bull else 0
+        if vol_ratio >= 2.0:
+            vol_s = 50
+        elif vol_ratio >= 1.5:
+            vol_s = 40
+        elif vol_ratio >= 1.2:
+            vol_s = 30
+        elif vol_ratio >= 1.0:
+            vol_s = 15
+        else:
+            vol_s = 5
+        score = rsi_s + macd_s + k_s + d_s + bb_s + ma_s + vol_s
+        # Grade from score
+        if score >= 700:
+            tier = "A"
+        elif score >= 500:
+            tier = "B"
+        elif score >= 300:
+            tier = "C"
+        else:
+            tier = "D"
         return {
             'code': code, 'name': name,
             'price': price, 'chg': chg, 'rsi': rsi,
@@ -296,14 +386,15 @@ def analyze(code, market='TW'):
             'bias5': bias5, 'vol_ratio': vol_ratio,
             'bullish': bullish,
             'inst': inst,
-            'score': score, 'tier': get_tier(rsi),
+            'score': score, 'tier': tier,
+            'score_breakdown': {'rsi': rsi_s, 'macd': macd_s, 'k': k_s, 'd': d_s, 'bb': bb_s, 'ma': ma_s, 'vol': vol_s},
         }
     except:
         return None
 
 # ── Page Setup ──────────────────────────────────────────────────────────────
-st.set_page_config(page_title="Tina Scanner", page_icon="📈", layout="wide")
-st.title("📈 Tina Scanner v2.2")
+st.set_page_config(page_title="Tina Scanner v3.0", page_icon="📈", layout="wide")
+st.title("📈 Tina Scanner v3.0 — US Tech 1000 Scoring")
 
 tw_tab, us_tab = st.tabs(["Taiwan", "US"])
 
@@ -368,6 +459,7 @@ with tw_tab:
             t_val = inst.get('trust', 0)
             d_val = inst.get('dealer', 0)
             rows.append({
+                "Score": f"{r['score']:.0f}",
                 "Code": r['code'],
                 "Name": r['name'],
                 "Price": f"${r['price']:.2f}",
@@ -378,9 +470,6 @@ with tw_tab:
                 "BB%": f"{r['bb_pct']:.0f}%",
                 "BIAS5": f"{r['bias5']:+.1f}%",
                 "Vol": f"{r['vol_ratio']:.1f}x",
-                "MA20": f"${r['ma20']:.0f}",
-                "MA60": f"${r['ma60']:.0f}" if r['ma60'] else "N/A",
-                "MACD": f"{r['macd_hist']:+.2f}",
                 "MA": "Y" if r['ma20_above_ma60'] else "N",
                 "F": f"{f_val:+,}" if f_val != 0 else "-",
                 "T": f"{t_val:+,}" if t_val != 0 else "-",
@@ -393,8 +482,8 @@ with tw_tab:
         with st.expander("Send to Telegram"):
             grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="tw_grade")
             grade_filtered = [r for r in filtered if r['tier'] in grade_filter]
-            sel = st.multiselect("Select", [f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in grade_filtered], key="tw_sel")
-            sel_rows = [r for r in grade_filtered if f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
+            sel = st.multiselect("Select", [f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" for r in grade_filtered], key="tw_sel")
+            sel_rows = [r for r in grade_filtered if f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" in sel]
             sc = len(sel_rows)
             r1, r2 = st.columns(2)
             if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True):
@@ -513,19 +602,22 @@ with us_tab:
         d = sum(1 for r in filtered if r['tier'] == 'D')
         bull = sum(1 for r in filtered if r['bullish'] == 'Y')
         kd = sum(1 for r in filtered if r['kd_golden'])
-        m = st.columns(6)
+        avg_score = sum(r['score'] for r in filtered) / len(filtered) if filtered else 0
+        m = st.columns(7)
         m[0].metric("A", a)
         m[1].metric("B", b)
         m[2].metric("C", c)
         m[3].metric("D", d)
         m[4].metric("BULL", bull)
         m[5].metric("KD+", kd)
+        m[6].metric("Avg Score", f"{avg_score:.0f}")
         st.success(f"{len(results)} stocks | {len(filtered)} after filter")
 
     if filtered:
         rows = []
         for r in filtered:
             rows.append({
+                "Score": f"{r['score']:.0f}",
                 "Code": r['code'],
                 "Name": r['name'],
                 "Price": f"${r['price']:.2f}",
@@ -536,9 +628,6 @@ with us_tab:
                 "BB%": f"{r['bb_pct']:.0f}%",
                 "BIAS5": f"{r['bias5']:+.1f}%",
                 "Vol": f"{r['vol_ratio']:.1f}x",
-                "MA20": f"${r['ma20']:.0f}",
-                "MA60": f"${r['ma60']:.0f}" if r['ma60'] else "N/A",
-                "MACD": f"{r['macd_hist']:+.2f}",
                 "MA": "Y" if r['ma20_above_ma60'] else "N",
                 "Tier": r['tier'],
             })
@@ -548,8 +637,8 @@ with us_tab:
         with st.expander("Send to Telegram"):
             grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="us_grade")
             grade_filtered = [r for r in filtered if r['tier'] in grade_filter]
-            sel = st.multiselect("Select", [f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" for r in grade_filtered], key="us_sel")
-            sel_rows = [r for r in grade_filtered if f"[{r['tier']}] {r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in sel]
+            sel = st.multiselect("Select", [f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" for r in grade_filtered], key="us_sel")
+            sel_rows = [r for r in grade_filtered if f"[{r['tier']}] S={r['score']:.0f} {r['code']} ${r['price']:.0f}" in sel]
             sc = len(sel_rows)
             r1, r2 = st.columns(2)
             if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True):
@@ -621,4 +710,4 @@ with us_tab:
 
 
 st.divider()
-st.caption("Data: yfinance + FinMind Institutional | For reference only | Tina Scanner v2.2")
+st.caption("Data: yfinance + FinMind Institutional | Tina Brain v3.0 — 1000 Tech Score | For reference only")
