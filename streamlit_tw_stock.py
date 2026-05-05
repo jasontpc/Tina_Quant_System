@@ -72,8 +72,25 @@ def format_telegram(results, title):
         chunks.append("\n".join(chunk))
     return chunks
 
+# ── Short-lived In-Memory Cache (no persistent DB, auto-expire) ──
+# SESSION_CACHE: stores 6mo price history per stock, TTL=300s
+#   • No disk write — purely in-memory, cleared on app restart
+#   • Every fetch checks TTL; expired entries are purged on access
+#   • After TTL, MACD+RSI are recalculated from fresh yfinance data
+#   • Cron jobs start with empty cache → always fresh calculation
+#   • atexit handler clears expired entries on graceful shutdown
 SESSION_CACHE = {}
-CACHE_TTL = 300  # 5 min fresh cache, then re-fetch live
+CACHE_TTL = 300  # 5-minute TTL per stock entry
+
+import atexit
+def _clear_expired():
+    now = time.time()
+    expired = [k for k, (ts, _) in SESSION_CACHE.items() if now - ts > CACHE_TTL]
+    for k in expired:
+        del SESSION_CACHE[k]
+    print(f"[Cache] Cleared {len(expired)} expired entries on shutdown.")
+
+atexit.register(_clear_expired)
 
 TW_CATS = {
     "熱門台股": ["2330","2454","2317","2382","3034","3665","2881","2603","2303","1216"],
