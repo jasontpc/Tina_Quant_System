@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Tina 台股分析工具 - Streamlit 版本 v1.4
-修复：改用字典型代碼字串，徹底擺脫dataframe解析問題
+Tina Stock Scanner - Streamlit Version 2.0
+TW + US Stock Analysis with Telegram Push
 """
 
 import streamlit as st
@@ -27,7 +27,7 @@ def push_telegram(message):
     except Exception as e:
         return False, str(e)
 
-def format_telegram_table(results, title):
+def format_telegram(results, title):
     if not results:
         return ["No results"]
     all_lines = [
@@ -41,8 +41,8 @@ def format_telegram_table(results, title):
         bull = r.get('bullish', '❌')
         kd = "💎" if r.get('kd_golden') else ""
         all_lines.append(
-            f"[{tier_icon}] {r['code']} {r['name'][:6]}"
-            f" ${r['price']:.0f} ({r['chg']:+.2f}%)"
+            f"[{tier_icon}] {r['code']} {r['name'][:8]}"
+            f" ${r['price']:.2f} ({r['chg']:+.2f}%)"
             f" R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
             f" BB%={r['bb_pct']:.0f} BIAS={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x"
             f" M={macd_icon} MA={ma_icon} {bull} {kd}"
@@ -52,8 +52,6 @@ def format_telegram_table(results, title):
     c = sum(1 for r in results if r.get('tier') == 'C')
     all_lines.append("`" + "="*48 + "`")
     all_lines.append(f"🥇A={a} 🥈B={b} 🥉C={c} | Total={len(results)}")
-
-    # Split into chunks of 4096 chars
     chunks = []
     chunk = []
     chunk_len = 0
@@ -72,8 +70,8 @@ def format_telegram_table(results, title):
 SESSION_CACHE = {}
 CACHE_TTL = 3600
 
-# ── CATEGORIES ─────────────────────────────────────────────────────────────────
-CATEGORIES = {
+# ── TW Categories ────────────────────────────────────────────────────────────
+TW_CATS = {
     "熱門台股": ["2330","2454","2317","2382","3034","3665","2881","2603","2303","1216"],
     "AI 科技": ["2317","2324","2330","2345","2353","2381","2382","2454","3034","3095","3163","3211","3231","3306","3323","3325","3349","3432","3479","3483","3491","3534","3653","3665","3702","5515"],
     "半導體": ["2303","2311","2325","2363","2379","2473","3035","3041","3063","3105","3122","3141","3169","3178","3227","3228","3257","3259","3260","3264","3265","3268","3317","3372","3374","3438","3443","3467","3474","3519","3527","3529","3534","3536","3555","3556","3567","3579","3581","3598","3675","3680","3686","3707","4749","4923","4925","4945","4951","4966","4971","4973","4991","5236","5246","5262","5272","5274","5280","5297","5299","5302","5305","5344","5347","5351","5425","5443","5468","5483","5487","6103","6104","6129","6138","6147","6182","6187","6208","6223","6229","6233","6237","6239","6261","6271","6287","6291","6411","6415","6423","6435","6451","6457","6462","6485","6488","6494","6510","6515","6525","6526","6531","6532","6548","6552","6563","6568","6594","6640","6643","6651","6679","6683","6684","6693","6695","6699","6708","6716","6719","6720","6732","6756","6770","6786","6788","6819","6823","6829","6842","6895","6907","6920","6927","6953","6996","7530","7556","7669","7704","7707","7712","7734","7751","7768","7769","7770","7772","7796","7810","7815","7828","7843","7853","7856","7866","7872","7880","7886","7887","7899","7909","8024","8040","8054","8081","8086","8088","8091","8098","8102","8131","8150","8227","8261","8271","8277","8299","8383"],
@@ -84,28 +82,61 @@ CATEGORIES = {
     "全部": [],
 }
 
-ALL_CODES = []
-seen = set()
-for cat_codes in CATEGORIES.values():
-    for c in cat_codes:
-        if c not in seen:
-            seen.add(c)
-            ALL_CODES.append(c)
-CATEGORIES["全部"] = sorted(ALL_CODES, key=lambda x: (0, int(x)) if x.isdigit() else (1, x))[:500]
+# ── US Categories ──────────────────────────────────────────────────────────────
+US_CATS = {
+    "AI Tech": ["NVDA","AMD","INTC","QCOM","AVGO","MRVL","TSM","MU","AMZN","MSFT","GOOGL","META","ANET","VRT","DELL","HPE","SMCI","AI","PATH","DT"],
+    "Cloud": ["AMZN","MSFT","GOOGL","CRM","NOW","WDAY","TEAM","DDOG","SNOW","NET","AKAM","FFIV","PATH","VEEV"],
+    "5G": ["QCOM","NOK","ERIC","AMAT","LRCX","AMAT","MU","SWKS","RF","VZ","T","TMUS"],
+    "Semiconductors": ["NVDA","AMD","INTC","QCOM","AVGO","MRVL","TSM","MU","AMAT","LRCX","KLAC","SNPS","CDNS","NXPI","AMAT","MU"],
+    "FinTech": ["PYPL","SQ","AFRM","COIN","HOOD","DB","BAC","GS","V","MA","PYPL","SQ","AFRM","COIN","HOOD"],
+    "ETF": ["QQQ","SOXX","SMH","XLF","ARKK","FXI","GDX","XLE","IYF"],
+    "全部": [],
+}
 
-STOCK_NAMES = {
+# Build "全部"
+def build_all(cats_dict):
+    all_codes = []
+    seen = set()
+    for cat_codes in cats_dict.values():
+        for c in cat_codes:
+            if c not in seen:
+                seen.add(c)
+                all_codes.append(c)
+    return sorted(all_codes, key=lambda x: (0, int(x)) if x.isdigit() else (1, x))[:500]
+
+TW_CATS["全部"] = build_all({k: v for k, v in TW_CATS.items() if k != "全部"})
+US_CATS["全部"] = build_all({k: v for k, v in US_CATS.items() if k != "全部"})
+
+# ── Stock Names ───────────────────────────────────────────────────────────────
+TW_NAMES = {
     "2330": "台積電", "2454": "聯發科", "2317": "鴻海", "2382": "廣達",
     "3034": "緯穎", "3665": "穎崴", "2881": "富邦金", "2603": "長榮",
     "2303": "聯電", "1216": "統一", "0050": "元大台灣50", "0056": "元大高股息",
     "00646": "富邦S&P500", "00662": "富邦NASDAQ", "00713": "元大高息低波",
-    "00757": "統一大FANG+", "00927": "統一手創未來", "00878": "國泰永續高股息",
-    "00900": "富邦ESG", "00902": "兆豐藍籌", "00906": "凱基優選高股息",
-    "4749": "美時", "3483": "力致",
+    "3217": "3217", "2401": "2401", "3527": "3527", "4749": "美時",
+    "6819": "6819", "6229": "6229", "6786": "6786", "6563": "6563",
+    "5351": "5351", "4923": "4923", "3265": "3265",
 }
 
-def get_name(code):
-    return STOCK_NAMES.get(code, code)
+US_NAMES = {
+    "NVDA": "NVIDIA", "AMD": "AMD", "INTC": "Intel", "QCOM": "Qualcomm",
+    "AVGO": "Broadcom", "MRVL": "Marvell", "TSM": "TSMC", "MU": "Micron",
+    "AMZN": "Amazon", "MSFT": "Microsoft", "GOOGL": "Google", "META": "Meta",
+    "ANET": "Arista", "VRT": "Vertiv", "DELL": "Dell", "HPE": "HPE",
+    "SMCI": "SuperMicro", "AI": "C3.ai", "PATH": "UiPath", "DT": "Dynatrace",
+    "CRM": "Salesforce", "NOW": "ServiceNow", "WDAY": "Workday", "TEAM": "Atlassian",
+    "DDOG": "Datadog", "SNOW": "Snowflake", "NET": "Cloudflare", "AKAM": "Akamai",
+    "FFIV": "F5", "VEEV": "Veeva", "NOK": "Nokia", "ERIC": "Ericsson",
+    "SWKS": "Skyworks", "RF": "RF Micro", "VZ": "Verizon", "T": "AT&T",
+    "TMUS": "T-Mobile", "PYPL": "PayPal", "SQ": "Block", "AFRM": "Affirm",
+    "COIN": "Coinbase", "HOOD": "Robinhood", "DB": "Deutsche Bank",
+    "BAC": "Bank of America", "GS": "Goldman", "V": "Visa", "MA": "Mastercard",
+    "QQQ": "Nasdaq-100 ETF", "SOXX": "SOX ETF", "SMH": "SMH ETF",
+    "XLF": "Financial ETF", "ARKK": "ARK ETF", "FXI": "China ETF",
+    "GDX": "Gold ETF", "XLE": "Energy ETF", "IYF": "US Financial ETF",
+}
 
+# ── Indicators ────────────────────────────────────────────────────────────────
 def calc_rsi(close, period=14):
     delta = close.diff()
     gain = delta.where(delta > 0, 0).rolling(period).mean()
@@ -126,27 +157,35 @@ def calc_macd(close):
     macd_signal = macd.ewm(span=9, adjust=False).mean()
     return float(macd.iloc[-1]), float(macd_signal.iloc[-1]), float((macd - macd_signal).iloc[-1])
 
-def fetch_price_yfinance(code):
-    cache_key = str(code).zfill(4)
+# ── Fetch Price ────────────────────────────────────────────────────────────────
+def fetch_price(code, market='TW'):
+    cache_key = f"{market}:{code}"
     now = time.time()
     if cache_key in SESSION_CACHE:
         ts, cached_h = SESSION_CACHE[cache_key]
         if now - ts < CACHE_TTL:
             return cached_h
-    for suffix in ['.TW', '.TWO']:
-        try:
-            sym = str(code).zfill(4) + suffix
-            h = yf.Ticker(sym).history(period='6mo')
+    try:
+        if market == 'TW':
+            for suffix in ['.TW', '.TWO']:
+                sym = str(code).zfill(4) + suffix
+                h = yf.Ticker(sym).history(period='6mo')
+                if h is not None and len(h) >= 30:
+                    SESSION_CACHE[cache_key] = (now, h)
+                    return h
+        else:
+            h = yf.Ticker(code).history(period='6mo')
             if h is not None and len(h) >= 30:
                 SESSION_CACHE[cache_key] = (now, h)
                 return h
-        except:
-            pass
+    except:
+        pass
     return None
 
-def analyze_stock(code):
-    name = get_name(code)
-    price_hist = fetch_price_yfinance(code)
+# ── Analyze ──────────────────────────────────────────────────────────────────
+def analyze(code, market='TW'):
+    name = (TW_NAMES if market == 'TW' else US_NAMES).get(code, code)
+    price_hist = fetch_price(code, market)
     if price_hist is None:
         return None
     try:
@@ -202,172 +241,199 @@ def analyze_stock(code):
         return None
 
 # ── Streamlit UI ──────────────────────────────────────────────────────────────
-st.set_page_config(page_title="Tina 台股分析", page_icon="📈", layout="wide")
-st.title("📈 Tina 台股分析工具 v1.4")
+st.set_page_config(page_title="Tina Scanner", page_icon="📈", layout="wide")
+st.title("📈 Tina Scanner v2.0")
 
-# Store results in session_state
-if 'results' not in st.session_state:
-    st.session_state.results = None
-if 'filtered' not in st.session_state:
-    st.session_state.filtered = None
-if 'last_cat' not in st.session_state:
-    st.session_state.last_cat = None
+# Init session state
+for key in ['tw_results', 'us_results', 'tw_filtered', 'us_filtered', 'tw_last_cat', 'us_last_cat']:
+    if key not in st.session_state:
+        st.session_state[key] = None
 
-st.sidebar.header("📊 分類")
-cat = st.sidebar.selectbox("選擇分類", list(CATEGORIES.keys()))
-st.sidebar.header("🎛️ RSI 篩選")
-rsi_max = st.sidebar.slider("RSI 上限", 30, 100, 100)
-st.sidebar.markdown("---")
-st.sidebar.caption("📌 MA多頭 + MACD多頭已內建")
+# ── Tab Layout ──────────────────────────────────────────────────────────────
+tab_tw, tab_us = st.tabs(["🇹🇼 台股", "🇺🇸 美股"])
 
-target_codes = CATEGORIES.get(cat, [])
-st.info(f"📊 **{cat}** | 共 {len(target_codes)} 檔")
+# ── TW Tab ───────────────────────────────────────────────────────────────────
+with tab_tw:
+    st.sidebar.header("🇹🇼 台股篩選")
+    tw_cat = st.sidebar.selectbox("分類", list(TW_CATS.keys()), key="tw_cat")
+    tw_rsi_max = st.sidebar.slider("RSI 上限", 30, 100, 100, key="tw_rsi")
 
-if st.button("🔍 開始分析", type="primary", use_container_width=True):
-    if not target_codes:
-        st.error("此分類無股票")
-    else:
-        progress = st.progress(0)
-        status = st.empty()
-        results = []
-        for i, code in enumerate(target_codes):
-            r = analyze_stock(code)
-            if r:
-                results.append(r)
-            progress.progress((i+1) / len(target_codes))
-            status.text(f"分析中... {i+1}/{len(target_codes)}")
-            time.sleep(0.12)
-        progress.empty()
-        status.empty()
+    target_codes = TW_CATS.get(tw_cat, [])
+    st.info(f"📊 **{tw_cat}** | 共 {len(target_codes)} 檔")
 
-        filtered = [r for r in results if r['rsi'] <= rsi_max]
-        filtered.sort(key=lambda x: x['score'], reverse=True)
+    if st.button("🔍 分析台股", type="primary", use_container_width=True, key="tw_analyze"):
+        if not target_codes:
+            st.error("此分類無股票")
+        else:
+            progress = st.progress(0)
+            status = st.empty()
+            results = []
+            for i, code in enumerate(target_codes):
+                r = analyze(code, 'TW')
+                if r:
+                    results.append(r)
+                progress.progress((i+1) / len(target_codes))
+                status.text(f"分析中... {i+1}/{len(target_codes)}")
+                time.sleep(0.12)
+            progress.empty()
+            status.empty()
+            filtered = [r for r in results if r['rsi'] <= tw_rsi_max]
+            filtered.sort(key=lambda x: x['score'], reverse=True)
+            st.session_state.tw_results = results
+            st.session_state.tw_filtered = filtered
+            st.session_state.tw_last_cat = tw_cat
+            a = sum(1 for r in filtered if r['tier'] == 'A')
+            b = sum(1 for r in filtered if r['tier'] == 'B')
+            c = sum(1 for r in filtered if r['tier'] == 'C')
+            d = sum(1 for r in filtered if r['tier'] == 'D')
+            bull = sum(1 for r in filtered if r['bullish'] == '✅')
+            kd = sum(1 for r in filtered if r['kd_golden'])
+            cols = st.columns(6)
+            cols[0].metric("🥇 A", a)
+            cols[1].metric("🥈 B", b)
+            cols[2].metric("🥉 C", c)
+            cols[3].metric("❌ D", d)
+            cols[4].metric("✅ 多頭", bull)
+            cols[5].metric("💎 KD黃金", kd)
+            st.success(f"✅ {len(results)} 檔可用 | 篩選後 {len(filtered)} 檔")
 
-        st.session_state.results = results
-        st.session_state.filtered = filtered
-        st.session_state.last_cat = cat
+    # Display TW results from session_state
+    filtered = st.session_state.tw_filtered
+    results = st.session_state.tw_results
+    cat = st.session_state.tw_last_cat or tw_cat
 
-        a = sum(1 for r in filtered if r['tier'] == 'A')
-        b = sum(1 for r in filtered if r['tier'] == 'B')
-        c = sum(1 for r in filtered if r['tier'] == 'C')
-        d = sum(1 for r in filtered if r['tier'] == 'D')
-        bull_count = sum(1 for r in filtered if r['bullish'] == '✅')
-        kd_gold_count = sum(1 for r in filtered if r['kd_golden'])
+    if filtered:
+        code_options = [(r['code'], f"{r['code']} {r['name'][:8]} ${r['price']:.2f} R={r['rsi']:.0f}") for r in filtered]
+        code_labels = [label for _, label in code_options]
+        st.markdown("**✅ 選擇股票：**")
+        selected_labels = st.multiselect("勾選股票", options=code_labels, default=[], label_visibility="collapsed", key="tw_sel")
+        selected_rows = [r for r in filtered if f"{r['code']} {r['name'][:8]} ${r['price']:.2f} R={r['rsi']:.0f}" in selected_labels]
+        sel_count = len(selected_rows)
+        st.markdown(f"已選擇 **{sel_count}** 檔 | 共 **{len(filtered)}** 檔")
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button(f"📤 傳送已選擇 ({sel_count})", use_container_width=True, disabled=(sel_count==0), key="tw_send_sel"):
+                with st.spinner("傳送中..."):
+                    chunks = format_telegram(selected_rows, f"TW-{cat}")
+                    ok_all = True
+                    err_msg = ""
+                    for chunk in chunks:
+                        ok, err = push_telegram(chunk)
+                        if not ok:
+                            ok_all = False
+                            err_msg = err
+                    if ok_all:
+                        st.success(f"✅ 已發送 {sel_count} 檔 ({len(chunks)}則)")
+                    else:
+                        st.error(f"❌ 失敗：{err_msg}")
+        with c2:
+            if st.button(f"📤 傳送全部 ({len(filtered)})", use_container_width=True, key="tw_send_all"):
+                with st.spinner("傳送中..."):
+                    chunks = format_telegram(filtered, f"TW-{cat}")
+                    ok_all = True
+                    err_msg = ""
+                    for chunk in chunks:
+                        ok, err = push_telegram(chunk)
+                        if not ok:
+                            ok_all = False
+                            err_msg = err
+                    if ok_all:
+                        st.success(f"✅ 已發送 {len(filtered)} 檔 ({len(chunks)}則)")
+                    else:
+                        st.error(f"❌ 失敗：{err_msg}")
+        csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig') if results else b""
+        st.download_button("📥 CSV", csv, f"tw_{cat}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="tw_csv")
 
-        col1, col2, col3, col4, col5, col6 = st.columns(6)
-        col1.metric("🥇 A", a)
-        col2.metric("🥈 B", b)
-        col3.metric("🥉 C", c)
-        col4.metric("❌ D", d)
-        col5.metric("✅ 多頭", bull_count)
-        col6.metric("💎 KD黃金", kd_gold_count)
+# ── US Tab ───────────────────────────────────────────────────────────────────
+with tab_us:
+    st.sidebar.header("🇺🇸 美股篩選")
+    us_cat = st.sidebar.selectbox("分類", list(US_CATS.keys()), key="us_cat")
+    us_rsi_max = st.sidebar.slider("RSI 上限", 30, 100, 100, key="us_rsi")
 
-        st.success(f"✅ 分析完成：{len(results)} 檔可用 | 篩選後：{len(filtered)} 檔")
+    target_codes = US_CATS.get(us_cat, [])
+    st.info(f"📊 **{us_cat}** | 共 {len(target_codes)} 檔")
 
-# ── Display results from session_state ───────────────────────────────────────
-filtered = st.session_state.filtered
-results = st.session_state.results
-cat = st.session_state.last_cat or cat
+    if st.button("🔍 分析美股", type="primary", use_container_width=True, key="us_analyze"):
+        if not target_codes:
+            st.error("此分類無股票")
+        else:
+            progress = st.progress(0)
+            status = st.empty()
+            results = []
+            for i, code in enumerate(target_codes):
+                r = analyze(code, 'US')
+                if r:
+                    results.append(r)
+                progress.progress((i+1) / len(target_codes))
+                status.text(f"Analyzing... {i+1}/{len(target_codes)}")
+                time.sleep(0.12)
+            progress.empty()
+            status.empty()
+            filtered = [r for r in results if r['rsi'] <= us_rsi_max]
+            filtered.sort(key=lambda x: x['score'], reverse=True)
+            st.session_state.us_results = results
+            st.session_state.us_filtered = filtered
+            st.session_state.us_last_cat = us_cat
+            a = sum(1 for r in filtered if r['tier'] == 'A')
+            b = sum(1 for r in filtered if r['tier'] == 'B')
+            c = sum(1 for r in filtered if r['tier'] == 'C')
+            d = sum(1 for r in filtered if r['tier'] == 'D')
+            bull = sum(1 for r in filtered if r['bullish'] == '✅')
+            kd = sum(1 for r in filtered if r['kd_golden'])
+            cols = st.columns(6)
+            cols[0].metric("🥇 A", a)
+            cols[1].metric("🥈 B", b)
+            cols[2].metric("🥉 C", c)
+            cols[3].metric("❌ D", d)
+            cols[4].metric("✅ 多頭", bull)
+            cols[5].metric("💎 KD Golden", kd)
+            st.success(f"✅ {len(results)} stocks | Filtered {len(filtered)}")
 
-if filtered:
-    # Build display table with code as string for checkbox
-    disp_data = []
-    for r in filtered:
-        disp_data.append({
-            "code_str": r['code'],
-            "代號": r['code'],
-            "名稱": r['name'],
-            "價格": f"${r['price']:.0f}",
-            "漲跌%": f"{r['chg']:+.2f}%",
-            "RSI": f"{r['rsi']:.0f}",
-            "MACD": f"{r['macd_hist']:+.2f}",
-            "K": f"{r['k']:.0f}",
-            "D": f"{r['d']:.0f}",
-            "BB%": f"{r['bb_pct']:.0f}%",
-            "BIAS5": f"{r['bias5']:+.1f}%",
-            "Vol": f"{r['vol_ratio']:.2f}x",
-            "MA多": "✅" if r['ma20_above_ma60'] else "❌",
-            "MACD": "✅" if r['macd_hist'] > 0 else "❌",
-            "多頭": r['bullish'],
-            "等級": r['tier'],
-        })
+    filtered = st.session_state.us_filtered
+    results = st.session_state.us_results
+    cat = st.session_state.us_last_cat or us_cat
 
-    df = pd.DataFrame(disp_data)
-
-    st.markdown("**📋 勾選要傳送的股票**")
-    edited_df = st.data_editor(
-        df[["代號","名稱","價格","漲跌%","RSI","K","D","BB%","BIAS5","Vol","MA多","MACD","多頭","等級"]],
-        use_container_width=True,
-        height=450,
-        hide_index=True,
-        disabled=["代號","名稱","價格","漲跌%","RSI","K","D","BB%","BIAS5","Vol","MA多","MACD","多頭","等級"],
-        column_config={
-            "代號": st.column_config.TextColumn("代號", default=""),
-        },
-    )
-
-    # Determine selected codes from edited_df
-    # We can't directly link edited_df row to original code easily,
-    # so we use a simple approach: compare the "代號" column
-    selected_codes = []
-    for i, row in edited_df.iterrows():
-        pass  # we can't get original selection state from edited_df alone
-
-    # Alternative: use a simpler approach with multiselect
-    code_options = [(r['code'], f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}") for r in filtered]
-    code_labels = [label for _, label in code_options]
-    code_values = [code for code, _ in code_options]
-
-    st.markdown("**✅ 選擇要傳送的股票：**")
-    selected_labels = st.multiselect(
-        "勾選股票",
-        options=code_labels,
-        default=[],
-        label_visibility="collapsed",
-    )
-
-    selected_rows = [r for r in filtered if f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in selected_labels]
-    sel_count = len(selected_rows)
-
-    st.markdown(f"已選擇 **{sel_count}** 檔 | 共 **{len(filtered)}** 檔")
-
-    c1, c2 = st.columns(2)
-    with c1:
-        if st.button(f"📤 傳送已選擇 ({sel_count})", use_container_width=True, disabled=(sel_count==0)):
-            with st.spinner("傳送中..."):
-                chunks = format_telegram_table(selected_rows, f"TW-{cat}")
-                ok_all = True
-                err_msg = ""
-                for chunk in chunks:
-                    ok, err = push_telegram(chunk)
-                    if not ok:
-                        ok_all = False
-                        err_msg = err
-                if ok_all:
-                    st.success(f"✅ 已發送 {sel_count} 檔 ({len(chunks)}則)到 Telegram！")
-                else:
-                    st.error(f"❌ 發送失敗：{err_msg}")
-    with c2:
-        if st.button(f"📤 傳送全部 ({len(filtered)})", use_container_width=True):
-            with st.spinner("傳送中..."):
-                chunks = format_telegram_table(filtered, f"TW-{cat}")
-                ok_all = True
-                err_msg = ""
-                for chunk in chunks:
-                    ok, err = push_telegram(chunk)
-                    if not ok:
-                        ok_all = False
-                        err_msg = err
-                if ok_all:
-                    st.success(f"✅ 已發送 {len(filtered)} 檔 ({len(chunks)}則)到 Telegram！")
-                else:
-                    st.error(f"❌ 發送失敗：{err_msg}")
-
-    csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig') if results else b""
-    st.download_button("📥 下載 CSV", csv, f"tina_tw_{cat}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv")
-
-elif st.session_state.results is not None and not filtered:
-    st.warning("無符合條件的股票，試試放寬 RSI 篩選")
+    if filtered:
+        code_options = [(r['code'], f"{r['code']} {r['name'][:8]} ${r['price']:.2f} R={r['rsi']:.0f}") for r in filtered]
+        code_labels = [label for _, label in code_options]
+        st.markdown("**✅ Select stocks:**")
+        selected_labels = st.multiselect("勾選股票", options=code_labels, default=[], label_visibility="collapsed", key="us_sel")
+        selected_rows = [r for r in filtered if f"{r['code']} {r['name'][:8]} ${r['price']:.2f} R={r['rsi']:.0f}" in selected_labels]
+        sel_count = len(selected_rows)
+        st.markdown(f"Selected **{sel_count}** / **{len(filtered)}** stocks")
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button(f"📤 Send Selected ({sel_count})", use_container_width=True, disabled=(sel_count==0), key="us_send_sel"):
+                with st.spinner("Sending..."):
+                    chunks = format_telegram(selected_rows, f"US-{cat}")
+                    ok_all = True
+                    err_msg = ""
+                    for chunk in chunks:
+                        ok, err = push_telegram(chunk)
+                        if not ok:
+                            ok_all = False
+                            err_msg = err
+                    if ok_all:
+                        st.success(f"✅ Sent {sel_count} stocks ({len(chunks)} msgs)")
+                    else:
+                        st.error(f"❌ Error: {err_msg}")
+        with c2:
+            if st.button(f"📤 Send All ({len(filtered)})", use_container_width=True, key="us_send_all"):
+                with st.spinner("Sending..."):
+                    chunks = format_telegram(filtered, f"US-{cat}")
+                    ok_all = True
+                    err_msg = ""
+                    for chunk in chunks:
+                        ok, err = push_telegram(chunk)
+                        if not ok:
+                            ok_all = False
+                            err_msg = err
+                    if ok_all:
+                        st.success(f"✅ Sent {len(filtered)} stocks ({len(chunks)} msgs)")
+                    else:
+                        st.error(f"❌ Error: {err_msg}")
+        csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig') if results else b""
+        st.download_button("📥 CSV", csv, f"us_{cat}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="us_csv")
 
 st.divider()
-st.caption("📌 資料來源：yfinance | MACD多頭=MACDHistogram>0 | MA多頭=MA20>MA60 | 分析僅供參考，不構成投資建議 | Tina v1.4")
+st.caption("📌 Data: yfinance | MACD Bull = MACDHistogram>0 | MA Bull = MA20>MA60 | For reference only | Tina Scanner v2.0")
