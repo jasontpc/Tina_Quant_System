@@ -274,15 +274,57 @@ if st.button("🔍 開始分析", type="primary", use_container_width=True):
         st.success(f"✅ 分析完成：{len(results)} 檔可用 | 篩選後：{len(filtered)} 檔")
 
         if filtered:
-            # Telegram button
-            if st.button("📤 傳送到 Telegram", use_container_width=True):
-                with st.spinner("傳送中..."):
-                    msg = format_telegram_table(filtered, f"TW-{cat}")
-                    ok, err = push_telegram(msg)
-                    if ok:
-                        st.success("✅ 已發送到 Telegram！")
-                    else:
-                        st.error(f"❌ 發送失敗：{err}")
+            # ── Stock Selection ───────────────────────────────────────────────
+            st.markdown("**📋 選擇要傳送的個股**")
+            sel_cols = st.columns([1, 1, 1, 11])
+            with sel_cols[0]:
+                if st.button("✅ 全選", key="sel_all"):
+                    for r in filtered:
+                        st.session_state[f"sel_{r['code']}"] = True
+            with sel_cols[1]:
+                if st.button("❌ 清除", key="sel_none"):
+                    for r in filtered:
+                        st.session_state[f"sel_{r['code']}"] = False
+            with sel_cols[2]:
+                if st.button("🔄 反選", key="sel_inv"):
+                    for r in filtered:
+                        key = f"sel_{r['code']}"
+                        st.session_state[key] = not st.session_state.get(key, False)
+            st.markdown("---")
+
+            selected = []
+            for r in filtered:
+                key = f"sel_{r['code']}"
+                if st.session_state.get(key, False):
+                    selected.append(r)
+                cb = st.checkbox("", value=st.session_state.get(key, False), key=key)
+                st.session_state[key] = cb
+                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+                bull_emoji = r.get('bullish', '❌')
+                st.write(f"`{r['code']}` {r['name'][:8]} ${r['price']:.0f} ({r['chg']:+.2f}%) R={r['rsi']:.0f} M={'Y' if r['macd_hist']>0 else 'N'} MA={'Y' if r['ma20_above_ma60'] else 'N'} {bull_emoji} [{tier_icon}]")
+
+            st.markdown(f"已選擇 **{len(selected)}** 檔")
+
+            # ── Send Buttons ───────────────────────────────────────────────────
+            send_cols = st.columns([1, 1])
+            with send_cols[0]:
+                if st.button("📤 傳送已選擇 ({n})".format(n=len(selected)), use_container_width=True, disabled=(len(selected)==0)):
+                    with st.spinner("傳送中..."):
+                        msg = format_telegram_table(selected if selected else filtered, f"TW-{cat}")
+                        ok, err = push_telegram(msg)
+                        if ok:
+                            st.success(f"✅ 已發送 {len(selected if selected else filtered)} 檔到 Telegram！")
+                        else:
+                            st.error(f"❌ 發送失敗：{err}")
+            with send_cols[1]:
+                if st.button("📤 傳送全部 ({n})".format(n=len(filtered)), use_container_width=True):
+                    with st.spinner("傳送中..."):
+                        msg = format_telegram_table(filtered, f"TW-{cat}")
+                        ok, err = push_telegram(msg)
+                        if ok:
+                            st.success(f"✅ 已發送 {len(filtered)} 檔到 Telegram！")
+                        else:
+                            st.error(f"❌ 發送失敗：{err}")
 
             rows = []
             for r in filtered:
