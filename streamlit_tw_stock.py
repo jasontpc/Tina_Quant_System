@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Tina 台股分析工具 - Streamlit 版本 v1.3
-修复：簡化選擇邏輯，修復崩潰問題
+Tina 台股分析工具 - Streamlit 版本 v1.4
+修复：改用字典型代碼字串，徹底擺脫dataframe解析問題
 """
 
 import streamlit as st
@@ -93,7 +93,6 @@ STOCK_NAMES = {
 def get_name(code):
     return STOCK_NAMES.get(code, code)
 
-# ── Indicators ────────────────────────────────────────────────────────────────
 def calc_rsi(close, period=14):
     delta = close.diff()
     gain = delta.where(delta > 0, 0).rolling(period).mean()
@@ -114,7 +113,6 @@ def calc_macd(close):
     macd_signal = macd.ewm(span=9, adjust=False).mean()
     return float(macd.iloc[-1]), float(macd_signal.iloc[-1]), float((macd - macd_signal).iloc[-1])
 
-# ── Price Fetch ────────────────────────────────────────────────────────────────
 def fetch_price_yfinance(code):
     cache_key = str(code).zfill(4)
     now = time.time()
@@ -133,7 +131,6 @@ def fetch_price_yfinance(code):
             pass
     return None
 
-# ── Analyze Single Stock ─────────────────────────────────────────────────────
 def analyze_stock(code):
     name = get_name(code)
     price_hist = fetch_price_yfinance(code)
@@ -144,19 +141,14 @@ def analyze_stock(code):
         price = float(close.iloc[-1])
         prev = float(close.iloc[-2]) if len(close) >= 2 else price
         chg = (price - prev) / prev * 100
-
         rsi = float(calc_rsi(close).iloc[-1])
-        if np.isnan(rsi):
-            rsi = 50.0
-
+        if np.isnan(rsi): rsi = 50.0
         ma20 = float(close.rolling(20).mean().iloc[-1])
         ma60_val = float(close.rolling(60).mean().iloc[-1])
         ma60 = ma60_val if not np.isnan(ma60_val) else None
         ma_bull = bool(ma60 and ma20 > ma60)
-
         macd_val, macd_sig, macd_hist = calc_macd(close)
         macd_bull = macd_hist > 0
-
         low9 = close.rolling(9).min()
         high9 = close.rolling(9).max()
         rsv = (close - low9) / (high9 - low9 + 1e-9) * 100
@@ -165,29 +157,23 @@ def analyze_stock(code):
         k_val = float(k_series.iloc[-1])
         d_val = float(d_series.iloc[-1])
         kd_golden = bool(k_val > d_val and k_val < 30)
-
         bb_ma20 = close.rolling(20).mean()
         bb_std = close.rolling(20).std()
         bb_upper = float((bb_ma20 + 2 * bb_std).iloc[-1])
         bb_lower = float((bb_ma20 - 2 * bb_std).iloc[-1])
         bb_pct = (price - bb_lower) / (bb_upper - bb_lower + 1e-9) * 100
-
         ma5 = close.rolling(5).mean()
         bias5 = float((close.iloc[-1] - ma5.iloc[-1]) / ma5.iloc[-1] * 100)
-
         vol = price_hist['Volume'] if 'Volume' in price_hist.columns else close * 0
         vol_ma5 = float(vol.rolling(5).mean().iloc[-1])
         vol_ratio = float(vol.iloc[-1] / vol_ma5) if vol_ma5 > 0 else 1.0
-
         bullish = "✅" if (ma_bull and macd_bull) else ("⚠️" if macd_bull else "❌")
-
         rsi_score = (100 - rsi) / 100 * 30 if rsi <= 100 else 0
         macd_score = (macd_hist / 5 + 2) * 20 if macd_hist > 0 else max(macd_hist + 2, 0) * 10
         ma_score = 20 if ma_bull else 0
         kd_bonus = 15 if kd_golden else 0
         bb_score = (100 - bb_pct) / 100 * 15 if bb_pct <= 100 else 0
         score = rsi_score + macd_score + ma_score + kd_bonus + bb_score
-
         return {
             'code': code, 'name': name,
             'price': price, 'chg': chg, 'rsi': rsi,
@@ -204,9 +190,16 @@ def analyze_stock(code):
 
 # ── Streamlit UI ──────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Tina 台股分析", page_icon="📈", layout="wide")
-st.title("📈 Tina 台股分析工具 v1.3")
+st.title("📈 Tina 台股分析工具 v1.4")
 
-# Sidebar
+# Store results in session_state
+if 'results' not in st.session_state:
+    st.session_state.results = None
+if 'filtered' not in st.session_state:
+    st.session_state.filtered = None
+if 'last_cat' not in st.session_state:
+    st.session_state.last_cat = None
+
 st.sidebar.header("📊 分類")
 cat = st.sidebar.selectbox("選擇分類", list(CATEGORIES.keys()))
 st.sidebar.header("🎛️ RSI 篩選")
@@ -224,7 +217,6 @@ if st.button("🔍 開始分析", type="primary", use_container_width=True):
         progress = st.progress(0)
         status = st.empty()
         results = []
-
         for i, code in enumerate(target_codes):
             r = analyze_stock(code)
             if r:
@@ -232,12 +224,15 @@ if st.button("🔍 開始分析", type="primary", use_container_width=True):
             progress.progress((i+1) / len(target_codes))
             status.text(f"分析中... {i+1}/{len(target_codes)}")
             time.sleep(0.12)
-
         progress.empty()
         status.empty()
 
         filtered = [r for r in results if r['rsi'] <= rsi_max]
         filtered.sort(key=lambda x: x['score'], reverse=True)
+
+        st.session_state.results = results
+        st.session_state.filtered = filtered
+        st.session_state.last_cat = cat
 
         a = sum(1 for r in filtered if r['tier'] == 'A')
         b = sum(1 for r in filtered if r['tier'] == 'B')
@@ -256,59 +251,86 @@ if st.button("🔍 開始分析", type="primary", use_container_width=True):
 
         st.success(f"✅ 分析完成：{len(results)} 檔可用 | 篩選後：{len(filtered)} 檔")
 
-        if filtered:
-            # ── Build selection dataframe ────────────────────────────────────
-            rows = []
-            for idx, r in enumerate(filtered):
-                rows.append({
-                    "select": False,
-                    "代號": r['code'],
-                    "名稱": r['name'],
-                    "價格": f"${r['price']:.0f}",
-                    "漲跌%": f"{r['chg']:+.2f}%",
-                    "RSI": f"{r['rsi']:.0f}",
-                    "MACD": f"{r['macd_hist']:+.2f}",
-                    "K": f"{r['k']:.0f}",
-                    "D": f"{r['d']:.0f}",
-                    "BB%": f"{r['bb_pct']:.0f}%",
-                    "BIAS5": f"{r['bias5']:+.1f}%",
-                    "Vol": f"{r['vol_ratio']:.2f}x",
-                    "MA多": "✅" if r['ma20_above_ma60'] else "❌",
-                    "MACD多": "✅" if r['macd_hist'] > 0 else "❌",
-                    "多頭": r['bullish'],
-                    "分數": f"{r['score']:.0f}",
-                    "等級": r['tier'],
-                    "_idx": idx,
-                })
-            df = pd.DataFrame(rows)
+# ── Display results from session_state ───────────────────────────────────────
+filtered = st.session_state.filtered
+results = st.session_state.results
+cat = st.session_state.last_cat or cat
 
-            # ── Dataframe with checkbox column ─────────────────────────────
-            edited_df = st.data_editor(
-                df[["select","代號","名稱","價格","漲跌%","RSI","K","D","BB%","BIAS5","Vol","MA多","MACD多","多頭","等級"]],
-                use_container_width=True,
-                height=500,
-                hide_index=True,
-                column_config={
-                    "select": st.column_config.CheckboxColumn("傳送", default=False),
-                },
-            )
+if filtered:
+    # Build display table with code as string for checkbox
+    disp_data = []
+    for r in filtered:
+        disp_data.append({
+            "code_str": r['code'],
+            "代號": r['code'],
+            "名稱": r['name'],
+            "價格": f"${r['price']:.0f}",
+            "漲跌%": f"{r['chg']:+.2f}%",
+            "RSI": f"{r['rsi']:.0f}",
+            "MACD": f"{r['macd_hist']:+.2f}",
+            "K": f"{r['k']:.0f}",
+            "D": f"{r['d']:.0f}",
+            "BB%": f"{r['bb_pct']:.0f}%",
+            "BIAS5": f"{r['bias5']:+.1f}%",
+            "Vol": f"{r['vol_ratio']:.2f}x",
+            "MA多": "✅" if r['ma20_above_ma60'] else "❌",
+            "MACD": "✅" if r['macd_hist'] > 0 else "❌",
+            "多頭": r['bullish'],
+            "等級": r['tier'],
+        })
 
-            selected_rows = [r for r in filtered if edited_df.loc[edited_df['_idx'] == filtered.index(r), 'select'].values[0]]
-            sel_count = int(edited_df['select'].sum())
+    df = pd.DataFrame(disp_data)
 
-            st.markdown(f"**已選擇 {sel_count} 檔**")
+    st.markdown("**📋 勾選要傳送的股票**")
+    edited_df = st.data_editor(
+        df[["代號","名稱","價格","漲跌%","RSI","K","D","BB%","BIAS5","Vol","MA多","MACD","多頭","等級"]],
+        use_container_width=True,
+        height=450,
+        hide_index=True,
+        disabled=["代號","名稱","價格","漲跌%","RSI","K","D","BB%","BIAS5","Vol","MA多","MACD","多頭","等級"],
+        column_config={
+            "代號": st.column_config.TextColumn("代號", default=""),
+        },
+    )
 
-            # ── Send Buttons ────────────────────────────────────────────────
-            b1_disabled = sel_count == 0
-            if st.button(f"📤 傳送已選擇 ({sel_count})", use_container_width=True, disabled=b1_disabled):
-                msg = format_telegram_table(selected_rows if selected_rows else filtered, f"TW-{cat}")
+    # Determine selected codes from edited_df
+    # We can't directly link edited_df row to original code easily,
+    # so we use a simple approach: compare the "代號" column
+    selected_codes = []
+    for i, row in edited_df.iterrows():
+        pass  # we can't get original selection state from edited_df alone
+
+    # Alternative: use a simpler approach with multiselect
+    code_options = [(r['code'], f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}") for r in filtered]
+    code_labels = [label for _, label in code_options]
+    code_values = [code for code, _ in code_options]
+
+    st.markdown("**✅ 選擇要傳送的股票：**")
+    selected_labels = st.multiselect(
+        "勾選股票",
+        options=code_labels,
+        default=[],
+        label_visibility="collapsed",
+    )
+
+    selected_rows = [r for r in filtered if f"{r['code']} {r['name'][:6]} ${r['price']:.0f} R={r['rsi']:.0f}" in selected_labels]
+    sel_count = len(selected_rows)
+
+    st.markdown(f"已選擇 **{sel_count}** 檔 | 共 **{len(filtered)}** 檔")
+
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button(f"📤 傳送已選擇 ({sel_count})", use_container_width=True, disabled=(sel_count==0)):
+            with st.spinner("傳送中..."):
+                msg = format_telegram_table(selected_rows, f"TW-{cat}")
                 ok, err = push_telegram(msg)
                 if ok:
-                    st.success(f"✅ 已發送 {sel_count if selected_rows else len(filtered)} 檔到 Telegram！")
+                    st.success(f"✅ 已發送 {sel_count} 檔到 Telegram！")
                 else:
                     st.error(f"❌ 發送失敗：{err}")
-
-            if st.button(f"📤 傳送全部 ({len(filtered)})", use_container_width=True):
+    with c2:
+        if st.button(f"📤 傳送全部 ({len(filtered)})", use_container_width=True):
+            with st.spinner("傳送中..."):
                 msg = format_telegram_table(filtered, f"TW-{cat}")
                 ok, err = push_telegram(msg)
                 if ok:
@@ -316,10 +338,11 @@ if st.button("🔍 開始分析", type="primary", use_container_width=True):
                 else:
                     st.error(f"❌ 發送失敗：{err}")
 
-            csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
-            st.download_button("📥 下載 CSV", csv, f"tina_tw_{cat}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv")
-        else:
-            st.warning("無符合條件的股票")
+    csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig') if results else b""
+    st.download_button("📥 下載 CSV", csv, f"tina_tw_{cat}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv")
+
+elif st.session_state.results is not None and not filtered:
+    st.warning("無符合條件的股票，試試放寬 RSI 篩選")
 
 st.divider()
-st.caption("📌 資料來源：yfinance | MACD多頭=MACDHistogram>0 | MA多頭=MA20>MA60 | 分析僅供參考，不構成投資建議 | Tina v1.3")
+st.caption("📌 資料來源：yfinance | MACD多頭=MACDHistogram>0 | MA多頭=MA20>MA60 | 分析僅供參考，不構成投資建議 | Tina v1.4")
