@@ -83,10 +83,15 @@ TW_CATS = {
     "全部": [],
 }
 US_CATS = {
-    "AI Tech": ["NVDA","AMD","INTC","QCOM","AVGO","MRVL","TSM","MU","AMZN","MSFT","GOOGL","META","ANET","VRT","DELL","HPE","SMCI","AI","PATH","DT"],
-    "Cloud": ["AMZN","MSFT","GOOGL","CRM","NOW","WDAY","TEAM","DDOG","SNOW","NET","AKAM","FFIV","PATH","VEEV"],
+    "XPU & Design": ["NVDA","AVGO","AMD","MRVL","ARM"],
+    "光通訊/CPO": ["ANET","CSCO","COHR","LITE","GLW"],
+    "記憶體/儲存": ["MU","WDC","STX"],
+    "半導體設備": ["ASML","AMAT","LRCX","KLAC","CAMT"],
+    "電力/散熱": ["VRT","ETN","AMSC","SBGSY","NVT"],
+    "先進封裝/雲端": ["AMKR","EQIX","DLR","ORCL"],
+    "AI 雲端": ["NVDA","AMD","AVGO","MRVL","AMZN","MSFT","GOOGL","META","ANET","VRT","DELL"],
     "5G": ["QCOM","NOK","ERIC","AMAT","LRCX","MU","SWKS","RF","VZ","T","TMUS"],
-    "Semiconductors": ["NVDA","AMD","INTC","QCOM","AVGO","MRVL","TSM","MU","AMAT","LRCX","KLAC","SNPS","CDNS","NXPI"],
+    "半導體": ["NVDA","AMD","INTC","QCOM","AVGO","MRVL","TSM","MU","AMAT","LRCX","KLAC","SNPS","CDNS","NXPI","ASML"],
     "FinTech": ["PYPL","SQ","AFRM","COIN","HOOD","DB","BAC","GS","V","MA"],
     "ETF": ["QQQ","SOXX","SMH","XLF","ARKK","FXI","GDX","XLE"],
     "全部": [],
@@ -122,18 +127,29 @@ TW_NAMES = {
     "5351": "5351", "4923": "4923", "3265": "3265",
 }
 US_NAMES = {
-    "NVDA": "NVIDIA", "AMD": "AMD", "INTC": "Intel", "QCOM": "Qualcomm",
-    "AVGO": "Broadcom", "MRVL": "Marvell", "TSM": "TSM", "MU": "Micron",
-    "AMZN": "Amazon", "MSFT": "Microsoft", "GOOGL": "Google", "META": "Meta",
-    "ANET": "Arista", "VRT": "Vertiv", "DELL": "Dell", "HPE": "HPE",
-    "SMCI": "SuperMicro", "AI": "C3.ai", "PATH": "UiPath", "DT": "Dynatrace",
-    "CRM": "Salesforce", "NOW": "ServiceNow", "WDAY": "Workday", "TEAM": "Atlassian",
-    "DDOG": "Datadog", "SNOW": "Snowflake", "NET": "Cloudflare", "AKAM": "Akamai",
-    "FFIV": "F5", "VEEV": "Veeva", "NOK": "Nokia", "ERIC": "Ericsson",
-    "SWKS": "Skyworks", "RF": "RF Micro", "VZ": "Verizon", "T": "AT&T",
-    "TMUS": "T-Mobile", "PYPL": "PayPal", "SQ": "Block", "AFRM": "Affirm",
-    "COIN": "Coinbase", "HOOD": "Robinhood", "DB": "Deutsche Bank",
-    "BAC": "Bank of America", "GS": "Goldman", "V": "Visa", "MA": "Mastercard",
+    # AI 算力 / XPU & Design
+    "NVDA": "NVIDIA", "AVGO": "Broadcom", "AMD": "AMD", "MRVL": "Marvell", "ARM": "ARM",
+    # 光通訊 / CPO
+    "ANET": "Arista", "CSCO": "Cisco", "COHR": "Coherent", "LITE": "Lumentum", "GLW": "Corning",
+    # 記憶體 / 儲存
+    "MU": "Micron", "WDC": "Western Digital", "STX": "Seagate",
+    # 半導體設備
+    "ASML": "ASML", "AMAT": "Applied Mat", "LRCX": "Lam Research", "KLAC": "KLA", "CAMT": "Camtek",
+    # 電力 / 散熱
+    "VRT": "Vertiv", "ETN": "Eaton", "AMSC": "AMSC", "SBGSY": "Schneider", "NVT": "nVent",
+    # 先進封裝 / 雲端
+    "AMKR": "Amkor", "EQIX": "Equinix", "DLR": "Digital Realty", "ORCL": "Oracle",
+    # AI 雲端
+    "AMZN": "Amazon", "MSFT": "Microsoft", "GOOGL": "Google", "META": "Meta", "DELL": "Dell",
+    # 5G
+    "QCOM": "Qualcomm", "NOK": "Nokia", "ERIC": "Ericsson", "SWKS": "Skyworks", "RF": "RF Micro",
+    "VZ": "Verizon", "T": "AT&T", "TMUS": "T-Mobile",
+    # 半導體
+    "INTC": "Intel", "TSM": "TSM", "SNPS": "Synopsys", "CDNS": "Cadence", "NXPI": "NXP",
+    # FinTech
+    "PYPL": "PayPal", "SQ": "Block", "AFRM": "Affirm", "COIN": "Coinbase", "HOOD": "Robinhood",
+    "DB": "Deutsche Bank", "BAC": "Bank of America", "GS": "Goldman", "V": "Visa", "MA": "Mastercard",
+    # ETF
     "QQQ": "QQQ ETF", "SOXX": "SOX ETF", "SMH": "SMH ETF",
     "XLF": "Financial ETF", "ARKK": "ARK ETF", "FXI": "China ETF",
     "GDX": "Gold ETF", "XLE": "Energy ETF",
