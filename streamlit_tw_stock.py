@@ -35,7 +35,7 @@ for cat_codes in CATEGORIES.values():
         if c not in seen:
             seen.add(c)
             ALL_CODES.append(c)
-CATEGORIES["全部"] = sorted(ALL_CODES, key=lambda x: int(x))[:500]
+CATEGORIES["全部"] = sorted(ALL_CODES, key=lambda x: int(x) if x.isdigit() else x)[:500]
 
 STOCK_NAMES = {
     "2330": "台積電", "2454": "聯發科", "2317": "鴻海", "2382": "廣達",
