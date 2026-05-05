@@ -614,6 +614,25 @@ with tw_tab:
                 st.caption("Institutional: F={:+,.0f} T={:+,.0f} D={:+,.0f}".format(
                     inst.get("foreign",0), inst.get("trust",0), inst.get("dealer",0)))
             st.caption(" | ".join(sigs) if sigs else "No special signals")
+            # ── Send to Telegram ──
+            if r:
+                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+                macd_hist = r.get('macd_hist', 0)
+                macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
+                tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
+                msg = f"📊 **{single_code} {r['name'][:12]}** Deep Analysis\n" \
+                      f"─────────────────────\n" \
+                      f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n" \
+                      f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n" \
+                      f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n" \
+                      f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_hist:+.2f}{macd_warn}\n" \
+                      f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n" \
+                      f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}"
+                ok, err = push_telegram(msg)
+                if ok:
+                    st.success("📨 Telegram sent!")
+                else:
+                    st.error(f"Telegram failed: {err}")
         else:
             st.warning(f"Cannot find data for {single_code}")
 
@@ -772,6 +791,25 @@ with us_tab:
             if r['rsi'] < 35: sigs.append("RSI Oversold")
             if r['rsi'] > 70: sigs.append("RSI Overbought")
             st.caption(" | ".join(sigs) if sigs else "No special signals")
+            # ── Send to Telegram ──
+            if r:
+                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+                macd_hist = r.get('macd_hist', 0)
+                macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
+                tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
+                msg = f"📊 **{us_single_code} {r['name'][:12]}** Deep Analysis\n" \
+                      f"─────────────────────\n" \
+                      f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n" \
+                      f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n" \
+                      f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n" \
+                      f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_hist:+.2f}{macd_warn}\n" \
+                      f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n" \
+                      f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}"
+                ok, err = push_telegram(msg)
+                if ok:
+                    st.success("📨 Telegram sent!")
+                else:
+                    st.error(f"Telegram failed: {err}")
         else:
             st.warning(f"Cannot find data for {us_single_code}")
 
