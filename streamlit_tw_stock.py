@@ -423,6 +423,49 @@ with tw_tab:
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
             st.download_button("CSV", csv, f"tw_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="tw_csv")
+    # --- Single Stock Deep Analysis ---
+    st.divider()
+    st.subheader("Single Stock Deep Analysis")
+    col_code, col_btn = st.columns([2, 1])
+    with col_code:
+        single_code = st.text_input("Stock Code", "2330", key="tw_single_code").strip().upper()
+    with col_btn:
+        st.write(" ")
+        do_single = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_single")
+    if do_single:
+        with st.spinner(f"Analyzing {single_code}..."):
+            r = analyze(single_code, "TW")
+        if r:
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("Price", f"${r['price']:.2f}")
+            m2.metric("Change", f"{r['chg']:+.2f}%")
+            m3.metric("RSI", f"{r['rsi']:.0f}")
+            m4.metric("Tier", r['tier'])
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("K", f"{r['k']:.0f}")
+            m2.metric("D", f"{r['d']:.0f}")
+            m3.metric("BB%", f"{r['bb_pct']:.0f}%")
+            m4.metric("BIAS5", f"{r['bias5']:+.1f}%")
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("MA20", f"${r['ma20']:.0f}")
+            m2.metric("MA60", f"${r['ma60']:.0f}" if r['ma60'] else "N/A")
+            m3.metric("Vol Ratio", f"{r['vol_ratio']:.1f}x")
+            m4.metric("MACD Hist", f"{r['macd_hist']:+.2f}")
+            sigs = []
+            if r['kd_golden']: sigs.append("KD Golden Cross")
+            if r['ma20_above_ma60']: sigs.append("MA Bullish")
+            if r['macd_hist'] > 0: sigs.append("MACD+")
+            if r['bb_pct'] < 20: sigs.append("BB Oversold")
+            if r['rsi'] < 35: sigs.append("RSI Oversold")
+            if r['rsi'] > 70: sigs.append("RSI Overbought")
+            inst = r.get("inst") or {}
+            if inst:
+                st.caption("Institutional: F={:+,.0f} T={:+,.0f} D={:+,.0f}".format(
+                    inst.get("foreign",0), inst.get("trust",0), inst.get("dealer",0)))
+            st.caption(" | ".join(sigs) if sigs else "No special signals")
+        else:
+            st.warning(f"Cannot find data for {single_code}")
+
 
 # ═══════════════════════════ US TAB ═══════════════════════════
 with us_tab:
@@ -533,6 +576,45 @@ with us_tab:
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
             st.download_button("CSV", csv, f"us_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="us_csv")
+    # --- Single Stock Deep Analysis ---
+    st.divider()
+    st.subheader("Single Stock Deep Analysis")
+    col_code, col_btn = st.columns([2, 1])
+    with col_code:
+        us_single_code = st.text_input("Stock Code", "NVDA", key="us_single_code").strip().upper()
+    with col_btn:
+        st.write(" ")
+        do_us_single = st.button("Analyze", type="primary", use_container_width=True, key="btn_us_single")
+    if do_us_single:
+        with st.spinner(f"Analyzing {us_single_code}..."):
+            r = analyze(us_single_code, "US")
+        if r:
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("Price", f"${r['price']:.2f}")
+            m2.metric("Change", f"{r['chg']:+.2f}%")
+            m3.metric("RSI", f"{r['rsi']:.0f}")
+            m4.metric("Tier", r['tier'])
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("K", f"{r['k']:.0f}")
+            m2.metric("D", f"{r['d']:.0f}")
+            m3.metric("BB%", f"{r['bb_pct']:.0f}%")
+            m4.metric("BIAS5", f"{r['bias5']:+.1f}%")
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("MA20", f"${r['ma20']:.0f}")
+            m2.metric("MA60", f"${r['ma60']:.0f}" if r['ma60'] else "N/A")
+            m3.metric("Vol Ratio", f"{r['vol_ratio']:.1f}x")
+            m4.metric("MACD Hist", f"{r['macd_hist']:+.2f}")
+            sigs = []
+            if r['kd_golden']: sigs.append("KD Golden Cross")
+            if r['ma20_above_ma60']: sigs.append("MA Bullish")
+            if r['macd_hist'] > 0: sigs.append("MACD+")
+            if r['bb_pct'] < 20: sigs.append("BB Oversold")
+            if r['rsi'] < 35: sigs.append("RSI Oversold")
+            if r['rsi'] > 70: sigs.append("RSI Overbought")
+            st.caption(" | ".join(sigs) if sigs else "No special signals")
+        else:
+            st.warning(f"Cannot find data for {us_single_code}")
+
 
 st.divider()
 st.caption("Data: yfinance + FinMind Institutional | For reference only | Tina Scanner v2.2")
