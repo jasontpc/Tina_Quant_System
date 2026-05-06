@@ -16,9 +16,18 @@ from datetime import datetime
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or st.secrets.get("tg_bot_token", {}).get("tg_bot_token", "")
-TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or st.secrets.get("tg_chat_id", {}).get("tg_chat_id", "1616824689")
-FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or st.secrets.get("finmind_token", {}).get("finmind_token", "")
+def _get_secret(key, default=""):
+    """Extract string value from st.secrets TOML dict structure.
+    TOML [section] creates st.secrets['section'] = {'section': value}
+    so we need .get(key, {}).get(key, default) to unwrap it."""
+    val = st.secrets.get(key, {})
+    if isinstance(val, dict):
+        return val.get(key, default)
+    return val if val else default
+
+TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or _get_secret("tg_bot_token", "")
+TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or _get_secret("tg_chat_id", "1616824689")
+FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or _get_secret("finmind_token", "")
 
 import json
 
