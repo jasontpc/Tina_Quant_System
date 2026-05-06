@@ -98,9 +98,7 @@ def _to_json_safe(obj):
 
 def push_telegram(message):
 
-    print(f'DEBUG TELEGRAM_BOT_TOKEN = {repr(TELEGRAM_BOT_TOKEN)}')
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
-    print(f'DEBUG url = {repr(url)}')
 
     safe_msg = str(message) if not isinstance(message, str) else message
 
@@ -1551,8 +1549,6 @@ with tw_tab:
 
                 st.error(f"Failed: {err}")
 
-    elif not r:
-
         st.info("Analyze a stock above, then send to Telegram")
 
     if st.session_state.get("tw_auto_send") and r:
@@ -2006,8 +2002,6 @@ with us_tab:
             else:
 
                 st.error(f"Telegram failed: {err}")
-
-    elif not r:
 
         st.info("Analyze a stock above, then send to Telegram")
 
