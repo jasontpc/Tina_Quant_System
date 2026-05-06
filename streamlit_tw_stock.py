@@ -704,7 +704,10 @@ def analyze(code, market='TW'):
 
     try:
 
-        close = price_hist['Close'].astype(float)
+        close = price_hist['Close'].astype(float).dropna()
+
+        if len(close) < 2:
+            return None
 
         price = float(close.iloc[-1])
 
