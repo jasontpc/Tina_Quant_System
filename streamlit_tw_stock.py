@@ -786,9 +786,9 @@ with tw_tab:
                        f"[TROPHY] Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
                        f"[UP] {score_detail}\n"
                        f"[DWN] BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
-                       f"[CHART] MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
-                       f"[BOX] {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}\n"
-                       f"法人: F={f_val:+,} T={t_val:+,} D={d_val:+,}")
+                       f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60']:.0f if r['ma60'] else 'N/A'}\n"
+                       f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
+                       f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:+,}")
                 ok, err = push_telegram(msg)
                 if ok:
                     st.success("[ENV] Telegram sent!")
@@ -808,9 +808,9 @@ with tw_tab:
                    f"[TROPHY] Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
                    f"[UP] {score_detail}\n"
                    f"[DWN] BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
-                   f"[CHART] MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
-                   f"[BOX] {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}\n"
-                   f"法人: F={f_val:+,} T={t_val:+,} D={d_val:+,}")
+                   f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60']:.0f if r['ma60'] else 'N/A'}\n"
+                   f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
+                   f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:+,}")
             with st.spinner("Auto-sending to Telegram..."):
                 ok, err = push_telegram(msg)
             if ok:
