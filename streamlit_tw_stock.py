@@ -1164,7 +1164,7 @@ with brain_tab:
     gw = snapshot.get('gateway', {})
     gw_col1, gw_col2, gw_col3 = st.columns(3)
     gw_status = gw.get('status', 'unknown')
-    gw_col1.metric("Gateway", "\u2705 Online" if gw_status == 'online' else "\U0001f534 Offline", gw.get('uptime', '-'))
+    gw_col1.metric("Gateway", "\u2705 Online" if gw_status == 'online' else "[OLD] Offline", gw.get('uptime', '-'))
     gw_col2.metric("Model", "MiniMax M2")
     gw_col3.metric("Last Update", updated.split('T')[-1][:8] if 'T' in updated else updated)
 
@@ -1193,9 +1193,9 @@ with brain_tab:
         elif age == 0:
             status = "\u2705 Today"
         elif age <= max_age:
-            status = f"\ud83d\udfe1 {age}d ago"
+            status = f"[OLD] {age}d ago"
         else:
-            status = f"\U0001f534 {age}d ago"
+            status = f"[OLD] {age}d ago"
         size_str = f"{size_mb:.1f}MB" if size_mb >= 1 else f"{size_mb*1024:.0f}KB"
         with col:
             st.metric(name, status, f"{size_str} | {tables} tables")
@@ -1210,12 +1210,12 @@ with brain_tab:
     idl_c = cron_data.get('idle', 0)
     run_c = cron_data.get('running', 0)
     err_jobs = cron_data.get('error_jobs', [])
-    st.markdown(f"**Total: {total_c}** | \u2705OK: {ok_c} | \U0001f504Running: {run_c} | \U0001f4f4Idle: {idl_c} | \U0001f534Error: {err_c}")
+    st.markdown(f"**Total: {total_c}** | \u2705OK: {ok_c} | \U0001f504Running: {run_c} | \U0001f4f4Idle: {idl_c} | [OLD]Error: {err_c}")
     cron_cols = st.columns(2)
     for idx, job in enumerate(err_jobs[:6]):
         col = cron_cols[idx % 2]
         with col:
-            st.error(f"\U0001f534 {job}")
+            st.error(f"[OLD] {job}")
     if not err_jobs:
         st.success("\u2705 All cron jobs healthy")
     if err_c > 6:
@@ -1232,14 +1232,14 @@ with brain_tab:
     if twii_val:
         mkt_cols[0].metric("TWII", f"{twii_val:,.0f}", f"{twii_chg:+.2f}%" if twii_chg else None)
         mkt_cols[1].metric("TWII RSI", f"{twii_rsi:.0f}" if twii_rsi else "N/A", "RSI 14")
-        sig_icon = "\U0001f534 Overbought" if signal == 'overbought' else ("\ud83d\udfe1 Neutral" if signal == 'neutral' else "\ud83d\udfe2 Oversold")
+        sig_icon = "[OLD] Overbought" if signal == 'overbought' else ("[OLD] Neutral" if signal == 'neutral' else "[OK] Oversold")
         mkt_cols[2].metric("Signal", sig_icon)
     else:
         try:
             twii_live = yf.Ticker('^TWII').history(period='5d')['Close']
             twii_chg_l = float((twii_live.iloc[-1] / twii_live.iloc[-2] - 1) * 100) if len(twii_live) >= 2 else 0
             twii_rsi_l = calc_rsi_simple(twii_live, 14)
-            sig_l = "\U0001f534 Overbought" if twii_rsi_l > 70 else ("\ud83d\udfe2 Oversold" if twii_rsi_l < 40 else "\ud83d\udfe1 Neutral")
+            sig_l = "[OLD] Overbought" if twii_rsi_l > 70 else ("[OK] Oversold" if twii_rsi_l < 40 else "[OLD] Neutral")
             mkt_cols[0].metric("TWII", f"{twii_live.iloc[-1]:,.0f}", f"{twii_chg_l:+.2f}%")
             mkt_cols[1].metric("TWII RSI", f"{twii_rsi_l:.0f}", "RSI 14")
             mkt_cols[2].metric("Signal", sig_l)
