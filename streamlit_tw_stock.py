@@ -13,6 +13,7 @@ import time
 import urllib.request
 import json
 from datetime import datetime
+from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or st.secrets.get("tg_bot_token", "")
@@ -1135,172 +1136,133 @@ st.caption("Data: yfinance + FinMind Institutional | Tina Brain v3.0 — 1000 Te
 
 # ═══════════════════════════ BRAIN TAB ═══════════════════════════
 with brain_tab:
-    st.header("🧠 Tina 大腦監控")
+    st.header("\U0001f9e0 Tina Brain Monitor")
     col_status, col_refresh = st.columns([4, 1])
     with col_status:
         st.markdown("### System Status")
     with col_refresh:
-        if st.button("🔄 Refresh", use_container_width=True):
+        if st.button("\U0001f504 Refresh", use_container_width=True):
             st.rerun()
 
-    # ── 1. Gateway ─
-    gw_col1, gw_col2, gw_col3 = st.columns(3)
-    try:
-        import urllib.request
-        req = urllib.request.Request('http://127.0.0.1:18789/health', timeout=3)
-        with urllib.request.urlopen(req, timeout=3) as resp:
-            gw_data = json.loads(resp.read())
-        gw_col1.metric("Gateway", "✅ Online", gw_data.get('uptime', 'N/A'))
-    except:
-        gw_col1.metric("Gateway", "❌ Offline", "-")
-    gw_col2.metric("Model", "MiniMax M2")
-    gw_col3.metric("Time", datetime.now().strftime('%H:%M:%S'))
+    # Load health snapshot from JSON (written by cron every 30 min)
+    JSON_PATH = Path(r"C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\reports\tina_health_status.json")
+    snapshot = {}
+    if JSON_PATH.exists():
+        try:
+            with open(JSON_PATH, encoding='utf-8') as f:
+                snapshot = json.load(f)
+        except: pass
 
+    updated = snapshot.get('updated_at', 'N/A')
+    # ── 1. Gateway ─
+    gw = snapshot.get('gateway', {})
+    gw_col1, gw_col2, gw_col3 = st.columns(3)
+    gw_status = gw.get('status', 'unknown')
+    gw_col1.metric("Gateway", "\u2705 Online" if gw_status == 'online' else "\U0001f534 Offline", gw.get('uptime', '-'))
+    gw_col2.metric("Model", "MiniMax M2")
+    gw_col3.metric("Last Update", updated.split('T')[-1][:8] if 'T' in updated else updated)
 
     st.divider()
 
     # ── 2. DB Health ─
-    st.markdown("### 🗄️ Database Health")
-    DATA_DIR = r"C:\Users\USER\.openclaw\workspace\Tina_Quant_System\data"
-    CRON_TIMEOUT = 300
-
-
-    def get_db_info(db_file):
-        db_path = os.path.join(DATA_DIR, db_file)
-        if not os.path.exists(db_path):
-            size = 0
-        else:
-            size = os.path.getsize(db_path)
-        conn = sqlite3.connect(db_path) if os.path.exists(db_path) else None
-        latest = None
-        tables = []
-        row_count = 0
-        if conn:
-            try:
-                tables = [r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
-                for t in tables[:6]:
-                    for col in ['date', 'Date', 'updated_at']:
-                        try:
-                            d = conn.execute(f'SELECT MAX({col}) FROM "{t}"').fetchone()[0]
-                            if d and (not latest or str(d) > str(latest)): latest = str(d)[:10]
-                        except: pass
-                try: row_count = sum(conn.execute(f'SELECT COUNT(*) FROM "{t}"').fetchone()[0] for t in tables)
-                except: pass
-            except: pass
-            conn.close()
-        size_mb = size / 1024 / 1024 if size > 0 else 0
-        age = (datetime.now().date() - datetime.strptime(latest, '%Y-%m-%d').date()).days if latest else 999
-        return latest, age, size_mb, tables, row_count
-
-
+    st.markdown("### \U0001f5c4 DB Health")
+    db_data = snapshot.get('dbs', {})
     db_items = [
-        ('yfinance.db', 'yfinance', 1),
-        ('macro_institutional.db', '法人數據', 3),
-        ('etf.db', 'ETF', 1),
-        ('tw_history.db', 'TW歷史', 2),
-        ('leo_stocks.db', 'Leo 分析', 3),
-        ('finmind.db', 'FinMind', 3),
+        ('yfinance', 'yfinance', 1),
+        ('macro_institutional', 'TW \u6cd5\u4eba', 3),
+        ('etf', 'ETF', 1),
+        ('tw_history', 'TW \u6b77\u53f2', 2),
+        ('leo_stocks', 'Leo \u5206\u6790', 3),
+        ('finmind', 'FinMind', 3),
     ]
-
     db_cols = st.columns(3)
-    for i, (db, name, max_age) in enumerate(db_items):
-        latest, age, size_mb, tables, rows = get_db_info(db)
+    for i, (key, name, max_age) in enumerate(db_items):
+        info = db_data.get(key, {})
+        age = info.get('age_days', 999)
+        size_mb = info.get('size_mb', 0)
+        tables = info.get('tables', 0)
         col = db_cols[i % 3]
         if age >= 999:
-            status = "⚠️ N/A"
+            status = "\u26a0\ufe0f N/A"
         elif age == 0:
-            status = f"✅ Today"
+            status = "\u2705 Today"
         elif age <= max_age:
-            status = f"🟡 {age}d ago"
+            status = f"\ud83d\udfe1 {age}d ago"
         else:
-            status = f"🔴 {age}d ago"
+            status = f"\U0001f534 {age}d ago"
+        size_str = f"{size_mb:.1f}MB" if size_mb >= 1 else f"{size_mb*1024:.0f}KB"
         with col:
-            size_str = f"{size_mb:.1f}MB" if size_mb >= 1 else f"{size_mb*1024:.0f}KB"
-            st.metric(f"{name}", status, f"{size_str} | {len(tables)} tables")
+            st.metric(name, status, f"{size_str} | {tables} tables")
 
     st.divider()
-
     # ── 3. Cron Status ─
-    st.markdown("### ⏱️ Cron Jobs")
-    cron_output = subprocess.run(
-        ['node', r"C:\Users\USER\AppData\Roaming\npm\node_modules\openclaw\dist\index.js", 'cron', 'list'],
-        capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=25
-    ).stdout
-    cron_lines = cron_output.splitlines()
-    all_crons = {}
-    for line in cron_lines:
-        if len(line) > 35 and line[0] not in (' ', ' ', '\t'):
-            parts = line.split()
-            if len(parts) >= 2:
-                cid = parts[0]
-                name = ' '.join(parts[1:])
-                all_crons[cid] = {'name': name, 'status': 'unknown'}
-    for line in cron_lines:
-        for cid in all_crons:
-            if cid in line:
-                if 'error' in line.lower(): all_crons[cid]['status'] = 'error'
-                elif 'ok' in line.lower(): all_crons[cid]['status'] = 'ok'
-                elif 'idle' in line.lower(): all_crons[cid]['status'] = 'idle'
-                elif 'running' in line.lower(): all_crons[cid]['status'] = 'running'
-                break
-    ok_c = sum(1 for v in all_crons.values() if v['status'] == 'ok')
-    err_c = sum(1 for v in all_crons.values() if v['status'] == 'error')
-    run_c = sum(1 for v in all_crons.values() if v['status'] == 'running')
-    idl_c = sum(1 for v in all_crons.values() if v['status'] == 'idle')
-    total_c = len(all_crons)
-    st.markdown(f"**Total: {total_c}** | ✅OK: {ok_c} | 🔄Running: {run_c} | 💤Idle: {idl_c} | 🔴Error: {err_c}")
-
+    st.markdown("### \u23f1 Cron Jobs")
+    cron_data = snapshot.get('cron_summary', {})
+    total_c = cron_data.get('total', 0)
+    ok_c = cron_data.get('ok', 0)
+    err_c = cron_data.get('error', 0)
+    idl_c = cron_data.get('idle', 0)
+    run_c = cron_data.get('running', 0)
+    err_jobs = cron_data.get('error_jobs', [])
+    st.markdown(f"**Total: {total_c}** | \u2705OK: {ok_c} | \U0001f504Running: {run_c} | \U0001f4f4Idle: {idl_c} | \U0001f534Error: {err_c}")
     cron_cols = st.columns(2)
-    error_jobs = [(c, v) for c, v in all_crons.items() if v['status'] == 'error']
-    for idx, (cid, v) in enumerate(error_jobs):
+    for idx, job in enumerate(err_jobs[:6]):
         col = cron_cols[idx % 2]
         with col:
-            st.error(f"🔴 {v['name']}")
-    if not error_jobs:
-        st.success("✅ All cron jobs healthy")
-
-
+            st.error(f"\U0001f534 {job}")
+    if not err_jobs:
+        st.success("\u2705 All cron jobs healthy")
+    if err_c > 6:
+        st.caption(f"\u2139 {err_c} error jobs — Tina Cron Optimizer active (every 2 min)")
     st.divider()
     # ── 4. Market Overview ─
-    st.markdown("### 📊 Market Overview")
+    st.markdown("### \U0001f4c0 Market Overview")
+    mkt = snapshot.get('market', {})
+    twii_val = mkt.get('twii')
+    twii_chg = mkt.get('twii_chg')
+    twii_rsi = mkt.get('twii_rsi')
+    signal = mkt.get('signal', 'unknown')
     mkt_cols = st.columns(3)
-    try:
-        twii = yf.Ticker('^TWII').history(period='5d')['Close']
-        twii_chg = (twii.iloc[-1] / twii.iloc[-2] - 1) * 100 if len(twii) >= 2 else 0
-        twii_rsi = calc_rsi_simple(twii, 14)
-        mkt_cols[0].metric("TWII", f"{twii.iloc[-1]:,.0f}", f"{twii_chg:+.2f}%")
-        mkt_cols[1].metric("TWII RSI", f"{twii_rsi:.0f}", "RSI 14")
-        twii_signal = "🔴 Overbought" if twii_rsi > 70 else ("🟡 Neutral" if twii_rsi > 40 else "🟢 Oversold")
-        mkt_cols[2].metric("Signal", twii_signal)
-    except:
-        mkt_cols[0].metric("TWII", "N/A")
+    if twii_val:
+        mkt_cols[0].metric("TWII", f"{twii_val:,.0f}", f"{twii_chg:+.2f}%" if twii_chg else None)
+        mkt_cols[1].metric("TWII RSI", f"{twii_rsi:.0f}" if twii_rsi else "N/A", "RSI 14")
+        sig_icon = "\U0001f534 Overbought" if signal == 'overbought' else ("\ud83d\udfe1 Neutral" if signal == 'neutral' else "\ud83d\udfe2 Oversold")
+        mkt_cols[2].metric("Signal", sig_icon)
+    else:
+        try:
+            twii_live = yf.Ticker('^TWII').history(period='5d')['Close']
+            twii_chg_l = float((twii_live.iloc[-1] / twii_live.iloc[-2] - 1) * 100) if len(twii_live) >= 2 else 0
+            twii_rsi_l = calc_rsi_simple(twii_live, 14)
+            sig_l = "\U0001f534 Overbought" if twii_rsi_l > 70 else ("\ud83d\udfe2 Oversold" if twii_rsi_l < 40 else "\ud83d\udfe1 Neutral")
+            mkt_cols[0].metric("TWII", f"{twii_live.iloc[-1]:,.0f}", f"{twii_chg_l:+.2f}%")
+            mkt_cols[1].metric("TWII RSI", f"{twii_rsi_l:.0f}", "RSI 14")
+            mkt_cols[2].metric("Signal", sig_l)
+        except:
+            mkt_cols[0].metric("TWII", "N/A")
 
     st.divider()
-    
-    # ── 5. Portfolio Summary ─
-    st.markdown("### 💼 Jo Portfolio")
-    holdings = [
-        ('00713', '元大高息低波', 300, 53.22),
-    ]
-    hold_cols = st.columns(len(holdings))
-    for i, (code, name, qty, cost) in enumerate(holdings):
-        try:
-            price = yf.Ticker(f'{code}.TW').history(period='1d')['Close'].iloc[-1]
-            pnl = (price - cost) * qty
-            pnl_pct = (price / cost - 1) * 100
-            col = hold_cols[i]
-            with col:
-                st.metric(f"{name}", f"${price:.2f}", f"{pnl:+,} ({pnl_pct:+.1f}%)")
-        except:
-            with hold_cols[i]:
-                st.metric(name, "N/A")
+    # ── 5. Portfolio ─
+    st.markdown("### \U0001f4bc Jo Portfolio")
+    portfolio = snapshot.get('portfolio', {})
+    hold_cols = st.columns(len(portfolio) if portfolio else 1)
+    if not portfolio:
+        hold_cols[0].metric("00713 \u5143\u5927\u9ad8\u606f\u4f4e\u6ce2", "N/A")
+    for idx, (code, pinfo) in enumerate(portfolio.items()):
+        price = pinfo.get('price')
+        pnl = pinfo.get('pnl')
+        pnl_pct = pinfo.get('pnl_pct')
+        with hold_cols[idx]:
+            if price:
+                st.metric(f"{code} {pinfo.get('name','')}", f"${price:.2f}", f"{pnl:+,.0f} ({pnl_pct:+.2f}%)" if pnl_pct else None)
+            else:
+                st.metric(f"{code} {pinfo.get('name','')}", "N/A")
 
     st.divider()
     # ── 6. Actions ─
-    st.markdown("### ⚙️ Quick Actions")
+    st.markdown("### \u2699 Quick Actions")
     act_cols = st.columns(3)
     with act_cols[0]:
-        if st.button("📊 Run Health Check", use_container_width=True):
+        if st.button("\U0001f4ca Run Health Check", use_container_width=True):
             with st.spinner("Running health check..."):
                 result = subprocess.run(
                     ['python', r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\scripts\tina_brain_monitor.py'],
@@ -1308,11 +1270,11 @@ with brain_tab:
                 ).stdout
                 st.text_area("Health Report", result[:2000], height=200)
     with act_cols[1]:
-        if st.button("🔧 Fix Cron Errors", use_container_width=True):
-            st.info("Use Tina Cron Optimizer (every 2 min)")
+        st.caption("Cron Optimizer: every 2 min")
+        st.caption("Health Writer: every 30 min")
     with act_cols[2]:
-        if st.button("📡 Test Telegram", use_container_width=True):
-            test_msg = f"🧠 Tina Brain Monitor Test | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        if st.button("\U0001f4e1 Test Telegram", use_container_width=True):
+            test_msg = f"\U0001f9e0 Tina Brain Monitor Test | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
             ok, err = push_telegram(test_msg)
-            if ok: st.success("✅ Telegram OK")
-            else: st.error(f"❌ {err}")
+            if ok: st.success("\u2705 Telegram OK")
+            else: st.error(f"\u274c {err}")
