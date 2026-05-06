@@ -3,6 +3,8 @@
 Tina Scanner v3.0 - TW+US Stock Analysis | 1000 Tech Scoring + Institutional Data + Telegram
 """
 import os
+import sqlite3
+import subprocess
 import streamlit as st
 import yfinance as yf
 import numpy as np
@@ -234,6 +236,14 @@ def calc_rsi(close, period=14):
     rs = gain / loss.replace(0, np.nan)
     return 100 - (100 / (1 + rs))
 
+def calc_rsi_simple(close, period=14):
+    delta = close.diff()
+    gain = delta.where(delta > 0, 0).rolling(period).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(period).mean()
+    rs = gain / loss.replace(0, np.nan)
+    rsi_vals = 100 - (100 / (1 + rs))
+    return float(rsi_vals.iloc[-1]) if len(rsi_vals) > 0 else 50
+
 def get_tier(rsi):
     if rsi < 35: return "A"
     if rsi < 50: return "B"
@@ -460,7 +470,7 @@ def analyze(code, market='TW'):
 st.set_page_config(page_title="Tina Scanner v3.0", page_icon="📈", layout="wide")
 st.title("📈 Tina Scanner v3.0 — TW+US Tech Scoring")
 
-tw_tab, us_tab = st.tabs(["📊 Taiwan", "🇺🇸 US"])
+tw_tab, us_tab, brain_tab = st.tabs(["📊 Taiwan", "🇺🇸 US", "🧠 Brain"])
 
 # ── Market Overview ──────────────────────────────────────────────────────
 try:
@@ -1121,3 +1131,188 @@ with us_tab:
 
 st.divider()
 st.caption("Data: yfinance + FinMind Institutional | Tina Brain v3.0 — 1000 Tech Score | For reference only")
+
+
+# ═══════════════════════════ BRAIN TAB ═══════════════════════════
+with brain_tab:
+    st.header("🧠 Tina 大腦監控")
+    col_status, col_refresh = st.columns([4, 1])
+    with col_status:
+        st.markdown("### System Status")
+    with col_refresh:
+        if st.button("🔄 Refresh", use_container_width=True):
+            st.rerun()
+
+    # ── 1. Gateway ─
+    gw_col1, gw_col2, gw_col3 = st.columns(3)
+    try:
+        import urllib.request
+        req = urllib.request.Request('http://127.0.0.1:18789/health', timeout=3)
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            gw_data = json.loads(resp.read())
+        gw_col1.metric("Gateway", "✅ Online", gw_data.get('uptime', 'N/A'))
+    except:
+        gw_col1.metric("Gateway", "❌ Offline", "-")
+    gw_col2.metric("Model", "MiniMax M2")
+    gw_col3.metric("Time", datetime.now().strftime('%H:%M:%S'))
+
+
+    st.divider()
+
+    # ── 2. DB Health ─
+    st.markdown("### 🗄️ Database Health")
+    DATA_DIR = r"C:\Users\USER\.openclaw\workspace\Tina_Quant_System\data"
+    CRON_TIMEOUT = 300
+
+
+    def get_db_info(db_file):
+        db_path = os.path.join(DATA_DIR, db_file)
+        if not os.path.exists(db_path):
+            size = 0
+        else:
+            size = os.path.getsize(db_path)
+        conn = sqlite3.connect(db_path) if os.path.exists(db_path) else None
+        latest = None
+        tables = []
+        row_count = 0
+        if conn:
+            try:
+                tables = [r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
+                for t in tables[:6]:
+                    for col in ['date', 'Date', 'updated_at']:
+                        try:
+                            d = conn.execute(f'SELECT MAX({col}) FROM "{t}"').fetchone()[0]
+                            if d and (not latest or str(d) > str(latest)): latest = str(d)[:10]
+                        except: pass
+                try: row_count = sum(conn.execute(f'SELECT COUNT(*) FROM "{t}"').fetchone()[0] for t in tables)
+                except: pass
+            except: pass
+            conn.close()
+        size_mb = size / 1024 / 1024 if size > 0 else 0
+        age = (datetime.now().date() - datetime.strptime(latest, '%Y-%m-%d').date()).days if latest else 999
+        return latest, age, size_mb, tables, row_count
+
+
+    db_items = [
+        ('yfinance.db', 'yfinance', 1),
+        ('macro_institutional.db', '法人數據', 3),
+        ('etf.db', 'ETF', 1),
+        ('tw_history.db', 'TW歷史', 2),
+        ('leo_stocks.db', 'Leo 分析', 3),
+        ('finmind.db', 'FinMind', 3),
+    ]
+
+    db_cols = st.columns(3)
+    for i, (db, name, max_age) in enumerate(db_items):
+        latest, age, size_mb, tables, rows = get_db_info(db)
+        col = db_cols[i % 3]
+        if age >= 999:
+            status = "⚠️ N/A"
+        elif age == 0:
+            status = f"✅ Today"
+        elif age <= max_age:
+            status = f"🟡 {age}d ago"
+        else:
+            status = f"🔴 {age}d ago"
+        with col:
+            size_str = f"{size_mb:.1f}MB" if size_mb >= 1 else f"{size_mb*1024:.0f}KB"
+            st.metric(f"{name}", status, f"{size_str} | {len(tables)} tables")
+
+    st.divider()
+
+    # ── 3. Cron Status ─
+    st.markdown("### ⏱️ Cron Jobs")
+    cron_output = subprocess.run(
+        ['node', r"C:\Users\USER\AppData\Roaming\npm\node_modules\openclaw\dist\index.js", 'cron', 'list'],
+        capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=25
+    ).stdout
+    cron_lines = cron_output.splitlines()
+    all_crons = {}
+    for line in cron_lines:
+        if len(line) > 35 and line[0] not in (' ', ' ', '\t'):
+            parts = line.split()
+            if len(parts) >= 2:
+                cid = parts[0]
+                name = ' '.join(parts[1:])
+                all_crons[cid] = {'name': name, 'status': 'unknown'}
+    for line in cron_lines:
+        for cid in all_crons:
+            if cid in line:
+                if 'error' in line.lower(): all_crons[cid]['status'] = 'error'
+                elif 'ok' in line.lower(): all_crons[cid]['status'] = 'ok'
+                elif 'idle' in line.lower(): all_crons[cid]['status'] = 'idle'
+                elif 'running' in line.lower(): all_crons[cid]['status'] = 'running'
+                break
+    ok_c = sum(1 for v in all_crons.values() if v['status'] == 'ok')
+    err_c = sum(1 for v in all_crons.values() if v['status'] == 'error')
+    run_c = sum(1 for v in all_crons.values() if v['status'] == 'running')
+    idl_c = sum(1 for v in all_crons.values() if v['status'] == 'idle')
+    total_c = len(all_crons)
+    st.markdown(f"**Total: {total_c}** | ✅OK: {ok_c} | 🔄Running: {run_c} | 💤Idle: {idl_c} | 🔴Error: {err_c}")
+
+    cron_cols = st.columns(2)
+    error_jobs = [(c, v) for c, v in all_crons.items() if v['status'] == 'error']
+    for idx, (cid, v) in enumerate(error_jobs):
+        col = cron_cols[idx % 2]
+        with col:
+            st.error(f"🔴 {v['name']}")
+    if not error_jobs:
+        st.success("✅ All cron jobs healthy")
+
+
+    st.divider()
+    # ── 4. Market Overview ─
+    st.markdown("### 📊 Market Overview")
+    mkt_cols = st.columns(3)
+    try:
+        twii = yf.Ticker('^TWII').history(period='5d')['Close']
+        twii_chg = (twii.iloc[-1] / twii.iloc[-2] - 1) * 100 if len(twii) >= 2 else 0
+        twii_rsi = calc_rsi_simple(twii, 14)
+        mkt_cols[0].metric("TWII", f"{twii.iloc[-1]:,.0f}", f"{twii_chg:+.2f}%")
+        mkt_cols[1].metric("TWII RSI", f"{twii_rsi:.0f}", "RSI 14")
+        twii_signal = "🔴 Overbought" if twii_rsi > 70 else ("🟡 Neutral" if twii_rsi > 40 else "🟢 Oversold")
+        mkt_cols[2].metric("Signal", twii_signal)
+    except:
+        mkt_cols[0].metric("TWII", "N/A")
+
+    st.divider()
+    
+    # ── 5. Portfolio Summary ─
+    st.markdown("### 💼 Jo Portfolio")
+    holdings = [
+        ('00713', '元大高息低波', 300, 53.22),
+    ]
+    hold_cols = st.columns(len(holdings))
+    for i, (code, name, qty, cost) in enumerate(holdings):
+        try:
+            price = yf.Ticker(f'{code}.TW').history(period='1d')['Close'].iloc[-1]
+            pnl = (price - cost) * qty
+            pnl_pct = (price / cost - 1) * 100
+            col = hold_cols[i]
+            with col:
+                st.metric(f"{name}", f"${price:.2f}", f"{pnl:+,} ({pnl_pct:+.1f}%)")
+        except:
+            with hold_cols[i]:
+                st.metric(name, "N/A")
+
+    st.divider()
+    # ── 6. Actions ─
+    st.markdown("### ⚙️ Quick Actions")
+    act_cols = st.columns(3)
+    with act_cols[0]:
+        if st.button("📊 Run Health Check", use_container_width=True):
+            with st.spinner("Running health check..."):
+                result = subprocess.run(
+                    ['python', r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\scripts\tina_brain_monitor.py'],
+                    capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=60
+                ).stdout
+                st.text_area("Health Report", result[:2000], height=200)
+    with act_cols[1]:
+        if st.button("🔧 Fix Cron Errors", use_container_width=True):
+            st.info("Use Tina Cron Optimizer (every 2 min)")
+    with act_cols[2]:
+        if st.button("📡 Test Telegram", use_container_width=True):
+            test_msg = f"🧠 Tina Brain Monitor Test | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            ok, err = push_telegram(test_msg)
+            if ok: st.success("✅ Telegram OK")
+            else: st.error(f"❌ {err}")
