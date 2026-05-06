@@ -20,11 +20,39 @@ TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or st.secrets.get("tg_bot_token",
 TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or st.secrets.get("tg_chat_id", "1616824689")
 FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or st.secrets.get("finmind_token", "")
 
+import json
+
+class NoAttrDictEncoder(json.JSONEncoder):
+    def default(self, obj):
+        # Convert any object with __dict__ (like AttrDict) to plain dict
+        if hasattr(obj, '__dict__'):
+            return {k: NoAttrDictEncoder().default(v) for k, v in obj.__dict__.items()}
+        # Fallback: convert to string
+        try:
+            return super().default(obj)
+        except TypeError:
+            return str(obj)
+
+def make_serializable_str(msg):
+    """Recursively convert any object to a plain string"""
+    if isinstance(msg, str):
+        return msg
+    elif isinstance(msg, dict):
+        return {k: make_serializable_str(v) for k, v in msg.items()}
+    elif isinstance(msg, (list, tuple)):
+        return [make_serializable_str(x) for x in msg]
+    elif hasattr(msg, '__dict__'):
+        # AttrDict or similar — convert to plain dict then stringify
+        d = {k: make_serializable_str(v) for k, v in msg.__dict__.items()}
+        return str(d)
+    else:
+        return str(msg)
+
 def push_telegram(message):
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
-    # Ensure message is plain str (fixes AttrDict objects leaking from session_state)
-    safe_msg = str(message) if not isinstance(message, str) else message
-    data = json.dumps({'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}).encode()
+    # Recursively convert any non-JSON-serializable objects in the message
+    safe_msg = make_serializable_str(message)
+    data = json.dumps({'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}, cls=NoAttrDictEncoder).encode()
     req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
     try:
         with urllib.request.urlopen(req, timeout=10) as resp:
@@ -1269,6 +1297,30 @@ with brain_tab:
                 st.metric(f"{code} {pinfo.get('name','')}", f"${price:.2f}", f"{pnl:+,.0f} ({pnl_pct:+.2f}%)" if pnl_pct else None)
             else:
                 st.metric(f"{code} {pinfo.get('name','')}", "N/A")
+
+    st.divider()
+    # ── 5b. Watchlist ─
+    st.markdown("### \U0001f4f0 Watchlist (Brain Tracking)")
+    watchlist = snapshot.get('watchlist', {})
+    if watchlist:
+        wl_cols = st.columns(len(watchlist))
+        for idx, (code, winfo) in enumerate(watchlist.items()):
+            with wl_cols[idx]:
+                price = winfo.get('price')
+                score = winfo.get('score')
+                tier = winfo.get('tier', '?')
+                tier_emoji = {'A': '\U0001f49a', 'B': '\U00002728', 'C': '\U0001f536', 'D': '\u274c'}.get(tier, '?')
+                rsi_val = winfo.get('rsi')
+                rsi_str = f"RSI={rsi_val:.0f}" if rsi_val else "RSI=N/A"
+                note = winfo.get('note', '')
+                st.markdown(f"**{code} {tier_emoji}**")
+                if price:
+                    st.metric("Price", f"${price:.2f}", f"Score {score:.0f}" if score else None)
+                else:
+                    st.caption(f"{rsi_str}")
+                st.caption(f"_{note[:30]}" if note else '', unsafe_allow_html=True)
+    else:
+        st.info("No stocks in watchlist")
 
     st.divider()
     # ── 6. Actions ─
