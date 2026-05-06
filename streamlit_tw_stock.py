@@ -789,11 +789,15 @@ with tw_tab:
                        f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60']:.0f if r['ma60'] else 'N/A'}\n"
                        f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
                        f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:+,}")
-                ok, err = push_telegram(msg)
-                if ok:
-                    st.success("[ENV] Telegram sent!")
-                else:
-                    st.error(f"Telegram failed: {err}")
+                with st.spinner('Sending to Telegram...'):
+                    try:
+                        ok, err = push_telegram(msg)
+                        if ok:
+                            st.success("[ENV] Telegram sent!")
+                        else:
+                            st.error(f"Telegram failed: {err}")
+                    except Exception as ex:
+                        st.error(f"Exception: {ex}")
         if st.session_state.get('tw_auto_send'):
             # Auto-send: analyze -> push immediately without button
             tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
