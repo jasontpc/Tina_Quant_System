@@ -22,7 +22,9 @@ FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or st.secrets.get("finmind_token", ""
 
 def push_telegram(message):
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
-    data = json.dumps({'chat_id': TELEGRAM_CHAT_ID, 'text': message, 'parse_mode': 'Markdown'}).encode()
+    # Ensure message is plain str (fixes AttrDict objects leaking from session_state)
+    safe_msg = str(message) if not isinstance(message, str) else message
+    data = json.dumps({'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}).encode()
     req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
     try:
         with urllib.request.urlopen(req, timeout=10) as resp:
