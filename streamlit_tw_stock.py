@@ -1436,7 +1436,9 @@ with tw_tab:
             st.session_state['single_result'] = r
             bd = r.get('score_breakdown', {})
 
-            # ── Action Recommendation ──
+            # ═══════════════════════════════════════
+            #  ACTION BAR
+            # ═══════════════════════════════════════
             score = r['score']
             tier  = r['tier']
             rsi_v = r['rsi']
@@ -1445,92 +1447,105 @@ with tw_tab:
             ma_bull = r['ma20_above_ma60']
             kd_ok   = r['kd_golden']
 
-            pos = (kd_ok * 200) + (ma_bull * 150) + ((35 <= rsi_v <= 60) * 100) + ((macd_v > 0) * 140) + ((20 <= bb_v <= 80) * 100)
-            pct = min(100, max(0, int(pos * 100 / 690)))
-            bar = "█" * (pct // 10) + "░" * (10 - pct // 10)
+            pos = (kd_ok*200)+(ma_bull*150)+((35<=rsi_v<=60)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)
+            pct = min(100, max(0, int(pos*100/690)))
+            bar = "█"*(pct//10) + "░"*(10-pct//10)
 
-            if kd_ok and ma_bull and macd_v > 0 and rsi_v < 65:
-                act, col = "強力买入", "green"
-                trend = "多頭"
-            elif score >= 700 and rsi_v < 70:
-                act, col = "买入", "blue"
-                trend = "多頭"
-            elif score >= 400:
-                act, col = "觀望", "gray"
-                trend = "中性"
-            elif rsi_v > 80 or bb_v > 90:
-                act, col = "過熱觀望", "orange"
-                trend = "警覺"
+            if kd_ok and ma_bull and macd_v>0 and rsi_v<65:
+                act,col,trend = "強力买入","green","多頭"
+            elif score>=700 and rsi_v<70:
+                act,col,trend = "买入","blue","多頭"
+            elif score>=400:
+                act,col,trend = "觀望","gray","中性"
+            elif rsi_v>80 or bb_v>90:
+                act,col,trend = "過熱觀望","orange","警覺"
             else:
-                act, col = "減持", "red"
-                trend = "空頭"
+                act,col,trend = "減持","red","空頭"
 
-            st.markdown(f"**「{r['code']} {r['name'][:8]}」**　Score {score}　:color[{col}][{bar}　{act}]　{trend}趨勢")
+            st.markdown(
+                f"<big><b>「{r['code']} {r['name'][:8]}」</b></big>"
+                f"&nbsp;&nbsp;Score {score}"
+                f"&nbsp;&nbsp;<b>:color[{col}][{bar} {act}]</b>"
+                f"&nbsp;&nbsp;{trend}趨勢",
+                unsafe_allow_html=True)
 
             # ── Signal Badges ──
             sigs = []
-            if r['kd_golden']:     sigs.append(("KD Golden",    "green"))
-            if r['ma20_above_ma60']: sigs.append(("MA Bull",   "green"))
-            if r['macd_hist'] > 0: sigs.append(("MACD+",       "green"))
-            if r['bb_pct'] < 20:   sigs.append(("BB Oversold",  "blue"))
-            if r['bb_pct'] > 80:   sigs.append(("BB Overbought","red"))
-            if r['rsi'] < 35:      sigs.append(("RSI Oversold", "blue"))
-            if r['rsi'] > 70:      sigs.append(("RSI Overbought","red"))
-            if r['vol_ratio'] > 2.0: sigs.append(("Vol Surge",  "orange"))
+            if r['kd_golden']:      sigs.append(("KD Golden","green"))
+            if r['ma20_above_ma60']: sigs.append(("MA Bull","green"))
+            if r['macd_hist']>0:    sigs.append(("MACD+","green"))
+            if r['bb_pct']<20:     sigs.append(("BB Oversold","blue"))
+            if r['bb_pct']>80:     sigs.append(("BB Overbought","red"))
+            if r['rsi']<35:         sigs.append(("RSI Oversold","blue"))
+            if r['rsi']>70:         sigs.append(("RSI Overbought","red"))
+            if r['vol_ratio']>2.0: sigs.append(("Vol Surge","orange"))
 
             if sigs:
-                tags = "  ".join([f":{c}[{l}]" for l, c in sigs])
+                tags = "  ".join([f":{c}[{l}]" for l,c in sigs])
                 st.markdown(tags)
             else:
                 st.caption("No signals")
 
             # ── Row 1: Price + RSI + K/D + BB% ──
-            c1, c2, c3, c4 = st.columns(4)
+            c1,c2,c3,c4 = st.columns(4)
             c1.metric("Price", f"${r['price']:.2f}", f"{r['chg']:+.2f}%")
-            rsi_delta = rsi_v - 50
-            if rsi_v > 70:       rsi_label = "Overbought"
-            elif rsi_v < 35:    rsi_label = "Oversold"
-            else:               rsi_label = f"{rsi_v:.0f} OK"
-            c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_label}")
+            rsi_delta = rsi_v-50
+            if rsi_v>70:       rsi_st = "Overbought"
+            elif rsi_v<35:    rsi_st = "Oversold"
+            else:              rsi_st = f"OK {rsi_v:.0f}"
+            c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_st}")
 
-            k_val, d_val = r['k'], r['d']
-            kd_label = "Golden!" if kd_ok else f"{k_val:.0f}/{d_val:.0f}"
-            c3.metric("K/D", kd_label, f"{k_val-d_val:+.0f}", help="K above D = bullish")
+            k_val,d_val = r['k'],r['d']
+            kd_lbl = "Golden!" if kd_ok else f"{k_val:.0f}/{d_val:.0f}"
+            c3.metric("K/D", kd_lbl, f"{k_val-d_val:+.0f}", help="K above D=bullish")
 
-            if bb_v < 20:        bb_label = "Oversold"
-            elif bb_v > 80:      bb_label = "Overbought"
-            else:                bb_label = f"{bb_v:.0f}% Neutral"
-            c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_v-50:+.0f}", help=f"Status: {bb_label}")
+            bb_delta = bb_v-50
+            if bb_v<20:       bb_st = "Oversold"
+            elif bb_v>80:     bb_st = "Overbought"
+            else:             bb_st = f"Neutral {bb_v:.0f}%"
+            c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_delta:+.0f}", help=f"Status: {bb_st}")
 
-            # ── Row 2: MA + MACD + Vol + BIAS ──
-            d1, d2, d3, d4 = st.columns(4)
-            ma_diff = r['ma20'] - r['ma60'] if r.get('ma60') else 0
-            ma_label = "Above" if ma_bull else "Below"
-            d1.metric("MA20 vs MA60", ma_label, f"{ma_diff:+.1f}" if r.get('ma60') else "N/A")
+            # ── Row 2: MA20 vs MA60 + MACD + Vol + BIAS ──
+            d1,d2,d3,d4 = st.columns(4)
+            ma_diff = r['ma20']-r['ma60'] if r.get('ma60') else 0
+            ma_lbl = "MA Bull" if ma_bull else "MA Bear"
+            d1.metric("MA20 vs MA60", ma_lbl, f"{ma_diff:+.1f}" if r.get('ma60') else "N/A")
 
             d2.metric("MACD Hist", f"{macd_v:+.2f}", f"{macd_v:+.2f}")
 
             vol_v = r['vol_ratio']
-            vol_label = "High" if vol_v > 1.5 else "Low" if vol_v < 0.8 else "Normal"
-            d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_label}")
+            vol_st = "High" if vol_v>1.5 else "Low" if vol_v<0.8 else "Normal"
+            d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_st}")
 
             bias_v = r['bias5']
-            bias_label = "High" if abs(bias_v) > 3 else "Normal"
-            d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_label}")
+            bias_st = "High" if abs(bias_v)>3 else "Normal"
+            d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_st}")
 
-            # ── Score Breakdown ──
+            # ── Score Breakdown (color-coded inline) ──
             bd = r.get('score_breakdown', {})
-            st.caption(f"RSI {bd.get('rsi',0)} | MACD {bd.get('macd',0)} | K {bd.get('k',0)} | D {bd.get('d',0)} | BB {bd.get('bb',0)} | MA {bd.get('ma',0)} | Vol {bd.get('vol',0)}")
+            items = [
+                ('RSI',  bd.get('rsi',0),  (35<=rsi_v<=60)),
+                ('MACD', bd.get('macd',0), (macd_v>0)),
+                ('K',    bd.get('k',0),    kd_ok),
+                ('D',    bd.get('d',0),    not kd_ok),
+                ('BB',   bd.get('bb',0),   (20<=bb_v<=80)),
+                ('MA',   bd.get('ma',0),   ma_bull),
+                ('Vol',  bd.get('vol',0),  (0.8<=vol_v<=1.5)),
+            ]
+            sb_parts = []
+            for k,v,good in items:
+                color = 'green' if good else 'gray'
+                sb_parts.append(f":{color}[{k} {v}]")
+            st.markdown("  ".join(sb_parts))
 
             # ── Institutional (TW only) ──
             inst = r.get("inst") or {}
             if inst:
                 f_v = inst.get("foreign",0); t_v = inst.get("trust",0); d_v = inst.get("dealer",0)
-                i1, i2, i3 = st.columns(3)
+                i1,i2,i3 = st.columns(3)
                 i1.metric("Foreign", f"{f_v:+,.0f}")
                 i2.metric("Trust",   f"{t_v:+,.0f}")
                 i3.metric("Dealer",  f"{d_v:+,.0f}")
-
 
         if not r:
 
@@ -1930,7 +1945,9 @@ with us_tab:
             st.session_state['us_single_result'] = r
             bd = r.get('score_breakdown', {})
 
-            # ── Action Recommendation ──
+            # ═══════════════════════════════════════
+            #  ACTION BAR
+            # ═══════════════════════════════════════
             score = r['score']
             tier  = r['tier']
             rsi_v = r['rsi']
@@ -1939,132 +1956,97 @@ with us_tab:
             ma_bull = r['ma20_above_ma60']
             kd_ok   = r['kd_golden']
 
-            pos = (kd_ok * 200) + (ma_bull * 150) + ((35 <= rsi_v <= 60) * 100) + ((macd_v > 0) * 140) + ((20 <= bb_v <= 80) * 100)
-            pct = min(100, max(0, int(pos * 100 / 690)))
-            bar = "█" * (pct // 10) + "░" * (10 - pct // 10)
+            pos = (kd_ok*200)+(ma_bull*150)+((35<=rsi_v<=60)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)
+            pct = min(100, max(0, int(pos*100/690)))
+            bar = "█"*(pct//10) + "░"*(10-pct//10)
 
-            if kd_ok and ma_bull and macd_v > 0 and rsi_v < 65:
-                act, col = "強力买入", "green"
-                trend = "多頭"
-            elif score >= 700 and rsi_v < 70:
-                act, col = "买入", "blue"
-                trend = "多頭"
-            elif score >= 400:
-                act, col = "觀望", "gray"
-                trend = "中性"
-            elif rsi_v > 80 or bb_v > 90:
-                act, col = "過熱觀望", "orange"
-                trend = "警覺"
+            if kd_ok and ma_bull and macd_v>0 and rsi_v<65:
+                act,col,trend = "強力买入","green","多頭"
+            elif score>=700 and rsi_v<70:
+                act,col,trend = "买入","blue","多頭"
+            elif score>=400:
+                act,col,trend = "觀望","gray","中性"
+            elif rsi_v>80 or bb_v>90:
+                act,col,trend = "過熱觀望","orange","警覺"
             else:
-                act, col = "減持", "red"
-                trend = "空頭"
+                act,col,trend = "減持","red","空頭"
 
-            st.markdown(f"**「{us_single_code} {r['name'][:8]}」**　Score {score}　:color[{col}][{bar}　{act}]　{trend}趨勢")
+            st.markdown(
+                f"<big><b>「{us_single_code} {r['name'][:8]}」</b></big>"
+                f"&nbsp;&nbsp;Score {score}"
+                f"&nbsp;&nbsp;<b>:color[{col}][{bar} {act}]</b>"
+                f"&nbsp;&nbsp;{trend}趨勢",
+                unsafe_allow_html=True)
 
             # ── Signal Badges ──
             sigs = []
-            if r['kd_golden']:     sigs.append(("KD Golden",    "green"))
-            if r['ma20_above_ma60']: sigs.append(("MA Bull",   "green"))
-            if r['macd_hist'] > 0: sigs.append(("MACD+",       "green"))
-            if r['bb_pct'] < 20:   sigs.append(("BB Oversold",  "blue"))
-            if r['bb_pct'] > 80:   sigs.append(("BB Overbought","red"))
-            if r['rsi'] < 35:      sigs.append(("RSI Oversold", "blue"))
-            if r['rsi'] > 70:      sigs.append(("RSI Overbought","red"))
-            if r['vol_ratio'] > 2.0: sigs.append(("Vol Surge",  "orange"))
+            if r['kd_golden']:      sigs.append(("KD Golden","green"))
+            if r['ma20_above_ma60']: sigs.append(("MA Bull","green"))
+            if r['macd_hist']>0:    sigs.append(("MACD+","green"))
+            if r['bb_pct']<20:     sigs.append(("BB Oversold","blue"))
+            if r['bb_pct']>80:     sigs.append(("BB Overbought","red"))
+            if r['rsi']<35:         sigs.append(("RSI Oversold","blue"))
+            if r['rsi']>70:         sigs.append(("RSI Overbought","red"))
+            if r['vol_ratio']>2.0: sigs.append(("Vol Surge","orange"))
 
             if sigs:
-                tags = "  ".join([f":{c}[{l}]" for l, c in sigs])
+                tags = "  ".join([f":{c}[{l}]" for l,c in sigs])
                 st.markdown(tags)
             else:
                 st.caption("No signals")
 
             # ── Row 1: Price + RSI + K/D + BB% ──
-            c1, c2, c3, c4 = st.columns(4)
+            c1,c2,c3,c4 = st.columns(4)
             c1.metric("Price", f"${r['price']:.2f}", f"{r['chg']:+.2f}%")
-            rsi_delta = rsi_v - 50
-            if rsi_v > 70:       rsi_label = "Overbought"
-            elif rsi_v < 35:    rsi_label = "Oversold"
-            else:               rsi_label = f"{rsi_v:.0f} OK"
-            c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_label}")
+            rsi_delta = rsi_v-50
+            if rsi_v>70:       rsi_st = "Overbought"
+            elif rsi_v<35:    rsi_st = "Oversold"
+            else:              rsi_st = f"OK {rsi_v:.0f}"
+            c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_st}")
 
-            k_val, d_val = r['k'], r['d']
-            kd_label = "Golden!" if kd_ok else f"{k_val:.0f}/{d_val:.0f}"
-            c3.metric("K/D", kd_label, f"{k_val-d_val:+.0f}", help="K above D = bullish")
+            k_val,d_val = r['k'],r['d']
+            kd_lbl = "Golden!" if kd_ok else f"{k_val:.0f}/{d_val:.0f}"
+            c3.metric("K/D", kd_lbl, f"{k_val-d_val:+.0f}", help="K above D=bullish")
 
-            if bb_v < 20:        bb_label = "Oversold"
-            elif bb_v > 80:      bb_label = "Overbought"
-            else:                bb_label = f"{bb_v:.0f}% Neutral"
-            c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_v-50:+.0f}", help=f"Status: {bb_label}")
+            bb_delta = bb_v-50
+            if bb_v<20:       bb_st = "Oversold"
+            elif bb_v>80:     bb_st = "Overbought"
+            else:             bb_st = f"Neutral {bb_v:.0f}%"
+            c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_delta:+.0f}", help=f"Status: {bb_st}")
 
-            # ── Row 2: MA + MACD + Vol + BIAS ──
-            d1, d2, d3, d4 = st.columns(4)
-            ma_diff = r['ma20'] - r['ma60'] if r.get('ma60') else 0
-            ma_label = "Above" if ma_bull else "Below"
-            d1.metric("MA20 vs MA60", ma_label, f"{ma_diff:+.1f}" if r.get('ma60') else "N/A")
+            # ── Row 2: MA20 vs MA60 + MACD + Vol + BIAS ──
+            d1,d2,d3,d4 = st.columns(4)
+            ma_diff = r['ma20']-r['ma60'] if r.get('ma60') else 0
+            ma_lbl = "MA Bull" if ma_bull else "MA Bear"
+            d1.metric("MA20 vs MA60", ma_lbl, f"{ma_diff:+.1f}" if r.get('ma60') else "N/A")
 
             d2.metric("MACD Hist", f"{macd_v:+.2f}", f"{macd_v:+.2f}")
 
             vol_v = r['vol_ratio']
-            vol_label = "High" if vol_v > 1.5 else "Low" if vol_v < 0.8 else "Normal"
-            d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_label}")
+            vol_st = "High" if vol_v>1.5 else "Low" if vol_v<0.8 else "Normal"
+            d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_st}")
 
             bias_v = r['bias5']
-            bias_label = "High" if abs(bias_v) > 3 else "Normal"
-            d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_label}")
+            bias_st = "High" if abs(bias_v)>3 else "Normal"
+            d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_st}")
 
-            # ── Score Breakdown ──
+            # ── Score Breakdown (color-coded inline) ──
             bd = r.get('score_breakdown', {})
-            st.caption(f"RSI {bd.get('rsi',0)} | MACD {bd.get('macd',0)} | K {bd.get('k',0)} | D {bd.get('d',0)} | BB {bd.get('bb',0)} | MA {bd.get('ma',0)} | Vol {bd.get('vol',0)}")
+            items = [
+                ('RSI',  bd.get('rsi',0),  (35<=rsi_v<=60)),
+                ('MACD', bd.get('macd',0), (macd_v>0)),
+                ('K',    bd.get('k',0),    kd_ok),
+                ('D',    bd.get('d',0),    not kd_ok),
+                ('BB',   bd.get('bb',0),   (20<=bb_v<=80)),
+                ('MA',   bd.get('ma',0),   ma_bull),
+                ('Vol',  bd.get('vol',0),  (0.8<=vol_v<=1.5)),
+            ]
+            sb_parts = []
+            for k,v,good in items:
+                color = 'green' if good else 'gray'
+                sb_parts.append(f":{color}[{k} {v}]")
+            st.markdown("  ".join(sb_parts))
 
-
-            st.markdown(f"**「{us_single_code} {r['name'][:8]}」**  Score {score}  Tier {tier}")
-
-            if sigs:
-                tags = "  ".join([f":{c}[{l}]" for l, c in sigs])
-                st.markdown(tags)
-            else:
-                st.caption("No signals")
-
-            # ── Row 1: Price + RSI + K/D + BB% ──
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Price", f"${r['price']:.2f}", f"{r['chg']:+.2f}%")
-            rsi_v = r['rsi']
-            rsi_delta = rsi_v - 50
-            if rsi_v > 70:       rsi_label = "Overbought"
-            elif rsi_v < 35:    rsi_label = "Oversold"
-            else:               rsi_label = f"{rsi_v:.0f} OK"
-            c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_label}")
-
-            k_val, d_val = r['k'], r['d']
-            kd_label = "Golden!" if r['kd_golden'] else f"{k_val:.0f}/{d_val:.0f}"
-            c3.metric("K/D", kd_label, f"{k_val-d_val:+.0f}", help="K above D = bullish")
-
-            bb_v = r['bb_pct']
-            if bb_v < 20:        bb_label = "Oversold"
-            elif bb_v > 80:      bb_label = "Overbought"
-            else:                bb_label = f"{bb_v:.0f}% Neutral"
-            c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_v-50:+.0f}", help=f"Status: {bb_label}")
-
-            # ── Row 2: MA + MACD + Vol + BIAS ──
-            d1, d2, d3, d4 = st.columns(4)
-            ma_diff = r['ma20'] - r['ma60'] if r.get('ma60') else 0
-            ma_label = "Above" if r['ma20_above_ma60'] else "Below"
-            d1.metric("MA20 vs MA60", ma_label, f"{ma_diff:+.1f}" if r.get('ma60') else "N/A")
-
-            macd_v = r['macd_hist']
-            d2.metric("MACD Hist", f"{macd_v:+.2f}", f"{macd_v:+.2f}")
-
-            vol_v = r['vol_ratio']
-            vol_label = "High" if vol_v > 1.5 else "Low" if vol_v < 0.8 else "Normal"
-            d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_label}")
-
-            bias_v = r['bias5']
-            bias_label = "High" if abs(bias_v) > 3 else "Normal"
-            d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_label}")
-
-            # ── Score Breakdown ──
-            bd = r.get('score_breakdown', {})
-            st.caption(f"RSI {bd.get('rsi',0)} | MACD {bd.get('macd',0)} | K {bd.get('k',0)} | D {bd.get('d',0)} | BB {bd.get('bb',0)} | MA {bd.get('ma',0)} | Vol {bd.get('vol',0)}")
 
         if not r:
 
