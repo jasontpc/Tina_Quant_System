@@ -98,7 +98,9 @@ def _to_json_safe(obj):
 
 def push_telegram(message):
 
+    print(f'DEBUG TELEGRAM_BOT_TOKEN = {repr(TELEGRAM_BOT_TOKEN)}')
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
+    print(f'DEBUG url = {repr(url)}')
 
     safe_msg = str(message) if not isinstance(message, str) else message
 
