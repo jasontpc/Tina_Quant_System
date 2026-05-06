@@ -1436,72 +1436,76 @@ with tw_tab:
             st.session_state['single_result'] = r
             bd = r.get('score_breakdown', {})
 
-            # Signals list
+            # ── Header: Score + Signals ──
+            score = r['score']
+            tier  = r['tier']
             sigs = []
-            if r['kd_golden']: sigs.append("KD Golden")
-            if r['ma20_above_ma60']: sigs.append("MA Bullish")
-            if r['macd_hist'] > 0: sigs.append("MACD Plus")
-            if r['bb_pct'] < 20: sigs.append("BB Oversold")
-            if r['bb_pct'] > 80: sigs.append("BB Overbought")
-            if r['rsi'] < 35: sigs.append("RSI Oversold")
-            if r['rsi'] > 70: sigs.append("RSI Overbought")
-            if r['vol_ratio'] > 2.0: sigs.append("Vol Surge")
-            sigs_str = " | ".join(sigs) if sigs else "No signals"
+            if r['kd_golden']:     sigs.append(("KD Golden",    "green"))
+            if r['ma20_above_ma60']: sigs.append(("MA Bull",   "green"))
+            if r['macd_hist'] > 0: sigs.append(("MACD+",       "green"))
+            if r['bb_pct'] < 20:   sigs.append(("BB Oversold",  "blue"))
+            if r['bb_pct'] > 80:   sigs.append(("BB Overbought","red"))
+            if r['rsi'] < 35:      sigs.append(("RSI Oversold", "blue"))
+            if r['rsi'] > 70:      sigs.append(("RSI Overbought","red"))
+            if r['vol_ratio'] > 2.0: sigs.append(("Vol Surge", "orange"))
 
-            st.markdown("**[Tier " + r['tier'] + "] " + r['code'] + " " + r['name'] + " | Score " + str(r['score']) + "/1000**")
-            st.text(sigs_str)
+            st.markdown(f"**「{r['code']} {r['name'][:8]}」**  Score {score}  Tier {tier}")
 
-            # Row 1: Price + Key metrics
-            c1, c2, c3, c4, c5, c6 = st.columns(6)
-            c1.markdown("**Price**\n$" + str(round(r['price'], 2)))
-            c2.markdown("**Chg**\n" + str(round(r['chg'], 2)) + "%")
-            rsi_v = r['rsi']
-            rsi_st = "Overbought" if rsi_v > 70 else "Oversold" if rsi_v < 35 else "OK"
-            c3.markdown("**RSI**\n" + str(round(rsi_v, 0)) + " - " + rsi_st)
-            kd_st = "Golden!" if r['kd_golden'] else "OK"
-            c4.markdown("**K/D**\n" + str(round(r['k'], 0)) + "/" + str(round(r['d'], 0)) + " - " + kd_st)
-            bb_st = "Oversold" if r['bb_pct'] < 20 else "Overbought" if r['bb_pct'] > 80 else "Neutral"
-            c5.markdown("**BB%**\n" + str(round(r['bb_pct'], 0)) + "% - " + bb_st)
-            bias_st = "High" if abs(r['bias5']) > 3 else "Normal"
-            c6.markdown("**BIAS5**\n" + str(round(r['bias5'], 1)) + "% - " + bias_st)
-
-            # Row 2: MA/MACD/Vol
-            d1, d2, d3, d4, d5 = st.columns(5)
-            d1.markdown("**MA20**\n$" + str(round(r['ma20'], 0)))
-            if r['ma60']:
-                d2.markdown("**MA60**\n$" + str(round(r['ma60'], 0)))
+            if sigs:
+                tags = "  ".join([f":{c}[{l}]" for l, c in sigs])
+                st.markdown(tags)
             else:
-                d2.markdown("**MA60**\nN/A")
-            macd_st = "Plus" if r['macd_hist'] > 0 else "Minus"
-            d3.markdown("**MACD**\n" + str(round(r['macd_hist'], 2)) + " (" + macd_st + ")")
-            vol_st = "Surge" if r['vol_ratio'] > 2 else "High" if r['vol_ratio'] > 1.5 else "Low" if r['vol_ratio'] < 0.8 else "Normal"
-            d4.markdown("**Vol**\n" + str(round(r['vol_ratio'], 1)) + "x - " + vol_st)
-            bull_st = "Bull" if r.get('bullish','N') == 'Y' else "Weak" if r.get('bullish','N') == 'W' else "Neutral"
-            d5.markdown("**Bias**\n" + r.get('bullish','N') + " - " + bull_st)
+                st.caption("No signals")
 
-            # Row 3: v2.0 Score Breakdown
-            st.markdown("**Score Breakdown (v2.0):**")
-            sb1, sb2, sb3, sb4, sb5, sb6, sb7 = st.columns(7)
-            sb1.markdown("**RSI " + str(bd.get('rsi', 0)) + "**")
-            sb2.markdown("**MACD " + str(bd.get('macd', 0)) + "**")
-            sb3.markdown("**K " + str(bd.get('k', 0)) + "**")
-            sb4.markdown("**D " + str(bd.get('d', 0)) + "**")
-            sb5.markdown("**BB " + str(bd.get('bb', 0)) + "**")
-            sb6.markdown("**MA " + str(bd.get('ma', 0)) + "**")
-            sb7.markdown("**Vol " + str(bd.get('vol', 0)) + "**")
+            # ── Row 1: Price + RSI + K/D + BB% ──
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Price", f"${r['price']:.2f}", f"{r['chg']:+.2f}%")
+            rsi_v = r['rsi']
+            rsi_delta = rsi_v - 50
+            if rsi_v > 70:       rsi_label = "Overbought"
+            elif rsi_v < 35:    rsi_label = "Oversold"
+            else:               rsi_label = f"{rsi_v:.0f} OK"
+            c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_label}")
 
-            # Institutional (TW only)
+            k_val, d_val = r['k'], r['d']
+            kd_label = "Golden!" if r['kd_golden'] else f"{k_val:.0f}/{d_val:.0f}"
+            c3.metric("K/D", kd_label, f"{k_val-d_val:+.0f}", help="K above D = bullish")
+
+            bb_v = r['bb_pct']
+            if bb_v < 20:        bb_label = "Oversold"
+            elif bb_v > 80:      bb_label = "Overbought"
+            else:                bb_label = f"{bb_v:.0f}% Neutral"
+            c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_v-50:+.0f}", help=f"Status: {bb_label}")
+
+            # ── Row 2: MA + MACD + Vol + BIAS ──
+            d1, d2, d3, d4 = st.columns(4)
+            ma_diff = r['ma20'] - r['ma60'] if r.get('ma60') else 0
+            ma_label = "Above" if r['ma20_above_ma60'] else "Below"
+            d1.metric("MA20 vs MA60", ma_label, f"{ma_diff:+.1f}" if r.get('ma60') else "N/A")
+
+            macd_v = r['macd_hist']
+            d2.metric("MACD Hist", f"{macd_v:+.2f}", f"{macd_v:+.2f}")
+
+            vol_v = r['vol_ratio']
+            vol_label = "High" if vol_v > 1.5 else "Low" if vol_v < 0.8 else "Normal"
+            d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_label}")
+
+            bias_v = r['bias5']
+            bias_label = "High" if abs(bias_v) > 3 else "Normal"
+            d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_label}")
+
+            # ── Score Breakdown ──
+            bd = r.get('score_breakdown', {})
+            st.caption(f"RSI {bd.get('rsi',0)} | MACD {bd.get('macd',0)} | K {bd.get('k',0)} | D {bd.get('d',0)} | BB {bd.get('bb',0)} | MA {bd.get('ma',0)} | Vol {bd.get('vol',0)}")
+
+            # ── Institutional (TW only) ──
             inst = r.get("inst") or {}
             if inst:
-                f_v = inst.get("foreign", 0)
-                t_v = inst.get("trust", 0)
-                d_v = inst.get("dealer", 0)
-                inst1, inst2, inst3 = st.columns(3)
-                inst1.metric("Foreign", f"{f_v:+,.0f}")
-                inst2.metric("Trust", f"{t_v:+,.0f}")
-                inst3.metric("Dealer", f"{d_v:+,.0f}")
-
-
+                f_v = inst.get("foreign",0); t_v = inst.get("trust",0); d_v = inst.get("dealer",0)
+                i1, i2, i3 = st.columns(3)
+                i1.metric("Foreign", f"{f_v:+,.0f}")
+                i2.metric("Trust",   f"{t_v:+,.0f}")
+                i3.metric("Dealer",  f"{d_v:+,.0f}")
 
         if not r:
 
@@ -1901,61 +1905,67 @@ with us_tab:
             st.session_state['us_single_result'] = r
             bd = r.get('score_breakdown', {})
 
-            # Signals list
+            # ── Header: Score + Signals ──
+            score = r['score']
+            tier  = r['tier']
             sigs = []
-            if r['kd_golden']: sigs.append("KD Golden")
-            if r['ma20_above_ma60']: sigs.append("MA Bullish")
-            if r['macd_hist'] > 0: sigs.append("MACD Plus")
-            if r['bb_pct'] < 20: sigs.append("BB Oversold")
-            if r['bb_pct'] > 80: sigs.append("BB Overbought")
-            if r['rsi'] < 35: sigs.append("RSI Oversold")
-            if r['rsi'] > 70: sigs.append("RSI Overbought")
-            if r['vol_ratio'] > 2.0: sigs.append("Vol Surge")
-            sigs_str = " | ".join(sigs) if sigs else "No signals"
+            if r['kd_golden']:     sigs.append(("KD Golden",    "green"))
+            if r['ma20_above_ma60']: sigs.append(("MA Bull",   "green"))
+            if r['macd_hist'] > 0: sigs.append(("MACD+",       "green"))
+            if r['bb_pct'] < 20:   sigs.append(("BB Oversold",  "blue"))
+            if r['bb_pct'] > 80:   sigs.append(("BB Overbought","red"))
+            if r['rsi'] < 35:      sigs.append(("RSI Oversold", "blue"))
+            if r['rsi'] > 70:      sigs.append(("RSI Overbought","red"))
+            if r['vol_ratio'] > 2.0: sigs.append(("Vol Surge", "orange"))
 
-            st.markdown("**[Tier " + r['tier'] + "] " + us_single_code + " " + r['name'] + " | Score " + str(r['score']) + "/1000**")
-            st.text(sigs_str)
+            st.markdown(f"**「{us_single_code} {r['name'][:8]}」**  Score {score}  Tier {tier}")
 
-            # Row 1: Price + Key metrics
-            c1, c2, c3, c4, c5, c6 = st.columns(6)
-            c1.markdown("**Price**\n$" + str(round(r['price'], 2)))
-            c2.markdown("**Chg**\n" + str(round(r['chg'], 2)) + "%")
-            rsi_v = r['rsi']
-            rsi_st = "Overbought" if rsi_v > 70 else "Oversold" if rsi_v < 35 else "OK"
-            c3.markdown("**RSI**\n" + str(round(rsi_v, 0)) + " - " + rsi_st)
-            kd_st = "Golden!" if r['kd_golden'] else "OK"
-            c4.markdown("**K/D**\n" + str(round(r['k'], 0)) + "/" + str(round(r['d'], 0)) + " - " + kd_st)
-            bb_st = "Oversold" if r['bb_pct'] < 20 else "Overbought" if r['bb_pct'] > 80 else "Neutral"
-            c5.markdown("**BB%**\n" + str(round(r['bb_pct'], 0)) + "% - " + bb_st)
-            bias_st = "High" if abs(r['bias5']) > 3 else "Normal"
-            c6.markdown("**BIAS5**\n" + str(round(r['bias5'], 1)) + "% - " + bias_st)
-
-            # Row 2: MA/MACD/Vol
-            d1, d2, d3, d4, d5 = st.columns(5)
-            d1.markdown("**MA20**\n$" + str(round(r['ma20'], 0)))
-            if r['ma60']:
-                d2.markdown("**MA60**\n$" + str(round(r['ma60'], 0)))
+            if sigs:
+                tags = "  ".join([f":{c}[{l}]" for l, c in sigs])
+                st.markdown(tags)
             else:
-                d2.markdown("**MA60**\nN/A")
-            macd_st = "Plus" if r['macd_hist'] > 0 else "Minus"
-            d3.markdown("**MACD**\n" + str(round(r['macd_hist'], 2)) + " (" + macd_st + ")")
-            vol_st = "Surge" if r['vol_ratio'] > 2 else "High" if r['vol_ratio'] > 1.5 else "Low" if r['vol_ratio'] < 0.8 else "Normal"
-            d4.markdown("**Vol**\n" + str(round(r['vol_ratio'], 1)) + "x - " + vol_st)
-            bull_st = "Bull" if r.get('bullish','N') == 'Y' else "Weak" if r.get('bullish','N') == 'W' else "Neutral"
-            d5.markdown("**Bias**\n" + r.get('bullish','N') + " - " + bull_st)
+                st.caption("No signals")
 
-            # Row 3: v2.0 Score Breakdown
-            st.markdown("**Score Breakdown (v2.0):**")
-            sb1, sb2, sb3, sb4, sb5, sb6, sb7 = st.columns(7)
-            sb1.markdown("**RSI " + str(bd.get('rsi', 0)) + "**")
-            sb2.markdown("**MACD " + str(bd.get('macd', 0)) + "**")
-            sb3.markdown("**K " + str(bd.get('k', 0)) + "**")
-            sb4.markdown("**D " + str(bd.get('d', 0)) + "**")
-            sb5.markdown("**BB " + str(bd.get('bb', 0)) + "**")
-            sb6.markdown("**MA " + str(bd.get('ma', 0)) + "**")
-            sb7.markdown("**Vol " + str(bd.get('vol', 0)) + "**")
+            # ── Row 1: Price + RSI + K/D + BB% ──
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Price", f"${r['price']:.2f}", f"{r['chg']:+.2f}%")
+            rsi_v = r['rsi']
+            rsi_delta = rsi_v - 50
+            if rsi_v > 70:       rsi_label = "Overbought"
+            elif rsi_v < 35:    rsi_label = "Oversold"
+            else:               rsi_label = f"{rsi_v:.0f} OK"
+            c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_label}")
 
+            k_val, d_val = r['k'], r['d']
+            kd_label = "Golden!" if r['kd_golden'] else f"{k_val:.0f}/{d_val:.0f}"
+            c3.metric("K/D", kd_label, f"{k_val-d_val:+.0f}", help="K above D = bullish")
 
+            bb_v = r['bb_pct']
+            if bb_v < 20:        bb_label = "Oversold"
+            elif bb_v > 80:      bb_label = "Overbought"
+            else:                bb_label = f"{bb_v:.0f}% Neutral"
+            c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_v-50:+.0f}", help=f"Status: {bb_label}")
+
+            # ── Row 2: MA + MACD + Vol + BIAS ──
+            d1, d2, d3, d4 = st.columns(4)
+            ma_diff = r['ma20'] - r['ma60'] if r.get('ma60') else 0
+            ma_label = "Above" if r['ma20_above_ma60'] else "Below"
+            d1.metric("MA20 vs MA60", ma_label, f"{ma_diff:+.1f}" if r.get('ma60') else "N/A")
+
+            macd_v = r['macd_hist']
+            d2.metric("MACD Hist", f"{macd_v:+.2f}", f"{macd_v:+.2f}")
+
+            vol_v = r['vol_ratio']
+            vol_label = "High" if vol_v > 1.5 else "Low" if vol_v < 0.8 else "Normal"
+            d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_label}")
+
+            bias_v = r['bias5']
+            bias_label = "High" if abs(bias_v) > 3 else "Normal"
+            d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_label}")
+
+            # ── Score Breakdown ──
+            bd = r.get('score_breakdown', {})
+            st.caption(f"RSI {bd.get('rsi',0)} | MACD {bd.get('macd',0)} | K {bd.get('k',0)} | D {bd.get('d',0)} | BB {bd.get('bb',0)} | MA {bd.get('ma',0)} | Vol {bd.get('vol',0)}")
 
         if not r:
 
