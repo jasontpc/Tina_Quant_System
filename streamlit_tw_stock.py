@@ -391,99 +391,119 @@ def analyze(code, market='TW'):
         vol_ma5 = float(vol.rolling(5).mean().iloc[-1])
         vol_ratio = float(vol.iloc[-1] / vol_ma5) if vol_ma5 > 0 else 1.0
         bullish = "Y" if (ma_bull and macd_bull) else ("W" if macd_bull else "N")
-        # ── Tina Brain 1000 Tech Score ────────────────────────────────
-        # RSI: 250pts | MACD: 200pts | K: 150pts | D: 100pts
-        # BB%: 150pts | MA: 100pts | Vol: 50pts
-        if rsi < 30:
-            rsi_s = 250
-        elif rsi < 35:
-            rsi_s = 220
-        elif rsi < 40:
-            rsi_s = 175
-        elif rsi < 45:
+        # ── Tina Brain v2.0 Scoring (1000 max) ─────────────────────
+        # RSI: 200 | MACD: 200 | K: 150 | D: 100 | BB%: 150 | MA: 100 | Vol: 50 | Trend: 150
+        # Key principle: reward STRENGTH not WEAKNESS
+
+        # RSI: 200pts — reward moderate (45-55 = best), reduce oversold reward
+        if 45 <= rsi <= 55:
+            rsi_s = 200
+        elif 40 <= rsi < 45:
+            rsi_s = 150
+        elif 55 < rsi <= 60:
             rsi_s = 130
-        elif rsi < 50:
-            rsi_s = 90
-        elif rsi < 55:
-            rsi_s = 55
-        elif rsi < 60:
+        elif 35 <= rsi < 40:
+            rsi_s = 100
+        elif 60 < rsi <= 65:
+            rsi_s = 80
+        elif rsi < 30:
+            rsi_s = 60   # oversold but NOT automatically a buy signal
+        elif 30 <= rsi < 35:
+            rsi_s = 80
+        elif 65 < rsi <= 70:
             rsi_s = 30
-        elif rsi < 65:
-            rsi_s = 15
-        elif rsi < 70:
-            rsi_s = 5
         else:
             rsi_s = 0
+
+        # MACD: 200pts — require STRENGTH, not just >0
         if macd_hist > 2:
             macd_s = 200
-        elif macd_hist > 1:
+        elif macd_hist > 1.5:
             macd_s = 170
+        elif macd_hist > 1.0:
+            macd_s = 140
         elif macd_hist > 0.5:
-            macd_s = 130
+            macd_s = 100
         elif macd_hist > 0:
-            macd_s = 80
-        elif macd_hist > -0.5:
-            macd_s = 40
+            macd_s = 50    # just positive = marginal
+        elif macd_hist > -1:
+            macd_s = 20
         else:
             macd_s = 0
-        if k_val < 20:
+
+        # K: 150pts — reward MOMENTUM (40-70 = strongest), low K = weakness
+        if 45 <= k_val <= 70:
             k_s = 150
-        elif k_val < 30:
-            k_s = 130
-        elif k_val < 40:
-            k_s = 90
-        elif k_val < 50:
-            k_s = 50
-        elif k_val < 60:
-            k_s = 25
-        elif k_val < 70:
-            k_s = 10
+        elif 35 <= k_val < 45:
+            k_s = 110
+        elif 70 < k_val <= 80:
+            k_s = 100
+        elif 25 <= k_val < 35:
+            k_s = 60
+        elif k_val < 25:
+            k_s = 20    # low K = weak momentum
         else:
             k_s = 0
-        if d_val < 20:
+
+        # D: 100pts — same logic, mid-range = strong
+        if 45 <= d_val <= 70:
             d_s = 100
-        elif d_val < 30:
-            d_s = 80
-        elif d_val < 40:
-            d_s = 50
-        elif d_val < 50:
-            d_s = 25
-        elif d_val < 60:
+        elif 35 <= d_val < 45:
+            d_s = 70
+        elif 70 < d_val <= 80:
+            d_s = 60
+        elif 25 <= d_val < 35:
+            d_s = 40
+        elif d_val < 25:
             d_s = 10
         else:
             d_s = 0
-        if bb_pct < 10:
+
+        # BB%: 150pts — reward NORMAL range (20-45), extremes get less
+        if 20 <= bb_pct <= 45:
             bb_s = 150
-        elif bb_pct < 20:
-            bb_s = 130
-        elif bb_pct < 30:
+        elif 10 <= bb_pct < 20:
             bb_s = 100
-        elif bb_pct < 40:
-            bb_s = 60
-        elif bb_pct < 50:
-            bb_s = 30
-        elif bb_pct < 70:
-            bb_s = 10
+        elif 45 < bb_pct <= 60:
+            bb_s = 100
+        elif 5 <= bb_pct < 10:
+            bb_s = 50
+        elif 60 < bb_pct <= 80:
+            bb_s = 50
         else:
-            bb_s = 0
-        ma_s = 100 if ma_bull else 0
-        if vol_ratio >= 2.0:
+            bb_s = 20
+
+        # MA multi-tier: 100pts
+        ma5_val = float(ma5.iloc[-1]) if not np.isnan(float(ma5.iloc[-1])) else price
+        if ma5_val > ma20 > (ma60 or 0):
+            ma_s = 100   # 3-tier bullish
+        elif ma20 > (ma60 or 0):
+            ma_s = 60    # 2-tier bullish
+        else:
+            ma_s = 0
+
+        # Vol: 50pts — add finer granularity
+        if vol_ratio >= 2.5:
             vol_s = 50
+        elif vol_ratio >= 2.0:
+            vol_s = 45
         elif vol_ratio >= 1.5:
-            vol_s = 40
+            vol_s = 35
         elif vol_ratio >= 1.2:
-            vol_s = 30
+            vol_s = 25
         elif vol_ratio >= 1.0:
             vol_s = 15
-        else:
+        elif vol_ratio >= 0.8:
             vol_s = 5
+        else:
+            vol_s = 0
         score = rsi_s + macd_s + k_s + d_s + bb_s + ma_s + vol_s
-        # Grade from score
-        if score >= 700:
+        # Grade from score (v2.0 — stricter thresholds)
+        if score >= 750:
             tier = "A"
-        elif score >= 500:
+        elif score >= 550:
             tier = "B"
-        elif score >= 300:
+        elif score >= 350:
             tier = "C"
         else:
             tier = "D"
