@@ -1223,14 +1223,10 @@ with tw_tab:
             results = []
 
         filtered = [r for r in results
-
-                    if r['rsi'] <= tw_rsi_max
-
-                    and r['tier'] in tw_grade
-
-                    and r['score'] >= tw_score_min
-
-                    and (not tw_macd_filter or r['macd_hist'] >= 0)]
+                        if r['rsi'] <= tw_rsi_max
+                        and r['tier'] in tw_grade
+                        and r['score'] >= tw_score_min
+                        and (not tw_macd_filter or r['macd_hist'] >= 0)]
 
         filtered.sort(key=lambda x: x['score'], reverse=True)
 
@@ -1702,14 +1698,10 @@ with us_tab:
             results = []
 
         filtered = [r for r in results
-
-                    if r['rsi'] <= us_rsi_max
-
-                    and r['tier'] in us_grade
-
-                    and r['score'] >= us_score_min
-
-                    and (not us_macd_filter or r['macd_hist'] >= 0)]
+                        if r['rsi'] <= us_rsi_max
+                        and r['tier'] in us_grade
+                        and r['score'] >= us_score_min
+                        and (not us_macd_filter or r['macd_hist'] >= 0)]
 
         filtered.sort(key=lambda x: x['score'], reverse=True)
 
