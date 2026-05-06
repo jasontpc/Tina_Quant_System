@@ -1278,6 +1278,9 @@ with tw_tab:
 
 
 
+    else:
+        st.warning('No results returned -- check internet or try again')
+
     if filtered:
 
         rows = []
@@ -1756,6 +1759,9 @@ with us_tab:
         st.success(f"{len(results)} stocks | {len(filtered)} after filter")
 
 
+
+    else:
+        st.warning('No results returned -- check internet or try again')
 
     if filtered:
 
