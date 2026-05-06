@@ -1168,9 +1168,7 @@ with tw_tab:
 
 
     if analyze_tw:
-
         try:
-
             with st.spinner("Analyzing + Fetching Institutional..."):
 
                 def _analyze_one(idx_code):
@@ -1217,7 +1215,7 @@ with tw_tab:
 
             results = []
 
-            filtered = [r for r in results
+        filtered = [r for r in results
 
                         if r['rsi'] <= tw_rsi_max
 
@@ -1227,13 +1225,13 @@ with tw_tab:
 
                         and (not tw_macd_filter or r['macd_hist'] >= 0)]
 
-            filtered.sort(key=lambda x: x['score'], reverse=True)
+    filtered.sort(key=lambda x: x['score'], reverse=True)
 
-            st.session_state.tw_results = results
+    st.session_state.tw_results = results
 
-            st.session_state.tw_filtered = filtered
+    st.session_state.tw_filtered = filtered
 
-            st.session_state.tw_cat_saved = tw_cat
+    st.session_state.tw_cat_saved = tw_cat
 
 
 
@@ -1449,15 +1447,12 @@ with tw_tab:
         if r:
 
             st.session_state['single_result'] = r
-
         else:
-
-            st.warning(f"No data for {single_code} — try another code")
-
-            return
+            st.warning(f"No data for {single_code} -- try another code")
+            st.stop()
 
 
-        bd = r.get('score_breakdown', {})
+            bd = r.get('score_breakdown', {})
 
             # ═══════════════════════════════════════
             #  ACTION BAR
@@ -1703,13 +1698,13 @@ with us_tab:
 
                         and (not us_macd_filter or r['macd_hist'] >= 0)]
 
-            filtered.sort(key=lambda x: x['score'], reverse=True)
+    filtered.sort(key=lambda x: x['score'], reverse=True)
 
-            st.session_state.us_results = results
+    st.session_state.us_results = results
 
-            st.session_state.us_filtered = filtered
+    st.session_state.us_filtered = filtered
 
-            st.session_state.us_cat_saved = us_cat
+    st.session_state.us_cat_saved = us_cat
 
 
 
@@ -1915,18 +1910,15 @@ with us_tab:
         if r:
 
             st.session_state['us_single_result'] = r
-
         else:
-
-            st.warning(f"No data for {us_single_code} — try another code")
-
-            return
+            st.warning(f"No data for {us_single_code} -- try another code")
+            st.stop()
 
 
-        bd = r.get('score_breakdown', {})
+            bd = r.get('score_breakdown', {})
 
-        # ═══════════════════════════════════════
-        #  ACTION BAR
+            # ═══════════════════════════════════════
+            #  ACTION BAR
             # ═══════════════════════════════════════
             score = r['score']
             tier  = r['tier']
