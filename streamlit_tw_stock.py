@@ -49,7 +49,7 @@ def format_telegram(results, title):
         d_val = inst.get('dealer', 0)
         inst_str = f" F:{f_val:+,} T:{t_val:+,} D:{d_val:,}" if inst else ""
         macd_hist = r.get('macd_hist', 0)
-        macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
+        macd_warn = ' [?]MACD-' if macd_hist < 0 else ''
         tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'  # downgrade A if MACD<
         all_lines.append(
             f"[{tier_display}] {r['code']} {r['name'][:8]}"
@@ -471,7 +471,7 @@ def analyze(code, market='TW'):
 st.set_page_config(page_title="Tina Scanner v3.0", page_icon="📈", layout="wide")
 st.title("📈 Tina Scanner v3.0 — TW+US Tech Scoring")
 
-tw_tab, us_tab, brain_tab = st.tabs(["📊 Taiwan", "🇺🇸 US", "🧠 Brain"])
+tw_tab, us_tab, brain_tab = st.tabs(["[CHART] Taiwan", "🇺🇸 US", "[BRN] Brain"])
 
 # ── Market Overview ──────────────────────────────────────────────────────
 try:
@@ -488,7 +488,7 @@ try:
             loss = (-delta.clip(upper=0)).rolling(14).mean()
             rs = avg / loss.replace(0, np.nan)
             twii_rsi = float(100.0 - (100.0 / (1.0 + rs)).iloc[-1])
-        rsi_label = "🔴 過熱" if twii_rsi and twii_rsi > 70 else ("🟡 偏多" if twii_rsi and twii_rsi > 50 else "🟢 中性")
+        rsi_label = "[ERR] 過熱" if twii_rsi and twii_rsi > 70 else ("🟡 偏多" if twii_rsi and twii_rsi > 50 else "🟢 中性")
         m = st.columns(3)
         m[0].metric("TWII", f"{close_now:,.0f}", f"{chg:+.2f}%")
         m[1].metric("TWII RSI 14", f"{twii_rsi:.0f}" if twii_rsi else "N/A")
@@ -740,15 +740,15 @@ with tw_tab:
             </div>""", unsafe_allow_html=True)
             # ── Technical Signals ──
             sigs = []
-            if r['kd_golden']: sigs.append(("✅", "KD Golden Cross", "#00cc66"))
-            if r['ma20_above_ma60']: sigs.append(("✅", "MA 多頭排列", "#00cc66"))
-            if r['macd_hist'] > 0: sigs.append(("✅", "MACD 紅柱", "#00cc66"))
+            if r['kd_golden']: sigs.append(("[OK]", "KD Golden Cross", "#00cc66"))
+            if r['ma20_above_ma60']: sigs.append(("[OK]", "MA 多頭排列", "#00cc66"))
+            if r['macd_hist'] > 0: sigs.append(("[OK]", "MACD 紅柱", "#00cc66"))
             if r['bb_pct'] < 20: sigs.append(("📉", "BB 超賣區", "#00aaff"))
             if r['rsi'] < 35: sigs.append(("📉", "RSI 超賣 <35", "#00aaff"))
             if r['rsi'] > 70: sigs.append(("📈", "RSI 超買 >70", "#ff4444"))
             if r['bias5'] < -5: sigs.append(("⬇️", "BIAS5 偏離下方", "#00aaff"))
             if r['bias5'] > 5: sigs.append(("⬆️", "BIAS5 偏離上方", "#ff4444"))
-            if r['vol_ratio'] > 2.0: sigs.append(("📊", "成交量放大", "#ffaa00"))
+            if r['vol_ratio'] > 2.0: sigs.append(("[CHART]", "成交量放大", "#ffaa00"))
             if r['bb_pct'] > 80: sigs.append(("📈", "BB 超買區", "#ff4444"))
             sigs_html = " ".join([f"<span style='background:#f0f0f0;padding:4px 8px;border-radius:4px;margin:2px;display:inline-block;color:{c}'>{ico} {txt}</span>" for ico,txt,c in sigs])
             if sigs_html:
@@ -774,13 +774,13 @@ with tw_tab:
                 score_detail = f"RSI={r['rsi']:.0f}/250 MACD={macd_hist:+.2f}/200 K={r['k']:.0f}/150 D={r['d']:.0f}/100 BB%={r['bb_pct']:.0f}/150 MA={'Y' if r['ma20_above_ma60'] else 'N'}/100 Vol={r['vol_ratio']:.1f}x/50"
                 inst = r.get('inst') or {}
                 f_val = inst.get('foreign',0); t_val = inst.get('trust',0); d_val = inst.get('dealer',0)
-                msg = (f"📊 **{single_code} {r['name'][:12]}** Deep Analysis\n"
+                msg = (f"[CHART] **{single_code} {r['name'][:12]}** Deep Analysis\n"
                        f"─────────────────────\n"
                        f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
                        f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
                        f"📈 {score_detail}\n"
                        f"📉 BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
-                       f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
+                       f"[CHART] MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
                        f"📦 {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}\n"
                        f"法人: F={f_val:+,} T={t_val:+,} D={d_val:+,}")
                 ok, err = push_telegram(msg)
@@ -796,13 +796,13 @@ with tw_tab:
             score_detail = f"RSI={r['rsi']:.0f}/250 MACD={macd_hist:+.2f}/200 K={r['k']:.0f}/150 D={r['d']:.0f}/100 BB%={r['bb_pct']:.0f}/150 MA={'Y' if r['ma20_above_ma60'] else 'N'}/100 Vol={r['vol_ratio']:.1f}x/50"
             inst = r.get('inst') or {}
             f_val = inst.get('foreign',0); t_val = inst.get('trust',0); d_val = inst.get('dealer',0)
-            msg = (f"📊 **{single_code} {r['name'][:12]}** Deep Analysis\n"
+            msg = (f"[CHART] **{single_code} {r['name'][:12]}** Deep Analysis\n"
                    f"─────────────────────\n"
                    f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
                    f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
                    f"📈 {score_detail}\n"
                    f"📉 BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
-                   f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
+                   f"[CHART] MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
                    f"📦 {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}\n"
                    f"法人: F={f_val:+,} T={t_val:+,} D={d_val:+,}")
             with st.spinner("Auto-sending to Telegram..."):
@@ -1069,15 +1069,15 @@ with us_tab:
             </div>""", unsafe_allow_html=True)
             # ── Technical Signals ──
             sigs = []
-            if r['kd_golden']: sigs.append(("✅", "KD Golden Cross", "#00cc66"))
-            if r['ma20_above_ma60']: sigs.append(("✅", "MA 多頭排列", "#00cc66"))
-            if r['macd_hist'] > 0: sigs.append(("✅", "MACD 紅柱", "#00cc66"))
+            if r['kd_golden']: sigs.append(("[OK]", "KD Golden Cross", "#00cc66"))
+            if r['ma20_above_ma60']: sigs.append(("[OK]", "MA 多頭排列", "#00cc66"))
+            if r['macd_hist'] > 0: sigs.append(("[OK]", "MACD 紅柱", "#00cc66"))
             if r['bb_pct'] < 20: sigs.append(("📉", "BB 超賣區", "#00aaff"))
             if r['rsi'] < 35: sigs.append(("📉", "RSI 超賣 <35", "#00aaff"))
             if r['rsi'] > 70: sigs.append(("📈", "RSI 超買 >70", "#ff4444"))
             if r['bias5'] < -5: sigs.append(("⬇️", "BIAS5 偏離下方", "#00aaff"))
             if r['bias5'] > 5: sigs.append(("⬆️", "BIAS5 偏離上方", "#ff4444"))
-            if r['vol_ratio'] > 2.0: sigs.append(("📊", "成交量放大", "#ffaa00"))
+            if r['vol_ratio'] > 2.0: sigs.append(("[CHART]", "成交量放大", "#ffaa00"))
             if r['bb_pct'] > 80: sigs.append(("📈", "BB 超買區", "#ff4444"))
             sigs_html = " ".join([f"<span style='background:#f0f0f0;padding:4px 8px;border-radius:4px;margin:2px;display:inline-block;color:{c}'>{ico} {txt}</span>" for ico,txt,c in sigs])
             if sigs_html:
@@ -1090,13 +1090,13 @@ with us_tab:
                 inst = r.get('inst') or {}
                 f_v = inst.get('foreign',0); t_v = inst.get('trust',0); d_v = inst.get('dealer',0)
                 ma60_val = r.get('ma60', None)
-                msg = (f"📊 **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
+                msg = (f"[CHART] **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
                        f"─────────────────────\n"
                        f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
                        f"🏆 Tier: [{tier_d}] | Score: {r['score']:.0f}/1000\n"
                        f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n"
                        f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_h:+.2f}\n"
-                       f"📊 MA20=${r['ma20']:.0f} MA60={f"${ma60_val:.0f}" if ma60_val else 'N/A'}\n"
+                       f"[CHART] MA20=${r['ma20']:.0f} MA60={f"${ma60_val:.0f}" if ma60_val else 'N/A'}\n"
                        f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
                        f"法人: F={f_v:+,} T={t_v:+,} D={d_v:+,}")
                 ok, err = push_telegram(msg)
@@ -1111,13 +1111,13 @@ with us_tab:
             inst = r.get('inst') or {}
             f_v = inst.get('foreign',0); t_v = inst.get('trust',0); d_v = inst.get('dealer',0)
             ma60_val = r.get('ma60', None)
-            msg = (f"📊 **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
+            msg = (f"[CHART] **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
                    f"─────────────────────\n"
                    f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
                    f"🏆 Tier: [{tier_d}] | Score: {r['score']:.0f}/1000\n"
                    f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n"
                    f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_h:+.2f}\n"
-                   f"📊 MA20=${r['ma20']:.0f} MA60={f"${ma60_val:.0f}" if ma60_val else 'N/A'}\n"
+                   f"[CHART] MA20=${r['ma20']:.0f} MA60={f"${ma60_val:.0f}" if ma60_val else 'N/A'}\n"
                    f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
                    f"法人: F={f_v:+,} T={t_v:+,} D={d_v:+,}")
             with st.spinner("Auto-sending to Telegram..."):
