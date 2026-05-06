@@ -999,6 +999,18 @@ with us_tab:
             r = analyze(us_single_code, "US")
         if r:
             st.session_state['us_single_result'] = r
+            # ── Technical Signals (init early for st.caption below) ──
+            sigs = []
+            if r['kd_golden']: sigs.append(("✔", "KD Golden Cross", "#00cc66"))
+            if r['ma20_above_ma60']: sigs.append(("✔", "MA 多頭排列", "#00cc66"))
+            if r['macd_hist'] > 0: sigs.append(("✔", "MACD 紅柱", "#00cc66"))
+            if r['bb_pct'] < 20: sigs.append(("📉", "BB 超賣區", "#00aaff"))
+            if r['rsi'] < 35: sigs.append(("📉", "RSI 超賣 <35", "#00aaff"))
+            if r['rsi'] > 70: sigs.append(("📈", "RSI 超買 >70", "#ff4444"))
+            if r['bias5'] < -5: sigs.append(("⬇️", "BIAS5 偏離下方", "#00aaff"))
+            if r['bias5'] > 5: sigs.append(("⬆️", "BIAS5 偏離上方", "#ff4444"))
+            if r['vol_ratio'] > 2.0: sigs.append(("📊", "成交量放大", "#ffaa00"))
+            if r['bb_pct'] > 80: sigs.append(("📈", "BB 超買區", "#ff4444"))
             m1, m2, m3, m4 = st.columns(4)
             m1.metric("Price", f"${r['price']:.2f}")
             m2.metric("Change", f"{r['chg']:+.2f}%")
