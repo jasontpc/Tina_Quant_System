@@ -814,7 +814,7 @@ with tw_tab:
                 st.success("[ENV] Auto-sent!")
             else:
                 st.error(f"Auto-send failed: {err}")
-        else:
+        elif not r:
             st.warning(f"Cannot find data for {single_code}")
 
 
