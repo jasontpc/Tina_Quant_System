@@ -22,37 +22,28 @@ FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or st.secrets.get("finmind_token", ""
 
 import json
 
-class NoAttrDictEncoder(json.JSONEncoder):
-    def default(self, obj):
-        # Convert any object with __dict__ (like AttrDict) to plain dict
-        if hasattr(obj, '__dict__'):
-            return {k: NoAttrDictEncoder().default(v) for k, v in obj.__dict__.items()}
-        # Fallback: convert to string
-        try:
-            return super().default(obj)
-        except TypeError:
-            return str(obj)
-
-def make_serializable_str(msg):
-    """Recursively convert any object to a plain string"""
-    if isinstance(msg, str):
-        return msg
-    elif isinstance(msg, dict):
-        return {k: make_serializable_str(v) for k, v in msg.items()}
-    elif isinstance(msg, (list, tuple)):
-        return [make_serializable_str(x) for x in msg]
-    elif hasattr(msg, '__dict__'):
-        # AttrDict or similar — convert to plain dict then stringify
-        d = {k: make_serializable_str(v) for k, v in msg.__dict__.items()}
-        return str(d)
-    else:
-        return str(msg)
+def _to_json_safe(obj):
+    """Recursively convert any object (including AttrDict/dict subclasses) to plain Python types."""
+    if hasattr(obj, '__class__') and obj.__class__.__name__ == 'AttrDict':
+        obj = dict(obj)
+    if isinstance(obj, dict):
+        return {k: _to_json_safe(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_to_json_safe(x) for x in obj]
+    if isinstance(obj, str):
+        return obj
+    try:
+        json.dumps(obj)
+        return obj
+    except TypeError:
+        return str(obj)
 
 def push_telegram(message):
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
-    # Recursively convert any non-JSON-serializable objects in the message
-    safe_msg = make_serializable_str(message)
-    data = json.dumps({'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}, cls=NoAttrDictEncoder).encode()
+    safe_msg = str(message) if not isinstance(message, str) else message
+    payload = {'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}
+    payload = _to_json_safe(payload)
+    data = json.dumps(payload).encode()
     req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
     try:
         with urllib.request.urlopen(req, timeout=10) as resp:
