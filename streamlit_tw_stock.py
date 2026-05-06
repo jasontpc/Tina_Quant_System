@@ -25,10 +25,13 @@ def push_telegram(message):
     data = json.dumps({'chat_id': TELEGRAM_CHAT_ID, 'text': message, 'parse_mode': 'Markdown'}).encode()
     req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
     try:
-        with urllib.request.urlopen(req, timeout=10):
+        with urllib.request.urlopen(req, timeout=10) as resp:
             return True, 'OK'
+    except urllib.error.HTTPError as e:
+        body = e.read().decode('utf-8', errors='replace')[:200]
+        return False, f'HTTP {e.code}: {body}'
     except Exception as e:
-        return False, str(e)
+        return False, str(e)[:200]
 
 def format_telegram(results, title):
     if not results:
