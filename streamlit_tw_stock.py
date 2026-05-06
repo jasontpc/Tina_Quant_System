@@ -798,6 +798,7 @@ with tw_tab:
                             st.error(f"Telegram failed: {err}")
                     except Exception as ex:
                         st.error(f"Exception: {ex}")
+                    st.stop()  # Prevent rerun
         if st.session_state.get('tw_auto_send'):
             # Auto-send: analyze -> push immediately without button
             tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
