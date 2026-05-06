@@ -1429,250 +1429,79 @@ with tw_tab:
     if do_single:
 
         with st.spinner(f"Analyzing {single_code}..."):
-
             r = analyze(single_code, "TW")
 
         if r:
 
             st.session_state['single_result'] = r
+            bd = r.get('score_breakdown', {})
 
-            # ── Score Bar ──
-
-            score = r['score']
-
-            tier = r['tier']
-
-            tier_color = {"A": "green", "B": "blue", "C": "orange", "D": "red"}.get(tier, "gray")
-
-            st.markdown(f"""<div style='display:flex; align-items:center; gap:12px; margin-bottom:8px'>
-
-                <span style='font-size:24px; font-weight:bold; color:{tier_color}'>[{tier}]</span>
-
-                <span style='font-size:20px'>{r['name']}</span>
-
-                <span style='font-size:20px'>{r['code']}</span>
-
-                <span style='font-size:24px; font-weight:bold'>Score {score:.0f}/1000</span>
-
-            </div>""", unsafe_allow_html=True)
-
-            # Score progress bar
-
-            bar_color = "#00cc66" if score >= 700 else ("#00aaff" if score >= 500 else ("#ffaa00" if score >= 300 else "#ff4444"))
-
-            st.markdown(f"""<div style='background:#eee; border-radius:8px; height:24px; margin-bottom:4px'>
-
-                <div style='width:{score/10}%; background:{bar_color}; height:24px; border-radius:8px'></div>
-
-            </div>""", unsafe_allow_html=True)
-
-            # Score breakdown 7 indicators
-
-            col1, col2, col3, col4, col5, col6, col7 = st.columns([1,1,1,1,1,1,1])
-
-            score_items = [
-
-                ("RSI 250", r['rsi'], 250, [30,35,40,45,50,55,65,70,100], [250,220,175,130,90,55,30,15,5,0]),
-
-                ("MACD 200", r['macd_hist'], 200, [2,1,0.5,0,-0.5,-999], [200,170,130,80,40,0]),
-
-                ("K 150", r['k'], 150, [20,30,40,50,60,70,999], [150,130,90,50,25,10,0]),
-
-                ("D 100", r['d'], 100, [20,30,40,50,60,999], [100,80,50,25,10,0]),
-
-                ("BB% 150", r['bb_pct'], 150, [10,20,30,40,50,70,999], [150,130,100,60,30,10,0]),
-
-                ("MA 100", 100 if r['ma20_above_ma60'] else 0, 100, [50], [100,0]),
-
-                ("Vol 50", r['vol_ratio'], 50, [2.0,1.5,1.2,1.0,0], [50,40,30,15,5]),
-
-            ]
-
-            for i, (label, val, max_score, thresholds, points) in enumerate(score_items):
-
-                col = [col1,col2,col3,col4,col5,col6,col7][i]
-
-                col.markdown(f"**{label.split()[0]}**\n`{val:.1f}`→`{points[0]}`")
-
-            # ── Price + Change row ──
-
-            m1, m2, m3, m4, m5 = st.columns(5)
-
-            chg_color = "#00cc66" if r['chg'] >= 0 else "#ff4444"
-
-            m1.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>Price</div>
-
-                <div style='font-size:22px;font-weight:bold'>${r['price']:.2f}</div>
-
-                <div style='font-size:16px;color:{chg_color}'>{r['chg']:+.2f}%</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m2.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>RSI</div>
-
-                <div style='font-size:22px;font-weight:bold;color:{'red' if r['rsi']>70 else 'orange' if r['rsi']>50 else 'green'}'>{r['rsi']:.0f}</div>
-
-                <div style='font-size:11px'>14日</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m3.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>K / D</div>
-
-                <div style='font-size:22px;font-weight:bold'>{r['k']:.0f} / {r['d']:.0f}</div>
-
-                <div style='font-size:11px; color:{'#00cc66' if r['kd_golden'] else '#888'}'>{'KD金叉!' if r['kd_golden'] else 'OK'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m4.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>BB%</div>
-
-                <div style='font-size:22px;font-weight:bold'>{r['bb_pct']:.0f}%</div>
-
-                <div style='font-size:11px'>{'Oversold' if r.get('bb_pct', 50)<20 else 'Neutral' if r.get('bb_pct', 50)<50 else 'Overbought'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m5.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>BIAS5</div>
-
-                <div style='font-size:22px;font-weight:bold;color:{'red' if r['bias5']>3 else 'green' if r['bias5']<-3 else 'gray'}'>{r['bias5']:+.1f}%</div>
-
-                <div style='font-size:11px'>{'偏離' if abs(r['bias5'])>3 else '中性'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            # ── MA + MACD row ──
-
-            m1, m2, m3, m4, m5 = st.columns(5)
-
-            ma20 = r['ma20']
-
-            ma60 = r['ma60']
-
-            m1.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>MA20</div>
-
-                <div style='font-size:20px;font-weight:bold'>${ma20:.0f}</div>
-
-                <div style='font-size:11px'>{'▲MA20>60' if r['ma20_above_ma60'] else '▼MA20<60'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m2.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>MA60</div>
-
-                <div style='font-size:20px;font-weight:bold'>{f'${ma60:.0f}' if ma60 else 'N/A'}</div>
-
-                <div style='font-size:11px'>60日均線</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m3.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>MACD</div>
-
-                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r['macd_hist']>0 else '#ff4444'}'>{r['macd_hist']:+.2f}</div>
-
-                <div style='font-size:11px'>histogram</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m4.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>Vol Ratio</div>
-
-                <div style='font-size:20px;font-weight:bold'>{r['vol_ratio']:.1f}x</div>
-
-                <div style='font-size:11px'>{'放量' if r['vol_ratio']>1.5 else '正常' if r['vol_ratio']>0.8 else '縮量'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m5.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>多空</div>
-
-                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r.get('bullish')=='Y' else '#ffaa00' if r.get('bullish')=='W' else '#888'}'>{r.get('bullish','N')}</div>
-
-                <div style='font-size:11px'>{'多頭' if r.get('bullish')=='Y' else '偏多' if r.get('bullish')=='W' else '中立'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            # ── Technical Signals ──
-
+            # Signals list
             sigs = []
+            if r['kd_golden']: sigs.append("KD Golden")
+            if r['ma20_above_ma60']: sigs.append("MA Bullish")
+            if r['macd_hist'] > 0: sigs.append("MACD Plus")
+            if r['bb_pct'] < 20: sigs.append("BB Oversold")
+            if r['bb_pct'] > 80: sigs.append("BB Overbought")
+            if r['rsi'] < 35: sigs.append("RSI Oversold")
+            if r['rsi'] > 70: sigs.append("RSI Overbought")
+            if r['vol_ratio'] > 2.0: sigs.append("Vol Surge")
+            sigs_str = " | ".join(sigs) if sigs else "No signals"
 
-            if r['kd_golden']: sigs.append(("[OK]", "KD Golden Cross", "#00cc66"))
+            st.markdown("**[Tier " + r['tier'] + "] " + r['code'] + " " + r['name'] + " | Score " + str(r['score']) + "/1000**")
+            st.text(sigs_str)
 
-            if r['ma20_above_ma60']: sigs.append(("[OK]", "MA 多頭排列", "#00cc66"))
+            # Row 1: Price + Key metrics
+            c1, c2, c3, c4, c5, c6 = st.columns(6)
+            c1.markdown("**Price**\n$" + str(round(r['price'], 2)))
+            c2.markdown("**Chg**\n" + str(round(r['chg'], 2)) + "%")
+            rsi_v = r['rsi']
+            rsi_st = "Overbought" if rsi_v > 70 else "Oversold" if rsi_v < 35 else "OK"
+            c3.markdown("**RSI**\n" + str(round(rsi_v, 0)) + " - " + rsi_st)
+            kd_st = "Golden!" if r['kd_golden'] else "OK"
+            c4.markdown("**K/D**\n" + str(round(r['k'], 0)) + "/" + str(round(r['d'], 0)) + " - " + kd_st)
+            bb_st = "Oversold" if r['bb_pct'] < 20 else "Overbought" if r['bb_pct'] > 80 else "Neutral"
+            c5.markdown("**BB%**\n" + str(round(r['bb_pct'], 0)) + "% - " + bb_st)
+            bias_st = "High" if abs(r['bias5']) > 3 else "Normal"
+            c6.markdown("**BIAS5**\n" + str(round(r['bias5'], 1)) + "% - " + bias_st)
 
-            if r['macd_hist'] > 0: sigs.append(("[OK]", "MACD 紅柱", "#00cc66"))
+            # Row 2: MA/MACD/Vol
+            d1, d2, d3, d4, d5 = st.columns(5)
+            d1.markdown("**MA20**\n$" + str(round(r['ma20'], 0)))
+            if r['ma60']:
+                d2.markdown("**MA60**\n$" + str(round(r['ma60'], 0)))
+            else:
+                d2.markdown("**MA60**\nN/A")
+            macd_st = "Plus" if r['macd_hist'] > 0 else "Minus"
+            d3.markdown("**MACD**\n" + str(round(r['macd_hist'], 2)) + " (" + macd_st + ")")
+            vol_st = "Surge" if r['vol_ratio'] > 2 else "High" if r['vol_ratio'] > 1.5 else "Low" if r['vol_ratio'] < 0.8 else "Normal"
+            d4.markdown("**Vol**\n" + str(round(r['vol_ratio'], 1)) + "x - " + vol_st)
+            bull_st = "Bull" if r.get('bullish','N') == 'Y' else "Weak" if r.get('bullish','N') == 'W' else "Neutral"
+            d5.markdown("**Bias**\n" + r.get('bullish','N') + " - " + bull_st)
 
-            if r['bb_pct'] < 20: sigs.append(("[DWN]", "BB 超賣區", "#00aaff"))
+            # Row 3: v2.0 Score Breakdown
+            st.markdown("**Score Breakdown (v2.0):**")
+            sb1, sb2, sb3, sb4, sb5, sb6, sb7 = st.columns(7)
+            sb1.markdown("**RSI " + str(bd.get('rsi', 0)) + "**")
+            sb2.markdown("**MACD " + str(bd.get('macd', 0)) + "**")
+            sb3.markdown("**K " + str(bd.get('k', 0)) + "**")
+            sb4.markdown("**D " + str(bd.get('d', 0)) + "**")
+            sb5.markdown("**BB " + str(bd.get('bb', 0)) + "**")
+            sb6.markdown("**MA " + str(bd.get('ma', 0)) + "**")
+            sb7.markdown("**Vol " + str(bd.get('vol', 0)) + "**")
 
-            if r['rsi'] < 35: sigs.append(("[DWN]", "RSI 超賣 <35", "#00aaff"))
-
-            if r['rsi'] > 70: sigs.append(("[UP]", "RSI 超買 >70", "#ff4444"))
-
-            if r['bias5'] < -5: sigs.append(("⬇️", "BIAS5 偏離下方", "#00aaff"))
-
-            if r['bias5'] > 5: sigs.append(("⬆️", "BIAS5 偏離上方", "#ff4444"))
-
-            if r['vol_ratio'] > 2.0: sigs.append(("[CHART]", "成交量放大", "#ffaa00"))
-
-            if r['bb_pct'] > 80: sigs.append(("[UP]", "BB 超買區", "#ff4444"))
-
-            sigs_html = " ".join([f"<span style='background:#f0f0f0;padding:4px 8px;border-radius:4px;margin:2px;display:inline-block;color:{c}'>{ico} {txt}</span>" for ico,txt,c in sigs])
-
-            if sigs_html:
-
-                st.markdown(f"<div style='margin-top:8px'>{sigs_html}</div>", unsafe_allow_html=True)
-
-            # ── Institutional ──
-
+            # Institutional (TW only)
             inst = r.get("inst") or {}
-
             if inst:
+                f_v = inst.get("foreign", 0)
+                t_v = inst.get("trust", 0)
+                d_v = inst.get("dealer", 0)
+                inst1, inst2, inst3 = st.columns(3)
+                inst1.metric("Foreign", f"{f_v:+,.0f}")
+                inst2.metric("Trust", f"{t_v:+,.0f}")
+                inst3.metric("Dealer", f"{d_v:+,.0f}")
 
-                f = inst.get("foreign",0); t = inst.get("trust",0); d = inst.get("dealer",0)
 
-                f_color = "#00cc66" if f > 0 else "#ff4444"
-
-                t_color = "#00cc66" if t > 0 else "#ff4444"
-
-                d_color = "#00cc66" if d > 0 else "#ff4444"
-
-                st.markdown(f"""<div style='margin-top:8px; background:#f8f8f8; padding:10px; border-radius:8px'>
-
-                    <span style='font-size:12px;color:#888'>法人籌碼：</span>
-
-                    <span style='font-weight:bold;color:{f_color}'>外商 {f:+,}</span>
-
-                    <span style='font-weight:bold;color:{t_color}'> 投信 {t:+,}</span>
-
-                    <span style='font-weight:bold;color:{d_color}'> 自營 {d:+,.0f}</span>
-
-                </div>""", unsafe_allow_html=True)
-
-        # Close if r:
-
-    # ── Telegram Send Button (outside if do_single) ──
-
-    st.divider()
-
-    r = st.session_state.get("single_result")
-
-    if st.button("Send to Telegram", key="btn_single_tg", use_container_width=True):
 
         if not r:
 
@@ -2066,279 +1895,69 @@ with us_tab:
 
     if do_us_single:
 
-        with st.spinner(f"Analyzing {us_single_code}..."):
-
+        with st.spinner("Analyzing " + us_single_code + "..."):
             r = analyze(us_single_code, "US")
 
         if r:
 
             st.session_state['us_single_result'] = r
+            bd = r.get('score_breakdown', {})
 
-            # ── Technical Signals (init early for st.caption below) ──
-
-            sigs_text = []
-
-            if r['kd_golden']: sigs_text.append("KD Golden Cross")
-
-            if r['ma20_above_ma60']: sigs_text.append("MA Bullish")
-
-            if r['macd_hist'] > 0: sigs_text.append("MACD Plus")
-
-            if r['bb_pct'] < 20: sigs_text.append("BB Lower")
-
-            if r['rsi'] < 35: sigs_text.append("RSI Oversold")
-
-            if r['rsi'] > 70: sigs_text.append("RSI Overbought")
-
-            if r['bias5'] < -5: sigs_text.append("BIAS5 Below")
-
-            if r['bias5'] > 5: sigs_text.append("BIAS5 Above")
-
-            if r['vol_ratio'] > 2.0: sigs_text.append("Vol Surge")
-
-            if r['bb_pct'] > 80: sigs_text.append("BB Upper")
-
-            m1, m2, m3, m4 = st.columns(4)
-
-            m1.metric("Price", f"${r['price']:.2f}")
-
-            m2.metric("Change", f"{r['chg']:+.2f}%")
-
-            m3.metric("RSI", f"{r['rsi']:.0f}")
-
-            m4.metric("Tier", r['tier'])
-
-            m1, m2, m3, m4 = st.columns(4)
-
-            m1.metric("K", f"{r['k']:.0f}")
-
-            m2.metric("D", f"{r['d']:.0f}")
-
-            m3.metric("BB%", f"{r['bb_pct']:.0f}%")
-
-            m4.metric("BIAS5", f"{r['bias5']:+.1f}%")
-
-            m1, m2, m3, m4 = st.columns(4)
-
-            st.caption(" | ".join(sigs_text) if sigs_text else "No special signals")
-
-            # ── Score Bar ──
-
-            score = r['score']
-
-            tier = r['tier']
-
-            tier_color = {"A": "green", "B": "blue", "C": "orange", "D": "red"}.get(tier, "gray")
-
-            st.markdown(f"""<div style='display:flex; align-items:center; gap:12px; margin-bottom:8px'>
-
-                <span style='font-size:24px; font-weight:bold; color:{tier_color}'>[{tier}]</span>
-
-                <span style='font-size:20px'>{r['name']}</span>
-
-                <span style='font-size:20px'>{us_single_code}</span>
-
-                <span style='font-size:24px; font-weight:bold'>Score {score:.0f}/1000</span>
-
-            </div>""", unsafe_allow_html=True)
-
-            bar_color = "#00cc66" if score >= 700 else ("#00aaff" if score >= 500 else ("#ffaa00" if score >= 300 else "#ff4444"))
-
-            st.markdown(f"""<div style='background:#eee; border-radius:8px; height:24px; margin-bottom:4px'>
-
-                <div style='width:{score/10}%; background:{bar_color}; height:24px; border-radius:8px'></div>
-
-            </div>""", unsafe_allow_html=True)
-
-            col1, col2, col3, col4, col5, col6, col7 = st.columns([1,1,1,1,1,1,1])
-
-            score_items = [
-
-                ("RSI", r['rsi'], [30,35,40,45,50,55,65,70,100], [250,220,175,130,90,55,30,15,5,0]),
-
-                ("MACD", r['macd_hist'], [2,1,0.5,0,-0.5,-999], [200,170,130,80,40,0]),
-
-                ("K", r['k'], [20,30,40,50,60,70,999], [150,130,90,50,25,10,0]),
-
-                ("D", r['d'], [20,30,40,50,60,999], [100,80,50,25,10,0]),
-
-                ("BB%", r['bb_pct'], [10,20,30,40,50,70,999], [150,130,100,60,30,10,0]),
-
-                ("MA", 100 if r['ma20_above_ma60'] else 0, [50], [100,0]),
-
-                ("Vol", r['vol_ratio'], [2.0,1.5,1.2,1.0,0], [50,40,30,15,5]),
-
-            ]
-
-            def get_score(val, thresholds, points):
-
-                for i, t in enumerate(thresholds):
-
-                    if val < t:
-
-                        return points[i]
-
-                return points[-1]
-
-            for i, (label, val, thresholds, points) in enumerate(score_items):
-
-                col = [col1,col2,col3,col4,col5,col6,col7][i]
-
-                sc = get_score(val, thresholds, points)
-
-                col.markdown(f"**{label}**\n`{val:.1f}`→`{sc}`")
-
-            # ── Price + Change row ──
-
-            m1, m2, m3, m4, m5 = st.columns(5)
-
-            chg_color = "#00cc66" if r['chg'] >= 0 else "#ff4444"
-
-            m1.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>Price</div>
-
-                <div style='font-size:22px;font-weight:bold'>${r['price']:.2f}</div>
-
-                <div style='font-size:16px;color:{chg_color}'>{r['chg']:+.2f}%</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m2.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>RSI</div>
-
-                <div style='font-size:22px;font-weight:bold;color:{'red' if r['rsi']>70 else 'orange' if r['rsi']>50 else 'green'}'>{r['rsi']:.0f}</div>
-
-                <div style='font-size:11px'>14日</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m3.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>K / D</div>
-
-                <div style='font-size:22px;font-weight:bold'>{r['k']:.0f} / {r['d']:.0f}</div>
-
-                <div style='font-size:11px; color:{'#00cc66' if r['kd_golden'] else '#888'}'>{'KD金叉!' if r['kd_golden'] else 'OK'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m4.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>BB%</div>
-
-                <div style='font-size:22px;font-weight:bold'>{r['bb_pct']:.0f}%</div>
-
-                <div style='font-size:11px'>{'Oversold' if r.get('bb_pct', 50)<20 else 'Neutral' if r.get('bb_pct', 50)<50 else 'Overbought'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m5.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>BIAS5</div>
-
-                <div style='font-size:22px;font-weight:bold;color:{'red' if r['bias5']>3 else 'green' if r['bias5']<-3 else 'gray'}'>{r['bias5']:+.1f}%</div>
-
-                <div style='font-size:11px'>{'偏離' if abs(r['bias5'])>3 else '中性'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            # ── MA + MACD row ──
-
-            m1, m2, m3, m4, m5 = st.columns(5)
-
-            ma60 = r['ma60']
-
-            m1.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>MA20</div>
-
-                <div style='font-size:20px;font-weight:bold'>${r['ma20']:.0f}</div>
-
-                <div style='font-size:11px'>{'▲MA20>60' if r['ma20_above_ma60'] else '▼MA20<60'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m2.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>MA60</div>
-
-                <div style='font-size:20px;font-weight:bold'>{f'${ma60:.0f}' if ma60 else 'N/A'}</div>
-
-                <div style='font-size:11px'>60日均線</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m3.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>MACD</div>
-
-                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r['macd_hist']>0 else '#ff4444'}'>{r['macd_hist']:+.2f}</div>
-
-                <div style='font-size:11px'>histogram</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m4.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>Vol Ratio</div>
-
-                <div style='font-size:20px;font-weight:bold'>{r['vol_ratio']:.1f}x</div>
-
-                <div style='font-size:11px'>{'放量' if r['vol_ratio']>1.5 else '正常' if r['vol_ratio']>0.8 else '縮量'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            m5.markdown(f"""<div style='text-align:center'>
-
-                <div style='font-size:11px;color:#888'>多空</div>
-
-                <div style='font-size:20px;font-weight:bold;color:{'#00cc66' if r.get('bullish')=='Y' else '#ffaa00' if r.get('bullish')=='W' else '#888'}'>{r.get('bullish','N')}</div>
-
-                <div style='font-size:11px'>{'多頭' if r.get('bullish')=='Y' else '偏多' if r.get('bullish')=='W' else '中立'}</div>
-
-            </div>""", unsafe_allow_html=True)
-
-            # ── Technical Signals ──
-
+            # Signals list
             sigs = []
+            if r['kd_golden']: sigs.append("KD Golden")
+            if r['ma20_above_ma60']: sigs.append("MA Bullish")
+            if r['macd_hist'] > 0: sigs.append("MACD Plus")
+            if r['bb_pct'] < 20: sigs.append("BB Oversold")
+            if r['bb_pct'] > 80: sigs.append("BB Overbought")
+            if r['rsi'] < 35: sigs.append("RSI Oversold")
+            if r['rsi'] > 70: sigs.append("RSI Overbought")
+            if r['vol_ratio'] > 2.0: sigs.append("Vol Surge")
+            sigs_str = " | ".join(sigs) if sigs else "No signals"
 
-            if r['kd_golden']: sigs.append(("[OK]", "KD Golden Cross", "#00cc66"))
+            st.markdown("**[Tier " + r['tier'] + "] " + us_single_code + " " + r['name'] + " | Score " + str(r['score']) + "/1000**")
+            st.text(sigs_str)
 
-            if r['ma20_above_ma60']: sigs.append(("[OK]", "MA 多頭排列", "#00cc66"))
+            # Row 1: Price + Key metrics
+            c1, c2, c3, c4, c5, c6 = st.columns(6)
+            c1.markdown("**Price**\n$" + str(round(r['price'], 2)))
+            c2.markdown("**Chg**\n" + str(round(r['chg'], 2)) + "%")
+            rsi_v = r['rsi']
+            rsi_st = "Overbought" if rsi_v > 70 else "Oversold" if rsi_v < 35 else "OK"
+            c3.markdown("**RSI**\n" + str(round(rsi_v, 0)) + " - " + rsi_st)
+            kd_st = "Golden!" if r['kd_golden'] else "OK"
+            c4.markdown("**K/D**\n" + str(round(r['k'], 0)) + "/" + str(round(r['d'], 0)) + " - " + kd_st)
+            bb_st = "Oversold" if r['bb_pct'] < 20 else "Overbought" if r['bb_pct'] > 80 else "Neutral"
+            c5.markdown("**BB%**\n" + str(round(r['bb_pct'], 0)) + "% - " + bb_st)
+            bias_st = "High" if abs(r['bias5']) > 3 else "Normal"
+            c6.markdown("**BIAS5**\n" + str(round(r['bias5'], 1)) + "% - " + bias_st)
 
-            if r['macd_hist'] > 0: sigs.append(("[OK]", "MACD 紅柱", "#00cc66"))
+            # Row 2: MA/MACD/Vol
+            d1, d2, d3, d4, d5 = st.columns(5)
+            d1.markdown("**MA20**\n$" + str(round(r['ma20'], 0)))
+            if r['ma60']:
+                d2.markdown("**MA60**\n$" + str(round(r['ma60'], 0)))
+            else:
+                d2.markdown("**MA60**\nN/A")
+            macd_st = "Plus" if r['macd_hist'] > 0 else "Minus"
+            d3.markdown("**MACD**\n" + str(round(r['macd_hist'], 2)) + " (" + macd_st + ")")
+            vol_st = "Surge" if r['vol_ratio'] > 2 else "High" if r['vol_ratio'] > 1.5 else "Low" if r['vol_ratio'] < 0.8 else "Normal"
+            d4.markdown("**Vol**\n" + str(round(r['vol_ratio'], 1)) + "x - " + vol_st)
+            bull_st = "Bull" if r.get('bullish','N') == 'Y' else "Weak" if r.get('bullish','N') == 'W' else "Neutral"
+            d5.markdown("**Bias**\n" + r.get('bullish','N') + " - " + bull_st)
 
-            if r['bb_pct'] < 20: sigs.append(("[DWN]", "BB 超賣區", "#00aaff"))
-
-            if r['rsi'] < 35: sigs.append(("[DWN]", "RSI 超賣 <35", "#00aaff"))
-
-            if r['rsi'] > 70: sigs.append(("[UP]", "RSI 超買 >70", "#ff4444"))
-
-            if r['bias5'] < -5: sigs.append(("⬇️", "BIAS5 偏離下方", "#00aaff"))
-
-            if r['bias5'] > 5: sigs.append(("⬆️", "BIAS5 偏離上方", "#ff4444"))
-
-            if r['vol_ratio'] > 2.0: sigs.append(("[CHART]", "成交量放大", "#ffaa00"))
-
-            if r['bb_pct'] > 80: sigs.append(("[UP]", "BB 超買區", "#ff4444"))
-
-            sigs_html = " ".join([f"<span style='background:#f0f0f0;padding:4px 8px;border-radius:4px;margin:2px;display:inline-block;color:{c}'>{ico} {txt}</span>" for ico,txt,c in sigs])
-
-            if sigs_html:
-
-                st.markdown(f"<div style='margin-top:8px'>{sigs_html}</div>", unsafe_allow_html=True)
+            # Row 3: v2.0 Score Breakdown
+            st.markdown("**Score Breakdown (v2.0):**")
+            sb1, sb2, sb3, sb4, sb5, sb6, sb7 = st.columns(7)
+            sb1.markdown("**RSI " + str(bd.get('rsi', 0)) + "**")
+            sb2.markdown("**MACD " + str(bd.get('macd', 0)) + "**")
+            sb3.markdown("**K " + str(bd.get('k', 0)) + "**")
+            sb4.markdown("**D " + str(bd.get('d', 0)) + "**")
+            sb5.markdown("**BB " + str(bd.get('bb', 0)) + "**")
+            sb6.markdown("**MA " + str(bd.get('ma', 0)) + "**")
+            sb7.markdown("**Vol " + str(bd.get('vol', 0)) + "**")
 
 
-
-    # ── Telegram Send Button (outside if do_us_single) ──
-
-    st.divider()
-
-    r = st.session_state.get('us_single_result')
-
-    if st.button("Send to Telegram", key="btn_us_single_tg", use_container_width=True):
 
         if not r:
 
