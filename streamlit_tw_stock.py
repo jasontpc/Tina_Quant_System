@@ -302,8 +302,11 @@ def fetch_price(code, market='TW'):
             return cached_h
     try:
         if market == 'TW':
+            # ETF codes with letters (like 00981A) should NOT be zfill'd
+            code_str = str(code)
+            has_letter = any(c.isalpha() for c in code_str)
             for suffix in ['.TW', '.TWO']:
-                sym = str(code).zfill(4) + suffix
+                sym = code_str + suffix if has_letter else code_str.zfill(4) + suffix
                 h = yf.Ticker(sym).history(period='6mo')
                 if h is not None and len(h) >= 30:
                     SESSION_CACHE[cache_key] = (now, h)
