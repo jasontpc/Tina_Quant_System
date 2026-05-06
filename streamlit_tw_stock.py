@@ -507,8 +507,7 @@ def analyze(code, market='TW'):
 st.set_page_config(page_title="Tina Scanner v3.0", page_icon="[UP]", layout="wide")
 st.title("[UP] Tina Scanner v3.0 — TW+US Tech Scoring")
 
-tw_tab, us_tab, brain_tab = st.tabs(["[CHART] Taiwan", "US US", "[BRN] Brain"])
-
+tw_tab, us_tab, brain_tab = st.tabs(["📊 Taiwan", "🇺🇸 US", "🧠 Brain"])
 # ── Market Overview ──────────────────────────────────────────────────────
 try:
     twii = yf.Ticker("^TWII")
