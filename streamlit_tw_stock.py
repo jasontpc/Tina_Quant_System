@@ -789,15 +789,28 @@ with tw_tab:
                        f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
                        f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
                        f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:+,}")
-                st.info(f"DEBUG: Sending... (msg len={len(msg)})")
+                # Build message
+                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+                macd_hist = r.get('macd_hist', 0)
+                tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
+                score_detail = f"RSI={r['rsi']:.0f}/250 MACD={macd_hist:+.2f}/200 K={r['k']:.0f}/150 D={r['d']:.0f}/100 BB%={r['bb_pct']:.0f}/150 MA={'Y' if r['ma20_above_ma60'] else 'N'}/100 Vol={r['vol_ratio']:.1f}x/50"
+                inst = r.get('inst') or {}
+                f_val = inst.get('foreign',0); t_val = inst.get('trust',0); d_val = inst.get('dealer',0)
+                msg = (f"[CHART] **{single_code} {r['name'][:12]}** Deep Analysis\n"
+                       f"-------------------\n"
+                       f"[MONEY] ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
+                       f"[TROPHY] Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
+                       f"[UP] {score_detail}\n"
+                       f"[DWN] BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
+                       f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
+                       f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
+                       f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:+,}")
+                # Send directly without session state
                 ok, err = push_telegram(msg)
-                st.info(f"DEBUG: ok={ok}, err={str(err)[:100]}")
                 if ok:
-                    st.session_state.tg_sent = True
-                    st.session_state.tg_err = None
+                    st.success("Telegram sent!")
                 else:
-                    st.session_state.tg_sent = False
-                    st.session_state.tg_err = err
+                    st.error(f"Failed: {err}")
         # Show result after rerun
         if st.session_state.get('tg_sent') == True:
             st.success("[ENV] Telegram sent!")
