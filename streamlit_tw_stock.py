@@ -1008,17 +1008,17 @@ with us_tab:
         if r:
             st.session_state['us_single_result'] = r
             # ── Technical Signals (init early for st.caption below) ──
-            sigs = []
-            if r['kd_golden']: sigs.append((">K<", "KD Golden Cross", "#00cc66"))
-            if r['ma20_above_ma60']: sigs.append((">M<", "MA 多頭排列", "#00cc66"))
-            if r['macd_hist'] > 0: sigs.append((">+", "MACD 紅柱", "#00cc66"))
-            if r['bb_pct'] < 20: sigs.append(("<<", "BB 超賣區", "#00aaff"))
-            if r['rsi'] < 35: sigs.append(("<<", "RSI 超賣 <35", "#00aaff"))
-            if r['rsi'] > 70: sigs.append((">>", "RSI 超買 >70", "#ff4444"))
-            if r['bias5'] < -5: sigs.append(("DN", "BIAS5 偏離下方", "#00aaff"))
-            if r['bias5'] > 5: sigs.append(("UP", "BIAS5 偏離上方", "#ff4444"))
-            if r['vol_ratio'] > 2.0: sigs.append((">>>", "成交量放大", "#ffaa00"))
-            if r['bb_pct'] > 80: sigs.append((">>", "BB 超買區", "#ff4444"))
+            sigs_text = []
+            if r['kd_golden']: sigs_text.append("KD Golden Cross")
+            if r['ma20_above_ma60']: sigs_text.append("MA Bullish")
+            if r['macd_hist'] > 0: sigs_text.append("MACD Plus")
+            if r['bb_pct'] < 20: sigs_text.append("BB Lower")
+            if r['rsi'] < 35: sigs_text.append("RSI Oversold")
+            if r['rsi'] > 70: sigs_text.append("RSI Overbought")
+            if r['bias5'] < -5: sigs_text.append("BIAS5 Below")
+            if r['bias5'] > 5: sigs_text.append("BIAS5 Above")
+            if r['vol_ratio'] > 2.0: sigs_text.append("Vol Surge")
+            if r['bb_pct'] > 80: sigs_text.append("BB Upper")
             m1, m2, m3, m4 = st.columns(4)
             m1.metric("Price", f"${r['price']:.2f}")
             m2.metric("Change", f"{r['chg']:+.2f}%")
@@ -1030,7 +1030,7 @@ with us_tab:
             m3.metric("BB%", f"{r['bb_pct']:.0f}%")
             m4.metric("BIAS5", f"{r['bias5']:+.1f}%")
             m1, m2, m3, m4 = st.columns(4)
-            st.caption(" | ".join(sigs) if sigs else "No special signals")
+            st.caption(" | ".join(sigs_text) if sigs_text else "No special signals")
             # ── Score Bar ──
             score = r['score']
             tier = r['tier']
