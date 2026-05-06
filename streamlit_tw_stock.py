@@ -308,7 +308,7 @@ def fetch_price(code, market='TW'):
             for suffix in ['.TW', '.TWO']:
                 sym = code_str + suffix if has_letter else code_str.zfill(4) + suffix
                 h = yf.Ticker(sym).history(period='6mo')
-                if h is not None and len(h) >= 30:
+                if h is not None and len(h) >= 10:
                     SESSION_CACHE[cache_key] = (now, h)
                     return h
         else:
