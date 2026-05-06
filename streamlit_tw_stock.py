@@ -1548,52 +1548,35 @@ with tw_tab:
                 i3.metric("Dealer",  f"{d_v:+,.0f}")
 
         if not r:
-
             st.warning("Please analyze a stock first")
-
         else:
-
             tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get("tier","?"), "?")
-
             macd_hist = r.get("macd_hist", 0)
-
             tier_display = tier_icon if not (tier_icon == "A" and macd_hist < 0) else "B"
-
             score_detail = f"RSI={r['rsi']:.0f}/250 MACD={macd_hist:+.2f}/200 K={r['k']:.0f}/150 D={r['d']:.0f}/100 BB%={r['bb_pct']:.0f}/150 MA={'Y' if r['ma20_above_ma60'] else 'N'}/100 Vol={r['vol_ratio']:.1f}x/50"
-
             inst = r.get("inst") or {}
-
             f_val = inst.get("foreign",0); t_val = inst.get("trust",0); d_val = inst.get("dealer",0)
+            msg = (
+                f"[CHART] **{single_code} {r['name'][:12]}** Deep Analysis\n"
+                f"-------------------\n"
+                f"[MONEY] ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
+                f"[TROPHY] Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
+                f"[UP] {score_detail}\n"
+                f"[DWN] BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
+                f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
+                f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
+                f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:,}")
+            col1, col2 = st.columns([1, 4])
+            if col1.button("Send Telegram", use_container_width=True):
+                with col2:
+                    with st.spinner("Sending..."):
+                        ok, err = push_telegram(msg)
+                if ok:
+                    st.success("Telegram sent!")
+                else:
+                    st.error(f"Failed: {err}")
 
-            msg = (f"[CHART] **{single_code} {r['name'][:12]}** Deep Analysis\n"
 
-                   f"-------------------\n"
-
-                   f"[MONEY] ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
-
-                   f"[TROPHY] Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
-
-                   f"[UP] {score_detail}\n"
-
-                   f"[DWN] BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
-
-                   f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
-
-                   f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
-
-                   f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:+,}")
-
-            ok, err = push_telegram(msg)
-
-            if ok:
-
-                st.success("Telegram sent!")
-
-            else:
-
-                st.error(f"Failed: {err}")
-
-        st.info("Analyze a stock above, then send to Telegram")
 
     if st.session_state.get("tw_auto_send") and r:
 
@@ -2049,52 +2032,36 @@ with us_tab:
 
 
         if not r:
-
             st.warning("Please analyze a stock first")
-
         else:
-
             tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
-
             macd_h = r.get('macd_hist', 0)
-
             tier_d = tier_icon if not (tier_icon == 'A' and macd_h < 0) else 'B'
-
             inst = r.get('inst') or {}
-
             f_v = inst.get('foreign',0); t_v = inst.get('trust',0); d_v = inst.get('dealer',0)
-
             ma60_val = r.get('ma60', None)
+            ma60_str = f"${ma60_val:.0f}" if ma60_val else "N/A"
+            msg = (
+                f"[CHART] **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
+                f"─────────────────────\n"
+                f"[MONEY] ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
+                f"[TROPHY] Tier: [{tier_d}] | Score: {r['score']:.0f}/1000\n"
+                f"[UP] RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n"
+                f"[DWN] BIAS5={r['bias5']:+.1f}% MACD={macd_h:+.2f}\n"
+                f"[CHART] MA20=${r['ma20']:.0f} MA60={ma60_str}\n"
+                f"[BOX] Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
+                f"法人: F={f_v:+,} T={t_v:+,} D={d_v:,}")
+            col1, col2 = st.columns([1, 4])
+            if col1.button("Send Telegram", use_container_width=True):
+                with col2:
+                    with st.spinner("Sending..."):
+                        ok, err = push_telegram(msg)
+                if ok:
+                    st.success("Telegram sent!")
+                else:
+                    st.error(f"Failed: {err}")
 
-            msg = (f"[CHART] **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
 
-                   f"─────────────────────\n"
-
-                   f"[MONEY] ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
-
-                   f"[TROPHY] Tier: [{tier_d}] | Score: {r['score']:.0f}/1000\n"
-
-                   f"[UP] RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n"
-
-                   f"[DWN] BIAS5={r['bias5']:+.1f}% MACD={macd_h:+.2f}\n"
-
-                   f"[CHART] MA20=${r['ma20']:.0f} MA60={f"${ma60_val:.0f}" if ma60_val else 'N/A'}\n"
-
-                   f"[BOX] Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
-
-                   f"法人: F={f_v:+,} T={t_v:+,} D={d_v:+,}")
-
-            ok, err = push_telegram(msg)
-
-            if ok:
-
-                st.success("[ENV] Telegram sent!")
-
-            else:
-
-                st.error(f"Telegram failed: {err}")
-
-        st.info("Analyze a stock above, then send to Telegram")
 
     if st.session_state.get('us_auto_send') and r:
 
