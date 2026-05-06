@@ -338,27 +338,9 @@ US_CATS = {
 
     # ─── 美股 ETF ───
 
-    # ─── 美股熱門 ETF（Jo 提供，22 檔）───
+    # ─── 美股熱門 ETF（Jo 提供，36 檔）───
 
-    'ETF - 指數核心': ['VOO','IVV','SPY','VTI'],
-
-    'ETF - 科技與成長': ['QQQ','VUG','SOXX','SMH'],
-
-    'ETF - 股息與價值': ['SCHD','VYM','VTV','DGRO'],
-
-    'ETF - 債券與配置': ['BND','TLT','SHY','AGG'],
-
-    'ETF - 全球與其他': ['VT','VXUS','VWO'],
-
-    # ─── 2x Leveraged ETF（槓桿型，Jo 提供）───
-
-    '2x 指數類': ['SSO','QLD','MVV','UWM','DDM'],
-
-    '2x 產業類': ['USD','ROM','UYG','DIG','UXI'],
-
-    '2x 債券/匯率': ['UBT','UST','UUP'],
-
-    '2x 反向 (看空)': ['SDS','QID','TWM','DXD'],
+    'ETF': ['VOO','IVV','SPY','VTI','QQQ','VUG','SOXX','SMH','SCHD','VYM','VTV','DGRO','BND','TLT','SHY','AGG','VT','VXUS','VWO','SSO','QLD','MVV','UWM','DDM','USD','ROM','UYG','DIG','UXI','UBT','UST','UUP','SDS','QID','TWM','DXD'],
 
     '全部': [],
 
