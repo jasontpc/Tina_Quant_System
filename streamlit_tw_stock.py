@@ -1169,45 +1169,53 @@ with tw_tab:
 
     if analyze_tw:
 
-        with st.spinner("Analyzing + Fetching Institutional..."):
+        try:
 
-            def _analyze_one(idx_code):
+            with st.spinner("Analyzing + Fetching Institutional..."):
 
-                i, code = idx_code
+                def _analyze_one(idx_code):
 
-                return i, analyze(code, 'TW')
+                    i, code = idx_code
+
+                    return i, analyze(code, 'TW')
+
+                results = []
+
+                bar = st.progress(0)
+
+                total = len(codes)
+
+                with ThreadPoolExecutor(max_workers=8) as pool:
+
+                    futures = {pool.submit(_analyze_one, (i, code)): i for i, code in enumerate(codes)}
+
+                    for future in as_completed(futures):
+
+                        try:
+
+                            i, r = future.result()
+
+                            if r:
+
+                                results.append((i, r))
+
+                        except Exception:
+
+                            pass
+
+                        bar.progress(min(len(results) + 1, total) / total)
+
+                results.sort(key=lambda x: x[0])
+
+                results = [r for _, r in results]
+
+                bar.empty()
+
+        except Exception as e:
+
+            st.error(f"Analysis failed: {e}")
 
             results = []
-
-            bar = st.progress(0)
-
-            total = len(codes)
-
-            with ThreadPoolExecutor(max_workers=8) as pool:
-
-                futures = {pool.submit(_analyze_one, (i, code)): i for i, code in enumerate(codes)}
-
-                for future in as_completed(futures):
-
-                    try:
-
-                        i, r = future.result()
-
-                        if r:
-
-                            results.append((i, r))
-
-                    except Exception:
-
-                        pass
-
-                    bar.progress(min(len(results) + 1, total) / total)
-
-            results.sort(key=lambda x: x[0])
-
-            results = [r for _, r in results]
-
-            bar.empty()
 
             filtered = [r for r in results
 
@@ -1441,7 +1449,15 @@ with tw_tab:
         if r:
 
             st.session_state['single_result'] = r
-            bd = r.get('score_breakdown', {})
+
+        else:
+
+            st.warning(f"No data for {single_code} — try another code")
+
+            return
+
+
+        bd = r.get('score_breakdown', {})
 
             # ═══════════════════════════════════════
             #  ACTION BAR
@@ -1630,48 +1646,54 @@ with us_tab:
 
 
     if analyze_us:
+        try:
+            with st.spinner("Analyzing..."):
 
-        with st.spinner("Analyzing..."):
+                def _analyze_one(idx_code):
 
-            def _analyze_one(idx_code):
+                    i, code = idx_code
 
-                i, code = idx_code
+                    return i, analyze(code, 'US')
 
-                return i, analyze(code, 'US')
+                results = []
+
+                bar = st.progress(0)
+
+                total = len(codes)
+
+                with ThreadPoolExecutor(max_workers=8) as pool:
+
+                    futures = {pool.submit(_analyze_one, (i, code)): i for i, code in enumerate(codes)}
+
+                    for future in as_completed(futures):
+
+                        try:
+
+                            i, r = future.result()
+
+                            if r:
+
+                                results.append((i, r))
+
+                        except Exception:
+
+                            pass
+
+                        bar.progress(min(len(results) + 1, total) / total)
+
+                results.sort(key=lambda x: x[0])
+
+                results = [r for _, r in results]
+
+                bar.empty()
+
+        except Exception as e:
+
+            st.error(f"Analysis failed: {e}")
 
             results = []
 
-            bar = st.progress(0)
-
-            total = len(codes)
-
-            with ThreadPoolExecutor(max_workers=8) as pool:
-
-                futures = {pool.submit(_analyze_one, (i, code)): i for i, code in enumerate(codes)}
-
-                for future in as_completed(futures):
-
-                    try:
-
-                        i, r = future.result()
-
-                        if r:
-
-                            results.append((i, r))
-
-                    except Exception:
-
-                        pass
-
-                    bar.progress(min(len(results) + 1, total) / total)
-
-            results.sort(key=lambda x: x[0])
-
-            results = [r for _, r in results]
-
-            bar.empty()
-
-            filtered = [r for r in results
+        filtered = [r for r in results
 
                         if r['rsi'] <= us_rsi_max
 
@@ -1893,10 +1915,18 @@ with us_tab:
         if r:
 
             st.session_state['us_single_result'] = r
-            bd = r.get('score_breakdown', {})
 
-            # ═══════════════════════════════════════
-            #  ACTION BAR
+        else:
+
+            st.warning(f"No data for {us_single_code} — try another code")
+
+            return
+
+
+        bd = r.get('score_breakdown', {})
+
+        # ═══════════════════════════════════════
+        #  ACTION BAR
             # ═══════════════════════════════════════
             score = r['score']
             tier  = r['tier']
