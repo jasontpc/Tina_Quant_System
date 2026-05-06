@@ -41,7 +41,10 @@ ETF_NAMES = {
     '00713': '元大高息低波', '00646': '富邦S&P500', '00662': '富邦NASDAQ',
     '00757': '統一大FANG+', '00881': '國泰台灣5G', '00915': '富邦台灣永續高息',
     '00923': '群益台灣ESG低碳', '00895': '富邦上証', '00762': '元大石油',
-    '00915B': '富邦票券利息'
+    '00915B': '富邦票券利息',
+    # ── US ETF（DCA 長線持有）─
+    'VTI': 'Vanguard 全美市場', 'VOO': 'Vanguard S&P500',
+    'QQQ': 'Invesco QQQ', 'VEA': 'Vanguard 發達市場', 'BND': 'Vanguard 綜合債券',
 }
 
 # 管理費（年度%，Source:公開說明書，2024資料）
@@ -75,7 +78,7 @@ os.makedirs(REPORTS_DIR, exist_ok=True)
 
 def get_price_history(etf_id, period='3y'):
     """抓取多年價格歷史"""
-    sym = etf_id + '.TW'
+    sym = etf_id if etf_id in ('VTI','VOO','QQQ','VEA','BND') else (etf_id + '.TW')
     h = yf.Ticker(sym).history(period=period)
     close = h['Close'].squeeze() if isinstance(h['Close'], pd.DataFrame) else h['Close']
     return close

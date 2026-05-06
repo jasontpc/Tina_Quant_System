@@ -2,6 +2,7 @@
 """
 Tina Scanner v3.0 - TW+US Stock Analysis | 1000 Tech Scoring + Institutional Data + Telegram
 """
+import os
 import streamlit as st
 import yfinance as yf
 import numpy as np
@@ -10,10 +11,11 @@ import time
 import urllib.request
 import json
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
-TELEGRAM_BOT_TOKEN = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'
-TELEGRAM_CHAT_ID = '1616824689'
-FINMIND_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
+TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or st.secrets.get("tg_bot_token", "")
+TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or st.secrets.get("tg_chat_id", "1616824689")
+FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or st.secrets.get("finmind_token", "")
 
 def push_telegram(message):
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
@@ -155,7 +157,7 @@ for v in TW_CATS.values():
         if c not in seen:
             seen.add(c)
             all_tw.append(c)
-TW_CATS["全部"] = sorted(all_tw, key=lambda x: (0, int(x)) if x.isdigit() else (1, x))[:500]
+TW_CATS["全部"] = sorted(all_tw, key=lambda x: (0, int(x)) if x.isdigit() else (1, x))[:999]
 
 all_us = []
 seen = set()
@@ -164,7 +166,7 @@ for v in US_CATS.values():
         if c not in seen:
             seen.add(c)
             all_us.append(c)
-US_CATS["全部"] = sorted(all_us, key=lambda x: x)[:500]
+US_CATS["全部"] = sorted(all_us, key=lambda x: x)[:999]
 
 TW_NAMES = {
     "2330": "台積電", "2454": "聯發科", "2317": "鴻海", "2382": "廣達",
@@ -456,9 +458,32 @@ def analyze(code, market='TW'):
 
 # ── Page Setup ──────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Tina Scanner v3.0", page_icon="📈", layout="wide")
-st.title("📈 Tina Scanner v3.0 — US Tech 1000 Scoring")
+st.title("📈 Tina Scanner v3.0 — TW+US Tech Scoring")
 
-tw_tab, us_tab = st.tabs(["Taiwan", "US"])
+tw_tab, us_tab = st.tabs(["📊 Taiwan", "🇺🇸 US"])
+
+# ── Market Overview ──────────────────────────────────────────────────────
+try:
+    twii = yf.Ticker("^TWII")
+    hist = twii.history(period="5d")
+    if not hist.empty:
+        close_now = hist['Close'].iloc[-1]
+        close_5d = hist['Close'].iloc[0]
+        chg = (close_now - close_5d) / close_5d * 100
+        twii_rsi = None
+        if len(hist) >= 15:
+            delta = hist['Close'].diff()
+            avg = delta.clip(lower=0).rolling(14).mean()
+            loss = (-delta.clip(upper=0)).rolling(14).mean()
+            rs = avg / loss.replace(0, np.nan)
+            twii_rsi = float(100.0 - (100.0 / (1.0 + rs)).iloc[-1])
+        rsi_label = "🔴 過熱" if twii_rsi and twii_rsi > 70 else ("🟡 偏多" if twii_rsi and twii_rsi > 50 else "🟢 中性")
+        m = st.columns(3)
+        m[0].metric("TWII", f"{close_now:,.0f}", f"{chg:+.2f}%")
+        m[1].metric("TWII RSI 14", f"{twii_rsi:.0f}" if twii_rsi else "N/A")
+        m[2].metric("市場狀態", rsi_label)
+except Exception:
+    pass
 
 # ═══════════════════════════ TW TAB ═══════════════════════════
 with tw_tab:
@@ -481,14 +506,24 @@ with tw_tab:
 
     if analyze_tw:
         with st.spinner("Analyzing + Fetching Institutional..."):
+            def _analyze_one(idx_code):
+                i, code = idx_code
+                return i, analyze(code, 'TW')
             results = []
             bar = st.progress(0)
-            for i, code in enumerate(codes):
-                r = analyze(code, 'TW')
-                if r:
-                    results.append(r)
-                bar.progress((i+1) / len(codes))
-                time.sleep(0.12)
+            total = len(codes)
+            with ThreadPoolExecutor(max_workers=8) as pool:
+                futures = {pool.submit(_analyze_one, (i, code)): i for i, code in enumerate(codes)}
+                for future in as_completed(futures):
+                    try:
+                        i, r = future.result()
+                        if r:
+                            results.append((i, r))
+                    except Exception:
+                        pass
+                    bar.progress(min(len(results) + 1, total) / total)
+            results.sort(key=lambda x: x[0])
+            results = [r for _, r in results]
             bar.empty()
             filtered = [r for r in results
                         if r['rsi'] <= tw_rsi_max
@@ -546,7 +581,7 @@ with tw_tab:
                 "Tier": r['tier'],
             })
         df = pd.DataFrame(rows)
-        st.dataframe(df, use_container_width=True, height=400, hide_index=True)
+        st.dataframe(df, use_container_width=True, height=600, hide_index=True)
 
         with st.expander("Send to Telegram"):
             grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="tw_grade_send")
@@ -583,7 +618,17 @@ with tw_tab:
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
             st.download_button("CSV", csv, f"tw_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="tw_csv")
-    # --- Single Stock Deep Analysis --- 
+
+    # --- Auto-Send Toggle ---
+    if 'tw_auto_send' not in st.session_state:
+        st.session_state['tw_auto_send'] = False
+    auto_col, spacer = st.columns([2, 1])
+    with auto_col:
+        st.session_state['tw_auto_send'] = st.toggle('分析後自動發送 Telegram', value=st.session_state['tw_auto_send'], key='tw_auto_send_toggle')
+    with spacer:
+        st.caption('ON = 自動發送' if st.session_state.get('tw_auto_send') else 'OFF = 手動發送')
+
+    # --- Single Stock Deep Analysis ---
     st.divider()
     st.subheader("Single Stock Deep Analysis")
     col_code, col_btn = st.columns([2, 1])
@@ -710,13 +755,36 @@ with tw_tab:
                     <span style='font-weight:bold;color:{t_color}'> 投信 {t:+,}</span>
                     <span style='font-weight:bold;color:{d_color}'> 自營 {d:+,.0f}</span>
                 </div>""", unsafe_allow_html=True)
-            # ── Telegram Send ──
+            # ── Telegram Send Button ──
+            if st.button("Send to Telegram", key="btn_single_tg", use_container_width=True):
+                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+                macd_hist = r.get('macd_hist', 0)
+                tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
+                score_detail = f"RSI={r['rsi']:.0f}/250 MACD={macd_hist:+.2f}/200 K={r['k']:.0f}/150 D={r['d']:.0f}/100 BB%={r['bb_pct']:.0f}/150 MA={'Y' if r['ma20_above_ma60'] else 'N'}/100 Vol={r['vol_ratio']:.1f}x/50"
+                inst = r.get('inst') or {}
+                f_val = inst.get('foreign',0); t_val = inst.get('trust',0); d_val = inst.get('dealer',0)
+                msg = (f"📊 **{single_code} {r['name'][:12]}** Deep Analysis\n"
+                       f"─────────────────────\n"
+                       f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
+                       f"🏆 Tier: [{tier_display}] | Score: {r['score']:.0f}/1000\n"
+                       f"📈 {score_detail}\n"
+                       f"📉 BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
+                       f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
+                       f"📦 {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}\n"
+                       f"法人: F={f_val:+,} T={t_val:+,} D={d_val:+,}")
+                ok, err = push_telegram(msg)
+                if ok:
+                    st.success("📨 Telegram sent!")
+                else:
+                    st.error(f"Telegram failed: {err}")
+        if st.session_state.get('tw_auto_send'):
+            # Auto-send: analyze -> push immediately without button
             tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
             macd_hist = r.get('macd_hist', 0)
-            macd_warn = ' ⚠️MACD-' if macd_hist < 0 else ''
             tier_display = tier_icon if not (tier_icon == 'A' and macd_hist < 0) else 'B'
-            # Build score detail
             score_detail = f"RSI={r['rsi']:.0f}/250 MACD={macd_hist:+.2f}/200 K={r['k']:.0f}/150 D={r['d']:.0f}/100 BB%={r['bb_pct']:.0f}/150 MA={'Y' if r['ma20_above_ma60'] else 'N'}/100 Vol={r['vol_ratio']:.1f}x/50"
+            inst = r.get('inst') or {}
+            f_val = inst.get('foreign',0); t_val = inst.get('trust',0); d_val = inst.get('dealer',0)
             msg = (f"📊 **{single_code} {r['name'][:12]}** Deep Analysis\n"
                    f"─────────────────────\n"
                    f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
@@ -724,12 +792,14 @@ with tw_tab:
                    f"📈 {score_detail}\n"
                    f"📉 BIAS5={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x\n"
                    f"📊 MA20=${r['ma20']:.0f} MA60={f"${r['ma60']:.0f}" if r['ma60'] else 'N/A'}\n"
-                   f"📦 {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}")
-            ok, err = push_telegram(msg)
+                   f"📦 {r.get('bullish','N')} | {'KD金叉' if r['kd_golden'] else 'KD OK'}\n"
+                   f"法人: F={f_val:+,} T={t_val:+,} D={d_val:+,}")
+            with st.spinner("Auto-sending to Telegram..."):
+                ok, err = push_telegram(msg)
             if ok:
-                st.success("📨 Telegram sent!")
+                st.success("📨 Auto-sent!")
             else:
-                st.error(f"Telegram failed: {err}")
+                st.error(f"Auto-send failed: {err}")
         else:
             st.warning(f"Cannot find data for {single_code}")
 
@@ -755,14 +825,24 @@ with us_tab:
 
     if analyze_us:
         with st.spinner("Analyzing..."):
+            def _analyze_one(idx_code):
+                i, code = idx_code
+                return i, analyze(code, 'US')
             results = []
             bar = st.progress(0)
-            for i, code in enumerate(codes):
-                r = analyze(code, 'US')
-                if r:
-                    results.append(r)
-                bar.progress((i+1) / len(codes))
-                time.sleep(0.12)
+            total = len(codes)
+            with ThreadPoolExecutor(max_workers=8) as pool:
+                futures = {pool.submit(_analyze_one, (i, code)): i for i, code in enumerate(codes)}
+                for future in as_completed(futures):
+                    try:
+                        i, r = future.result()
+                        if r:
+                            results.append((i, r))
+                    except Exception:
+                        pass
+                    bar.progress(min(len(results) + 1, total) / total)
+            results.sort(key=lambda x: x[0])
+            results = [r for _, r in results]
             bar.empty()
             filtered = [r for r in results
                         if r['rsi'] <= us_rsi_max
@@ -815,7 +895,7 @@ with us_tab:
                 "Tier": r['tier'],
             })
         df = pd.DataFrame(rows)
-        st.dataframe(df, use_container_width=True, height=400, hide_index=True)
+        st.dataframe(df, use_container_width=True, height=600, hide_index=True)
 
         with st.expander("Send to Telegram"):
             grade_filter = st.multiselect("Grade Filter", ["A","B","C","D"], default=["A","B","C","D"], key="us_grade_send")
@@ -852,6 +932,16 @@ with us_tab:
         if results:
             csv = pd.DataFrame(results).to_csv(index=False).encode('utf-8-sig')
             st.download_button("CSV", csv, f"us_{cat_saved}_{datetime.now().strftime('%Y%m%d')}.csv", "text/csv", key="us_csv")
+
+    # --- Auto-Send Toggle (US) ---
+    if 'us_auto_send' not in st.session_state:
+        st.session_state['us_auto_send'] = False
+    auto_col, spacer = st.columns([2, 1])
+    with auto_col:
+        st.session_state['us_auto_send'] = st.toggle('分析後自動發送 Telegram', value=st.session_state['us_auto_send'], key='us_auto_send_toggle')
+    with spacer:
+        st.caption('ON = 自動發送' if st.session_state.get('us_auto_send') else 'OFF = 手動發送')
+
     # --- Single Stock Deep Analysis ---
     st.divider()
     st.subheader("Single Stock Deep Analysis")
@@ -981,19 +1071,46 @@ with us_tab:
             sigs_html = " ".join([f"<span style='background:#f0f0f0;padding:4px 8px;border-radius:4px;margin:2px;display:inline-block;color:{c}'>{ico} {txt}</span>" for ico,txt,c in sigs])
             if sigs_html:
                 st.markdown(f"<div style='margin-top:8px'>{sigs_html}</div>", unsafe_allow_html=True)
-            # ── Telegram ──
+            # ── Telegram Send Button ──
+            if st.button("Send to Telegram", key="btn_us_single_tg", use_container_width=True):
+                tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
+                macd_h = r.get('macd_hist', 0)
+                tier_d = tier_icon if not (tier_icon == 'A' and macd_h < 0) else 'B'
+                inst = r.get('inst') or {}
+                f_v = inst.get('foreign',0); t_v = inst.get('trust',0); d_v = inst.get('dealer',0)
+                ma60_val = r.get('ma60', None)
+                msg = (f"📊 **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
+                       f"─────────────────────\n"
+                       f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
+                       f"🏆 Tier: [{tier_d}] | Score: {r['score']:.0f}/1000\n"
+                       f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n"
+                       f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_h:+.2f}\n"
+                       f"📊 MA20=${r['ma20']:.0f} MA60={f"${ma60_val:.0f}" if ma60_val else 'N/A'}\n"
+                       f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
+                       f"法人: F={f_v:+,} T={t_v:+,} D={d_v:+,}")
+                ok, err = push_telegram(msg)
+                if ok:
+                    st.success("📨 Telegram sent!")
+                else:
+                    st.error(f"Telegram failed: {err}")
+        elif st.session_state.get('us_auto_send'):
             tier_icon = {"A": "A", "B": "B", "C": "C", "D": "X"}.get(r.get('tier','?'), '?')
             macd_h = r.get('macd_hist', 0)
             tier_d = tier_icon if not (tier_icon == 'A' and macd_h < 0) else 'B'
+            inst = r.get('inst') or {}
+            f_v = inst.get('foreign',0); t_v = inst.get('trust',0); d_v = inst.get('dealer',0)
+            ma60_val = r.get('ma60', None)
             msg = (f"📊 **{us_single_code} {r['name'][:12]}** Deep Analysis\n"
                    f"─────────────────────\n"
                    f"💰 ${r['price']:.2f} ({r['chg']:+.2f}%)\n"
                    f"🏆 Tier: [{tier_d}] | Score: {r['score']:.0f}/1000\n"
                    f"📈 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f} BB%={r['bb_pct']:.0f}%\n"
                    f"📉 BIAS5={r['bias5']:+.1f}% MACD={macd_h:+.2f}\n"
-                   f"📊 MA20=${r['ma20']:.0f} MA60={f"${ma60:.0f}" if ma60 else 'N/A'}\n"
-                   f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}")
-            ok, err = push_telegram(msg)
+                   f"📊 MA20=${r['ma20']:.0f} MA60={f"${ma60_val:.0f}" if ma60_val else 'N/A'}\n"
+                   f"📦 Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
+                   f"法人: F={f_v:+,} T={t_v:+,} D={d_v:+,}")
+            with st.spinner("Auto-sending to Telegram..."):
+                ok, err = push_telegram(msg)
             if ok:
                 st.success("📨 Telegram sent!")
             else:

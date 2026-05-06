@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
+TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjF9.ivums9mfJUrM2MYazJiOEg49RiYLOJMZtejqX79YWS8'
 FINMIND_URL = 'https://api.finmindtrade.com/api/v4/data'
 
 # 主要 TW ETF 清單
@@ -32,7 +32,10 @@ ETF_NAMES = {
     '00881': '國泰台灣5G', '00891': '中信低碳', '00915': '富邦台灣永續高息',
     '00919': '群益台灣精選', '00923': '群益台灣ESG低碳', '00927': '統一手創未來',
     '00713': '元大高息低波', '00646': '富邦S&P500', '00662': '富邦NASDAQ',
-    '00757': '統一大FANG+', '00762': '元大石油', '00895': '富邦上証'
+    '00757': '統一大FANG+', '00762': '元大石油', '00895': '富邦上証',
+    # ── US Core ETF ─
+    'VTI': 'Vanguard 全美市場', 'VOO': 'Vanguard S&P500',
+    'QQQ': 'Invesco QQQ', 'VEA': 'Vanguard 發達市場', 'BND': 'Vanguard 綜合債券',
 }
 
 SCREENER_REPORT_DIR = os.path.join(os.path.dirname(__file__), '..', 'reports')
@@ -42,7 +45,9 @@ os.makedirs(SCREENER_REPORT_DIR, exist_ok=True)
 
 def get_etf_data(etf_id):
     """一次抓完一個 ETF 的所有數據"""
-    sym = etf_id + '.TW'
+    # US ETF: no .TW suffix; TW ETF: .TW suffix
+    is_us = etf_id in ('VTI', 'VOO', 'QQQ', 'VEA', 'BND')
+    sym = etf_id if is_us else (etf_id + '.TW')
     try:
         h = yf.Ticker(sym).history(period='1y')
         close = h['Close'].squeeze() if isinstance(h['Close'], pd.DataFrame) else h['Close']
