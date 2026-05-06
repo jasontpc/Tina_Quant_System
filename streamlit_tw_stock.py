@@ -1135,24 +1135,28 @@ with tw_tab:
 
         tw_cat = st.selectbox("Category", list(TW_CATS.keys()), key="tw_cat")
 
-        with st.form(key="grade_filter_tw"):
-            st.markdown("**Grade**")
-            g1, g2, g3, g4, gall = st.columns([1,1,1,1,1])
-            g_a = g1.checkbox("A", value=True, key="tw_grade_a")
-            g_b = g2.checkbox("B", value=True, key="tw_grade_b")
-            g_c = g3.checkbox("C", value=True, key="tw_grade_c")
-            g_d = g4.checkbox("D", value=True, key="tw_grade_d")
-            if gall.form_submit_button("全", help="Select All", use_container_width=True):
-                st.session_state.tw_grade_a = True
-                st.session_state.tw_grade_b = True
-                st.session_state.tw_grade_c = True
-                st.session_state.tw_grade_d = True
-            tw_grade = [g for g, on in zip(["A","B","C","D"], [g_a, g_b, g_c, g_d]) if on]
+        st.markdown("**Grade**")
+        g1, g2, g3, g4, gall = st.columns([1,1,1,1,1])
+        g_a = g1.checkbox("A", value=True, key="tw_grade_a")
+        g_b = g2.checkbox("B", value=True, key="tw_grade_b")
+        g_c = g3.checkbox("C", value=True, key="tw_grade_c")
+        g_d = g4.checkbox("D", value=True, key="tw_grade_d")
+        if gall.button("全", help="Select All", use_container_width=True):
+            st.session_state.tw_grade_a = True
+            st.session_state.tw_grade_b = True
+            st.session_state.tw_grade_c = True
+            st.session_state.tw_grade_d = True
+        tw_grade = [g for g, on in zip(["A","B","C","D"], [g_a, g_b, g_c, g_d]) if on]
 
         tw_score_min = st.slider("Score Min", 0, 1000, 0, key="tw_score")
+
+
         tw_macd_filter = st.checkbox("排除 MACD < 0", value=False, key="tw_macd_filter")
+
         codes = TW_CATS.get(tw_cat, [])
+
         st.info(f"{len(codes)} stocks")
+
         analyze_tw = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_analyze")
 
 
@@ -1168,7 +1172,9 @@ with tw_tab:
 
 
     if analyze_tw:
+
         try:
+
             with st.spinner("Analyzing + Fetching Institutional..."):
 
                 def _analyze_one(idx_code):
@@ -1217,21 +1223,21 @@ with tw_tab:
 
         filtered = [r for r in results
 
-                        if r['rsi'] <= tw_rsi_max
+                    if r['rsi'] <= tw_rsi_max
 
-                        and r['tier'] in tw_grade
+                    and r['tier'] in tw_grade
 
-                        and r['score'] >= tw_score_min
+                    and r['score'] >= tw_score_min
 
-                        and (not tw_macd_filter or r['macd_hist'] >= 0)]
+                    and (not tw_macd_filter or r['macd_hist'] >= 0)]
 
-    filtered.sort(key=lambda x: x['score'], reverse=True)
+        filtered.sort(key=lambda x: x['score'], reverse=True)
 
-    st.session_state.tw_results = results
+        st.session_state.tw_results = results
 
-    st.session_state.tw_filtered = filtered
+        st.session_state.tw_filtered = filtered
 
-    st.session_state.tw_cat_saved = tw_cat
+        st.session_state.tw_cat_saved = tw_cat
 
 
 
@@ -1448,9 +1454,8 @@ with tw_tab:
 
             st.session_state['single_result'] = r
         else:
-            st.warning(f"No data for {single_code} -- try another code")
+            st.warning(f'No data for {single_code} -- try another code')
             st.stop()
-
 
             bd = r.get('score_breakdown', {})
 
@@ -1608,24 +1613,28 @@ with us_tab:
 
         us_cat = st.selectbox("Category", list(US_CATS.keys()), key="us_cat")
 
-        with st.form(key="grade_filter_us"):
-            st.markdown("**Grade**")
-            u1, u2, u3, u4, uall = st.columns([1,1,1,1,1])
-            u_a = u1.checkbox("A", value=True, key="us_grade_a")
-            u_b = u2.checkbox("B", value=True, key="us_grade_b")
-            u_c = u3.checkbox("C", value=True, key="us_grade_c")
-            u_d = u4.checkbox("D", value=True, key="us_grade_d")
-            if uall.form_submit_button("全", help="Select All", use_container_width=True):
-                st.session_state.us_grade_a = True
-                st.session_state.us_grade_b = True
-                st.session_state.us_grade_c = True
-                st.session_state.us_grade_d = True
-            us_grade = [g for g, on in zip(["A","B","C","D"], [u_a, u_b, u_c, u_d]) if on]
+        st.markdown("**Grade**")
+        u1, u2, u3, u4, uall = st.columns([1,1,1,1,1])
+        u_a = u1.checkbox("A", value=True, key="us_grade_a")
+        u_b = u2.checkbox("B", value=True, key="us_grade_b")
+        u_c = u3.checkbox("C", value=True, key="us_grade_c")
+        u_d = u4.checkbox("D", value=True, key="us_grade_d")
+        if uall.button("全", help="Select All", use_container_width=True):
+            st.session_state.us_grade_a = True
+            st.session_state.us_grade_b = True
+            st.session_state.us_grade_c = True
+            st.session_state.us_grade_d = True
+        us_grade = [g for g, on in zip(["A","B","C","D"], [u_a, u_b, u_c, u_d]) if on]
 
         us_score_min = st.slider("Score Min", 0, 1000, 0, key="us_score")
+
+
         us_macd_filter = st.checkbox("排除 MACD < 0", value=False, key="us_macd_filter")
+
         codes = US_CATS.get(us_cat, [])
+
         st.info(f"{len(codes)} stocks")
+
         analyze_us = st.button("Analyze", type="primary", use_container_width=True, key="btn_us_analyze")
 
 
@@ -1641,7 +1650,9 @@ with us_tab:
 
 
     if analyze_us:
+
         try:
+
             with st.spinner("Analyzing..."):
 
                 def _analyze_one(idx_code):
@@ -1690,21 +1701,21 @@ with us_tab:
 
         filtered = [r for r in results
 
-                        if r['rsi'] <= us_rsi_max
+                    if r['rsi'] <= us_rsi_max
 
-                        and r['tier'] in us_grade
+                    and r['tier'] in us_grade
 
-                        and r['score'] >= us_score_min
+                    and r['score'] >= us_score_min
 
-                        and (not us_macd_filter or r['macd_hist'] >= 0)]
+                    and (not us_macd_filter or r['macd_hist'] >= 0)]
 
-    filtered.sort(key=lambda x: x['score'], reverse=True)
+        filtered.sort(key=lambda x: x['score'], reverse=True)
 
-    st.session_state.us_results = results
+        st.session_state.us_results = results
 
-    st.session_state.us_filtered = filtered
+        st.session_state.us_filtered = filtered
 
-    st.session_state.us_cat_saved = us_cat
+        st.session_state.us_cat_saved = us_cat
 
 
 
@@ -1911,9 +1922,8 @@ with us_tab:
 
             st.session_state['us_single_result'] = r
         else:
-            st.warning(f"No data for {us_single_code} -- try another code")
+            st.warning(f'No data for {us_single_code} -- try another code')
             st.stop()
-
 
             bd = r.get('score_breakdown', {})
 
