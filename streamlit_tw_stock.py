@@ -1046,11 +1046,11 @@ try:
 
     twii = yf.Ticker("^TWII")
 
-    twii_hist = twii.history(period="5d")
+    twii_hist = twii.history(period="1mo")
 
     spy = yf.Ticker("^GSPC")
 
-    spy_hist = spy.history(period="5d")
+    spy_hist = spy.history(period="1mo")
 
     if not twii_hist.empty and not spy_hist.empty:
 
@@ -2311,7 +2311,7 @@ with brain_tab:
 
         try:
 
-            twii_live = yf.Ticker('^TWII').history(period='5d')['Close']
+            twii_live = yf.Ticker('^TWII').history(period='1mo')['Close']
 
             twii_chg_l = float((twii_live.iloc[-1] / twii_live.iloc[-2] - 1) * 100) if len(twii_live) >= 2 else 0
 
