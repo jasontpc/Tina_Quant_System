@@ -97,9 +97,7 @@ def _to_json_safe(obj):
 
 
 def push_telegram(message):
-
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
-
     safe_msg = str(message) if not isinstance(message, str) else message
 
     payload = {'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}
@@ -1348,7 +1346,7 @@ with tw_tab:
 
             r1, r2 = st.columns(2)
 
-            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True):
+            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True, key="tw_batch_send"):
 
                 with st.spinner("Sending..."):
 
@@ -1853,7 +1851,7 @@ with us_tab:
 
             r1, r2 = st.columns(2)
 
-            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True):
+            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True, key="us_batch_send"):
 
                 with st.spinner("Sending..."):
 
