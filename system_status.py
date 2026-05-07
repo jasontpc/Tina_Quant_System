@@ -38,9 +38,14 @@ print('\n═══ Maggy 美股波段 ═══')
 db2 = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\data\maggy.db'
 conn2 = sqlite3.connect(db2)
 cur2 = conn2.cursor()
-cur2.execute('SELECT COUNT(DISTINCT symbol), COUNT(*) FROM daily')
-meta = cur2.fetchone()
-print(f'  股票: {meta[0]}檔 | 數據: {meta[1]}筆')
+# Check if 'daily' table exists before querying
+cur2.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='daily'")
+if cur2.fetchone():
+    cur2.execute('SELECT COUNT(DISTINCT symbol), COUNT(*) FROM daily')
+    meta = cur2.fetchone()
+    print(f'  股票: {meta[0]}檔 | 數據: {meta[1]}筆')
+else:
+    print('  (maggy.db 為空殼，未建立任何 table — 此 DB 已廢棄不使用)')
 conn2.close()
 
 # Load latest backtest
