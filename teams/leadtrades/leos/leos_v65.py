@@ -586,6 +586,19 @@ def run_cycle():
         }
         trades_data['trades'].append(trade)
         entries += 1
+
+        # P0-3: Entry 專家委員會審查（Lessons活化 + 三方投票）
+        from tina_think import run_expert_committee, log_committee_prediction, _query_lessons as tina_query_lessons
+        entry_committee = run_expert_committee(stock, open_pos)
+        log_committee_prediction(entry_committee, stock, entry_committee['decision'])
+        if entry_committee['decision'] == 'REJECT':
+            trade['status'] = 'rejected_by_committee'
+            trade['rejected_reason'] = f"Committee REJECT: {entry_committee['risk']['verdict']}"
+            print(f'  !! Committee REJECTED {sym} — {entry_committee["risk"]["summary"]}')
+        elif entry_committee['decision'] == 'CAUTION':
+            trade['committee_caution'] = True
+            trade['committee_score'] = entry_committee['total_score']
+            print(f'  !  Committee CAUTION ({entry_committee["total_score"]:.0f}分) — 小部位進場')
         print(f'  ENTRY {sym}({mkt}) {stock["name"]}: ${stock["price"]} RSI={rsi} Score={score}{pos_note}')
         # P0: Lessons 活化報告注入
         lw = stock.get('lessons_warning', '')
