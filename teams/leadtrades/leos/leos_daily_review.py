@@ -213,15 +213,33 @@ def run_daily_review():
                 t['pnl_pct'] = round(pnl_pct, 2)
                 print(f'  Closed {mkt}:{t["symbol"]} (excess): ${t["entry_price"]:.2f} -> ${cur:.2f} ({pnl_pct:+.1f}%)')
 
-    save_trades(trades_data)
-
-    # Final stats
+    # Recalculate stats from scratch (P0 fix: stats were computed but never saved)
     closed_now = [t for t in trades_data['trades'] if t.get('status') == 'closed']
     open_now = [t for t in trades_data['trades'] if t.get('status') == 'open']
     wins = [t for t in closed_now if t.get('pnl', 0) > 0]
     losses = [t for t in closed_now if t.get('pnl', 0) <= 0]
     total_pnl = sum(t.get('pnl', 0) for t in closed_now)
     wr = len(wins) / len(closed_now) * 100 if closed_now else 0
+    trades_data['stats'] = {
+        'total': len(closed_now),
+        'wins': len(wins),
+        'losses': len(losses),
+        'total_pnl': round(total_pnl, 0)
+    }
+
+    # Update open positions with current_price and pnl_pct (P0 fix: US prices missing)
+    for t in open_now:
+        sym = t['symbol']
+        mkt = t.get('market', 'TW')
+        key = (mkt, sym)
+        if key in current:
+            cur = current[key]['price']
+            t['current_price'] = cur
+            if t['entry_price'] > 0:
+                t['pnl_pct'] = round((cur - t['entry_price']) / t['entry_price'] * 100, 2)
+                t['current_rsi'] = current[key]['rsi']
+
+    save_trades(trades_data)
 
     tw_open = [t for t in open_now if t.get('market', 'TW') == 'TW']
     us_open = [t for t in open_now if t.get('market') == 'US']
