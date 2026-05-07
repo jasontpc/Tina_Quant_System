@@ -507,13 +507,25 @@ def run_daily_review(mode=MODE_AUTO_THINK):
     # ========== 統計更新 ==========
     closed_now = [t for t in trades_data['trades'] if t.get('status') == 'closed']
     wins = [t for t in closed_now if t.get('pnl', 0) > 0]
-    losses = [t for t in closed_now if t.get('pnl', 0) <= 0]
+    losses = [t for t in closed_now if t.get('pnl', 0) < 0]  # pnl<0 = loss, pnl=0 = breakeven
     total_pnl = sum(t.get('pnl', 0) for t in closed_now)
     wr = len(wins) / len(closed_now) * 100 if closed_now else 0
     trades_data['stats'] = {'total': len(trades_data['trades']), 'wins': len(wins),
                              'losses': len(losses), 'total_pnl': round(total_pnl, 0)}
 
-    tw_open = [t for t in open_now if t.get('market', 'TW') == 'TW']
+    # ========== 寫入 current_price 到所有開倉部位 ==========
+    print('\n[Step 5] 更新開倉 current_price...')
+    for t in trades_data['trades']:
+        if t.get('status') == 'open':
+            sym = t['symbol']
+            mkt = t.get('market', 'TW')
+            key = (mkt, sym)
+            if key in current:
+                t['current_price'] = current[key]['price']
+                entry = t['entry_price']
+                t['pnl_pct'] = round((current[key]['price'] - entry) / entry * 100 - FEE_RATE * 200, 2)
+                t['current_rsi'] = current[key]['rsi']
+    print(f'  已更新 {len([t for t in trades_data["trades"] if t.get("status")=="open"])} 筆開倉 current_price')
     us_open = [t for t in open_now if t.get('market') == 'US']
 
     print('\n' + '=' * 60)

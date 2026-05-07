@@ -528,7 +528,7 @@ def run_cycle():
     closed = [t for t in trades_data['trades'] if t.get('status') == 'closed']
     open_pos = [t for t in trades_data['trades'] if t.get('status') == 'open']
     wins = [t for t in closed if t.get('pnl', 0) > 0]
-    losses = [t for t in closed if t.get('pnl', 0) <= 0]
+    losses = [t for t in closed if t.get('pnl', 0) < 0]
     total_pnl = sum(t.get('pnl', 0) for t in closed)
     wr = len(wins) / len(closed) * 100 if closed else 0
 
@@ -547,6 +547,11 @@ def run_cycle():
         for t in open_pos:
             key = (t['symbol'], t.get('market', 'TW'))
             cur = current.get(key, {}).get('price', '?')
+            if cur != '?' and isinstance(cur, (int, float)):
+                entry = t['entry_price']
+                pnl_pct_val = round((cur - entry) / entry * 100 - FEE_RATE * 200, 2)
+                t['current_price'] = cur
+                t['pnl_pct'] = pnl_pct_val
             pnl_pct = t.get('pnl_pct', 0)
             trailing = '[TRAILING]' if t.get('trailing_stop_active') else ''
             print(f'    {t["symbol"]}({t.get("market","TW")}): ${t["entry_price"]} -> ${cur} ({pnl_pct:+.1f}%) {trailing}')
