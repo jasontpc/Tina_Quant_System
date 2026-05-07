@@ -582,9 +582,9 @@ def fetch_institutional(code):
 
             'data_id': str(code).zfill(4),
 
-            'start_date': '2026-05-04',
+            'start_date': (datetime.now() - timedelta(days=5)).strftime('%Y-%m-%d'),
 
-            'end_date': '2026-05-05',
+            'end_date': datetime.now().strftime('%Y-%m-%d'),
 
             'token': FINMIND_TOKEN
 
@@ -626,7 +626,7 @@ def fetch_institutional(code):
 
                     result['dealer'] += net
 
-            return result if (result['foreign'] or result['trust'] or result['dealer']) else None
+            return result
 
     except:
 
@@ -1558,12 +1558,11 @@ with tw_tab:
 
             # ── Institutional (TW only) ──
             inst = r.get("inst") or {}
-            if inst:
-                f_v = inst.get("foreign",0); t_v = inst.get("trust",0); d_v = inst.get("dealer",0)
-                i1,i2,i3 = st.columns(3)
-                i1.metric("Foreign", f"{f_v:+,.0f}")
-                i2.metric("Trust",   f"{t_v:+,.0f}")
-                i3.metric("Dealer",  f"{d_v:+,.0f}")
+            f_v = inst.get("foreign",0); t_v = inst.get("trust",0); d_v = inst.get("dealer",0)
+            i1,i2,i3 = st.columns(3)
+            i1.metric("Foreign", f"{f_v:+,.0f}")
+            i2.metric("Trust",   f"{t_v:+,.0f}")
+            i3.metric("Dealer",  f"{d_v:+,.0f}")
 
         if not r:
             st.warning("Please analyze a stock first")
