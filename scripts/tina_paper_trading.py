@@ -276,6 +276,62 @@ class TinaPaperTrader:
             'xp_earned': xp_earned
         }
 
+    def sync_from_leo(self, trade_key: str, exit_price: float = None,
+                       reason: str = None, pnl_pct: float = None,
+                       outcome: str = None) -> Dict:
+        """
+        從 Leo trades 同步倉位資料到 TinaPaperTrader
+        trade_key 格式：'TW:2382' 或 'US:NVDA'
+        """
+        # 解析市場和股票
+        parts = trade_key.split(':', 1)
+        sym = parts[1] if len(parts) > 1 else trade_key
+        mkt = parts[0] if len(parts) > 1 else 'TW'
+        full_sym = f"{mkt}:{sym}"
+
+        cur = self.conn.cursor()
+
+        # 檢查是否已有記錄
+        cur.execute(
+            "SELECT * FROM paper_trades WHERE symbol = ? AND status = 'OPEN' ORDER BY entry_date DESC LIMIT 1",
+            (full_sym,)
+        )
+        existing = cur.fetchone()
+
+        now_str = datetime.now().strftime('%Y-%m-%d')
+
+        if existing:
+            # 已有記錄 → 更新平倉
+            trade = dict(existing)
+            if exit_price:
+                ep = trade['entry_price']
+                actual_pnl_pct = pnl_pct if pnl_pct is not None else ((exit_price - ep) / ep if ep else 0)
+                actual_outcome = outcome or ('WIN' if actual_pnl_pct > 0.005 else ('LOSS' if actual_pnl_pct < -0.005 else 'BREAK_EVEN'))
+                hold_days = None
+                if trade.get('entry_date'):
+                    try:
+                        ed = datetime.strptime(trade['entry_date'], '%Y-%m-%d')
+                        hold_days = (datetime.now() - ed).days
+                    except:
+                        hold_days = None
+                xp_earned = XP_REWARDS.get(f'TRADE_{actual_outcome}', 0)
+                cur.execute('''
+                    UPDATE paper_trades SET
+                        status='CLOSED', exit_date=?, exit_price=?,
+                        pnl_pct=?, hold_days=?, outcome=?, lesson=?, closed_at=?, xp_earned=?
+                    WHERE id=?
+                ''', (now_str, exit_price, actual_pnl_pct, hold_days,
+                      actual_outcome, reason or '',
+                      datetime.now().strftime('%Y-%m-%d %H:%M'), xp_earned,
+                      trade['id']))
+                self.conn.commit()
+                self.award_xp(f'TRADE_{actual_outcome}', f"{sym} {actual_outcome} {actual_pnl_pct*100:+.2f}")
+                self.stats = self._load_stats()
+                return {'synced': True, 'action': 'closed', 'trade_id': trade['id'], 'outcome': actual_outcome}
+        else:
+            # 沒有記錄 → 不創建（Leo 的倉位由 Leo 自己管理）
+            return {'synced': False, 'reason': 'no_open_trade_found'}
+
     def get_open_positions(self) -> List[Dict]:
         cur = self.conn.cursor()
         cur.execute("SELECT * FROM paper_trades WHERE status = 'OPEN' ORDER BY entry_date DESC")

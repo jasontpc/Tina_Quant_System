@@ -13,6 +13,27 @@ from collections import Counter
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+# === Paper Trading 整合 ===
+try:
+    # 嘗試從 scripts 目錄載入 TinaPaperTrader
+    _ppt_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'scripts', 'tina_paper_trading.py')
+    if os.path.exists(_ppt_path):
+        import importlib.util
+        _spec = importlib.util.spec_from_file_location('tina_paper_trading', _ppt_path)
+        _mod = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        PAPER_TRADER = _mod.TinaPaperTrader()
+        print('[PAPER] TinaPaperTrader loaded OK')
+    else:
+        PAPER_TRADER = None
+except Exception as e:
+    print(f'[PAPER] TinaPaperTrader load failed: {e}')
+    PAPER_TRADER = None
+
+# === 持有天數警告常量 ===
+HOLD_WARNING_DAYS = 15   # RSI > 50 時，持有 N 天就警告
+HOLD_FORCE_REVIEW_DAYS = 20  # 持有 N 天，無條件強制複檢
+
 TRADES_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_trades.json'
 ANALYSIS_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_analysis_v65.json'
 DECISION_LOG = os.path.expanduser('~/.openclaw/workspace/memory/decision_log.md')
@@ -428,6 +449,14 @@ def run_daily_review(mode=MODE_AUTO_THINK):
                 reason = 'force_reduce'
                 exits_to_run.append((t, 'force_reduce', cur, pnl_pct, pnl_abs))
 
+        # === 持有天數警告 ===
+        if rsi > 50 and days_held >= HOLD_WARNING_DAYS:
+            print(f'    ⚠️ 警告：持有 {days_held:.0f} 天 + RSI {rsi:.0f} = 危險組合！建議減倉或觀望')
+            send_telegram(f'⚠️ 持有警告 {sym}：{days_held:.0f}天 + RSI {rsi:.0f} = 危險組合，請檢視部位')
+        elif days_held >= HOLD_FORCE_REVIEW_DAYS:
+            print(f'    🔴 強制複檢：持有已達 {days_held:.0f} 天，無條件評估是否續抱')
+            send_telegram(f'🔴 強制複檢 {sym}：持有 {days_held:.0f} 天，需評估是否續抱')
+
         # 通用條件
         if reason is None and pnl_pct > BIG_GAIN_TAKE_PROFIT_PCT:
             reason = f'big_gain_take_profit_{pnl_pct:.1f}'
@@ -475,6 +504,18 @@ def run_daily_review(mode=MODE_AUTO_THINK):
             t['fee'] = fee
             print(f'  出场 {mkt}:{t["symbol"]}: {reason} -> ${cur:.2f} ({pnl_pct:+.1f}%)')
             log_decision(t['symbol'], mkt, committee.get('decision', 'EXIT'), reason, pnl_pct, mode)
+
+            # === 同步到 TinaPaperTrader (XP 系統) ===
+            if PAPER_TRADER:
+                try:
+                    # 找出這筆 trade 的 id (Leo 用 symbol + timestamp 對應)
+                    trade_key = f"{mkt}:{t['symbol']}"
+                    outcome = 'WIN' if net_pnl > 0 else ('LOSS' if net_pnl < 0 else 'BREAK_EVEN')
+                    PAPER_TRADER.sync_from_leo(trade_key, exit_price=cur, reason=reason,
+                                              pnl_pct=t['pnl_pct'], outcome=outcome)
+                    print(f'  [PAPER] Synced {trade_key} -> {outcome}')
+                except Exception as e:
+                    print(f'  [PAPER] Sync failed: {e}')
 
     # ==========  excess positions ==========
     print('\n[Step 4] 檢查部位集中度...')
