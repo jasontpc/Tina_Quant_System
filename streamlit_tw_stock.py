@@ -1438,10 +1438,16 @@ with tw_tab:
 
         do_single = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_single")
 
-    if do_single:
+    if do_single or st.session_state.get('tw_analyzed', False):
 
-        with st.spinner(f"Analyzing {single_code}..."):
-            r = analyze(single_code, "TW")
+        if do_single:
+            with st.spinner(f"Analyzing {single_code}..."):
+                r = analyze(single_code, "TW")
+            st.session_state['tw_analyzed'] = True
+        elif 'single_result' in st.session_state:
+            r = st.session_state['single_result']
+        else:
+            r = None
 
         if r:
 
@@ -1903,10 +1909,16 @@ with us_tab:
 
         do_us_single = st.button("Analyze", type="primary", use_container_width=True, key="btn_us_single")
 
-    if do_us_single:
+    if do_us_single or st.session_state.get('us_analyzed', False):
 
-        with st.spinner("Analyzing " + us_single_code + "..."):
-            r = analyze(us_single_code, "US")
+        if do_us_single:
+            with st.spinner("Analyzing " + us_single_code + "..."):
+                r = analyze(us_single_code, "US")
+            st.session_state['us_analyzed'] = True
+        elif 'us_single_result' in st.session_state:
+            r = st.session_state['us_single_result']
+        else:
+            r = None
 
         if r:
 
