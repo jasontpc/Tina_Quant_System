@@ -2035,19 +2035,22 @@ with us_tab:
                 f"法人: F={f_v:+,} T={t_v:+,} D={d_v:,}")
             st.write("DEBUG: US Send button rendering now")
             col1, _ = st.columns([1, 4])
-            if col1.button("Send Telegram", use_container_width=True):
-                st.info("US send clicked")
-                st.info(f"DEBUG chat_id={TELEGRAM_CHAT_ID} token_len={len(TELEGRAM_BOT_TOKEN)}")
-                try:
-                    ok, err = push_telegram(msg)
-                    st.info(f"ok={ok} err={err}")
-                except Exception as ex:
-                    st.error(f"ex={ex}")
-                else:
-                    if ok:
-                        st.success("Telegram sent!")
+            with st.form(key="us_single_tg_form", clear_on_submit=False):
+                submitted = st.form_submit_button("Send Telegram", use_container_width=True)
+                st.write(f"DEBUG: submitted={submitted}")
+                if submitted:
+                    st.info("US form submitted!")
+                    st.info(f"DEBUG chat_id={TELEGRAM_CHAT_ID} token_len={len(TELEGRAM_BOT_TOKEN)}")
+                    try:
+                        ok, err = push_telegram(msg)
+                        st.info(f"ok={ok} err={err}")
+                    except Exception as ex:
+                        st.error(f"ex={ex}")
                     else:
-                        st.error(f"Failed: {err}")
+                        if ok:
+                            st.success("Telegram sent!")
+                        else:
+                            st.error(f"Failed: {err}")
 
 
 # ═══════════════════════════ BRAIN TAB ═══════════════════════════
