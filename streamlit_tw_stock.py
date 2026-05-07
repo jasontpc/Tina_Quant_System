@@ -1578,21 +1578,24 @@ with tw_tab:
                 f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
                 f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
                 f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:,}")
-            st.write("DEBUG: TW Send button rendering now")
-            col1, _ = st.columns([1, 4])
-            if col1.button("Send Telegram", use_container_width=True):
-                st.info("TW send clicked")
-                st.info(f"DEBUG chat_id={TELEGRAM_CHAT_ID} token_len={len(TELEGRAM_BOT_TOKEN)}")
-                try:
-                    ok, err = push_telegram(msg)
-                    st.info(f"ok={ok} err={err}")
-                except Exception as ex:
-                    st.error(f"ex={ex}")
-                else:
-                    if ok:
-                        st.success("Telegram sent!")
+            with st.form(key="tw_single_tg_form", clear_on_submit=False):
+                st.write("DEBUG: TW Send form rendering")
+                col1, _ = st.columns([1, 4])
+                submitted = st.form_submit_button("Send Telegram", use_container_width=True)
+                st.write(f"DEBUG: submitted={submitted}")
+                if submitted:
+                    st.info("TW form submitted!")
+                    st.info(f"DEBUG chat_id={TELEGRAM_CHAT_ID} token_len={len(TELEGRAM_BOT_TOKEN)}")
+                    try:
+                        ok, err = push_telegram(msg)
+                        st.info(f"ok={ok} err={err}")
+                    except Exception as ex:
+                        st.error(f"ex={ex}")
                     else:
-                        st.error(f"Failed: {err}")
+                        if ok:
+                            st.success("Telegram sent!")
+                        else:
+                            st.error(f"Failed: {err}")
 
 
 # ═══════════════════════════ US TAB ═══════════════════════════
