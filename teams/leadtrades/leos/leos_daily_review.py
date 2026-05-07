@@ -13,6 +13,10 @@ OVERBOUGHT_PROFIT_LOCK_PCT = 5.0
 OVERBOUGHT_EXIT_RSI = 80
 BIG_GAIN_TAKE_PROFIT_PCT = 15.0
 
+# 美股絕對停利/停損（每口$2000）
+US_TAKE_PROFIT_AMOUNT = 300
+US_STOP_LOSS_AMOUNT = 200
+
 def get_rsi(closes, period=12):
     if len(closes) < period + 1: return 50.0
     d = np.diff(closes)
@@ -35,26 +39,60 @@ def save_trades(data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 def get_current_prices():
-    """Get current prices for all monitored stocks"""
-    MONITOR = ['2330', '2454', '2317', '2379', '2376', '2382', '3665', '3034']
+    """Get current prices for all monitored stocks (TW + US)"""
+    # TW stocks
+    TW_STOCKS = {
+        '2330': '台積電', '2454': '聯發科', '2303': '聯電',
+        '2317': '鴻海', '2382': '廣達', '3034': '緯穎',
+        '2376': '技嘉', '2379': '瑞昱', '3665': '穎崴',
+        '2456': '奇鋐', '3533': '嘉澤', '3532': '昇達科',
+        '2371': '華星光', '3443': '創惟', '6717': '大聯大',
+    }
+    # US stocks
+    US_STOCKS = {
+        'NVDA': 'NVIDIA', 'AMD': 'AMD', 'QCOM': 'Qualcomm', 'ARM': 'ARM',
+        'MU': 'Micron', 'WDC': 'Western Digital', 'STX': 'Seagate',
+        'ANET': 'Arista', 'LITE': 'Lumentum', 'COHR': 'Coherent',
+        'AMZN': 'Amazon', 'MSFT': 'Microsoft', 'GOOGL': 'Google', 'META': 'Meta',
+        'AMAT': 'Applied Mat', 'LRCX': 'Lam Research', 'KLAC': 'KLA', 'SNPS': 'Synopsys', 'ASML': 'ASML',
+        'MRVL': 'Marvell', 'AVGO': 'Broadcom',
+    }
+
     prices = {}
-    for sym in MONITOR:
+
+    # TW stocks
+    for sym in TW_STOCKS:
         try:
             t = yf.Ticker(f'{sym}.TW')
             h = t.history(period='2d')
             if not h.empty:
                 closes = h['Close'].dropna().values
                 if len(closes) >= 2:
-                    prices[sym] = {
+                    prices[('TW', sym)] = {
                         'price': float(closes[-1]),
                         'rsi': get_rsi(closes, 12)
                     }
         except: pass
+
+    # US stocks
+    for sym in US_STOCKS:
+        try:
+            t = yf.Ticker(sym)
+            h = t.history(period='2d')
+            if not h.empty:
+                closes = h['Close'].dropna().values
+                if len(closes) >= 2:
+                    prices[('US', sym)] = {
+                        'price': float(closes[-1]),
+                        'rsi': get_rsi(closes, 12)
+                    }
+        except: pass
+
     return prices
 
 def run_daily_review():
     print('=' * 60)
-    print('Leo Daily Paper Trade Review')
+    print('Leo Daily Paper Trade Review — TW + US 雙市場版')
     print('Time:', time.strftime('%Y-%m-%d %H:%M'))
     print('=' * 60)
 
@@ -65,29 +103,29 @@ def run_daily_review():
     print(f'\nOpen: {len(open_t)} | Closed: {len(closed_t)}')
 
     # Get current prices
-    print('\n[Step 1] Fetching current prices...')
+    print('\n[Step 1] Fetching current prices (TW + US)...')
     current = get_current_prices()
-    print(f'Got prices for {len(current)} stocks')
+    print(f'Got prices for {len(current)} market-stock pairs')
 
     # Analyze each open position
     print('\n[Step 2] Position Analysis:')
     exits_to_run = []
-    near_target = []
-    near_stop = []
     overbought_profit = []
-    big_gains = []
 
     for t in open_t:
         sym = t['symbol']
-        if sym not in current:
-            print(f'  {sym}: No price data, skipping')
+        mkt = t.get('market', 'TW')
+        key = (mkt, sym)
+
+        if key not in current:
+            print(f'  {mkt}:{sym}: No price data, skipping')
             continue
 
-        cur = current[sym]['price']
+        cur = current[key]['price']
         entry = t['entry_price']
-        target = t.get('target_price', entry * 1.15)
-        stop = t.get('stop_loss', entry * 0.90)
-        rsi = current[sym]['rsi']
+        target = t.get('target_price', entry * 1.15 if mkt == 'TW' else entry + 15)
+        stop = t.get('stop_loss', entry * 0.90 if mkt == 'TW' else entry - 10)
+        rsi = current[key]['rsi']
         shares = t.get('shares', 0)
         pnl_pct = (cur - entry) / entry * 100
         pnl_abs = (cur - entry) * shares
@@ -104,31 +142,39 @@ def run_daily_review():
         reason = None
 
         # Exit conditions
-        if cur >= target:
-            reason = 'take_profit_target'
-        elif cur <= stop:
-            reason = 'stop_loss'
-        elif rsi > OVERBOUGHT_EXIT_RSI and pnl_pct > OVERBOUGHT_PROFIT_LOCK_PCT:
-            reason = f'overbought_lock_profit_RSI{int(rsi)}_pnl{pnl_pct:.1f}'
-        elif pnl_pct > BIG_GAIN_TAKE_PROFIT_PCT:
+        if mkt == 'US':
+            # 美股：用絕對金額停利/停損
+            if pnl_abs >= US_TAKE_PROFIT_AMOUNT:
+                reason = 'take_profit_us'
+            elif pnl_abs <= -US_STOP_LOSS_AMOUNT:
+                reason = 'stop_loss_us'
+            elif rsi > 85 and pnl_pct > 3:
+                reason = f'overbought_lock_profit_RSI{int(rsi)}_pnl{pnl_pct:.1f}'
+        else:
+            # 台股：用百分比停利/停損
+            if cur >= target:
+                reason = 'take_profit_target'
+            elif cur <= stop:
+                reason = 'stop_loss'
+            elif rsi > OVERBOUGHT_EXIT_RSI and pnl_pct > OVERBOUGHT_PROFIT_LOCK_PCT:
+                reason = f'overbought_lock_profit_RSI{int(rsi)}_pnl{pnl_pct:.1f}'
+
+        # 通用條件
+        if pnl_pct > BIG_GAIN_TAKE_PROFIT_PCT:
             reason = f'big_gain_take_profit_{pnl_pct:.1f}'
         elif days_held > MAX_HOLD_DAYS:
             reason = f'max_hold_days_{days_held:.0f}'
 
-        print(f'\n  {sym} {t.get("name","")}')
-        print(f'    Entry: ${entry} | Current: ${cur} | RSI: {rsi:.0f}')
-        print(f'    PnL: {pnl_pct:+.1f}% (NT${pnl_abs:+,.0f}) | Days held: {days_held:.1f}')
-        print(f'    Target: ${target:.0f} ({dist_target:+.1f}%) | Stop: ${stop:.0f} ({dist_stop:+.1f}%)')
+        print(f'\n  {mkt}:{sym} {t.get("name","")}')
+        print(f'    Entry: ${entry:.2f} | Current: ${cur:.2f} | RSI: {rsi:.0f}')
+        print(f'    PnL: {pnl_pct:+.1f}% (${pnl_abs:+,.0f}) | Days held: {days_held:.1f}')
+        print(f'    Target: ${target:.2f} ({dist_target:+.1f}%) | Stop: ${stop:.2f} ({dist_stop:+.1f}%)')
 
         if reason:
             print(f'    >>> EXIT TRIGGER: {reason}')
             exits_to_run.append((t, reason, cur, pnl_pct, pnl_abs))
         elif pnl_pct > 5:
-            overbought_profit.append((sym, pnl_pct, rsi, dist_target))
-        elif dist_target < 5:
-            near_target.append((sym, dist_target, pnl_pct))
-        elif dist_stop < 3:
-            near_stop.append((sym, dist_stop, pnl_pct))
+            overbought_profit.append((f'{mkt}:{sym}', pnl_pct, rsi, dist_target))
 
     # Execute exits
     print(f'\n[Step 3] Executing {len(exits_to_run)} exits...')
@@ -139,21 +185,24 @@ def run_daily_review():
         t['exit_time'] = time.strftime('%Y-%m-%d %H:%M:%S')
         t['pnl'] = round(pnl_abs, 0)
         t['pnl_pct'] = round(pnl_pct, 2)
-        print(f'  EXITED {t["symbol"]}: {reason} -> ${cur} ({pnl_pct:+.1f}%)')
+        mkt = t.get('market', 'TW')
+        print(f'  EXITED {mkt}:{t["symbol"]}: {reason} -> ${cur:.2f} ({pnl_pct:+.1f}%)')
 
-    # Count positions per stock
+    # Count positions per stock (per market)
     from collections import Counter
-    sym_counts = Counter(t['symbol'] for t in open_t if t.get('status') == 'open')
-    excess_stocks = {s: c for s, c in sym_counts.items() if c > MAX_POSITIONS_PER_STOCK}
-    if excess_stocks:
-        print(f'\n[Step 4] Excess positions to close:')
-        for sym, count in excess_stocks.items():
-            # Close oldest positions until under limit
-            same_sym = [t for t in open_t if t['symbol'] == sym and t.get('status') == 'open']
+    open_now = [t for t in trades_data['trades'] if t.get('status') == 'open']
+    sym_counts = Counter((t.get('market', 'TW'), t['symbol']) for t in open_now)
+
+    for (mkt, sym), count in sym_counts.items():
+        if count > MAX_POSITIONS_PER_STOCK:
+            print(f'\n[Step 4] Excess positions {mkt}:{sym} ({count}口) — reducing to {MAX_POSITIONS_PER_STOCK}口')
+            same_sym = [t for t in open_now
+                        if t.get('market', 'TW') == mkt and t['symbol'] == sym]
             same_sym.sort(key=lambda x: x.get('timestamp', ''))
             excess = count - MAX_POSITIONS_PER_STOCK
             for t in same_sym[:excess]:
-                cur = current.get(sym, {}).get('price', t['entry_price'])
+                key = (mkt, t['symbol'])
+                cur = current.get(key, {}).get('price', t['entry_price'])
                 pnl_pct = (cur - t['entry_price']) / t['entry_price'] * 100
                 pnl_abs = (cur - t['entry_price']) * t.get('shares', 0)
                 t['status'] = 'closed'
@@ -162,7 +211,7 @@ def run_daily_review():
                 t['exit_time'] = time.strftime('%Y-%m-%d %H:%M:%S')
                 t['pnl'] = round(pnl_abs, 0)
                 t['pnl_pct'] = round(pnl_pct, 2)
-                print(f'  Closed {sym} (excess): entry ${t["entry_price"]} -> ${cur} ({pnl_pct:+.1f}%)')
+                print(f'  Closed {mkt}:{t["symbol"]} (excess): ${t["entry_price"]:.2f} -> ${cur:.2f} ({pnl_pct:+.1f}%)')
 
     save_trades(trades_data)
 
@@ -174,15 +223,17 @@ def run_daily_review():
     total_pnl = sum(t.get('pnl', 0) for t in closed_now)
     wr = len(wins) / len(closed_now) * 100 if closed_now else 0
 
-    print(f'\n=== Final Summary ===')
-    print(f'Open: {len(open_now)} | Closed: {len(closed_now)}')
-    print(f'Win Rate: {wr:.0f}% ({len(wins)}W/{len(losses)}L)')
-    print(f'Total PnL: NT${total_pnl:,.0f}')
+    tw_open = [t for t in open_now if t.get('market', 'TW') == 'TW']
+    us_open = [t for t in open_now if t.get('market') == 'US']
 
-    # Show watch list
+    print(f'\n=== Final Summary ===')
+    print(f'Open: {len(open_now)} (TW:{len(tw_open)}/US:{len(us_open)}) | Closed: {len(closed_now)}')
+    print(f'Win Rate: {wr:.0f}% ({len(wins)}W/{len(losses)}L)')
+    print(f'Total PnL: ${total_pnl:+,.0f}')
+
     if overbought_profit:
         print(f'\n=== Overbought with Profit (Watch) ===')
-        for sym, pnl, rsi, dist in overbought_profit[:5]:
+        for sym, pnl, rsi, dist in overbought_profit[:10]:
             print(f'  {sym}: +{pnl:.1f}% profit, RSI {rsi:.0f}, {dist:+.1f}% to target')
 
     return trades_data
