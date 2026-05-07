@@ -95,21 +95,21 @@ def _validate_token(raw):
         print(f'[TOKEN WARNING] Token truncated ({len(raw_str)} chars): {repr(raw_str[:10])}... expecting 40+ chars')
         return ''  # Force fallback to empty
     return raw_str
-TELEGRAM_BOT_TOKEN = (
-    _validate_token(os.getenv("TG_BOT_TOKEN")) or
-    _validate_token(os.getenv("tg_bot_token")) or
-    _get_secret("tg_bot_token", "")
-)
+# Force direct unwrap: st.secrets['tg_chat_id'] may return {value} on Streamlit Cloud
+# Use explicit .get() with direct key to avoid dict-wrapper
+_raw_chat = st.secrets.get('tg_chat_id', st.secrets.get('chat_id', '1616824689'))
+if isinstance(_raw_chat, dict):
+    _raw_chat = _raw_chat.get('tg_chat_id', _raw_chat.get('chat_id', '1616824689'))
+TELEGRAM_CHAT_ID = _validate_chat_id(_raw_chat)
 
-# If still empty after all fallbacks, the token is invalid on Streamlit Cloud
-# This should NOT happen if secrets.toml is properly configured
-if not TELEGRAM_BOT_TOKEN:
-    import os
-    TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN", os.getenv("TELEGRAM_BOT_TOKEN", ""))
-
-TELEGRAM_CHAT_ID = _validate_chat_id(
-    os.getenv("TG_CHAT_ID") or os.getenv("tg_chat_id") or _get_secret("tg_chat_id", "1616824689")
-)
+# Force direct token unwrap same way
+_raw_token = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', ''))
+if isinstance(_raw_token, dict):
+    _raw_token = _raw_token.get('tg_bot_token', _raw_token.get('bot_token', ''))
+_token_candidate = _raw_token if isinstance(_raw_token, str) else ''
+if not _token_candidate or len(_token_candidate) < 20:
+    _token_candidate = os.getenv("TG_BOT_TOKEN", os.getenv("TELEGRAM_BOT_TOKEN", ""))
+TELEGRAM_BOT_TOKEN = _token_candidate
 
 # DEBUG: Log raw st.secrets on Streamlit Cloud (when no local secrets.toml)
 _secrets_debug_file = os.path.join(os.path.dirname(__file__), '.streamlit', 'secrets.toml')
