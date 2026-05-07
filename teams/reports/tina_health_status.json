@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-07T12:03:06",
+  "updated_at": "2026-05-07T15:32:14",
   "version": 1,
   "gateway": {
     "status": "offline",
@@ -7,8 +7,8 @@
   },
   "dbs": {
     "yfinance": {
-      "latest": "2026-05-06",
-      "age_days": 1,
+      "latest": "2026-05-07",
+      "age_days": 0,
       "size_mb": 177.54,
       "tables": 4,
       "status": "ok"
@@ -51,18 +51,15 @@
   },
   "cron_summary": {
     "total": 51,
-    "ok": 39,
-    "error": 2,
-    "idle": 7,
+    "ok": 40,
+    "error": 0,
+    "idle": 8,
     "running": 2,
-    "error_jobs": [
-      "Nana 每日DB收盤更新 cron 30 16 * * 1-5 (exact) in 4h 20h ago error isolated announce -> telegram:1616824689 (explicit) - -",
-      "Tina 全團隊整合 cron 0 10 * * 1-5 (exact) in 22h 2h ago error isolated announce -> telegram:1616824689 (explicit) - -"
-    ]
+    "error_jobs": []
   },
   "market": {
-    "twii": 42059.87109375,
-    "twii_chg": 2.24,
+    "twii": 41933.78125,
+    "twii_chg": 1.93,
     "twii_rsi": NaN,
     "signal": "neutral"
   },
@@ -71,9 +68,9 @@
       "name": "元大高息低波",
       "qty": 300,
       "cost": 53.22,
-      "price": 54.150001525878906,
-      "pnl": 279.0,
-      "pnl_pct": 1.75
+      "price": 54.29999923706055,
+      "pnl": 324.0,
+      "pnl_pct": 2.03
     }
   }
 }

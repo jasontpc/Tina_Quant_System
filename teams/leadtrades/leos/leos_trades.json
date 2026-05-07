@@ -2107,14 +2107,19 @@
       "timestamp": "2026-05-06 17:03:44",
       "target_price": 346.15,
       "stop_loss": 270.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260506170344",
       "entry_signals": [
         "neutral",
         "strong_momentum",
         "above_ma20",
         "high_volume"
-      ]
+      ],
+      "exit_price": 309.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 14:05:21",
+      "pnl": 2656.0,
+      "pnl_pct": 2.66
     },
     {
       "symbol": "2382",
@@ -2207,7 +2212,10 @@
         "strong_momentum",
         "above_ma20",
         "high_volume"
-      ]
+      ],
+      "current_price": 309.0,
+      "pnl_pct": 2.66,
+      "current_rsi": 50.0
     },
     {
       "symbol": "2382",
@@ -2220,14 +2228,19 @@
       "timestamp": "2026-05-06 21:02:49",
       "target_price": 398.47,
       "stop_loss": 311.85,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260506210249",
       "entry_signals": [
         "neutral",
         "strong_momentum",
         "above_ma20",
         "high_volume"
-      ]
+      ],
+      "exit_price": 344.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 14:05:21",
+      "pnl": -720.0,
+      "pnl_pct": -0.72
     },
     {
       "symbol": "3034",
@@ -2240,14 +2253,19 @@
       "timestamp": "2026-05-06 21:02:49",
       "target_price": 507.72,
       "stop_loss": 397.35,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260506210249",
       "entry_signals": [
         "neutral",
         "strong_momentum",
         "above_ma20",
         "high_volume"
-      ]
+      ],
+      "exit_price": 453.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 14:05:21",
+      "pnl": 2599.0,
+      "pnl_pct": 2.6
     },
     {
       "symbol": "2379",
@@ -2260,12 +2278,17 @@
       "timestamp": "2026-05-06 21:02:49",
       "target_price": 625.6,
       "stop_loss": 489.6,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260506210249",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 14:05:21",
+      "pnl": -915.0,
+      "pnl_pct": -0.92
     },
     {
       "symbol": "2376",
@@ -2285,7 +2308,10 @@
         "strong_momentum",
         "above_ma20",
         "high_volume"
-      ]
+      ],
+      "current_price": 309.0,
+      "pnl_pct": 2.66,
+      "current_rsi": 50.0
     },
     {
       "symbol": "2382",
@@ -2305,7 +2331,10 @@
         "strong_momentum",
         "above_ma20",
         "high_volume"
-      ]
+      ],
+      "current_price": 344.0,
+      "pnl_pct": -0.72,
+      "current_rsi": 50.0
     },
     {
       "symbol": "3034",
@@ -2325,7 +2354,10 @@
         "strong_momentum",
         "above_ma20",
         "high_volume"
-      ]
+      ],
+      "current_price": 453.0,
+      "pnl_pct": 2.6,
+      "current_rsi": 50.0
     },
     {
       "symbol": "2379",
@@ -2343,7 +2375,10 @@
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "current_price": 539.0,
+      "pnl_pct": -0.92,
+      "current_rsi": 50.0
     },
     {
       "symbol": "2382",
@@ -2362,7 +2397,10 @@
         "neutral",
         "strong_momentum",
         "above_ma20"
-      ]
+      ],
+      "current_price": 344.0,
+      "pnl_pct": -0.43,
+      "current_rsi": 50.0
     },
     {
       "symbol": "2379",
@@ -2380,7 +2418,10 @@
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "current_price": 539.0,
+      "pnl_pct": -0.74,
+      "current_rsi": 50.0
     },
     {
       "symbol": "3034",
@@ -2399,13 +2440,353 @@
         "warm",
         "strong_momentum",
         "above_ma20"
-      ]
+      ],
+      "current_price": 453.0,
+      "pnl_pct": 1.12,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "COHR",
+      "name": "Coherent",
+      "market": "US",
+      "entry_price": 344.67,
+      "shares": 5,
+      "amount": 1723.0,
+      "entry_rsi": 48.5,
+      "entry_score": 58,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 396.37,
+      "stop_loss": 310.2,
+      "status": "open",
+      "trade_id": "LEO_UCOHR_20260507132340",
+      "entry_signals": [
+        "oversold",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "current_price": 344.6700134277344,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "LITE",
+      "name": "Lumentum",
+      "market": "US",
+      "entry_price": 944.28,
+      "shares": 2,
+      "amount": 1889.0,
+      "entry_rsi": 54.9,
+      "entry_score": 53,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 1085.92,
+      "stop_loss": 849.85,
+      "status": "open",
+      "trade_id": "LEO_ULITE_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ],
+      "current_price": 944.280029296875,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "market": "TW",
+      "entry_price": 449.0,
+      "shares": 222,
+      "amount": 99678.0,
+      "entry_rsi": 66.0,
+      "entry_score": 48,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 516.35,
+      "stop_loss": 404.1,
+      "status": "open",
+      "trade_id": "LEO_T3034_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "current_price": 453.0,
+      "pnl_pct": 0.89,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "AMAT",
+      "name": "Applied Mat",
+      "market": "US",
+      "entry_price": 428.62,
+      "shares": 4,
+      "amount": 1714.0,
+      "entry_rsi": 65.5,
+      "entry_score": 48,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 492.91,
+      "stop_loss": 385.76,
+      "status": "open",
+      "trade_id": "LEO_UAMAT_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "current_price": 428.6199951171875,
+      "pnl_pct": -0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML",
+      "market": "US",
+      "entry_price": 1544.74,
+      "shares": 1,
+      "amount": 1545.0,
+      "entry_rsi": 58.2,
+      "entry_score": 48,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 1776.45,
+      "stop_loss": 1390.27,
+      "status": "open",
+      "trade_id": "LEO_UASML_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "current_price": 1544.739990234375,
+      "pnl_pct": -0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "market": "TW",
+      "entry_price": 344.0,
+      "shares": 290,
+      "amount": 99760.0,
+      "entry_rsi": 58.9,
+      "entry_score": 43,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 395.6,
+      "stop_loss": 309.6,
+      "status": "open",
+      "trade_id": "LEO_T2382_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "current_price": 344.0,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "market": "US",
+      "entry_price": 413.96,
+      "shares": 4,
+      "amount": 1656.0,
+      "entry_rsi": 47.4,
+      "entry_score": 43,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 476.05,
+      "stop_loss": 372.56,
+      "status": "open",
+      "trade_id": "LEO_UMSFT_20260507132340",
+      "entry_signals": [
+        "oversold",
+        "above_ma20"
+      ],
+      "current_price": 413.9599914550781,
+      "pnl_pct": -0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "SNPS",
+      "name": "Synopsys",
+      "market": "US",
+      "entry_price": 504.42,
+      "shares": 3,
+      "amount": 1513.0,
+      "entry_rsi": 67.6,
+      "entry_score": 43,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 580.08,
+      "stop_loss": 453.98,
+      "status": "open",
+      "trade_id": "LEO_USNPS_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "current_price": 504.4200134277344,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "market": "US",
+      "entry_price": 425.44,
+      "shares": 4,
+      "amount": 1702.0,
+      "entry_rsi": 64.3,
+      "entry_score": 43,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 489.26,
+      "stop_loss": 382.9,
+      "status": "open",
+      "trade_id": "LEO_UAVGO_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "current_price": 425.44000244140625,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "2376",
+      "name": "技嘉",
+      "market": "TW",
+      "entry_price": 309.0,
+      "shares": 323,
+      "amount": 99807.0,
+      "entry_rsi": 68.3,
+      "entry_score": 38,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 355.35,
+      "stop_loss": 278.1,
+      "status": "open",
+      "trade_id": "LEO_T2376_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "high_volume"
+      ],
+      "current_price": 309.0,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "market": "TW",
+      "entry_price": 537.0,
+      "shares": 186,
+      "amount": 99882.0,
+      "entry_rsi": 49.6,
+      "entry_score": 38,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 617.55,
+      "stop_loss": 483.3,
+      "status": "open",
+      "trade_id": "LEO_T2379_20260507132340",
+      "entry_signals": [
+        "oversold",
+        "near_ma20_pullback"
+      ],
+      "current_price": 539.0,
+      "pnl_pct": 0.37,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "KLAC",
+      "name": "KLA",
+      "market": "US",
+      "entry_price": 1816.29,
+      "shares": 1,
+      "amount": 1816.0,
+      "entry_rsi": 51.1,
+      "entry_score": 38,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 2088.73,
+      "stop_loss": 1634.66,
+      "status": "open",
+      "trade_id": "LEO_UKLAC_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "current_price": 1816.2900390625,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "3665",
+      "name": "穎崴",
+      "market": "TW",
+      "entry_price": 2765.0,
+      "shares": 36,
+      "amount": 99540.0,
+      "entry_rsi": 64.5,
+      "entry_score": 33,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 3179.75,
+      "stop_loss": 2488.5,
+      "status": "open",
+      "trade_id": "LEO_T3665_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "current_price": 2780.0,
+      "pnl_pct": 0.54,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "market": "US",
+      "entry_price": 207.83,
+      "shares": 9,
+      "amount": 1870.0,
+      "entry_rsi": 55.1,
+      "entry_score": 33,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 239.0,
+      "stop_loss": 187.05,
+      "status": "open",
+      "trade_id": "LEO_UNVDA_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "current_price": 207.8300018310547,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
+    },
+    {
+      "symbol": "LRCX",
+      "name": "Lam Research",
+      "market": "US",
+      "entry_price": 297.17,
+      "shares": 6,
+      "amount": 1783.0,
+      "entry_rsi": 67.4,
+      "entry_score": 33,
+      "timestamp": "2026-05-07 13:23:40",
+      "target_price": 341.75,
+      "stop_loss": 267.45,
+      "status": "open",
+      "trade_id": "LEO_ULRCX_20260507132340",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum"
+      ],
+      "current_price": 297.1700134277344,
+      "pnl_pct": 0.0,
+      "current_rsi": 50.0
     }
   ],
   "stats": {
-    "total": 0,
-    "wins": 0,
-    "losses": 0,
-    "total_pnl": 0
+    "total": 98,
+    "wins": 83,
+    "losses": 15,
+    "total_pnl": 587109.0
   }
 }
