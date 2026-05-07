@@ -215,6 +215,59 @@ def _validate_chat_id(raw):
 
 **測試驗證：** TW/US 個股 + 批次都正常發送
 
+### Bug #6（2026-05-07 20:50）— `st.secrets` 返回 dict-string repr 而非 dict
+
+| 欄位 | 內容 |
+|:-----|:-----|
+| **日期** | 2026-05-07 20:50 |
+| **檔案** | `streamlit_tw_stock.py` |
+| **commit** | `fbcaaed` |
+| **類型** | BUG |
+| **優先** | P0緊急 |
+
+**問題：**
+```
+DEBUG chat_id="{'tg_chat_id': '1616824689'}" type=str
+HTTP 400: Bad Request: chat not found
+```
+- Streamlit Cloud 的 `st.secrets` 返回的是 **Python string repr** of dict：`"{'tg_chat_id': '1616824689'}"`（type=str）
+- 不是 dict 型別，是 string！
+- 所以 `isinstance(raw, dict)` 在 `_validate_chat_id()` 一直是 `False`
+- dict-string repr 從未被解析，所以最後 `TELEGRAM_CHAT_ID = "{'tg_chat_id': '1616824689'}"` 整個帶著 `{}` 進了 API
+
+**對策：**
+```python
+def _validate_chat_id(raw):
+    # STEP 1: If raw is a string that looks like dict-string repr, parse it FIRST
+    if isinstance(raw, str):
+        s = raw.strip()
+        if s.startswith('{') and 'chat_id' in s:
+            try:
+                parsed = json.loads(s.replace("'", '"'))
+                raw = parsed.get('chat_id', ...)
+            except:
+                pass
+        # Also strip prefixes immediately after parsing
+        raw = raw.replace('telegram:', '').replace('tg_', '')
+    # STEP 2~3: Unwrap nested dict/List
+    while isinstance(raw, (dict, list)):
+        ...
+    # STEP 4: Final guard
+    if isinstance(raw, str):
+        raw = raw.replace('telegram:', '').replace('tg_', '')
+    return str(raw)
+```
+
+**根本原因：**
+- Streamlit Cloud 的 TOML secrets 行為：`[section]` → `st.secrets['section']` 返回 `str(dict)` 而非 `dict`
+- Python 的 `json.loads("{'key': 'value'}".replace("'", '"'))` 可正確解析 Python dict-string repr
+
+**預防復發：**
+- ✅ 任何從 `st.secrets` 讀取的值，一律先檢查是否為 dict-string repr 並 parse
+- ✅ 未來新加 secrets 時，強制使用 `json.loads(s.replace("'", '"'))` pattern
+
+**測試驗證：** TW/US 個股 + 批次都正常發送
+
 ---
 
 ## 📐 修改流程規範（強制執行）
