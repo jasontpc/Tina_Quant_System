@@ -1150,7 +1150,7 @@ with tw_tab:
             tw_grade = [g for g, on in zip(["A","B","C","D"], [g_a, g_b, g_c, g_d]) if on]
 
         tw_score_min = st.slider("Score Min", 0, 1000, 0, key="tw_score")
-
+        tw_rsi_max = st.slider("RSI Max", 30, 100, 100, key="tw_rsi")
 
         tw_macd_filter = st.checkbox("排除 MACD < 0", value=False, key="tw_macd_filter")
 
@@ -1617,7 +1617,7 @@ with us_tab:
             us_grade = [g for g, on in zip(["A","B","C","D"], [u_a, u_b, u_c, u_d]) if on]
 
         us_score_min = st.slider("Score Min", 0, 1000, 0, key="us_score")
-
+        us_rsi_max = st.slider("RSI Max", 30, 100, 100, key="us_rsi")
 
         us_macd_filter = st.checkbox("排除 MACD < 0", value=False, key="us_macd_filter")
 
