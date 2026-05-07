@@ -1696,9 +1696,9 @@ with tw_tab:
             c1,c2,c3,c4 = st.columns(4)
             c1.metric("Price", f"${r['price']:.2f}", f"{r['chg']:+.2f}%")
             rsi_delta = rsi_v-50
-            if rsi_v>70:       rsi_st = "Overbought"
-            elif rsi_v<35:    rsi_st = "Oversold"
-            else:              rsi_st = f"OK {rsi_v:.0f}"
+            if rsi_v>70:       rsi_st = "過熱"
+            elif rsi_v<35:    rsi_st = "超賣"
+            else:              rsi_st = f"正常 {rsi_v:.0f}"
             c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_st}")
 
             k_val,d_val = r['k'],r['d']
@@ -1706,9 +1706,9 @@ with tw_tab:
             c3.metric("K/D", kd_lbl, f"{k_val-d_val:+.0f}", help="K above D=bullish")
 
             bb_delta = bb_v-50
-            if bb_v<20:       bb_st = "Oversold"
-            elif bb_v>80:     bb_st = "Overbought"
-            else:             bb_st = f"Neutral {bb_v:.0f}%"
+            if bb_v<20:       bb_st = "超賣"
+            elif bb_v>80:     bb_st = "過熱"
+            else:             bb_st = f"中立 {bb_v:.0f}%"
             c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_delta:+.0f}", help=f"Status: {bb_st}")
 
             # ── Row 2: MA20 vs MA60 + MACD + Vol + BIAS ──
@@ -1720,11 +1720,11 @@ with tw_tab:
             d2.metric("MACD Hist", f"{macd_v:+.2f}", f"{macd_v:+.2f}")
 
             vol_v = r['vol_ratio']
-            vol_st = "High" if vol_v>1.5 else "Low" if vol_v<0.8 else "Normal"
+            vol_st = "高量" if vol_v>1.5 else "低量" if vol_v<0.8 else "正常"
             d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_st}")
 
             bias_v = r['bias5']
-            bias_st = "High" if abs(bias_v)>3 else "Normal"
+            bias_st = "偏離大" if abs(bias_v)>3 else "正常"
             d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_st}")
 
             # ── Score Breakdown (color-coded inline) ──
@@ -2163,9 +2163,9 @@ with us_tab:
             c1,c2,c3,c4 = st.columns(4)
             c1.metric("Price", f"${r['price']:.2f}", f"{r['chg']:+.2f}%")
             rsi_delta = rsi_v-50
-            if rsi_v>70:       rsi_st = "Overbought"
-            elif rsi_v<35:    rsi_st = "Oversold"
-            else:              rsi_st = f"OK {rsi_v:.0f}"
+            if rsi_v>70:       rsi_st = "過熱"
+            elif rsi_v<35:    rsi_st = "超賣"
+            else:              rsi_st = f"正常 {rsi_v:.0f}"
             c2.metric("RSI", f"{rsi_v:.0f}", f"{rsi_delta:+.0f}", help=f"Status: {rsi_st}")
 
             k_val,d_val = r['k'],r['d']
@@ -2173,9 +2173,9 @@ with us_tab:
             c3.metric("K/D", kd_lbl, f"{k_val-d_val:+.0f}", help="K above D=bullish")
 
             bb_delta = bb_v-50
-            if bb_v<20:       bb_st = "Oversold"
-            elif bb_v>80:     bb_st = "Overbought"
-            else:             bb_st = f"Neutral {bb_v:.0f}%"
+            if bb_v<20:       bb_st = "超賣"
+            elif bb_v>80:     bb_st = "過熱"
+            else:             bb_st = f"中立 {bb_v:.0f}%"
             c4.metric("BB%", f"{bb_v:.0f}%", f"{bb_delta:+.0f}", help=f"Status: {bb_st}")
 
             # ── Row 2: MA20 vs MA60 + MACD + Vol + BIAS ──
@@ -2187,11 +2187,11 @@ with us_tab:
             d2.metric("MACD Hist", f"{macd_v:+.2f}", f"{macd_v:+.2f}")
 
             vol_v = r['vol_ratio']
-            vol_st = "High" if vol_v>1.5 else "Low" if vol_v<0.8 else "Normal"
+            vol_st = "高量" if vol_v>1.5 else "低量" if vol_v<0.8 else "正常"
             d3.metric("Vol Ratio", f"{vol_v:.1f}x", help=f"Status: {vol_st}")
 
             bias_v = r['bias5']
-            bias_st = "High" if abs(bias_v)>3 else "Normal"
+            bias_st = "偏離大" if abs(bias_v)>3 else "正常"
             d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_st}")
 
             # ── Score Breakdown (color-coded inline) ──
