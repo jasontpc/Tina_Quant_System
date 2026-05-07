@@ -86,10 +86,19 @@ def _validate_chat_id(raw):
 def _validate_token(raw):
     """Robust token extraction — rejects truncated/malformed tokens.
     Valid Telegram bot tokens are format: <digits>:<alphanum> (typically 40-50 chars).
-    If token is too short or malformed, returns empty string to trigger fallback."""
+    If token is a dict-string repr like "{'tg_bot_token': '...'}", parse it first."""
     if not raw:
         return ''
     raw_str = str(raw).strip()
+    # If the token looks like a dict-string repr, parse it
+    if raw_str.startswith('{'):
+        try:
+            import json as _json
+            parsed = _json.loads(raw_str.replace("'", '"'))
+            if isinstance(parsed, dict):
+                raw_str = parsed.get('tg_bot_token', parsed.get('bot_token', parsed.get('value', '')))
+        except:
+            pass
     # Reject obviously truncated tokens (valid tokens are 40+ chars)
     if len(raw_str) < 20:
         print(f'[TOKEN WARNING] Token truncated ({len(raw_str)} chars): {repr(raw_str[:10])}... expecting 40+ chars')
@@ -110,9 +119,19 @@ _hard_coded_token = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'  # Only use
 _raw_token = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', None))
 if _raw_token is None:
     _raw_token = ''
+elif isinstance(_raw_token, str):
+    # Handle edge case: st.secrets returns str repr of dict like "{'tg_bot_token': 'token'}"
+    if _raw_token.startswith('{'):
+        try:
+            import json as _json
+            parsed = _json.loads(_raw_token.replace("'", '"'))
+            if isinstance(parsed, dict):
+                _raw_token = parsed.get('tg_bot_token', parsed.get('bot_token', parsed.get('value', '')))
+        except:
+            pass
 elif isinstance(_raw_token, dict):
     _raw_token = _raw_token.get('tg_bot_token', _raw_token.get('bot_token', _raw_token.get('value', '')))
-elif not isinstance(_raw_token, str):
+else:
     _raw_token = str(_raw_token) if _raw_token else ''
 _token_candidate = _raw_token.strip() if isinstance(_raw_token, str) else ''
 # Validate length (token should be 40+ chars)
@@ -177,23 +196,20 @@ def _to_json_safe(obj):
 
 
 def push_telegram(message):
-    # Clean and validate token before use
+    # Clean and validate token before use — last-resort regex extraction
     import json, re, urllib.parse
     token_raw = TELEGRAM_BOT_TOKEN
-    if not isinstance(token_raw, str) or not token_raw or ':' not in str(token_raw):
-        # Try to recover from broken state
-        token_str = str(token_raw).strip()
-        if token_str.startswith('{') and ':' in token_str:
-            # Extract token using regex
-            m = re.search(r'([0-9]+:[A-Za-z0-9_-]+)', token_str)
-            if m:
-                token_str = m.group(1)
-        if not token_str or ':' not in token_str:
-            return False, f'Invalid token: {repr(token_raw)[:50]}'
+    token_str = str(token_raw).strip()
+    # If token looks like dict-string repr, do final regex extraction
+    if token_str.startswith('{'):
+        m = re.search(r'([0-9]+:[A-Za-z0-9_-]{30,})', token_str)
+        token_clean = m.group(1) if m else ''
+    elif isinstance(token_raw, str) and len(token_str) >= 20 and ':' in token_str:
         token_clean = token_str
     else:
-        token_clean = token_raw.strip()
-
+        token_clean = ''
+    if not token_clean:
+        return False, f'Invalid token: {repr(token_raw)[:50]}'
     # Validate chat_id is a proper string
     chat_id_raw = TELEGRAM_CHAT_ID
     if isinstance(chat_id_raw, dict):
