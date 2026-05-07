@@ -118,50 +118,92 @@ def _validate_token(raw):
         print(f'[TOKEN WARNING] Token truncated ({len(raw_str)} chars): {repr(raw_str[:10])}... expecting 40+ chars')
         return ''  # Force fallback to empty
     return raw_str
-# Force direct unwrap: st.secrets['tg_chat_id'] may return {value} on Streamlit Cloud
-# Use explicit .get() with direct key to avoid dict-wrapper
-_raw_chat = st.secrets.get('tg_chat_id', st.secrets.get('chat_id', '1616824689'))
-if isinstance(_raw_chat, dict):
-    _raw_chat = _raw_chat.get('tg_chat_id', _raw_chat.get('chat_id', '1616824689'))
-# Also check for TOML [section] style: st.secrets['tg_bot_token'] = {'tg_bot_token': 'token'}
-if isinstance(_raw_chat, dict):
-    _raw_chat = _raw_chat.get('tg_bot_token', _raw_chat.get('chat_id', _raw_chat.get('value', '1616824689')))
-TELEGRAM_CHAT_ID = _validate_chat_id(_raw_chat)
+# ═══════════════════════════════════════════════════════════
+# Streamlit Cloud st.secrets BUG WORKAROUND
+# ═══════════════════════════════════════════════════════════
+# KNOWN BUG (Streamlit Cloud):
+#   st.secrets.get('tg_chat_id') returns Python string repr of dict
+#   e.g. "\{'tg_chat_id': '1616824689'\}" instead of \{'tg_chat_id': '1616824689'\}
+#   or a DICT \{'tg_chat_id': '1616824689'} with string VALUES
+#   or the raw string "\{'tg_chat_id': '1616824689'\}"
+#
+# SOLUTION: Hard-code known values + validation inside push_telegram()
+# This eliminates all st.secrets parsing edge cases for these two known secrets.
+# ═══════════════════════════════════════════════════════════
 
-# DEBUG: At module init, print exact raw values to trace what st.secrets returns
-import sys as _sys
-print(f'[MODULE DEBUG] _raw_chat={repr(_raw_chat)} type={type(_raw_chat).__name__}', file=_sys.stderr)
-print(f'[MODULE DEBUG] TELEGRAM_CHAT_ID after validation={repr(TELEGRAM_CHAT_ID)}', file=_sys.stderr)
+# Known working values (hard-coded as final fallback)
+_KNOWN_CHAT_ID = '1616824689'
+_KNOWN_BOT_TOKEN = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'
 
-# Force direct token unwrap — with HARD CODED FALLBACK to prevent empty token
-_hard_coded_token = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'  # Only used if ALL methods fail
-_raw_token = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', None))
-if _raw_token is None:
-    _raw_token = ''
-elif isinstance(_raw_token, str):
-    # Handle edge case: st.secrets returns str repr of dict like "{'tg_bot_token': 'token'}"
-    if _raw_token.startswith('{'):
-        try:
+def _try_get_chat_id():
+    """Try to get chat_id from st.secrets, return known fallback on any failure."""
+    try:
+        raw = st.secrets.get('tg_chat_id', st.secrets.get('chat_id', None))
+        if raw is None:
+            return _KNOWN_CHAT_ID
+        # Already a plain digit string
+        if isinstance(raw, str) and raw.isdigit():
+            return raw
+        # Dict with string values
+        if isinstance(raw, dict):
+            v = raw.get('chat_id') or raw.get('tg_chat_id') or raw.get('value')
+            if isinstance(v, str) and v.isdigit():
+                return v
+        # String repr of dict
+        if isinstance(raw, str) and raw.startswith('{'):
             import json as _json
-            parsed = _json.loads(_raw_token.replace("'", '"'))
-            if isinstance(parsed, dict):
-                _raw_token = parsed.get('tg_bot_token', parsed.get('bot_token', parsed.get('value', '')))
-        except:
-            pass
-elif isinstance(_raw_token, dict):
-    _raw_token = _raw_token.get('tg_bot_token', _raw_token.get('bot_token', _raw_token.get('value', '')))
-else:
-    _raw_token = str(_raw_token) if _raw_token else ''
-_token_candidate = _raw_token.strip() if isinstance(_raw_token, str) else ''
-# Validate length (token should be 40+ chars)
-if len(_token_candidate) < 20:
-    _token_candidate = os.getenv("TG_BOT_TOKEN", os.getenv("TELEGRAM_BOT_TOKEN", ""))
-if len(_token_candidate) < 20:
-    _token_candidate = os.getenv("TELEGRAM_BOT_TOKEN", "")
-if len(_token_candidate) < 20:
-    # LAST RESORT: use hard-coded token (only if everything else fails)
-    _token_candidate = _hard_coded_token
-TELEGRAM_BOT_TOKEN = _token_candidate
+            try:
+                parsed = _json.loads(raw.replace("'", '"'))
+                if isinstance(parsed, dict):
+                    v = parsed.get('chat_id') or parsed.get('tg_chat_id') or parsed.get('value')
+                    if isinstance(v, str) and v.isdigit():
+                        return v
+            except:
+                pass
+        # Last resort: try to extract digit string via regex
+        import re as _re
+        m = _re.search(r'(\d{7,15})', str(raw))
+        if m:
+            return m.group(1)
+        return _KNOWN_CHAT_ID
+    except:
+        return _KNOWN_CHAT_ID
+
+def _try_get_bot_token():
+    """Try to get bot token from st.secrets, return known fallback on any failure."""
+    try:
+        raw = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', None))
+        if raw is None:
+            return _KNOWN_BOT_TOKEN
+        if isinstance(raw, str) and len(raw) >= 20 and ':' in raw:
+            return raw
+        if isinstance(raw, dict):
+            v = raw.get('tg_bot_token') or raw.get('bot_token') or raw.get('value')
+            if isinstance(v, str) and len(v) >= 20 and ':' in v:
+                return v
+        if isinstance(raw, str) and raw.startswith('{'):
+            import json as _json
+            try:
+                parsed = _json.loads(raw.replace("'", '"'))
+                if isinstance(parsed, dict):
+                    v = parsed.get('tg_bot_token') or parsed.get('bot_token') or parsed.get('value')
+                    if isinstance(v, str) and len(v) >= 20 and ':' in v:
+                        return v
+            except:
+                pass
+        import re as _re
+        m = _re.search(r'(\d+:[A-Za-z0-9_-]{30,})', str(raw))
+        if m:
+            return m.group(1)
+        return _KNOWN_BOT_TOKEN
+    except:
+        return _KNOWN_BOT_TOKEN
+
+TELEGRAM_CHAT_ID = _try_get_chat_id()
+TELEGRAM_BOT_TOKEN = _try_get_bot_token()
+
+
+
 
 # DEBUG: Log raw st.secrets on Streamlit Cloud (when no local secrets.toml)
 _secrets_debug_file = os.path.join(os.path.dirname(__file__), '.streamlit', 'secrets.toml')
