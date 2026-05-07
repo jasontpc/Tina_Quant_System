@@ -179,6 +179,42 @@ Error: URL can't contain control characters. "/bot{'tg_bot_token': '861461…M14
 
 **測試驗證：** TW/US 個股按鈕 Telegram 發送成功
 
+### Bug #5（2026-05-07 18:40）— `chat_id='telegram:1616824689'` 導致 chat not found
+
+| 欄位 | 內容 |
+|:-----|:-----|
+| **日期** | 2026-05-07 18:40 |
+| **檔案** | `streamlit_tw_stock.py` |
+| **commit** | `cd7c100` |
+| **類型** | BUG |
+| **優先** | P0緊急 |
+
+**問題：**
+```
+HTTP 400: Bad Request: chat not found
+```
+- 本地測試發現：`chat_id='telegram:1616824689'` 這個格式會造成 400
+- 正常 chat_id 只要數字字串 `'1616824689'` 或純 int `1616824689`
+- 但 `TELEGRAM_CHAT_ID` 在 Streamlit Cloud 上可能帶有 `telegram:` 前綴
+- 本地測試：`'telegram:1616824689'` → 400；去掉前綴 → 200 OK
+
+**對策：**
+```python
+def _validate_chat_id(raw):
+    # ... existing dict/List unwrap logic ...
+    # Strip 'telegram:' or 'tg_' prefixes that Streamlit Cloud may inject
+    if isinstance(raw, str):
+        raw = raw.replace('telegram:', '').replace('tg_', '')
+    return str(raw) if raw else '1616824689'
+```
+
+
+**預防復發：**
+- ✅ `_validate_chat_id()` 最後統一做 prefix strip
+- ✅ `push_telegram()` 內對 chat_id 再做一次 isdigit() 驗證
+
+**測試驗證：** TW/US 個股 + 批次都正常發送
+
 ---
 
 ## 📐 修改流程規範（強制執行）
