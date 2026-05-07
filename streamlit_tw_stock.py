@@ -37,7 +37,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 def _get_secret(key, default=""):
     """Extract string value from st.secrets TOML dict structure.
     TOML [section] creates st.secrets['section'] = {'section': value}
-    so we need .get(key, {}).get(key, default) to unwrap it."""
+    so we need .get(key, {}).get(key, default) to unwrap it.
+    
+    Additionally handles json.loads unwrapping for edge cases where
+    st.secrets returns dict-string representations."""
     val = st.secrets.get(key, {})
     if isinstance(val, dict):
         inner = val.get(key, default)
@@ -45,6 +48,16 @@ def _get_secret(key, default=""):
         if isinstance(inner, dict):
             return default
         return inner if inner else default
+    # Handle json-string edge case: st.secrets['key'] = "{'key': 'value'}"
+    if isinstance(val, str) and val.startswith('{'):
+        try:
+            parsed = json.loads(val.replace("'", '"'))
+            inner = parsed.get(key, default)
+            if isinstance(inner, dict):
+                return default
+            return inner if inner else default
+        except:
+            pass
     return val if val else default
 
 def _validate_chat_id(raw):
@@ -69,7 +82,30 @@ def _validate_chat_id(raw):
         else:
             raw = raw[0] if raw else '1616824689'
     return str(raw) if raw else '1616824689'
-TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or os.getenv("tg_bot_token") or _get_secret("tg_bot_token", "")
+
+def _validate_token(raw):
+    """Robust token extraction — rejects truncated/malformed tokens.
+    Valid Telegram bot tokens are format: <digits>:<alphanum> (typically 40-50 chars).
+    If token is too short or malformed, returns empty string to trigger fallback."""
+    if not raw:
+        return ''
+    raw_str = str(raw).strip()
+    # Reject obviously truncated tokens (valid tokens are 40+ chars)
+    if len(raw_str) < 20:
+        print(f'[TOKEN WARNING] Token truncated ({len(raw_str)} chars): {repr(raw_str[:10])}... expecting 40+ chars')
+        return ''  # Force fallback to empty
+    return raw_str
+TELEGRAM_BOT_TOKEN = (
+    _validate_token(os.getenv("TG_BOT_TOKEN")) or
+    _validate_token(os.getenv("tg_bot_token")) or
+    _get_secret("tg_bot_token", "")
+)
+
+# If still empty after all fallbacks, the token is invalid on Streamlit Cloud
+# This should NOT happen if secrets.toml is properly configured
+if not TELEGRAM_BOT_TOKEN:
+    import os
+    TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN", os.getenv("TELEGRAM_BOT_TOKEN", ""))
 
 TELEGRAM_CHAT_ID = _validate_chat_id(
     os.getenv("TG_CHAT_ID") or os.getenv("tg_chat_id") or _get_secret("tg_chat_id", "1616824689")
@@ -132,14 +168,22 @@ def push_telegram(message):
         token_clean = token_str
     else:
         token_clean = token_raw.strip()
+
+    # Validate chat_id is a proper string
+    chat_id_raw = TELEGRAM_CHAT_ID
+    if isinstance(chat_id_raw, dict):
+        # This should NOT happen if _validate_chat_id works, but double-check here
+        chat_id = chat_id_raw.get('chat_id', chat_id_raw.get('tg_chat_id', '1616824689'))
+    elif isinstance(chat_id_raw, str) and chat_id_raw.isdigit():
+        chat_id = chat_id_raw
+    else:
+        chat_id = str(chat_id_raw)
+
     url = f'https://api.telegram.org/bot{token_clean}/sendMessage'
     safe_msg = str(message) if not isinstance(message, str) else message
-    safe_msg = str(message) if not isinstance(message, str) else message
 
-    payload = {'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}
-
+    payload = {'chat_id': chat_id, 'text': safe_msg, 'parse_mode': 'Markdown'}
     payload = _to_json_safe(payload)
-
     data = json.dumps(payload).encode()
 
     req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
