@@ -1580,14 +1580,12 @@ with tw_tab:
                 f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:,}")
             col1, col2 = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
-                with col2:
-                    with st.spinner("Sending..."):
-                        ok, err = push_telegram(msg)
-                    if ok:
-                        st.success("Telegram sent!")
-                    else:
-                        st.error(f"Failed: {err}")
-
+                with st.spinner("Sending..."):
+                    ok, err = push_telegram(msg)
+                if ok:
+                    col2.success("Telegram sent!")
+                else:
+                    col2.error(f"Failed: {err}")
 
 
 # ═══════════════════════════ US TAB ═══════════════════════════
@@ -2030,14 +2028,12 @@ with us_tab:
                 f"法人: F={f_v:+,} T={t_v:+,} D={d_v:,}")
             col1, col2 = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
-                with col2:
-                    with st.spinner("Sending..."):
-                        ok, err = push_telegram(msg)
-                    if ok:
-                        st.success("Telegram sent!")
-                    else:
-                        st.error(f"Failed: {err}")
-
+                with st.spinner("Sending..."):
+                    ok, err = push_telegram(msg)
+                if ok:
+                    col2.success("Telegram sent!")
+                else:
+                    col2.error(f"Failed: {err}")
 
 
 # ═══════════════════════════ BRAIN TAB ═══════════════════════════
