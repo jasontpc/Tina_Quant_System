@@ -35,23 +35,17 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def _get_secret(key, default=""):
-
     """Extract string value from st.secrets TOML dict structure.
-
     TOML [section] creates st.secrets['section'] = {'section': value}
-
     so we need .get(key, {}).get(key, default) to unwrap it."""
-
     val = st.secrets.get(key, {})
-
     if isinstance(val, dict):
-
-        return val.get(key, default)
-
+        inner = val.get(key, default)
+        # Defensive: if inner is STILL a dict (edge case), return default
+        if isinstance(inner, dict):
+            return default
+        return inner if inner else default
     return val if val else default
-
-
-
 TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or _get_secret("tg_bot_token", "")
 
 TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or _get_secret("tg_chat_id", "1616824689")
