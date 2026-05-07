@@ -128,6 +128,11 @@ if isinstance(_raw_chat, dict):
     _raw_chat = _raw_chat.get('tg_bot_token', _raw_chat.get('chat_id', _raw_chat.get('value', '1616824689')))
 TELEGRAM_CHAT_ID = _validate_chat_id(_raw_chat)
 
+# DEBUG: At module init, print exact raw values to trace what st.secrets returns
+import sys as _sys
+print(f'[MODULE DEBUG] _raw_chat={repr(_raw_chat)} type={type(_raw_chat).__name__}', file=_sys.stderr)
+print(f'[MODULE DEBUG] TELEGRAM_CHAT_ID after validation={repr(TELEGRAM_CHAT_ID)}', file=_sys.stderr)
+
 # Force direct token unwrap — with HARD CODED FALLBACK to prevent empty token
 _hard_coded_token = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'  # Only used if ALL methods fail
 _raw_token = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', None))
