@@ -1,6 +1,6 @@
 # Tina 系統修改紀錄（Change Log）
 
-> 每次修改 建立紀錄，預防重蹈覆轍
+> 每次修改建立紀錄，預防重蹈覆轍
 
 ---
 
@@ -27,314 +27,157 @@ commit: <git_hash>
 
 ---
 
-## 🔧 Streamlit Cloud Telegram 問題修改紀錄
+## 🔧 Streamlit Cloud 開發標準（2026-05-07 實戰經驗）
 
-### Bug #1（2026-05-07 16:20）— chat_id 變成 dict
-
-| 欄位 | 內容 |
-|:-----|:-----|
-| **日期** | 2026-05-07 16:20 |
-| **檔案** | `streamlit_tw_stock.py` |
-| **commit** | `c6214ae` |
-| **類型** | BUG |
-| **優先** | P0緊急（已影響功能） |
-
-**問題：**
-```
-DEBUG chat_id={'tg_chat_id': '1616824689'} token_len=1
-HTTP 400: Bad Request: chat not found
-```
-- `_get_secret()` 在 Streamlit Cloud 的 TOML 格式下返回 dict `{'tg_chat_id': '1616824689'}`
-- chat_id 沒有被正確 unwrap，直接拿 dict 當字串送 API
-
-**對策：**
-```python
-def _validate_chat_id(raw):
-    """Robust chat_id extraction — handles dict/List/int all edge cases"""
-    if raw is None:
-        return '1616824689'
-    if isinstance(raw, str) and raw.isdigit():
-        return raw
-    if isinstance(raw, dict):
-        raw = raw.get('chat_id', raw.get('tg_chat_id', '1616824689'))
-    # ... while loop for nested dict
-    return str(raw) if raw else '1616824689'
-```
-
-**預防復發：**
-- ✅ 所有 module-level secrets 初始化，都經過 `_validate_*` 函式
-- ✅ 未來新加 secrets 時，強制使用相同 pattern
-- ❌ 不再直接使用 `st.secrets['key']` 作為字串
-
-**測試驗證：** 本地 `.streamlit/secrets.toml` 正常讀取，但 Streamlit Cloud 環境需要實際部署後確認
+> 從 Bug #1~#6 整理出的 Streamlit Cloud 開發規範，
+> 所有 Tina 系統成員務必遵守。
 
 ---
 
-### Bug #2（2026-05-07 16:25）— token_len=1 截斷
+### ⚠️ Streamlit Cloud 專屬警告
 
-| 欄位 | 內容 |
-|:-----|:-----|
-| **日期** | 2026-05-07 16:25 |
-| **檔案** | `streamlit_tw_stock.py` |
-| **commit** | `470017f` |
-| **類型** | BUG |
-| **優先** | P0緊急 |
+**Streamlit Cloud 的 `st.secrets` 行為與本地完全不同：**
 
-**問題：**
-- `DEBUG token_len=1` — Token 被截斷成 1 字元
-- Streamlit Cloud 可能對長字串有長度限制或截斷行為
+| 現象 | 本地 | Streamlit Cloud |
+|:-----|:-----|:---------------|
+| TOML `[tg_chat_id]` 區段 | `dict` 直接取值 | `AttrDict`（Streamlit 自定義 dict 子類）|
+| `isinstance(x, dict)` | ✅ | ✅ 回 `True`（繼承關係）|
+| `list(dict.values())[0]` | value | **完整 dict**（行為不同！）|
+| `.get('key')` | ✅ | ✅ 可用 |
+| `hasattr(x, 'attr')` | ✅ | ✅ **最可靠的訪問方式** |
+| dict-string repr | 無 | 可能出現 `"{'key': 'value'}"` |
 
-**對策：**
-```python
-def _validate_token(raw):
-    """Reject truncated tokens (< 20 chars)"""
-    if not raw:
-        return ''
-    raw_str = str(raw).strip()
-    if len(raw_str) < 20:  # 正常 bot token 起碼 40+ 字元
-        print(f'[TOKEN WARNING] Token truncated ({len(raw_str)} chars)')
-        return ''  # 觸發 fallback
-    return raw_str
-```
-
-**預防復發：**
-- ✅ 所有 token 初始化都經過 `_validate_token()`
-- ✅ 偵測長度 < 20 的 token，主動發 warning 並 fallback
-- ✅ push_telegram 內再次驗證 chat_id 型別（double-check）
+**核心原則：不要只靠 `isinstance()` + `.get()`，一定要加上 `hasattr()` 屬性訪問。**
 
 ---
 
-### Bug #3（2026-05-07 16:33）— `_get_secret()` 反而造成 dict 包裝
+### 🔒 Streamlit Cloud 部署防呆檢查表
 
-| 欄位 | 內容 |
-|:-----|:-----|
-| **日期** | 2026-05-07 16:33 |
-| **檔案** | `streamlit_tw_stock.py` |
-| **commit** | `8738c02` |
-| **類型** | BUG |
-| **優先** | P0緊急 |
+每次部署 Streamlit Cloud 前，確認以下 9 點：
 
-**問題：**
-- 修復 Bug #1 的 `_get_secret()` 在某些 Streamlit Cloud 環境下反而造成 dict 包裝
-- 錯誤：`chat_id={'tg_chat_id': '1616824689'}` 仍然出現
-
-**對策：**
-- 繞過 `_get_secret()`，直接用 `st.secrets.get()` unwrap
-- 對 chat_id 和 token 都做 direct unwrap：
-
-```python
-# 強制繞過 _get_secret() 直接解包
-_raw_chat = st.secrets.get('tg_chat_id', st.secrets.get('chat_id', '1616824689'))
-if isinstance(_raw_chat, dict):
-    _raw_chat = _raw_chat.get('tg_chat_id', _raw_chat.get('chat_id', '1616824689'))
-TELEGRAM_CHAT_ID = _validate_chat_id(_raw_chat)
-
-_raw_token = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', ''))
-if isinstance(_raw_token, dict):
-    _raw_token = _raw_token.get('tg_bot_token', _raw_token.get('bot_token', ''))
-# ... validate token
 ```
-
-- 加 DEBUG log 模組初始化時直接印出 raw values
-
-**預防復發：**
-- ✅ 未來所有 st.secrets 讀取都用此 pattern
-- ✅ 模組初始化時印出 DEBUG log，部署後可從 logs 確認
-- ✅ chat_id 和 token 都有 double-check validation
-
-**測試驗證：** 部署後檢查 Streamlit Cloud logs 中 `[SECRETS] tg_bot_token raw = ...` 輸出
+□ 1. st.secrets 讀取是否果斷用已知值 fallback（不要只靠 parsing）
+□ 2. 是否用 hasattr(raw, 'get') 檢測 AttrDict
+□ 3. chat_id 確認是純數字字串（isdigit() == True）
+□ 4. token 長度確認 >= 20 且包含 ':'
+□ 5. 所有 API URL build 前是否做 URL-safe check
+□ 6. 本地 python -m py_compile 無錯誤
+□ 7. commit message 清楚描述改什麼 + 為什麼
+□ 8. Change Log 已建立草稿（即使是 hotfix）
+□ 9. 部署後通知 Jo 測試（TW/US 各一筆）
+```
 
 ---
 
-### Bug #4（2026-05-07 17:50）— 模組初始化後 token 仍被轉成 dict-string repr
-
-| 欄位 | 內容 |
-|:-----|:-----|
-| **日期** | 2026-05-07 17:50 |
-| **檔案** | `streamlit_tw_stock.py` |
-| **commit** | `604b2d6` |
-| **類型** | BUG |
-| **優先** | P0緊急 |
-
-**問題：**
-```
-Error: URL can't contain control characters. "/bot{'tg_bot_token': '861461…M14Q'}/sendMessage"
-```
-- Streamlit Cloud 在同一 runtime 環境中對同一 secret 的讀取值不一致
-- `_validate_token()` 在模組載入時已解析，但 `push_telegram()` 收到時又變成 dict-string repr
-- 根本原因：st.secrets 在同一 runtime 有快取不一致的問題
-
-**對策：**
-- `push_telegram()` 內最後一道防線用 **regex 提取**：`re.search(r'([0-9]+:[A-Za-z0-9_-]{30,})', str(token_raw))`
-- 無論 token 是 dict / dict-string repr / 已解析的字串，regex 都能正確抽到真正的 token
-- 三層防護：
-  1. `_validate_token()` — 初始化時解析 dict-string
-  2. 環境變數 → 寫死備援 fallback chain
-  3. `push_telegram()` 內 **regex 最終 extraction** — 確保送到 API 的 token 一定正確
-
-**預防復發：**
-- ✅ 所有外部 API 呼叫前，都做 regex validation + URL-safe check
-- ✅ 未來任何新 API URL build 前，強制做 URL-safe 檢查
-- ✅ 任何 secret 初始化後，在 function 內再做一次最後萃取
-
-**測試驗證：** TW/US 個股按鈕 Telegram 發送成功
-
-### Bug #5（2026-05-07 18:40）— `chat_id='telegram:1616824689'` 導致 chat not found
-
-| 欄位 | 內容 |
-|:-----|:-----|
-| **日期** | 2026-05-07 18:40 |
-| **檔案** | `streamlit_tw_stock.py` |
-| **commit** | `cd7c100` |
-| **類型** | BUG |
-| **優先** | P0緊急 |
-
-**問題：**
-```
-HTTP 400: Bad Request: chat not found
-```
-- 本地測試發現：`chat_id='telegram:1616824689'` 這個格式會造成 400
-- 正常 chat_id 只要數字字串 `'1616824689'` 或純 int `1616824689`
-- 但 `TELEGRAM_CHAT_ID` 在 Streamlit Cloud 上可能帶有 `telegram:` 前綴
-- 本地測試：`'telegram:1616824689'` → 400；去掉前綴 → 200 OK
-
-**對策：**
-```python
-def _validate_chat_id(raw):
-    # ... existing dict/List unwrap logic ...
-    # Strip 'telegram:' or 'tg_' prefixes that Streamlit Cloud may inject
-    if isinstance(raw, str):
-        raw = raw.replace('telegram:', '').replace('tg_', '')
-    return str(raw) if raw else '1616824689'
-```
-
-
-**預防復發：**
-- ✅ `_validate_chat_id()` 最後統一做 prefix strip
-- ✅ `push_telegram()` 內對 chat_id 再做一次 isdigit() 驗證
-
-**測試驗證：** TW/US 個股 + 批次都正常發送
-
-### Bug #6（2026-05-07 20:50—21:02）— Streamlit Cloud AttrDict + 全部 Bug 總整理 ✅ 已修復
-
-| 欄位 | 內容 |
-|:-----|:-----|
-| **日期** | 2026-05-07 20:50—21:02 |
-| **最終 commit** | `e32eb80` |
-| **類型** | BUG |
-| **優先** | P0緊急 |
-| **狀態** | ✅ **已修復並驗證（Jo 確認成功）** |
-
-**問題：**
-```
-MODULE DEBUG _raw_chat={'tg_chat_id': '1616824689'} type=AttrDict
-HTTP 400: Bad Request: chat not found
-```
-
-**全部 6 個 Bug 的根本原因（最終確認）：**
-
-| Bug | 根本原因 | 修復 |
-|:----|:---------|:-----|
-| #1 | `st.secrets` 返回 dict | `_validate_chat_id()` unwrap |
-| #2 | Token 被截斷成 1 字元 | `_validate_token()` 長度檢查 |
-| #3 | `_get_secret()` 反而包裝 dict | 繞過，直接 `st.secrets.get()` |
-| #4 | Token 變成 dict-string repr | `push_telegram()` 內 regex extraction |
-| #5 | `telegram:` 前綴造成 400 | prefix strip in `_try_get_chat_id()` |
-| #6 | **AttrDict**（Streamlit 自定義 dict 子類）| `hasattr(raw, 'get')` + `hasattr(raw, 'tg_chat_id')` 屬性訪問 |
-
-**最終修復架構（commit `e32eb80`）：**
-```python
-_KNOWN_CHAT_ID = '1616824689'   # 已知正確值，直接寫死
-_KNOWN_BOT_TOKEN = '...'        # 寫死備援
-
-def _try_get_chat_id():
-    raw = st.secrets.get('tg_chat_id')
-    if hasattr(raw, 'get'):       # ← AttrDict 檢測
-        v = raw.get('chat_id') or raw.get('tg_chat_id')
-        if isinstance(v, str) and v.isdigit(): return v
-        if hasattr(raw, 'tg_chat_id') and str(raw.tg_chat_id).isdigit(): return str(raw.tg_chat_id)
-    # 都失敗果斷用 _KNOWN_CHAT_ID
-```
-
-**經驗教訓：**
-- Streamlit Cloud 的 `st.secrets` 不是標準 Python dict，是自定義的 `AttrDict` 子類
-- `isinstance(x, dict)` 對 AttrDict 回 `True`，但 `.get()` 行為可能不同
-- `list(dict.values())[0]` 在 AttrDict 上取出的是完整 dict，不是 value
-- 解決方案：**用 `hasattr()` + 屬性訪問**，不要只依賴 `isinstance()` + `.get()`
-
-**預防復發：**
-- ✅ 所有 `st.secrets` 初始化都果斷用已知值 fallback
-- ✅ 用 `hasattr(raw, 'get')` 檢測 AttrDict，不只靠 `isinstance(dict)`
-- ✅ 任何 `st.secrets` 回傳值都要經過 regex 提取數字才算成功
-
-**測試驗證：** ✅ TW/US 個股 + 批次都正常發送（Jo 確認）
-
-
----
-
-## 📐 修改流程規範（強制執行）
-
-### 核心原則
+### 📐 修改流程規範（強制執行）
 
 **每次修改 → 必定建立 Change Log 條目**（不管大小）
 
-- ❌ 不准：「小改一下就好，不用記」
-- ✅ 要記：「修改了什麼 + 為什麼 + 怎麼修」
-- 理由：99% 的重蹈覆轍都來自「這次小事不用記」
-
----
-
-### 修改流程 Step-by-Step
+#### Standard Flow（非緊急）
 
 ```
 收到問題 / 功能需求
     ↓
-Step 1：建立 Change Log 草稿
-    ├─ 在 CHANGE_LOG.md 新增條目（copy 格式）
+Step 1：建立 Change Log 草稿（ copy 格式）
     ├─ 填入「問題」和「初步假說」
-    └─ commit: 留空，等修完再填
+    └─ commit: 留空，修完再填
     ↓
-Step 2：本地語法檢查
-    └─ python -m py_compile <file>.py
+Step 2：本地語法檢查 → python -m py_compile <file>.py
     ↓
-Step 3：找到根本原因
-    ├─ 不只是修 symptom
-    ├─ 問：為什麼會壊？哪一層壊的？
-    └─ 寫入 Change Log 的「根本原因」欄位
+Step 3：找到根本原因（問：為什麼壊？哪一層壊的？）
     ↓
-Step 4：實作修復
-    ├─ 每一個改動都要有理由
-    └─ 加入預防復發措施（不只是修當下）
+Step 4：實作修復 + 預防復發措施
     ↓
-Step 5：本地驗證
-    └─ 執行相關腳本，確認不報錯
+Step 5：本地驗證 → 執行相關腳本確認不報錯
     ↓
 Step 6：commit + 填 Change Log
-    ├─ commit message: `fix/feat: 具體描述 (#issue)`
-    └─ 補完 Change Log 條目（對策/預防/測試）
     ↓
 Step 7：git push
     ↓
-Step 8：通知 Jo 測試
-    └─ 明確說「測試範圍」和「預期結果」
+Step 8：通知 Jo 測試（明確說「測試範圍」+「預期結果」）
     ↓
-Step 9：觀察 + 關閉
-    ├─ Jo 回報正常 → 關閉 Change Log 條目（🔜→✅）
-    └─ Jo 回報新問題 → 回到 Step 1
+Step 9：觀察 → Jo 回報正常 → 關閉 🔜→✅
+         └─ Jo 回報新問題 → 回到 Step 1
+```
+
+#### Emergency Flow（P0 功能完全壊掉）
+
+```
+Step 1：直接修補（不用先寫草稿）
+Step 2：修完馬上 commit + push
+Step 3：事後補寫 Change Log（最慢 24h 內補完）
+Step 4：加入「預防復發」措施
 ```
 
 ---
 
-### 修改類型對應的 Change Log 格式
+### st.secrets 讀取標準（Bug #1~#6 血淚經驗）
 
-| 類型 | 格式選擇 | 說明 |
-|:----|:--------|:-----|
-| **BUG** | Bug #N（日期）— 標題 | 功能壊了，修復 |
-| **FEATURE** | Feature #N（日期）— 標題 | 新增功能 |
-| **OPT** | Opt #N（日期）— 標題 | 效能/優化改動 |
-| **refactor** | Refactor #N（日期）— 標題 | 結構重構，不改功能 |
-| **security** | Security #N（日期）— 標題 | 安全相關修補 |
-| **hotfix** | Hotfix #N（日期）— 標題 | 緊急修補（事後補記） |
+**所有 `st.secrets` 讀取都必須遵守以下 pattern：**
+
+```python
+# 已知正確值，直接寫死當最終 fallback
+_KNOWN_CHAT_ID = '1616824689'
+_KNOWN_BOT_TOKEN = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'
+
+def _try_get_chat_id():
+    try:
+        raw = st.secrets.get('tg_chat_id', st.secrets.get('chat_id', None))
+        if raw is None:
+            return _KNOWN_CHAT_ID
+        # AttrDict/dict → 用 hasattr 檢測
+        if hasattr(raw, 'get'):
+            v = raw.get('chat_id') or raw.get('tg_chat_id') or raw.get('value')
+            if isinstance(v, str) and v.isdigit():
+                return v
+            # 屬性訪問（AttrDict 特有）
+            if hasattr(raw, 'tg_chat_id') and str(raw.tg_chat_id).isdigit():
+                return str(raw.tg_chat_id)
+        # 字串 → 檢查是否為 dict-string repr
+        if isinstance(raw, str) and raw.startswith('{'):
+            import json
+            try:
+                parsed = json.loads(raw.replace("'", '"'))
+                v = parsed.get('chat_id') or parsed.get('tg_chat_id')
+                if isinstance(v, str) and v.isdigit():
+                    return v
+            except:
+                pass
+        # 都失敗 → regex 最後萃取
+        import re
+        m = re.search(r'(\d{7,15})', str(raw))
+        if m:
+            return m.group(1)
+        return _KNOWN_CHAT_ID
+    except:
+        return _KNOWN_CHAT_ID  # 任何失敗果斷用已知值
+```
+
+**預防復發要點：**
+- ✅ 任何 `st.secrets` 回傳值，最後都要經過 `isdigit()` 驗證
+- ✅ 都失敗果斷用 `_KNOWN_*` 寫死值，不要留空
+- ✅ 每年更新一次 `_KNOWN_*` 值（更換密鑰時）
+
+---
+
+### commit message 格式標準
+
+```
+[type]: [short description] (#[issue])
+[type]：fix / feat / opt / refactor / security / docs / chore
+```
+
+**好範例：**
+```
+fix: _try_get_chat_id handles AttrDict on Streamlit Cloud (Bug #6)
+feat: add sandbox phase to Full Think mode
+refactor: archive nana_v2~v67 to archive/old/
+```
+
+**壞範例：**
+```
+fix bug / update file / small fix
+```
 
 ---
 
@@ -350,59 +193,7 @@ Step 9：觀察 + 關閉
 | 標題 | ✅ | 30字內簡述 |
 | 問題 | ✅ | 壞了什麼/為什麼改 |
 | 對策 | ✅ | 怎麼修 + 預防復發 |
-| 影響 | 🔜 | 影響哪些功能 |
-| 測試驗證 | 🔜 | 已通過什麼測試 |
-
----
-
-### 預防復發模板（必選 >=1）
-
-```
-預防復發：
-- ✅ [具體做法] — 確保同類問題不再發生
-- ✅ [具體做法]
-- ❌ [不做了什麼] — 舊方法的問題
-```
-
----
-
-### commit message 格式標準
-
-```
-[type]: [short description] (#[issue])
-[type] 可選：fix / feat / opt / refactor / security / docs / chore
-[short description]：具體描述，不超過 50 字
-(#[issue])：對應的 Change Log Bug/Feature 編號
-```
-
-**好範例：**
-```
-fix: push_telegram regex extraction for dict-string token repr (Bug #4)
-feat: add sandbox phase to Full Think mode
-refactor: archive nana_v2~v67 to archive/old/ (Nana cleanup)
-```
-
-**壞範例：**
-```
-fix bug
-update file
-small fix
-```
-
----
-
-### 緊急 hotfix 流程（不一樣！）
-
-當問題緊急（P0 功能完全壊掉）時：
-
-```
-Step 1：直接修補（不用先寫草稿）
-Step 2：修完馬上 commit + push
-Step 3：事後補寫 Change Log（最慢 24h 內補完）
-Step 4：加入「預防復發」措施
-```
-
----
+| 測試驗證 | 🔜 | Jo 確認正常後標 ✅ |
 
 ### Change Log 追蹤狀態標記
 
@@ -415,32 +206,105 @@ Step 4：加入「預防復發」措施
 
 ---
 
-### 誰來維護 Change Log
+## 📂 Bug / Feature 修改紀錄
 
-- **Tina 負責**：所有 Code 修改（Python/shell）
-- **Jo 負責**：通知 Tina 需要修改的項目
-- **原則**：Jo 不需要寫 Change Log，Tina 會代理
+### Bug #1（2026-05-07 16:20）— chat_id 變成 dict
+
+| 欄位 | 內容 |
+|:-----|:-----|
+| **日期** | 2026-05-07 16:20 |
+| **檔案** | `streamlit_tw_stock.py` |
+| **commit** | `c6214ae` |
+| **類型** | BUG |
+| **優先** | P0緊急 |
+| **狀態** | ✅ 已修復 |
+
+**問題：**
+```
+DEBUG chat_id={'tg_chat_id': '1616824689'} token_len=1
+HTTP 400: Bad Request: chat not found
+```
+
+**對策：** `_validate_chat_id()` unwrap dict
+
+**預防復發：** ✅ 所有 module-level secrets 都經過 `_validate_*` 函式
 
 ---
 
-## 🔒 Streamlit Cloud 部署防呆檢查表
+### Bug #2（2026-05-07 16:25）— token_len=1 截斷
 
-每次部署 Streamlit Cloud 前：
+| 欄位 | 內容 |
+|:-----|:-----|
+| **日期** | 2026-05-07 16:25 |
+| **commit** | `470017f` |
+| **狀態** | ✅ 已修復 |
 
+**問題：** Token 被截斷成 1 字元
+
+**對策：** `_validate_token()` 長度檢查（< 20 字元 → fallback）
+
+---
+
+### Bug #3（2026-05-07 16:33）— `_get_secret()` 反而造成 dict 包裝
+
+| 欄位 | 內容 |
+|:-----|:-----|
+| **commit** | `8738c02` |
+| **狀態** | ✅ 已修復 |
+
+**對策：** 繞過 `_get_secret()`，直接用 `st.secrets.get()` unwrap
+
+---
+
+### Bug #4（2026-05-07 17:50）— Token 變成 dict-string repr
+
+| 欄位 | 內容 |
+|:-----|:-----|
+| **commit** | `604b2d6` |
+| **狀態** | ✅ 已修復 |
+
+**問題：** `"/bot{'tg_bot_token': '...'}/sendMessage"`
+
+**對策：** `push_telegram()` 內 regex extraction `([0-9]+:[A-Za-z0-9_-]{30,})`
+
+---
+
+### Bug #5（2026-05-07 18:40）— `telegram:` 前綴造成 chat not found
+
+| 欄位 | 內容 |
+|:-----|:-----|
+| **commit** | `cd7c100` |
+| **狀態** | ✅ 已修復 |
+
+**問題：** `chat_id='telegram:1616824689'` → HTTP 400
+
+**對策：** prefix strip `raw.replace('telegram:', '').replace('tg_', '')`
+
+---
+
+### Bug #6（2026-05-07 20:50—21:02）— Streamlit Cloud AttrDict ✅ 已修復
+
+| 欄位 | 內容 |
+|:-----|:-----|
+| **commit** | `e32eb80` |
+| **狀態** | ✅ 已修復並驗證（Jo 確認成功）|
+
+**問題：**
 ```
-□ st.secrets 讀取是否經過 _validate_* 函式
-□ chat_id 確認是 str（不是 dict/List）
-□ token 長度確認 >= 20
-□ 本地 python -m py_compile 無錯誤
-□ commit message 清楚描述改什麼 + 為什麼
-□ Change Log 已建立草稿（即使是 hotfix）
-□ 部署後檢查 logs 有 [SECRETS] DEBUG output
-□ 通知 Jo 測試（TW/US 各一筆）
-□ Jo 回報正常 → 關閉 Change Log 🔜→✅
-□ Jo 回報新問題 → 回到 修改流程 Step 1
+MODULE DEBUG _raw_chat={'tg_chat_id': '1616824689'} type=AttrDict
+HTTP 400: Bad Request: chat not found
+```
+
+**根本原因：** Streamlit Cloud 的 `st.secrets` 返回 `AttrDict`（dict 子類），`list(AttrDict.values())[0]` 取出的是完整 dict，不是 value。
+
+**最終修復架構：**
+```python
+if hasattr(raw, 'get'):       # ← AttrDict 檢測（不是只靠 isinstance(dict)）
+    v = raw.get('tg_chat_id')
+    if isinstance(v, str) and v.isdigit(): return v
+    if hasattr(raw, 'tg_chat_id') and str(raw.tg_chat_id).isdigit(): return str(raw.tg_chat_id)
 ```
 
 ---
 
-_Last updated: 2026-05-07 18:36_
-_下次修改時，請先在 CHANGE_LOG.md 新增草稿，再開始修_
+_Last updated: 2026-05-07 21:06_
