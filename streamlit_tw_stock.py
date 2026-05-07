@@ -1581,6 +1581,7 @@ with tw_tab:
             col1, _ = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
                 st.info("TW send clicked")
+                st.info(f"DEBUG chat_id={TELEGRAM_CHAT_ID} token_len={len(TELEGRAM_BOT_TOKEN)}")
                 try:
                     ok, err = push_telegram(msg)
                     st.info(f"ok={ok} err={err}")
@@ -2034,6 +2035,7 @@ with us_tab:
             col1, _ = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
                 st.info("US send clicked")
+                st.info(f"DEBUG chat_id={TELEGRAM_CHAT_ID} token_len={len(TELEGRAM_BOT_TOKEN)}")
                 try:
                     ok, err = push_telegram(msg)
                     st.info(f"ok={ok} err={err}")
