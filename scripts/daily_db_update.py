@@ -131,6 +131,34 @@ def update_twse_db(conn):
     c = conn.cursor()
     updated = 0
 
+    # === 建立資料表（如果不存在）===
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS twse_mi_5mins (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            tradedate TEXT NOT NULL,
+            traded_time TEXT,
+            bid_count_acc INTEGER,
+            bid_vol_acc INTEGER,
+            ask_count_acc INTEGER,
+            ask_vol_acc INTEGER,
+            trade_count INTEGER,
+            trade_vol INTEGER,
+            trade_value INTEGER,
+            UNIQUE(tradedate, traded_time)
+        )
+    ''')
+
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS twse_mi_index (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            tradedate TEXT NOT NULL,
+            title TEXT,
+            data TEXT,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(tradedate, title)
+        )
+    ''')
+
     # MI_5MINS
     try:
         r = requests.get(

@@ -2324,7 +2324,7 @@
       "timestamp": "2026-05-07 08:05:01",
       "target_price": 398.47,
       "stop_loss": 311.85,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260507080501",
       "entry_signals": [
         "neutral",
@@ -2333,8 +2333,13 @@
         "high_volume"
       ],
       "current_price": 344.0,
-      "pnl_pct": -0.72,
-      "current_rsi": 50.0
+      "pnl_pct": -1.01,
+      "current_rsi": 50.0,
+      "exit_price": 344.0,
+      "exit_reason": "manual_sold",
+      "exit_time": "2026-05-07 22:57:04",
+      "pnl": -961.0,
+      "fee": 241.0
     },
     {
       "symbol": "3034",
@@ -2391,7 +2396,7 @@
       "timestamp": "2026-05-07 11:00:33",
       "target_price": 397.32,
       "stop_loss": 310.95,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260507110033",
       "entry_signals": [
         "neutral",
@@ -2399,8 +2404,13 @@
         "above_ma20"
       ],
       "current_price": 344.0,
-      "pnl_pct": -0.43,
-      "current_rsi": 50.0
+      "pnl_pct": -0.72,
+      "current_rsi": 50.0,
+      "exit_price": 344.0,
+      "exit_reason": "manual_sold",
+      "exit_time": "2026-05-07 22:57:04",
+      "pnl": -676.0,
+      "fee": 242.0
     },
     {
       "symbol": "2379",
@@ -2573,15 +2583,20 @@
       "timestamp": "2026-05-07 13:23:40",
       "target_price": 395.6,
       "stop_loss": 309.6,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_T2382_20260507132340",
       "entry_signals": [
         "neutral",
         "above_ma20"
       ],
       "current_price": 344.0,
-      "pnl_pct": 0.0,
-      "current_rsi": 50.0
+      "pnl_pct": -0.28,
+      "current_rsi": 50.0,
+      "exit_price": 344.0,
+      "exit_reason": "manual_sold",
+      "exit_time": "2026-05-07 22:57:04",
+      "pnl": -242.0,
+      "fee": 242.0
     },
     {
       "symbol": "MSFT",

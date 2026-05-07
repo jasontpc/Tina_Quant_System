@@ -127,5 +127,22 @@
     "win_rate": 100.0,
     "trades": 1,
     "source": "team_learning"
+  },
+  {
+    "date": "2026-05-07",
+    "symbol": "2382.TW",
+    "team": "LEO",
+    "lesson": "持有過長+ RSI>50 = 危險組合",
+    "total_trades": 19,
+    "total_pnl": -1878,
+    "avg_holding_days": 7,
+    "exit_reason": "excess_positions_reduced + manual_sold",
+    "tags": [
+      "持有>30天危險",
+      "RSI>50",
+      "excess_positions",
+      "手動止損"
+    ],
+    "source": "leo_paper_trade_closed"
   }
 ]
