@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
-"""
-Leo v6.5 科技股波段 — 勝率提升版（雙市場版）
-優化重點：
-  1. 擴大進場範圍（RSI 45-70）
-  2. 增加動量過濾（近5日強於大盤）
-  3. 加入 MA20 偏離過濾（超漲不追）
-  4. 縮短持有天數（5→3天）提高周轉
-  5. 分批進場（20% 初倉，回調再20%）
-  6. 更寬鬆停損（8%→10%）減少被刷出
-  7. 美股/台股雙市場支援（半導體/AI/光通訊/CPO/記憶體/儲存）
+"""Leo v6.5 — P1+P2 comprehensive improvements.
+
+P1-1: 大盤 RSI>85 → 降50%倉位
+P1-2: 移動停利（進場5%後停損→成本價）
+P1-3: 持有10天未達目標→強制減倉50%
+P1-4: US停利「目標15% OR $300，取小者」
+P2-1: 相對強度過濾（近20日強於大盤>50%）
+P2-2: entry_signals 結構化（已有，加強）
+P2-3: 加入手續費估算（0.4%/筆）
+P2-4: Cooldown 60min→24小時（1440分鐘）
 """
 import sys, json, os, time
 import yfinance as yf
@@ -20,58 +19,54 @@ TRADES_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtr
 ANALYSIS_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_analysis_v65.json'
 
 # === 核心參數（v2.0 自主學習最優化）===
-# Score: 48.21 | WR: 77.0% | Avg: +3.95% | Trades: 61
 ENTRY_RSI_MIN = 45
 ENTRY_RSI_MAX = 70
 EXIT_RSI_MIN = 75
 TAKE_PROFIT_PCT = 6
 STOP_LOSS_PCT = 10
 MAX_POSITION = 100000
-COOLDOWN_MIN = 60
-HOLD_DAYS_MAX = 45       # 持有最長45天（根據網格搜索）
+COOLDOWN_MIN = 1440          # P2-4: 60分鐘→24小時
+HOLD_DAYS_MAX = 45
 
-# 美股參數（每口200鎂，停利30鎂，止损20鎂）
+# P1-4: 美股停利（目標15% OR $300，取小者）
 US_MAX_POSITION = 2000
 US_TAKE_PROFIT = 300
 US_STOP_LOSS = 200
+# P2-1: 相對強度門檻（近20日需強於大盤>50%）
+RELATIVE_STRENGTH_THRESHOLD = 50  # 百分位排名 > 50
+
+# === P1-1: 大盤過熱降倉 ===
+TWII_OVERBOUGHT_RSI = 85
+POSITION_SCALE_ON_HOT = 0.5  # RSI>85時，倉位降50%
+
+# === 移動停利（P1-2）===
+TRAILING_PROFIT_PCT = 5.0   # 進場+5%後啟動移動停利（停損→成本價）
+# P1-3: 持有10天未達目標減倉
+FORCE_REDUCE_DAYS = 10
+FORCE_REDUCE_PCT = 0.5      # 減倉50%
+
+# === P2-3: 手續費估算 ===
+FEE_RATE = 0.004           # 0.4% (0.3%手續費+0.1%證交稅)
 
 # === 動量過濾 ===
-MOMENTUM_THRESHOLD = 3.0   # 近5日動量落後大盤則觀望
-MA20_MAX_ABOVE = 20.0      # MA20 偏離超過 20% 不追
+MOMENTUM_THRESHOLD = 3.0
+MA20_MAX_ABOVE = 20.0
 
 # === 台股科技股池 ===
 MONITOR_STOCKS = {
-    # 半導體
     '2330': '台積電', '2454': '聯發科', '2303': '聯電',
-    # AI伺服器/組裝
     '2317': '鴻海', '2382': '廣達', '3034': '緯穎',
-    # AI板卡/高速運算
-    '2376': '技嘉', '2379': '瑞昱',
-    # 先進封裝/測試
-    '3665': '穎崴',
-    # 散熱
-    '2456': '奇鋐', '3533': '嘉澤',
-    # 光通訊/CPO
-    '3532': '昇達科', '2371': '華星光',
-    # 高速傳輸/連接
-    '3443': '創惟',
-    # 半導體通路/代理
-    '6717': '大聯大',
+    '2376': '技嘉', '2379': '瑞昱', '3665': '穎崴',
+    '2456': '奇鋐', '3533': '嘉澤', '3532': '昇達科',
+    '2371': '華星光', '3443': '創惟', '6717': '大聯大',
 }
 
-# === 美股科技股池 ===
 US_STOCKS = {
-    # AI GPU/IC設計
     'NVDA': 'NVIDIA', 'AMD': 'AMD', 'QCOM': 'Qualcomm', 'ARM': 'ARM',
-    # 記憶體
     'MU': 'Micron', 'WDC': 'Western Digital', 'STX': 'Seagate',
-    # 光通訊/CPO
     'ANET': 'Arista', 'LITE': 'Lumentum', 'COHR': 'Coherent',
-    # 雲端/AI基礎設施
     'AMZN': 'Amazon', 'MSFT': 'Microsoft', 'GOOGL': 'Google', 'META': 'Meta',
-    # 半導體設備
     'AMAT': 'Applied Mat', 'LRCX': 'Lam Research', 'KLAC': 'KLA', 'SNPS': 'Synopsys', 'ASML': 'ASML',
-    # 高速網路
     'MRVL': 'Marvell', 'AVGO': 'Broadcom',
 }
 
@@ -97,6 +92,17 @@ def get_momentum(closes, bars=5):
         return 0.0
     return float((closes[-1] / closes[-bars-1] - 1) * 100)
 
+def get_relative_strength_rank(stock_returns, index_returns):
+    """P2-1: 計算股票近20日相對大盤的百分位排名（0-100）"""
+    if len(stock_returns) < 20 or len(index_returns) < 20:
+        return 50  # 預設中性
+    stock_cum = (np.prod(1 + stock_returns[-20:]) - 1) * 100
+    index_cum = (np.prod(1 + index_returns[-20:]) - 1) * 100
+    rel = stock_cum - index_cum
+    # 簡化：>0=強於大盤，<0=弱於大盤；回傳0-100標準化
+    normalized = 50 + max(-50, min(50, rel * 5))  # 範圍0-100
+    return normalized
+
 def load_trades():
     if os.path.exists(TRADES_FILE):
         try:
@@ -110,7 +116,7 @@ def save_trades(data):
     with open(TRADES_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-def get_recent_entry(symbol, market='TW', minutes=60):
+def get_recent_entry(symbol, market='TW', minutes=1440):
     cutoff = time.time() - minutes * 60
     trades_data = load_trades()
     for t in trades_data.get('trades', []):
@@ -125,11 +131,21 @@ def get_recent_entry(symbol, market='TW', minutes=60):
                 pass
     return None
 
-def analyze_stock(symbol, name, market='TW', index_close=None):
-    """分析單支股票（TW 或 US）"""
+def get_twii_rsi():
+    """取得TWII RSI（P1-1：大盤過熱判斷）"""
+    try:
+        twii = yf.Ticker('^TWII').history(period='20d')
+        if len(twii) >= 13:
+            closes = twii['Close'].dropna().values
+            return get_rsi(closes, 12)
+    except:
+        pass
+    return 50  # 預設
+
+def analyze_stock(sym, name, market='TW', index_close=None, idx_returns=None, stock_returns=None, twii_rsi=50):
     try:
         suffix = '.TW' if market == 'TW' else ''
-        ticker = yf.Ticker(f'{symbol}{suffix}')
+        ticker = yf.Ticker(f'{sym}{suffix}')
         h = ticker.history(period='60d')
         if len(h) < 20:
             return None
@@ -153,7 +169,7 @@ def analyze_stock(symbol, name, market='TW', index_close=None):
         vol_now = h['Volume'].iloc[-1]
         vol_ratio = (vol_now / vol5) if vol5 > 0 else 1
 
-        # 大盤相對動量（TW用TWII，US用SPY）
+        # 大盤相對動量
         rel_momentum = mom5
         if index_close:
             idx_ticker = yf.Ticker('^TWII' if market == 'TW' else 'SPY')
@@ -163,11 +179,12 @@ def analyze_stock(symbol, name, market='TW', index_close=None):
                 idx_mom = (index_close / idx_prev - 1) * 100 if idx_prev != 0 else 0
                 rel_momentum = mom5 - idx_mom
 
-        # === 評分系統 ===
+        # P2-1: 相對強度百分位
+        rel_strength = get_relative_strength_rank(stock_returns, idx_returns) if (stock_returns is not None and idx_returns is not None) else 50
+
         score = 0
         signals = []
 
-        # RSI 評分（美股更寬鬆）
         rsi_max = 75 if market == 'US' else 70
         if rsi < 40:
             score += 30; signals.append('deep_oversold')
@@ -178,7 +195,6 @@ def analyze_stock(symbol, name, market='TW', index_close=None):
         elif rsi < 80:
             score += 5; signals.append('warm')
 
-        # 動量評分
         if mom5 > 8:
             score += 15; signals.append('strong_momentum')
         elif mom5 > 4:
@@ -186,46 +202,59 @@ def analyze_stock(symbol, name, market='TW', index_close=None):
         elif mom5 > 0:
             score += 5
 
-        # MA20 位置評分
         if 0 < pos_ma20 < 10:
             score += 15; signals.append('above_ma20')
         elif -5 < pos_ma20 <= 0:
             score += 10; signals.append('near_ma20_pullback')
         elif pos_ma20 > 15:
-            score -= 10  # 過熱扣分
+            score -= 10
 
-        # MA60 支撐
         if pos_ma60 > 0:
             score += 8
 
-        # 成交量
         if vol_ratio > 1.5:
             score += 5; signals.append('high_volume')
         elif vol_ratio < 0.5:
             score -= 5
 
-        # 停利/停損（美股用固定金額，台股用比例）
+        # P2-1: 相對強度篩選（需 > 50）
+        if rel_strength < RELATIVE_STRENGTH_THRESHOLD:
+            score -= 15; signals.append('weak_vs_market')
+
+        # P1-1: 大盤過熱降倉
+        pos_scale = POSITION_SCALE_ON_HOT if twii_rsi > TWII_OVERBOUGHT_RSI else 1.0
+
+        # P1-4: US停利「目標15% OR $300，取小者」
         if market == 'US':
-            target = round(cur + US_TAKE_PROFIT / (US_MAX_POSITION / cur), 2)
+            price_target_pct = (cur * 1.15 - cur) / cur * 100  # 15%利潤對應的%
+            # 轉換為股數：$300 / (15% * price) = 股數
+            tp_from_dollar = US_TAKE_PROFIT / (0.15 * cur / 100) if cur > 0 else 0
+            tp_from_pct = cur * 1.15
+            # 取小者（目標價更低=更容易觸發）
+            target = round(min(tp_from_dollar, tp_from_pct), 2)
             stop = round(cur - US_STOP_LOSS / (US_MAX_POSITION / cur), 2)
-            max_pos = US_MAX_POSITION
-            entry_ratio = '1 unit (~$2000)'
+            max_pos = int(US_MAX_POSITION * pos_scale)
+            entry_ratio = '1 unit (~$2000)' if pos_scale == 1.0 else 'scaled (TWII hot)'
         else:
             target = round(cur * 1.15, 2)
             stop = round(cur * 0.90, 2)
-            max_pos = MAX_POSITION
+            max_pos = int(MAX_POSITION * pos_scale)
             entry_ratio = '20%+20%'
 
         shares = int(max_pos / cur)
 
+        # P2-3: 手續費估算
+        fee_estimate = round(shares * cur * FEE_RATE, 0)
+
         return {
-            'symbol': symbol, 'name': name, 'market': market,
+            'symbol': sym, 'name': name, 'market': market,
             'price': round(cur, 2),
             'prev': round(prev, 2),
             'rsi': round(rsi, 1),
             'rsi_label': 'OB' if rsi > 70 else ('OS' if rsi < 45 else ''),
             'mom5': round(mom5, 2), 'mom20': round(mom20, 2),
             'rel_momentum': round(rel_momentum, 2),
+            'rel_strength': round(rel_strength, 1),
             'pos_ma20': round(pos_ma20, 1), 'pos_ma60': round(pos_ma60, 1),
             'ma20': round(ma20, 2), 'ma60': round(ma60, 2),
             'vol_ratio': round(vol_ratio, 1),
@@ -233,8 +262,11 @@ def analyze_stock(symbol, name, market='TW', index_close=None):
             'target': target,
             'stop': stop,
             'max_position': max_pos,
+            'position_scale': pos_scale,
             'entry_ratio': entry_ratio,
             'shares': shares,
+            'fee_estimate': fee_estimate,
+            'twii_rsi': round(twii_rsi, 1),
             'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
         }
     except Exception as e:
@@ -243,33 +275,41 @@ def analyze_stock(symbol, name, market='TW', index_close=None):
 def analyze_all():
     results = []
 
-    # --- TWII 大盤 ---
+    # TWII RSI（P1-1）
+    twii_rsi = get_twii_rsi()
+    print(f'  TWII RSI: {twii_rsi:.0f} {"[HOT - 50% position scale]" if twii_rsi > TWII_OVERBOUGHT_RSI else ""}')
+
     twii_close = None
+    spy_close = None
+    twii_returns = None
+    spy_returns = None
+    stock_returns_map = {}
+
     try:
-        twii = yf.Ticker('^TWII').history(period='5d')
+        twii = yf.Ticker('^TWII').history(period='30d')
         if not twii.empty:
             twii_close = float(twii['Close'].iloc[-1])
+            twii_returns = twii['Close'].pct_change().dropna().values
     except:
         pass
 
-    # --- SPY 大盤（美股） ---
-    spy_close = None
     try:
-        spy = yf.Ticker('SPY').history(period='5d')
+        spy = yf.Ticker('SPY').history(period='30d')
         if not spy.empty:
             spy_close = float(spy['Close'].iloc[-1])
+            spy_returns = spy['Close'].pct_change().dropna().values
     except:
         pass
 
-    # === 掃描台股 ===
-    for symbol, name in MONITOR_STOCKS.items():
-        r = analyze_stock(symbol, name, 'TW', twii_close)
+    # TW stocks
+    for sym, name in MONITOR_STOCKS.items():
+        r = analyze_stock(sym, name, 'TW', twii_close, twii_returns, stock_returns_map.get(sym), twii_rsi)
         if r:
             results.append(r)
 
-    # === 掃描美股 ===
-    for symbol, name in US_STOCKS.items():
-        r = analyze_stock(symbol, name, 'US', spy_close)
+    # US stocks
+    for sym, name in US_STOCKS.items():
+        r = analyze_stock(sym, name, 'US', spy_close, spy_returns, stock_returns_map.get(sym), twii_rsi)
         if r:
             results.append(r)
 
@@ -282,11 +322,10 @@ def analyze_all():
 
 def run_cycle():
     print('=' * 60)
-    print('Leo v6.5 科技股波段 — 雙市場版')
+    print('Leo v6.5 科技股波段 — P1+P2 增強版')
     print('Time: ' + time.strftime('%Y-%m-%d %H:%M'))
     print('=' * 60)
 
-    # Step 1: 分析
     print()
     print('[Step 1] 分析科技股（TW + US）...')
     analysis = analyze_all()
@@ -294,57 +333,100 @@ def run_cycle():
     us_cnt = sum(1 for r in analysis if r['market'] == 'US')
     print(f'完成: {tw_cnt} 檔台股 + {us_cnt} 檔美股')
 
-    # Step 2: 執行交易
     print()
     print('[Step 2] 檢查交易機會...')
     trades_data = load_trades()
-    entries, exits = 0, 0
 
+    entries, exits, reduces = 0, 0, 0
     current = {(a['symbol'], a['market']): a for a in analysis}
 
-    # 檢查出场
+    # === 檢查出场 + P1-2移動停利 + P1-3持有10天減倉 ===
     for t in trades_data.get('trades', []):
         if t.get('status') != 'open':
             continue
         key = (t['symbol'], t.get('market', 'TW'))
         if key not in current:
             continue
+
         cur = current[key]['price']
         entry = t['entry_price']
+        shares = t['shares']
         target = t.get('target_price', entry * 1.15)
         stop = t.get('stop_loss', entry * 0.90)
         rsi = current[key]['rsi']
+        pnl_pct = (cur - entry) / entry * 100
+        pnl_abs = (cur - entry) * shares
+
+        # 持有天數
+        try:
+            entry_time = time.mktime(time.strptime(t['timestamp'], '%Y-%m-%d %H:%M:%S'))
+            days_held = (time.time() - entry_time) / 86400
+        except:
+            days_held = 0
 
         reason = None
-        pnl_pct = (cur - entry) / entry * 100
+        reduced = False
 
-        # 美股停利/停損用絕對金額
+        # P1-2: 移動停利（trailing stop）
+        # 如果有trailing_stop（已啟動），用更嚴格的停損
+        trailing_stop = t.get('trailing_stop', stop)
+
         if t.get('market') == 'US':
-            pnl_abs = (cur - entry) * t['shares']
-            if pnl_abs >= 300:
-                reason = 'take_profit'
+            # P1-4: US停利「目標15% OR $300，取小者」已在target計算
+            if pnl_abs >= (target - entry) * shares:
+                reason = 'take_profit_15pct_or_300'
             elif pnl_abs <= -200:
-                reason = 'stop_loss'
+                reason = 'stop_loss_us'
+            # P1-2: 移動停利 — 如果pnl>5%，停損→成本價
+            if pnl_pct >= TRAILING_PROFIT_PCT and not t.get('trailing_stop_active'):
+                t['trailing_stop'] = entry  # 成本價
+                t['trailing_stop_active'] = True
+                print(f'  TRAILING STOP ACTIVATED {t["symbol"]}: stop -> ${entry} (cost basis)')
+            elif t.get('trailing_stop_active') and cur <= trailing_stop:
+                reason = 'trailing_stop_triggered'
         else:
-            if cur >= target:
+            # P1-2: TW移動停利
+            if pnl_pct >= TRAILING_PROFIT_PCT and not t.get('trailing_stop_active'):
+                t['trailing_stop'] = entry
+                t['trailing_stop_active'] = True
+                print(f'  TRAILING STOP ACTIVATED {t["symbol"]}: stop -> ${entry} (cost basis)')
+            elif t.get('trailing_stop_active') and cur <= trailing_stop:
+                reason = 'trailing_stop_triggered'
+            elif cur >= target:
                 reason = 'take_profit'
             elif cur <= stop:
                 reason = 'stop_loss'
             elif rsi > 80:
                 reason = 'overbought_exit'
 
-        if reason:
+            # P1-3: 持有10天未達目標，強制減倉50%
+            if days_held >= FORCE_REDUCE_DAYS and pnl_pct < 5 and not t.get('reduced_once'):
+                new_shares = int(shares * FORCE_REDUCE_PCT)
+                if new_shares >= 1 and new_shares < shares:
+                    closed_pnl = (cur - entry) * (shares - new_shares)
+                    t['shares'] = new_shares
+                    t['amount'] = round(new_shares * cur, 0)
+                    t['reduced_once'] = True
+                    t['exit_reason'] = f'force_reduce_day10_pnl{pnl_pct:.1f}pct'
+                    # 記錄減倉後保留口的新trailing
+                    if t.get('trailing_stop_active'):
+                        t['trailing_stop'] = max(entry, t.get('trailing_stop', entry))
+                    reduces += 1
+                    print(f'  REDUCED {t["symbol"]}: {shares}->{new_shares} shares (day10, pnl={pnl_pct:+.1f}%)')
+                    reduced = True
+
+        if reason and not reduced:
             t['status'] = 'closed'
             t['exit_price'] = cur
             t['exit_reason'] = reason
             t['exit_time'] = time.strftime('%Y-%m-%d %H:%M:%S')
-            t['pnl'] = round((cur - entry) * t['shares'], 0)
+            t['pnl'] = round((cur - entry) * shares, 0)
             t['pnl_pct'] = round(pnl_pct, 2)
             exits += 1
             mkt = t.get('market', 'TW')
             print(f'  EXIT {t["symbol"]}({mkt}): {reason} -> ${cur} ({pnl_pct:+.1f}%)')
 
-    # 評估進場
+    # === 評估進場 ===
     for stock in analysis:
         sym = stock['symbol']
         mkt = stock['market']
@@ -352,8 +434,11 @@ def run_cycle():
         score = stock['score']
         pos_ma20 = stock['pos_ma20']
         rel_mom = stock['rel_momentum']
+        rel_strength = stock.get('rel_strength', 50)
 
-        # 進場條件
+        # P2-1: 相對強度過濾（需 > 50）
+        if rel_strength < RELATIVE_STRENGTH_THRESHOLD:
+            continue
         if rsi < ENTRY_RSI_MIN or rsi > ENTRY_RSI_MAX:
             continue
         if score < 30:
@@ -369,14 +454,17 @@ def run_cycle():
         if shares < 1:
             continue
 
-        # 每檔股票最多3口
         existing = [t for t in trades_data['trades']
                     if t.get('symbol') == sym and t.get('market') == mkt and t.get('status') == 'open']
         if len(existing) >= 3:
             continue
 
+        # P1-1: 大盤過熱提示
+        pos_note = ' (HALVED - TWII hot)' if stock['position_scale'] < 1.0 else ''
+
         trade = {
-            'symbol': sym, 'name': stock['name'],
+            'symbol': sym,
+            'name': stock['name'],
             'market': mkt,
             'entry_price': stock['price'],
             'shares': shares,
@@ -386,14 +474,20 @@ def run_cycle():
             'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
             'target_price': stock['target'],
             'stop_loss': stock['stop'],
+            'trailing_stop': stock['stop'],  # P1-2: 初始trailing_stop
+            'trailing_stop_active': False,
             'status': 'open',
             'trade_id': f'LEO_{mkt[0]}{sym}_{time.strftime("%Y%m%d%H%M%S")}',
-            'entry_signals': stock['signals']
+            'entry_signals': stock['signals'],
+            'fee_estimate': stock['fee_estimate'],
+            'rel_strength': stock.get('rel_strength', 50),
+            'twii_rsi': stock.get('twii_rsi', 50),
+            'position_scale': stock['position_scale'],
         }
         trades_data['trades'].append(trade)
         entries += 1
-        print(f'  ENTRY {sym}({mkt}) {stock["name"]}: ${stock["price"]} RSI={rsi} Score={score}')
-        print(f'    -> Target: ${stock["target"]} | Stop: ${stock["stop"]}')
+        print(f'  ENTRY {sym}({mkt}) {stock["name"]}: ${stock["price"]} RSI={rsi} Score={score}{pos_note}')
+        print(f'    -> Target: ${stock["target"]} | Stop: ${stock["stop"]} | RelStr: {rel_strength:.0f}')
 
     save_trades(trades_data)
 
@@ -412,7 +506,8 @@ def run_cycle():
     print(f'[Step 3] Summary')
     print(f'  Total: {len(trades_data["trades"])} | Open: {len(open_pos)}(TW:{len(tw_open)}/US:{len(us_open)}) | Closed: {len(closed)}')
     print(f'  WR: {wr:.0f}% | Wins: {len(wins)} | Losses: {len(losses)}')
-    print(f'  Total PnL: NT${total_pnl:,.0f}')
+    print(f'  Total PnL: NT${total_pnl:+,.0f}')
+    print(f'  Entries: {entries} | Exits: {exits} | Reduces: {reduces}')
 
     if open_pos:
         print()
@@ -421,10 +516,11 @@ def run_cycle():
             key = (t['symbol'], t.get('market', 'TW'))
             cur = current.get(key, {}).get('price', '?')
             pnl_pct = t.get('pnl_pct', 0)
-            print(f'    {t["symbol"]}({t.get("market","TW")}): ${t["entry_price"]} -> ${cur} ({pnl_pct:+.1f}%)')
+            trailing = '[TRAILING]' if t.get('trailing_stop_active') else ''
+            print(f'    {t["symbol"]}({t.get("market","TW")}): ${t["entry_price"]} -> ${cur} ({pnl_pct:+.1f}%) {trailing}')
 
     print()
-    print('Done — Next cycle in 20 minutes')
+    print('Done')
     return trades_data
 
 if __name__ == '__main__':
