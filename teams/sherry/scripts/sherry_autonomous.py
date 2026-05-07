@@ -15,10 +15,38 @@ WORKSPACE = Path(r"C:\Users\USER\.openclaw\workspace\Tina_Quant_System")
 DATA_DIR = WORKSPACE / "data"
 DB = DATA_DIR / "sherry_etf.db"
 
+# Sherry — 美股 Sector 輪動專家（不再管 VOO/QQQ — 由 Ray DCA 接管）
 WATCHLIST = [
-    'XLV', 'VHT', 'GLD', 'TLT', 'LQD', 'AGG', 'BND', 'HYG',
-    'SPY', 'QQQ', 'VEA', 'VWO', 'VIG', 'SCHD', 'VYM',
-    'XLK', 'XLF', 'XLE', 'XLRE', 'EEM', 'USO',
+    # 科技/半導體
+    'XLK',   # Technology
+    'XSD',   # Semiconductors
+    'SOXX',  # SOX Semiconductor
+    # 金融
+    'XLF',   # Financials
+    'VFH',   # Vanguard Financials
+    # 醫療/防守
+    'XLV',   # HealthCare
+    'VHT',   # Vanguard HealthCare
+    # 能源
+    'XLE',   # Energy
+    'VDE',   # Vanguard Energy
+    # 消費
+    'XLY',   # Cons Discretionary
+    'VCR',   # Vanguard Cons Disc
+    # 房地產
+    'XLRE',  # Real Estate
+    # 工業
+    'XLI',   # Industrials
+    'VIS',   # Vanguard Industrials
+    # 防禦/宏觀
+    'GLD',   # Gold（宏觀避險）
+    'TLT',   # 20年債（利率風險）
+    'LQD',   # 投資等級債
+    'HYG',   # 高收益債
+    # 全球市場
+    'EEM',   # 新興市場
+    'VWO',   # Vanguard FTSE EM
+    'VEA',   # 發達市場 ex-US
 ]
 
 def fetch_etf_data(symbols):
