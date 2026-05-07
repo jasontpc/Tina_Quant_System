@@ -111,6 +111,17 @@ TELEGRAM_CHAT_ID = _validate_chat_id(
     os.getenv("TG_CHAT_ID") or os.getenv("tg_chat_id") or _get_secret("tg_chat_id", "1616824689")
 )
 
+# DEBUG: Log raw st.secrets on Streamlit Cloud (when no local secrets.toml)
+_secrets_debug_file = os.path.join(os.path.dirname(__file__), '.streamlit', 'secrets.toml')
+if not os.path.exists(_secrets_debug_file):
+    import sys as _sys
+    _raw_tg_bot = st.secrets.get('tg_bot_token', 'NOT_FOUND')
+    _raw_tg_chat = st.secrets.get('tg_chat_id', 'NOT_FOUND')
+    print(f'[SECRETS] tg_bot_token raw = {repr(_raw_tg_bot)[:80]}', file=_sys.stderr)
+    print(f'[SECRETS] tg_chat_id raw   = {repr(_raw_tg_chat)[:80]}', file=_sys.stderr)
+    print(f'[SECRETS] TOKEN after val  = {repr(TELEGRAM_BOT_TOKEN)[:60]}', file=_sys.stderr)
+    print(f'[SECRETS] CHAT_ID after val= {repr(TELEGRAM_CHAT_ID)[:60]}', file=_sys.stderr)
+
 FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or _get_secret("finmind_token", "")
 
 
