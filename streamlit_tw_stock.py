@@ -35,33 +35,28 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def _get_secret(key, default=""):
-    """Extract string value from st.secrets TOML dict structure.
-    Handles both formats:
-      - st.secrets['key'] = 'string_value' (direct string)
-      - st.secrets['key'] = {'key': 'string_value'} (TOML section nested)
-      - st.secrets['key'] = "{'key': 'string_value'}" (dict-string from Cloud)"""
-    import ast
-    val = st.secrets.get(key, {})
-    if isinstance(val, dict):
-        inner = val.get(key, default)
-        if isinstance(inner, dict):  # Double nesting edge case
-            return default
-        return inner if inner else default
-    elif isinstance(val, str):
-        # Handle dict-string like: "{'key': 'value'}" returned by Streamlit Cloud
-        vs = val.strip()
-        if vs.startswith('{') and vs.endswith('}'):
+    """Extract a clean string value from st.secrets (handles all TOML/Cloud edge cases)."""
+    import json
+    raw = st.secrets.get(key, default)
+    if isinstance(raw, dict):
+        inner = raw.get(key, default)
+        if isinstance(inner, str):
+            return inner if inner else default
+        return default
+    if isinstance(raw, str):
+        s = raw.strip()
+        if s.startswith("{") and s.endswith("}"):
             try:
-                parsed = ast.literal_eval(vs)
+                parsed = json.loads(s)
                 if isinstance(parsed, dict):
                     inner = parsed.get(key, default)
-                    if isinstance(inner, dict):
-                        return default
-                    return inner if inner else default
-            except (ValueError, SyntaxError):
-                pass  # Not a valid dict-string, treat as regular string
-        return val if val else default
+                    if isinstance(inner, str) and inner:
+                        return inner
+            except:
+                pass
+        return s if s else default
     return default
+
 TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or _get_secret("tg_bot_token", "")
 
 TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or _get_secret("tg_chat_id", "1616824689")
@@ -107,17 +102,24 @@ def _to_json_safe(obj):
 
 
 def push_telegram(message):
-    url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
-    # Defensive: ensure BOT_TOKEN is a clean string (not dict-string)
-    import ast, urllib.parse
-    _token = TELEGRAM_BOT_TOKEN.strip() if isinstance(TELEGRAM_BOT_TOKEN, str) else str(TELEGRAM_BOT_TOKEN)
-    if _token.startswith('{') and _token.endswith('}'):
-        try:
-            _parsed = ast.literal_eval(_token)
-            if isinstance(_parsed, dict):
-                _token = _parsed.get('tg_bot_token', TELEGRAM_BOT_TOKEN)
-        except:
-            pass
+    # Clean and validate token before use
+    import json, re, urllib.parse
+    token_raw = TELEGRAM_BOT_TOKEN
+    if not isinstance(token_raw, str) or not token_raw or ':' not in str(token_raw):
+        # Try to recover from broken state
+        token_str = str(token_raw).strip()
+        if token_str.startswith('{') and ':' in token_str:
+            # Extract token using regex
+            m = re.search(r'([0-9]+:[A-Za-z0-9_-]+)', token_str)
+            if m:
+                token_str = m.group(1)
+        if not token_str or ':' not in token_str:
+            return False, f'Invalid token: {repr(token_raw)[:50]}'
+        token_clean = token_str
+    else:
+        token_clean = token_raw.strip()
+    url = f'https://api.telegram.org/bot{token_clean}/sendMessage'
+    safe_msg = str(message) if not isinstance(message, str) else message
     safe_msg = str(message) if not isinstance(message, str) else message
 
     payload = {'chat_id': TELEGRAM_CHAT_ID, 'text': safe_msg, 'parse_mode': 'Markdown'}
