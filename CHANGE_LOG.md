@@ -144,6 +144,8 @@ if isinstance(_raw_token, dict):
 
 **測試驗證：** 部署後檢查 Streamlit Cloud logs 中 `[SECRETS] tg_bot_token raw = ...` 輸出
 
+---
+
 ### Bug #4（2026-05-07 17:50）— 模組初始化後 token 仍被轉成 dict-string repr
 
 | 欄位 | 內容 |
@@ -158,50 +160,175 @@ if isinstance(_raw_token, dict):
 ```
 Error: URL can't contain control characters. "/bot{'tg_bot_token': '861461…M14Q'}/sendMessage"
 ```
-- `_validate_token()` 在初始化時已經解析過 dict-string repr
-- 但 Streamlit Cloud 的 `st.secrets` 行為在模組載入後又變化
-- `TELEGRAM_BOT_TOKEN` 在模組層級是正確的，但 `push_telegram()` 收到的卻是 dict-string repr
-- 懷疑：Streamlit Cloud 在同一 runtime 環境中對同一 secret 的讀取值不一致
+- Streamlit Cloud 在同一 runtime 環境中對同一 secret 的讀取值不一致
+- `_validate_token()` 在模組載入時已解析，但 `push_telegram()` 收到時又變成 dict-string repr
+- 根本原因：st.secrets 在同一 runtime 有快取不一致的問題
 
 **對策：**
 - `push_telegram()` 內最後一道防線用 **regex 提取**：`re.search(r'([0-9]+:[A-Za-z0-9_-]{30,})', str(token_raw))`
 - 無論 token 是 dict / dict-string repr / 已解析的字串，regex 都能正確抽到真正的 token
-- 三层防护：
+- 三層防護：
   1. `_validate_token()` — 初始化時解析 dict-string
-  2. `_validate_token()` fallback chain — 環境變數 → 寫死備援
+  2. 環境變數 → 寫死備援 fallback chain
   3. `push_telegram()` 內 **regex 最終 extraction** — 確保送到 API 的 token 一定正確
 
 **預防復發：**
-- ✅ 所有 API URL build 前都做 regex validation
-- ✅ 未来所有 telegram/外部 API 调用都强制做 URL-safe 检查
+- ✅ 所有外部 API 呼叫前，都做 regex validation + URL-safe check
+- ✅ 未來任何新 API URL build 前，強制做 URL-safe 檢查
+- ✅ 任何 secret 初始化後，在 function 內再做一次最後萃取
 
 **測試驗證：** TW/US 個股按鈕 Telegram 發送成功
 
 ---
 
-## 📐 修改流程規範（未來適用的標準流程）
+## 📐 修改流程規範（強制執行）
 
-### 每次修改前
+### 核心原則
 
-1. **先建立 Change Log 草稿**（上面格式）
-2. **確認影響範圍**（哪些檔案/功能可能受影響）
-3. **本地語法檢查**：`python -m py_compile <file>.py`
-4. **了解為什麼壊**：不只是修 symptom，要找到根本原因
+**每次修改 → 必定建立 Change Log 條目**（不管大小）
 
-### 修改時
+- ❌ 不准：「小改一下就好，不用記」
+- ✅ 要記：「修改了什麼 + 為什麼 + 怎麼修」
+- 理由：99% 的重蹈覆轍都來自「這次小事不用記」
 
-1. **每個檔案獨立 commit**（方便追蹤）
-2. **commit message 格式**：`type: short description (issue #if any)`
-   - `fix: _validate_chat_id handles dict on Streamlit Cloud`
-   - `feat: add trailing stop for US positions`
-3. **commit message 加入為什麼改**：未來好追蹤
+---
 
-### 修改後
+### 修改流程 Step-by-Step
 
-1. **本地測試**：執行一次相關腳本
-2. **push 前確認**：無語法錯誤、無明顯邏輯問題
-3. **填入 Change Log**：問題→對策→預防→測試
-4. **觀察 Streamslit Cloud logs**：部署後看 DEBUG output
+```
+收到問題 / 功能需求
+    ↓
+Step 1：建立 Change Log 草稿
+    ├─ 在 CHANGE_LOG.md 新增條目（copy 格式）
+    ├─ 填入「問題」和「初步假說」
+    └─ commit: 留空，等修完再填
+    ↓
+Step 2：本地語法檢查
+    └─ python -m py_compile <file>.py
+    ↓
+Step 3：找到根本原因
+    ├─ 不只是修 symptom
+    ├─ 問：為什麼會壊？哪一層壊的？
+    └─ 寫入 Change Log 的「根本原因」欄位
+    ↓
+Step 4：實作修復
+    ├─ 每一個改動都要有理由
+    └─ 加入預防復發措施（不只是修當下）
+    ↓
+Step 5：本地驗證
+    └─ 執行相關腳本，確認不報錯
+    ↓
+Step 6：commit + 填 Change Log
+    ├─ commit message: `fix/feat: 具體描述 (#issue)`
+    └─ 補完 Change Log 條目（對策/預防/測試）
+    ↓
+Step 7：git push
+    ↓
+Step 8：通知 Jo 測試
+    └─ 明確說「測試範圍」和「預期結果」
+    ↓
+Step 9：觀察 + 關閉
+    ├─ Jo 回報正常 → 關閉 Change Log 條目（🔜→✅）
+    └─ Jo 回報新問題 → 回到 Step 1
+```
+
+---
+
+### 修改類型對應的 Change Log 格式
+
+| 類型 | 格式選擇 | 說明 |
+|:----|:--------|:-----|
+| **BUG** | Bug #N（日期）— 標題 | 功能壊了，修復 |
+| **FEATURE** | Feature #N（日期）— 標題 | 新增功能 |
+| **OPT** | Opt #N（日期）— 標題 | 效能/優化改動 |
+| **refactor** | Refactor #N（日期）— 標題 | 結構重構，不改功能 |
+| **security** | Security #N（日期）— 標題 | 安全相關修補 |
+| **hotfix** | Hotfix #N（日期）— 標題 | 緊急修補（事後補記） |
+
+---
+
+### Change Log 必填欄位
+
+| 欄位 | 必填 | 說明 |
+|:----:|:----:|:-----|
+| 日期 | ✅ | 精確到「小時」 |
+| 檔案 | ✅ | 明確路徑 |
+| commit | ✅ | 修完後填入 |
+| 類型 | ✅ | BUG/FEATURE/OPT/refactor/security/hotfix |
+| 優先 | ✅ | P0/P1/P2/P3 |
+| 標題 | ✅ | 30字內簡述 |
+| 問題 | ✅ | 壞了什麼/為什麼改 |
+| 對策 | ✅ | 怎麼修 + 預防復發 |
+| 影響 | 🔜 | 影響哪些功能 |
+| 測試驗證 | 🔜 | 已通過什麼測試 |
+
+---
+
+### 預防復發模板（必選 >=1）
+
+```
+預防復發：
+- ✅ [具體做法] — 確保同類問題不再發生
+- ✅ [具體做法]
+- ❌ [不做了什麼] — 舊方法的問題
+```
+
+---
+
+### commit message 格式標準
+
+```
+[type]: [short description] (#[issue])
+[type] 可選：fix / feat / opt / refactor / security / docs / chore
+[short description]：具體描述，不超過 50 字
+(#[issue])：對應的 Change Log Bug/Feature 編號
+```
+
+**好範例：**
+```
+fix: push_telegram regex extraction for dict-string token repr (Bug #4)
+feat: add sandbox phase to Full Think mode
+refactor: archive nana_v2~v67 to archive/old/ (Nana cleanup)
+```
+
+**壞範例：**
+```
+fix bug
+update file
+small fix
+```
+
+---
+
+### 緊急 hotfix 流程（不一樣！）
+
+當問題緊急（P0 功能完全壊掉）時：
+
+```
+Step 1：直接修補（不用先寫草稿）
+Step 2：修完馬上 commit + push
+Step 3：事後補寫 Change Log（最慢 24h 內補完）
+Step 4：加入「預防復發」措施
+```
+
+---
+
+### Change Log 追蹤狀態標記
+
+| 標記 | 意思 |
+|:----:|:-----|
+| 🔜 | 待 Jo 確認 / 待測試 |
+| ✅ | 已驗證正常 |
+| ❌ | 驗證失敗，需重新修 |
+| 📌 | 長期追蹤觀察 |
+
+---
+
+### 誰來維護 Change Log
+
+- **Tina 負責**：所有 Code 修改（Python/shell）
+- **Jo 負責**：通知 Tina 需要修改的項目
+- **原則**：Jo 不需要寫 Change Log，Tina 會代理
 
 ---
 
@@ -210,17 +337,19 @@ Error: URL can't contain control characters. "/bot{'tg_bot_token': '861461…M14
 每次部署 Streamlit Cloud 前：
 
 ```
-□ 檢查 st.secrets 讀取是否經過 _validate_* 函式
-□ 確認 chat_id 是 str（不是 dict/List）
-□ 確認 token 長度 >= 20
+□ st.secrets 讀取是否經過 _validate_* 函式
+□ chat_id 確認是 str（不是 dict/List）
+□ token 長度確認 >= 20
 □ 本地 python -m py_compile 無錯誤
 □ commit message 清楚描述改什麼 + 為什麼
-□ Change Log 已建立草稿
+□ Change Log 已建立草稿（即使是 hotfix）
 □ 部署後檢查 logs 有 [SECRETS] DEBUG output
 □ 通知 Jo 測試（TW/US 各一筆）
+□ Jo 回報正常 → 關閉 Change Log 🔜→✅
+□ Jo 回報新問題 → 回到 修改流程 Step 1
 ```
 
 ---
 
-_Last updated: 2026-05-07 16:40_
-_下次修改時，請先在這個檔案新增草稿，再開始修_
+_Last updated: 2026-05-07 18:36_
+_下次修改時，請先在 CHANGE_LOG.md 新增草稿，再開始修_
