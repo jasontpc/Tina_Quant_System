@@ -38,6 +38,9 @@ TRADES_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtr
 ANALYSIS_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_analysis_v65.json'
 DECISION_LOG = os.path.expanduser('~/.openclaw/workspace/memory/decision_log.md')
 
+# === Lessons 目錄 ===
+LESSONS_DIR = os.path.expanduser('~/.openclaw/workspace/memory/lessons')
+
 # === 專家委員會常量（從 tina_think.py 移植）===
 EXPERT_WEIGHTS = {'quant': 0.35, 'dev': 0.35, 'risk': 0.30}
 TWII_HOT_RSI = 85
@@ -447,7 +450,7 @@ def run_daily_review(mode=MODE_AUTO_THINK):
                     t['trailing_stop'] = max(entry, t.get('trailing_stop', entry))
                 print(f'  [減倉] {sym}: {shares}->{new_shares} shares (day10, pnl={pnl_pct:+.1f}%)')
                 reason = 'force_reduce'
-                exits_to_run.append((t, 'force_reduce', cur, pnl_pct, pnl_abs))
+                exits_to_run.append((t, 'force_reduce', cur, pnl_pct, pnl_abs, days_held, rsi))
 
         # === 持有天數警告 ===
         if rsi > 50 and days_held >= HOLD_WARNING_DAYS:
@@ -482,14 +485,19 @@ def run_daily_review(mode=MODE_AUTO_THINK):
                 # 等待確認（這裡是 Cron，所以實際上仍自動執行但發報告）
                 print(f'    [FULL_THINK] 等待確認中...')
             else:
-                exits_to_run.append((t, reason, cur, pnl_pct, pnl_abs))
+                exits_to_run.append((t, reason, cur, pnl_pct, pnl_abs, days_held, rsi))
         elif pnl_pct > 5:
             overbought_profit.append((f'{mkt}:{sym}', pnl_pct, rsi, (target - cur) / cur * 100))
 
     # 執行出场
     if mode != MODE_STATUS:
         print(f'\n[Step 3] 執行 {len(exits_to_run)} 筆出场...')
-        for t, reason, cur, pnl_pct, pnl_abs in exits_to_run:
+        for item in exits_to_run:
+            if len(item) == 6:
+                t, reason, cur, pnl_pct, pnl_abs, days_held, rsi_exit = item
+            else:
+                t, reason, cur, pnl_pct, pnl_abs = item
+                days_held, rsi_exit = 0, 50
             entry = t['entry_price']
             shares = t.get('shares', 0)
             fee = round(entry * shares * FEE_RATE + cur * shares * FEE_RATE, 0)
@@ -508,7 +516,6 @@ def run_daily_review(mode=MODE_AUTO_THINK):
             # === 同步到 TinaPaperTrader (XP 系統) ===
             if PAPER_TRADER:
                 try:
-                    # 找出這筆 trade 的 id (Leo 用 symbol + timestamp 對應)
                     trade_key = f"{mkt}:{t['symbol']}"
                     outcome = 'WIN' if net_pnl > 0 else ('LOSS' if net_pnl < 0 else 'BREAK_EVEN')
                     PAPER_TRADER.sync_from_leo(trade_key, exit_price=cur, reason=reason,
@@ -516,6 +523,81 @@ def run_daily_review(mode=MODE_AUTO_THINK):
                     print(f'  [PAPER] Synced {trade_key} -> {outcome}')
                 except Exception as e:
                     print(f'  [PAPER] Sync failed: {e}')
+
+            # === 即時寫入 Lessons（每筆平倉都沉積）===
+            _write_trade_lesson(t, entry, cur, net_pnl, pnl_pct, reason, mkt, days_held, rsi_exit)
+
+
+# ============================================================
+# Lesson 即時寫入系統
+# ============================================================
+def _write_trade_lesson(t, entry_price, exit_price, net_pnl, pnl_pct, reason, market, days_held, rsi_exit):
+    """每次平倉立即寫入 lessons/wins 或 lessons/losses"""
+    sym = t.get('symbol', 'UNK')
+    mkt = market or t.get('market', 'TW')
+    entry_rsi = t.get('entry_rsi', 50)
+    is_win = net_pnl > 0
+
+    # 自動分類 lesson 標籤
+    tags = []
+    if 'excess' in str(reason):
+        tags.append('excess_positions')
+    if 'overbought' in str(reason):
+        tags.append('overbought_exit')
+    if 'stop_loss' in str(reason):
+        tags.append('stop_loss')
+    if 'take_profit' in str(reason):
+        tags.append('take_profit')
+    if 'force_reduce' in str(reason):
+        tags.append('force_reduce')
+    if days_held and days_held > 20:
+        tags.append('holding_too_long')
+    if rsi_exit and rsi_exit > 70 and is_win:
+        tags.append('rsi_overbought_profit')
+
+    folder = os.path.join(LESSONS_DIR, 'wins' if is_win else 'losses')
+    os.makedirs(folder, exist_ok=True)
+
+    # 檔名格式：symbol_YYYYMMDD_HHMMSS_[win/loss].md
+    ts = time.strftime('%Y%m%d_%H%M%S')
+    suffix = 'win' if is_win else 'loss'
+    filename = f'{sym}_{ts}_{suffix}.md'
+    filepath = os.path.join(folder, filename)
+
+    holding_str = f'{days_held:.0f}天' if days_held else 'N/A'
+    entry_str = f'${entry_price:.2f}' if entry_price else 'N/A'
+    exit_str = f'${exit_price:.2f}' if exit_price else 'N/A'
+    pnl_str = f'${net_pnl:,.0f}' if net_pnl else 'N/A'
+    pnl_pct_str = f'{pnl_pct:+.2f}%' if pnl_pct else 'N/A'
+
+    # 自動生成 lesson 文字
+    if is_win:
+        lesson_text = f'**{sym} 獲利了結** — {reason or "正常平倉"}\n\n'
+        lesson_text += f'- 進場：{entry_str} → 出場：{exit_str}\n'
+        lesson_text += f'- 持有：{holding_str}，進場RSI：{entry_rsi:.0f}，出场RSI：{rsi_exit:.0f}\n'
+        lesson_text += f'- 損益：{pnl_str}（{pnl_pct_str}）\n'
+        if tags:
+            lesson_text += f'- 標籤：{" / ".join(tags)}\n'
+        lesson_text += f'\n**規則參考：** RSI {entry_rsi:.0f} 區間進場 → {holding_str} → {reason or "目標達陣"} 獲利了結\n'
+    else:
+        lesson_text = f'**{sym} 虧損止血** — {reason or "停損執行"}\n\n'
+        lesson_text += f'- 進場：{entry_str} → 出場：{exit_str}\n'
+        lesson_text += f'- 持有：{holding_str}，進場RSI：{entry_rsi:.0f}，出场RSI：{rsi_exit:.0f}\n'
+        lesson_text += f'- 虧損：{pnl_str}（{pnl_pct_str}）\n'
+        if tags:
+            lesson_text += f'- 標籤：{" / ".join(tags)}\n'
+        lesson_text += f'\n**犯錯根源：** {reason or "市場逆行走損"} — 持有 {holding_str} + RSI {rsi_exit:.0f} = 危險組合，果斷止損\n'
+        lesson_text += f'\n**下次改善：** RSI > 50 + 持有 > 15天 → 必須檢視是否續抱\n'
+
+    lesson_text += f'\n---\n'
+    lesson_text += f'_Tina Brain 自動寫入 {time.strftime("%Y-%m-%d %H:%M")}_\n'
+
+    try:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(lesson_text)
+        print(f'  [LESSON] Written: {os.path.basename(filepath)}')
+    except Exception as e:
+        print(f'  [LESSON] Failed to write: {e}')
 
     # ==========  excess positions ==========
     print('\n[Step 4] 檢查部位集中度...')
