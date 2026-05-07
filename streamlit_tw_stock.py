@@ -1583,10 +1583,10 @@ with tw_tab:
                 with col2:
                     with st.spinner("Sending..."):
                         ok, err = push_telegram(msg)
-                if ok:
-                    st.success("Telegram sent!")
-                else:
-                    st.error(f"Failed: {err}")
+                    if ok:
+                        st.success("Telegram sent!")
+                    else:
+                        st.error(f"Failed: {err}")
 
 
 
@@ -2033,10 +2033,10 @@ with us_tab:
                 with col2:
                     with st.spinner("Sending..."):
                         ok, err = push_telegram(msg)
-                if ok:
-                    st.success("Telegram sent!")
-                else:
-                    st.error(f"Failed: {err}")
+                    if ok:
+                        st.success("Telegram sent!")
+                    else:
+                        st.error(f"Failed: {err}")
 
 
 
