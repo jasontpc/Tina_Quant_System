@@ -1135,18 +1135,19 @@ with tw_tab:
 
         tw_cat = st.selectbox("Category", list(TW_CATS.keys()), key="tw_cat")
 
-        st.markdown("**Grade**")
-        g1, g2, g3, g4, gall = st.columns([1,1,1,1,1])
-        g_a = g1.checkbox("A", value=True, key="tw_grade_a")
-        g_b = g2.checkbox("B", value=True, key="tw_grade_b")
-        g_c = g3.checkbox("C", value=True, key="tw_grade_c")
-        g_d = g4.checkbox("D", value=True, key="tw_grade_d")
-        if gall.button("全", help="Select All", use_container_width=True):
-            st.session_state.tw_grade_a = True
-            st.session_state.tw_grade_b = True
-            st.session_state.tw_grade_c = True
-            st.session_state.tw_grade_d = True
-        tw_grade = [g for g, on in zip(["A","B","C","D"], [g_a, g_b, g_c, g_d]) if on]
+        with st.form(key="grade_filter_tw"):
+            st.markdown("**Grade**")
+            g1, g2, g3, g4, gall = st.columns([1,1,1,1,1])
+            g_a = g1.checkbox("A", value=True, key="tw_grade_a")
+            g_b = g2.checkbox("B", value=True, key="tw_grade_b")
+            g_c = g3.checkbox("C", value=True, key="tw_grade_c")
+            g_d = g4.checkbox("D", value=True, key="tw_grade_d")
+            if gall.form_submit_button("全", help="Select All", use_container_width=True):
+                st.session_state.tw_grade_a = True
+                st.session_state.tw_grade_b = True
+                st.session_state.tw_grade_c = True
+                st.session_state.tw_grade_d = True
+            tw_grade = [g for g, on in zip(["A","B","C","D"], [g_a, g_b, g_c, g_d]) if on]
 
         tw_score_min = st.slider("Score Min", 0, 1000, 0, key="tw_score")
 
@@ -1601,18 +1602,19 @@ with us_tab:
 
         us_cat = st.selectbox("Category", list(US_CATS.keys()), key="us_cat")
 
-        st.markdown("**Grade**")
-        u1, u2, u3, u4, uall = st.columns([1,1,1,1,1])
-        u_a = u1.checkbox("A", value=True, key="us_grade_a")
-        u_b = u2.checkbox("B", value=True, key="us_grade_b")
-        u_c = u3.checkbox("C", value=True, key="us_grade_c")
-        u_d = u4.checkbox("D", value=True, key="us_grade_d")
-        if uall.button("全", help="Select All", use_container_width=True):
-            st.session_state.us_grade_a = True
-            st.session_state.us_grade_b = True
-            st.session_state.us_grade_c = True
-            st.session_state.us_grade_d = True
-        us_grade = [g for g, on in zip(["A","B","C","D"], [u_a, u_b, u_c, u_d]) if on]
+        with st.form(key="grade_filter_us"):
+            st.markdown("**Grade**")
+            u1, u2, u3, u4, uall = st.columns([1,1,1,1,1])
+            u_a = u1.checkbox("A", value=True, key="us_grade_a")
+            u_b = u2.checkbox("B", value=True, key="us_grade_b")
+            u_c = u3.checkbox("C", value=True, key="us_grade_c")
+            u_d = u4.checkbox("D", value=True, key="us_grade_d")
+            if uall.form_submit_button("全", help="Select All", use_container_width=True):
+                st.session_state.us_grade_a = True
+                st.session_state.us_grade_b = True
+                st.session_state.us_grade_c = True
+                st.session_state.us_grade_d = True
+            us_grade = [g for g, on in zip(["A","B","C","D"], [u_a, u_b, u_c, u_d]) if on]
 
         us_score_min = st.slider("Score Min", 0, 1000, 0, key="us_score")
 
