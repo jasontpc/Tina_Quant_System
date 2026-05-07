@@ -46,9 +46,34 @@ def _get_secret(key, default=""):
             return default
         return inner if inner else default
     return val if val else default
+
+def _validate_chat_id(raw):
+    """Robust chat_id extraction — handles dict/List/int all edge cases on Streamlit Cloud."""
+    if raw is None:
+        return '1616824689'
+    if isinstance(raw, str) and raw.isdigit():
+        return raw
+    if isinstance(raw, dict):
+        raw = raw.get('chat_id', raw.get('tg_chat_id', '1616824689'))
+    if isinstance(raw, str) and raw.startswith('{') and 'chat_id' in raw:
+        try:
+            import json
+            parsed = json.loads(raw.replace("'", '"'))
+            raw = parsed.get('chat_id', parsed.get('tg_chat_id', raw))
+        except:
+            pass
+    while isinstance(raw, (dict, list)):
+        if isinstance(raw, dict):
+            raw = raw.get('chat_id', raw.get('tg_chat_id',
+                              list(raw.values())[0] if raw else '1616824689'))
+        else:
+            raw = raw[0] if raw else '1616824689'
+    return str(raw) if raw else '1616824689'
 TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or os.getenv("tg_bot_token") or _get_secret("tg_bot_token", "")
 
-TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or os.getenv("tg_chat_id") or _get_secret("tg_chat_id", "1616824689")
+TELEGRAM_CHAT_ID = _validate_chat_id(
+    os.getenv("TG_CHAT_ID") or os.getenv("tg_chat_id") or _get_secret("tg_chat_id", "1616824689")
+)
 
 FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or _get_secret("finmind_token", "")
 
