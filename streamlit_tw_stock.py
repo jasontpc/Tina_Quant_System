@@ -1070,7 +1070,7 @@ try:
 
         twii_close = twii_hist['Close'].iloc[-1]
 
-        twii_prev = twii_hist['Close'].iloc[0]
+        twii_prev = twii_hist['Close'].iloc[-2]
 
         twii_chg = (twii_close - twii_prev) / twii_prev * 100
 
@@ -1092,7 +1092,7 @@ try:
 
         spy_close = spy_hist['Close'].iloc[-1]
 
-        spy_prev = spy_hist['Close'].iloc[0]
+        spy_prev = spy_hist['Close'].iloc[-2]
 
         spy_chg = (spy_close - spy_prev) / spy_prev * 100
 
