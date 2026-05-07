@@ -35,31 +35,20 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def _get_secret(key, default=""):
-    """Extract a clean string value from st.secrets (handles all TOML/Cloud edge cases)."""
-    import json
-    raw = st.secrets.get(key, default)
-    if isinstance(raw, dict):
-        inner = raw.get(key, default)
-        if isinstance(inner, str):
-            return inner if inner else default
-        return default
-    if isinstance(raw, str):
-        s = raw.strip()
-        if s.startswith("{") and s.endswith("}"):
-            try:
-                parsed = json.loads(s)
-                if isinstance(parsed, dict):
-                    inner = parsed.get(key, default)
-                    if isinstance(inner, str) and inner:
-                        return inner
-            except:
-                pass
-        return s if s else default
-    return default
+    """Extract string value from st.secrets TOML dict structure.
+    TOML [section] creates st.secrets['section'] = {'section': value}
+    so we need .get(key, {}).get(key, default) to unwrap it."""
+    val = st.secrets.get(key, {})
+    if isinstance(val, dict):
+        inner = val.get(key, default)
+        # Defensive: if inner is STILL a dict (edge case), return default
+        if isinstance(inner, dict):
+            return default
+        return inner if inner else default
+    return val if val else default
+TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or os.getenv("tg_bot_token") or _get_secret("tg_bot_token", "")
 
-TELEGRAM_BOT_TOKEN = os.getenv("TG_BOT_TOKEN") or _get_secret("tg_bot_token", "")
-
-TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or _get_secret("tg_chat_id", "1616824689")
+TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID") or os.getenv("tg_chat_id") or _get_secret("tg_chat_id", "1616824689")
 
 FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or _get_secret("finmind_token", "")
 
