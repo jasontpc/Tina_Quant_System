@@ -116,6 +116,33 @@ def save_trades(data):
     with open(TRADES_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+def check_ledger_warning(symbol, market='TW'):
+    """活化 Ledger：查詢符號歷史表現，低勝率時發出警告"""
+    ledger_path = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\data\experience_ledger.json'
+    suffix = '.TW' if market == 'TW' else ''
+    ledger_sym = f'{symbol}{suffix}' if market == 'TW' else symbol
+    
+    if not os.path.exists(ledger_path):
+        return None
+    
+    try:
+        with open(ledger_path, 'r', encoding='utf-8') as f:
+            ledger = json.load(f)
+        
+        # 找 symbol 或 symbol.TW 匹配的記錄
+        for entry in ledger:
+            if entry.get('symbol') == ledger_sym or entry.get('symbol') == symbol:
+                wr = entry.get('win_rate', 50)
+                trades = entry.get('trades', 0)
+                if trades >= 5 and wr < 50:
+                    return (f'[LEDGER WARNING] {symbol}: '
+                            f'历史胜率 {wr:.0f}%（{trades}笔交易），需谨慎评估')
+                elif trades >= 5 and wr >= 70:
+                    return f'[LEDGER OK] {symbol}: 历史胜率 {wr:.0f}%（{trades}笔），正向参考'
+        return None
+    except:
+        return None
+
 def get_recent_entry(symbol, market='TW', minutes=1440):
     cutoff = time.time() - minutes * 60
     trades_data = load_trades()
@@ -449,6 +476,11 @@ def run_cycle():
             continue
         if get_recent_entry(sym, mkt, COOLDOWN_MIN):
             continue
+
+        # 活化 Ledger 警告（P2-0: 經驗傳承）
+        ledger_warn = check_ledger_warning(sym, mkt)
+        if ledger_warn:
+            print(f'  {ledger_warn}')
 
         shares = stock['shares']
         if shares < 1:
