@@ -22,7 +22,7 @@ OUT_FILE = DATA_DIR / 'leo_watchlist.json'
 DB_FILE = DATA_DIR / 'tw_history.db'
 
 STOCKS = ['2454.TW', '2345.TW', '3017.TW', '3034.TW', '4961.TW']
-FINMIND_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
+FINMIND_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjF9.ivums9mfJUrM2MYazJiOEg49RiYLOJMZtejqX79YWS8'
 
 def get_rsi(prices, period=14):
     delta = prices.diff()

@@ -11,12 +11,17 @@
       "timestamp": "2026-04-27 08:02:19",
       "target_price": 619.85,
       "stop_loss": 485.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260427080219",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 0.0,
+      "pnl_pct": 0.0
     },
     {
       "symbol": "3034",
@@ -29,12 +34,17 @@
       "timestamp": "2026-04-27 08:02:19",
       "target_price": 480.7,
       "stop_loss": 376.2,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260427080219",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7409.0,
+      "pnl_pct": 7.42
     },
     {
       "symbol": "2382",
@@ -47,12 +57,17 @@
       "timestamp": "2026-04-27 08:02:19",
       "target_price": 371.45,
       "stop_loss": 290.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260427080219",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 5871.0,
+      "pnl_pct": 5.88
     },
     {
       "symbol": "2379",
@@ -65,12 +80,17 @@
       "timestamp": "2026-04-27 11:09:11",
       "target_price": 632.5,
       "stop_loss": 495.0,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260427110911",
       "entry_signals": [
         "warm",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -1991.0,
+      "pnl_pct": -2.0
     },
     {
       "symbol": "2382",
@@ -83,12 +103,17 @@
       "timestamp": "2026-04-27 11:09:11",
       "target_price": 374.32,
       "stop_loss": 292.95,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260427110911",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 5066.0,
+      "pnl_pct": 5.07
     },
     {
       "symbol": "3034",
@@ -101,12 +126,17 @@
       "timestamp": "2026-04-27 11:09:11",
       "target_price": 479.55,
       "stop_loss": 375.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260427110911",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7648.0,
+      "pnl_pct": 7.67
     },
     {
       "symbol": "2379",
@@ -119,12 +149,17 @@
       "timestamp": "2026-04-27 14:03:31",
       "target_price": 638.25,
       "stop_loss": 499.5,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260427140331",
       "entry_signals": [
         "warm",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2880.0,
+      "pnl_pct": -2.88
     },
     {
       "symbol": "3034",
@@ -137,12 +172,17 @@
       "timestamp": "2026-04-27 14:03:31",
       "target_price": 478.97,
       "stop_loss": 374.85,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260427140331",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7800.0,
+      "pnl_pct": 7.8
     },
     {
       "symbol": "2382",
@@ -155,12 +195,17 @@
       "timestamp": "2026-04-27 14:03:31",
       "target_price": 374.32,
       "stop_loss": 292.95,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260427140331",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 5066.0,
+      "pnl_pct": 5.07
     },
     {
       "symbol": "2379",
@@ -173,12 +218,17 @@
       "timestamp": "2026-04-27 17:03:11",
       "target_price": 638.25,
       "stop_loss": 499.5,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260427170311",
       "entry_signals": [
         "warm",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2880.0,
+      "pnl_pct": -2.88
     },
     {
       "symbol": "3034",
@@ -191,12 +241,17 @@
       "timestamp": "2026-04-27 17:03:11",
       "target_price": 478.97,
       "stop_loss": 374.85,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260427170311",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7800.0,
+      "pnl_pct": 7.8
     },
     {
       "symbol": "2382",
@@ -209,12 +264,17 @@
       "timestamp": "2026-04-27 17:03:11",
       "target_price": 374.32,
       "stop_loss": 292.95,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260427170311",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 5066.0,
+      "pnl_pct": 5.07
     },
     {
       "symbol": "2379",
@@ -227,12 +287,17 @@
       "timestamp": "2026-04-27 21:04:12",
       "target_price": 638.25,
       "stop_loss": 499.5,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260427210412",
       "entry_signals": [
         "warm",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2880.0,
+      "pnl_pct": -2.88
     },
     {
       "symbol": "3034",
@@ -245,12 +310,17 @@
       "timestamp": "2026-04-27 21:04:12",
       "target_price": 478.97,
       "stop_loss": 374.85,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260427210412",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7800.0,
+      "pnl_pct": 7.8
     },
     {
       "symbol": "2382",
@@ -263,12 +333,17 @@
       "timestamp": "2026-04-27 21:04:12",
       "target_price": 374.32,
       "stop_loss": 292.95,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260427210412",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 5066.0,
+      "pnl_pct": 5.07
     },
     {
       "symbol": "2379",
@@ -281,12 +356,17 @@
       "timestamp": "2026-04-28 08:02:42",
       "target_price": 638.25,
       "stop_loss": 499.5,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260428080242",
       "entry_signals": [
         "warm",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2880.0,
+      "pnl_pct": -2.88
     },
     {
       "symbol": "3034",
@@ -299,12 +379,17 @@
       "timestamp": "2026-04-28 08:02:42",
       "target_price": 478.97,
       "stop_loss": 374.85,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260428080242",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7800.0,
+      "pnl_pct": 7.8
     },
     {
       "symbol": "2382",
@@ -317,12 +402,17 @@
       "timestamp": "2026-04-28 08:02:42",
       "target_price": 374.32,
       "stop_loss": 292.95,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260428080242",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 5066.0,
+      "pnl_pct": 5.07
     },
     {
       "symbol": "3034",
@@ -335,12 +425,17 @@
       "timestamp": "2026-04-28 14:04:57",
       "target_price": 474.37,
       "stop_loss": 371.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260428140457",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 8833.0,
+      "pnl_pct": 8.85
     },
     {
       "symbol": "3034",
@@ -353,12 +448,17 @@
       "timestamp": "2026-04-28 17:03:23",
       "target_price": 474.37,
       "stop_loss": 371.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260428170323",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 8833.0,
+      "pnl_pct": 8.85
     },
     {
       "symbol": "3034",
@@ -371,12 +471,17 @@
       "timestamp": "2026-04-28 21:03:16",
       "target_price": 474.37,
       "stop_loss": 371.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260428210316",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 8833.0,
+      "pnl_pct": 8.85
     },
     {
       "symbol": "3034",
@@ -389,12 +494,17 @@
       "timestamp": "2026-04-29 08:05:13",
       "target_price": 474.37,
       "stop_loss": 371.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260429080513",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 8833.0,
+      "pnl_pct": 8.85
     },
     {
       "symbol": "2382",
@@ -407,12 +517,17 @@
       "timestamp": "2026-04-29 11:02:34",
       "target_price": 368.57,
       "stop_loss": 288.45,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260429110234",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6708.0,
+      "pnl_pct": 6.71
     },
     {
       "symbol": "2376",
@@ -425,12 +540,17 @@
       "timestamp": "2026-04-29 11:02:34",
       "target_price": 315.1,
       "stop_loss": 246.6,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260429110234",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13104.0,
+      "pnl_pct": 13.14
     },
     {
       "symbol": "2382",
@@ -443,12 +563,17 @@
       "timestamp": "2026-04-29 14:03:24",
       "target_price": 370.3,
       "stop_loss": 289.8,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260429140324",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6200.0,
+      "pnl_pct": 6.21
     },
     {
       "symbol": "2379",
@@ -461,12 +586,17 @@
       "timestamp": "2026-04-29 14:03:24",
       "target_price": 633.65,
       "stop_loss": 495.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260429140324",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2172.0,
+      "pnl_pct": -2.18
     },
     {
       "symbol": "2376",
@@ -479,12 +609,17 @@
       "timestamp": "2026-04-29 14:03:24",
       "target_price": 313.38,
       "stop_loss": 245.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260429140324",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13725.0,
+      "pnl_pct": 13.76
     },
     {
       "symbol": "2382",
@@ -497,12 +632,17 @@
       "timestamp": "2026-04-29 17:03:52",
       "target_price": 370.3,
       "stop_loss": 289.8,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260429170352",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6200.0,
+      "pnl_pct": 6.21
     },
     {
       "symbol": "2379",
@@ -515,12 +655,17 @@
       "timestamp": "2026-04-29 17:03:52",
       "target_price": 633.65,
       "stop_loss": 495.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260429170352",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2172.0,
+      "pnl_pct": -2.18
     },
     {
       "symbol": "2376",
@@ -533,12 +678,17 @@
       "timestamp": "2026-04-29 17:03:52",
       "target_price": 313.38,
       "stop_loss": 245.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260429170352",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13725.0,
+      "pnl_pct": 13.76
     },
     {
       "symbol": "2382",
@@ -551,12 +701,17 @@
       "timestamp": "2026-04-29 21:03:41",
       "target_price": 370.3,
       "stop_loss": 289.8,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260429210341",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6200.0,
+      "pnl_pct": 6.21
     },
     {
       "symbol": "2379",
@@ -569,12 +724,17 @@
       "timestamp": "2026-04-29 21:03:41",
       "target_price": 633.65,
       "stop_loss": 495.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260429210341",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2172.0,
+      "pnl_pct": -2.18
     },
     {
       "symbol": "2376",
@@ -587,12 +747,17 @@
       "timestamp": "2026-04-29 21:03:41",
       "target_price": 313.38,
       "stop_loss": 245.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260429210341",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13725.0,
+      "pnl_pct": 13.76
     },
     {
       "symbol": "2382",
@@ -605,12 +770,17 @@
       "timestamp": "2026-04-30 08:03:46",
       "target_price": 370.3,
       "stop_loss": 289.8,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260430080346",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6200.0,
+      "pnl_pct": 6.21
     },
     {
       "symbol": "2379",
@@ -623,12 +793,17 @@
       "timestamp": "2026-04-30 08:03:46",
       "target_price": 633.65,
       "stop_loss": 495.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260430080346",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -2172.0,
+      "pnl_pct": -2.18
     },
     {
       "symbol": "2376",
@@ -641,12 +816,17 @@
       "timestamp": "2026-04-30 08:03:46",
       "target_price": 313.38,
       "stop_loss": 245.25,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260430080346",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13725.0,
+      "pnl_pct": 13.76
     },
     {
       "symbol": "2376",
@@ -659,12 +839,17 @@
       "timestamp": "2026-04-30 11:02:58",
       "target_price": 318.55,
       "stop_loss": 249.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260430110258",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 11913.0,
+      "pnl_pct": 11.91
     },
     {
       "symbol": "2382",
@@ -677,12 +862,17 @@
       "timestamp": "2026-04-30 11:02:58",
       "target_price": 367.42,
       "stop_loss": 287.55,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260430110258",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7020.0,
+      "pnl_pct": 7.04
     },
     {
       "symbol": "2379",
@@ -695,12 +885,17 @@
       "timestamp": "2026-04-30 11:02:58",
       "target_price": 630.2,
       "stop_loss": 493.2,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260430110258",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -1638.0,
+      "pnl_pct": -1.64
     },
     {
       "symbol": "3034",
@@ -713,12 +908,17 @@
       "timestamp": "2026-04-30 11:02:58",
       "target_price": 469.77,
       "stop_loss": 367.65,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260430110258",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9882.0,
+      "pnl_pct": 9.91
     },
     {
       "symbol": "2379",
@@ -731,12 +931,17 @@
       "timestamp": "2026-04-30 14:03:53",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260430140353",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -749,12 +954,17 @@
       "timestamp": "2026-04-30 14:03:53",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260430140353",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -767,12 +977,17 @@
       "timestamp": "2026-04-30 14:03:53",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260430140353",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -785,12 +1000,17 @@
       "timestamp": "2026-04-30 18:35:19",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260430183519",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -803,12 +1023,17 @@
       "timestamp": "2026-04-30 18:35:19",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260430183519",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -821,12 +1046,17 @@
       "timestamp": "2026-04-30 18:35:19",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260430183519",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -839,12 +1069,17 @@
       "timestamp": "2026-04-30 21:03:49",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260430210349",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -857,12 +1092,17 @@
       "timestamp": "2026-04-30 21:03:49",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260430210349",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -875,12 +1115,17 @@
       "timestamp": "2026-04-30 21:03:49",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260430210349",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -893,12 +1138,17 @@
       "timestamp": "2026-05-01 08:04:20",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260501080420",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -911,12 +1161,17 @@
       "timestamp": "2026-05-01 08:04:20",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260501080420",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -929,12 +1184,17 @@
       "timestamp": "2026-05-01 08:04:21",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260501080421",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -947,12 +1207,17 @@
       "timestamp": "2026-05-01 11:15:45",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260501111545",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -965,12 +1230,17 @@
       "timestamp": "2026-05-01 11:15:45",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260501111545",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -983,12 +1253,17 @@
       "timestamp": "2026-05-01 11:15:45",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260501111545",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -1001,12 +1276,17 @@
       "timestamp": "2026-05-01 14:05:28",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260501140528",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -1019,12 +1299,17 @@
       "timestamp": "2026-05-01 14:05:28",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260501140528",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -1037,12 +1322,17 @@
       "timestamp": "2026-05-01 14:05:28",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260501140528",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -1055,12 +1345,17 @@
       "timestamp": "2026-05-01 17:02:57",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260501170257",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -1073,12 +1368,17 @@
       "timestamp": "2026-05-01 17:02:57",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260501170257",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -1091,12 +1391,17 @@
       "timestamp": "2026-05-01 17:02:57",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260501170257",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -1109,12 +1414,17 @@
       "timestamp": "2026-05-01 21:04:56",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260501210456",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -1127,12 +1437,17 @@
       "timestamp": "2026-05-01 21:04:56",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260501210456",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -1145,12 +1460,17 @@
       "timestamp": "2026-05-01 21:04:56",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260501210456",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "2379",
@@ -1163,12 +1483,17 @@
       "timestamp": "2026-05-04 08:01:28",
       "target_price": 617.55,
       "stop_loss": 483.3,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260504080128",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 372.0,
+      "pnl_pct": 0.37
     },
     {
       "symbol": "3034",
@@ -1181,12 +1506,17 @@
       "timestamp": "2026-05-04 08:01:28",
       "target_price": 470.35,
       "stop_loss": 368.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260504080128",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 9760.0,
+      "pnl_pct": 9.78
     },
     {
       "symbol": "2376",
@@ -1199,12 +1529,17 @@
       "timestamp": "2026-05-04 08:01:28",
       "target_price": 313.95,
       "stop_loss": 245.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260504080128",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 13542.0,
+      "pnl_pct": 13.55
     },
     {
       "symbol": "3034",
@@ -1217,12 +1552,17 @@
       "timestamp": "2026-05-04 11:02:21",
       "target_price": 478.4,
       "stop_loss": 374.4,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260504110221",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7920.0,
+      "pnl_pct": 7.93
     },
     {
       "symbol": "2376",
@@ -1235,12 +1575,17 @@
       "timestamp": "2026-05-04 14:00:28",
       "target_price": 320.85,
       "stop_loss": 251.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260504140028",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 11098.0,
+      "pnl_pct": 11.11
     },
     {
       "symbol": "2376",
@@ -1253,12 +1598,17 @@
       "timestamp": "2026-05-04 21:01:55",
       "target_price": 320.85,
       "stop_loss": 251.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260504210155",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 11098.0,
+      "pnl_pct": 11.11
     },
     {
       "symbol": "3034",
@@ -1271,12 +1621,17 @@
       "timestamp": "2026-05-05 11:04:34",
       "target_price": 482.42,
       "stop_loss": 377.55,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260505110434",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7021.0,
+      "pnl_pct": 7.03
     },
     {
       "symbol": "2376",
@@ -1289,12 +1644,17 @@
       "timestamp": "2026-05-05 11:04:34",
       "target_price": 319.7,
       "stop_loss": 250.2,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260505110434",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 11488.0,
+      "pnl_pct": 11.51
     },
     {
       "symbol": "2379",
@@ -1307,12 +1667,17 @@
       "timestamp": "2026-05-05 11:04:34",
       "target_price": 608.35,
       "stop_loss": 476.1,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260505110434",
       "entry_signals": [
         "oversold",
         "near_ma20_pullback"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 1890.0,
+      "pnl_pct": 1.89
     },
     {
       "symbol": "2382",
@@ -1325,12 +1690,17 @@
       "timestamp": "2026-05-05 11:04:34",
       "target_price": 365.12,
       "stop_loss": 285.75,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260505110434",
       "entry_signals": [
         "oversold",
         "near_ma20_pullback"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 7693.0,
+      "pnl_pct": 7.72
     },
     {
       "symbol": "2376",
@@ -1343,12 +1713,17 @@
       "timestamp": "2026-05-05 14:02:44",
       "target_price": 321.42,
       "stop_loss": 251.55,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260505140244",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 10888.0,
+      "pnl_pct": 10.91
     },
     {
       "symbol": "2382",
@@ -1361,12 +1736,17 @@
       "timestamp": "2026-05-05 14:02:44",
       "target_price": 369.15,
       "stop_loss": 288.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260505140244",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6531.0,
+      "pnl_pct": 6.54
     },
     {
       "symbol": "2379",
@@ -1379,12 +1759,17 @@
       "timestamp": "2026-05-05 14:02:44",
       "target_price": 612.95,
       "stop_loss": 479.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260505140244",
       "entry_signals": [
         "oversold",
         "near_ma20_pullback"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 1122.0,
+      "pnl_pct": 1.13
     },
     {
       "symbol": "3034",
@@ -1397,12 +1782,17 @@
       "timestamp": "2026-05-05 14:02:44",
       "target_price": 483.0,
       "stop_loss": 378.0,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260505140244",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6902.0,
+      "pnl_pct": 6.9
     },
     {
       "symbol": "2376",
@@ -1415,12 +1805,17 @@
       "timestamp": "2026-05-05 17:03:21",
       "target_price": 321.42,
       "stop_loss": 251.55,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260505170321",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 10888.0,
+      "pnl_pct": 10.91
     },
     {
       "symbol": "2382",
@@ -1433,12 +1828,17 @@
       "timestamp": "2026-05-05 17:03:21",
       "target_price": 369.15,
       "stop_loss": 288.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260505170321",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6531.0,
+      "pnl_pct": 6.54
     },
     {
       "symbol": "2379",
@@ -1451,12 +1851,17 @@
       "timestamp": "2026-05-05 17:03:21",
       "target_price": 612.95,
       "stop_loss": 479.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260505170321",
       "entry_signals": [
         "oversold",
         "near_ma20_pullback"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 1122.0,
+      "pnl_pct": 1.13
     },
     {
       "symbol": "3034",
@@ -1469,12 +1874,17 @@
       "timestamp": "2026-05-05 17:03:21",
       "target_price": 483.0,
       "stop_loss": 378.0,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260505170321",
       "entry_signals": [
         "neutral",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6902.0,
+      "pnl_pct": 6.9
     },
     {
       "symbol": "2376",
@@ -1487,12 +1897,17 @@
       "timestamp": "2026-05-05 21:02:47",
       "target_price": 321.42,
       "stop_loss": 251.55,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2376_20260505210247",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 10888.0,
+      "pnl_pct": 10.91
     },
     {
       "symbol": "2382",
@@ -1505,12 +1920,17 @@
       "timestamp": "2026-05-05 21:02:47",
       "target_price": 369.15,
       "stop_loss": 288.9,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2382_20260505210247",
       "entry_signals": [
         "oversold",
         "above_ma20"
-      ]
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6531.0,
+      "pnl_pct": 6.54
     },
     {
       "symbol": "2379",
@@ -1523,12 +1943,17 @@
       "timestamp": "2026-05-05 21:02:47",
       "target_price": 612.95,
       "stop_loss": 479.7,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_2379_20260505210247",
       "entry_signals": [
         "oversold",
         "near_ma20_pullback"
-      ]
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 1122.0,
+      "pnl_pct": 1.13
     },
     {
       "symbol": "3034",
@@ -1541,10 +1966,438 @@
       "timestamp": "2026-05-05 21:02:47",
       "target_price": 483.0,
       "stop_loss": 378.0,
-      "status": "open",
+      "status": "closed",
       "trade_id": "LEO_3034_20260505210247",
       "entry_signals": [
         "neutral",
+        "above_ma20"
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6902.0,
+      "pnl_pct": 6.9
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "entry_price": 420.0,
+      "shares": 238,
+      "amount": 99960.0,
+      "entry_rsi": 55.0,
+      "entry_score": 38,
+      "timestamp": "2026-05-06 08:04:37",
+      "target_price": 483.0,
+      "stop_loss": 378.0,
+      "status": "closed",
+      "trade_id": "LEO_3034_20260506080437",
+      "entry_signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6902.0,
+      "pnl_pct": 6.9
+    },
+    {
+      "symbol": "2376",
+      "name": "技嘉",
+      "entry_price": 290.0,
+      "shares": 344,
+      "amount": 99760.0,
+      "entry_rsi": 56.5,
+      "entry_score": 48,
+      "timestamp": "2026-05-06 11:09:07",
+      "target_price": 333.5,
+      "stop_loss": 261.0,
+      "status": "closed",
+      "trade_id": "LEO_2376_20260506110907",
+      "entry_signals": [
+        "neutral",
+        "above_ma20",
+        "high_volume"
+      ],
+      "exit_price": 310.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 6880.0,
+      "pnl_pct": 6.9
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "entry_price": 337.5,
+      "shares": 296,
+      "amount": 99900.0,
+      "entry_rsi": 59.2,
+      "entry_score": 48,
+      "timestamp": "2026-05-06 11:09:07",
+      "target_price": 388.12,
+      "stop_loss": 303.75,
+      "status": "closed",
+      "trade_id": "LEO_2382_20260506110907",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 1332.0,
+      "pnl_pct": 1.33
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "entry_price": 434.0,
+      "shares": 230,
+      "amount": 99820.0,
+      "entry_rsi": 60.4,
+      "entry_score": 48,
+      "timestamp": "2026-05-06 11:09:07",
+      "target_price": 499.1,
+      "stop_loss": 390.6,
+      "status": "closed",
+      "trade_id": "LEO_3034_20260506110907",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 3450.0,
+      "pnl_pct": 3.46
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "entry_price": 536.0,
+      "shares": 186,
+      "amount": 99696.0,
+      "entry_rsi": 52.0,
+      "entry_score": 43,
+      "timestamp": "2026-05-06 11:09:07",
+      "target_price": 616.4,
+      "stop_loss": 482.4,
+      "status": "closed",
+      "trade_id": "LEO_2379_20260506110907",
+      "entry_signals": [
+        "oversold",
+        "above_ma20"
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 558.0,
+      "pnl_pct": 0.56
+    },
+    {
+      "symbol": "2376",
+      "name": "技嘉",
+      "entry_price": 301.0,
+      "shares": 332,
+      "amount": 99932.0,
+      "entry_rsi": 62.7,
+      "entry_score": 53,
+      "timestamp": "2026-05-06 17:03:44",
+      "target_price": 346.15,
+      "stop_loss": 270.9,
+      "status": "open",
+      "trade_id": "LEO_2376_20260506170344",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ]
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "entry_price": 346.5,
+      "shares": 288,
+      "amount": 99792.0,
+      "entry_rsi": 63.4,
+      "entry_score": 53,
+      "timestamp": "2026-05-06 17:03:44",
+      "target_price": 398.47,
+      "stop_loss": 311.85,
+      "status": "closed",
+      "trade_id": "LEO_2382_20260506170344",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ],
+      "exit_price": 342.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -1296.0,
+      "pnl_pct": -1.3
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "entry_price": 441.5,
+      "shares": 226,
+      "amount": 99779.0,
+      "entry_rsi": 63.5,
+      "entry_score": 53,
+      "timestamp": "2026-05-06 17:03:44",
+      "target_price": 507.72,
+      "stop_loss": 397.35,
+      "status": "closed",
+      "trade_id": "LEO_3034_20260506170344",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ],
+      "exit_price": 449.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": 1695.0,
+      "pnl_pct": 1.7
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "entry_price": 544.0,
+      "shares": 183,
+      "amount": 99552.0,
+      "entry_rsi": 54.8,
+      "entry_score": 43,
+      "timestamp": "2026-05-06 17:03:44",
+      "target_price": 625.6,
+      "stop_loss": 489.6,
+      "status": "closed",
+      "trade_id": "LEO_2379_20260506170344",
+      "entry_signals": [
+        "oversold",
+        "above_ma20"
+      ],
+      "exit_price": 539.0,
+      "exit_reason": "excess_positions_reduced",
+      "exit_time": "2026-05-07 12:05:25",
+      "pnl": -915.0,
+      "pnl_pct": -0.92
+    },
+    {
+      "symbol": "2376",
+      "name": "技嘉",
+      "entry_price": 301.0,
+      "shares": 332,
+      "amount": 99932.0,
+      "entry_rsi": 62.7,
+      "entry_score": 53,
+      "timestamp": "2026-05-06 21:02:49",
+      "target_price": 346.15,
+      "stop_loss": 270.9,
+      "status": "open",
+      "trade_id": "LEO_2376_20260506210249",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ]
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "entry_price": 346.5,
+      "shares": 288,
+      "amount": 99792.0,
+      "entry_rsi": 63.4,
+      "entry_score": 53,
+      "timestamp": "2026-05-06 21:02:49",
+      "target_price": 398.47,
+      "stop_loss": 311.85,
+      "status": "open",
+      "trade_id": "LEO_2382_20260506210249",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ]
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "entry_price": 441.5,
+      "shares": 226,
+      "amount": 99779.0,
+      "entry_rsi": 63.5,
+      "entry_score": 53,
+      "timestamp": "2026-05-06 21:02:49",
+      "target_price": 507.72,
+      "stop_loss": 397.35,
+      "status": "open",
+      "trade_id": "LEO_3034_20260506210249",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ]
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "entry_price": 544.0,
+      "shares": 183,
+      "amount": 99552.0,
+      "entry_rsi": 54.8,
+      "entry_score": 43,
+      "timestamp": "2026-05-06 21:02:49",
+      "target_price": 625.6,
+      "stop_loss": 489.6,
+      "status": "open",
+      "trade_id": "LEO_2379_20260506210249",
+      "entry_signals": [
+        "oversold",
+        "above_ma20"
+      ]
+    },
+    {
+      "symbol": "2376",
+      "name": "技嘉",
+      "entry_price": 301.0,
+      "shares": 332,
+      "amount": 99932.0,
+      "entry_rsi": 62.7,
+      "entry_score": 53,
+      "timestamp": "2026-05-07 08:05:01",
+      "target_price": 346.15,
+      "stop_loss": 270.9,
+      "status": "open",
+      "trade_id": "LEO_2376_20260507080501",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ]
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "entry_price": 346.5,
+      "shares": 288,
+      "amount": 99792.0,
+      "entry_rsi": 63.4,
+      "entry_score": 53,
+      "timestamp": "2026-05-07 08:05:01",
+      "target_price": 398.47,
+      "stop_loss": 311.85,
+      "status": "open",
+      "trade_id": "LEO_2382_20260507080501",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ]
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "entry_price": 441.5,
+      "shares": 226,
+      "amount": 99779.0,
+      "entry_rsi": 63.5,
+      "entry_score": 53,
+      "timestamp": "2026-05-07 08:05:01",
+      "target_price": 507.72,
+      "stop_loss": 397.35,
+      "status": "open",
+      "trade_id": "LEO_3034_20260507080501",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ]
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "entry_price": 544.0,
+      "shares": 183,
+      "amount": 99552.0,
+      "entry_rsi": 54.8,
+      "entry_score": 43,
+      "timestamp": "2026-05-07 08:05:01",
+      "target_price": 625.6,
+      "stop_loss": 489.6,
+      "status": "open",
+      "trade_id": "LEO_2379_20260507080501",
+      "entry_signals": [
+        "oversold",
+        "above_ma20"
+      ]
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "entry_price": 345.5,
+      "shares": 289,
+      "amount": 99850.0,
+      "entry_rsi": 60.0,
+      "entry_score": 48,
+      "timestamp": "2026-05-07 11:00:33",
+      "target_price": 397.32,
+      "stop_loss": 310.95,
+      "status": "open",
+      "trade_id": "LEO_2382_20260507110033",
+      "entry_signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ]
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "entry_price": 543.0,
+      "shares": 184,
+      "amount": 99912.0,
+      "entry_rsi": 51.9,
+      "entry_score": 43,
+      "timestamp": "2026-05-07 11:00:33",
+      "target_price": 624.45,
+      "stop_loss": 488.7,
+      "status": "open",
+      "trade_id": "LEO_2379_20260507110033",
+      "entry_signals": [
+        "oversold",
+        "above_ma20"
+      ]
+    },
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "entry_price": 448.0,
+      "shares": 223,
+      "amount": 99904.0,
+      "entry_rsi": 65.7,
+      "entry_score": 43,
+      "timestamp": "2026-05-07 11:00:33",
+      "target_price": 515.2,
+      "stop_loss": 403.2,
+      "status": "open",
+      "trade_id": "LEO_3034_20260507110033",
+      "entry_signals": [
+        "warm",
+        "strong_momentum",
         "above_ma20"
       ]
     }

@@ -1,46 +1,46 @@
 {
-  "timestamp": "2026-05-05 16:02",
-  "twii_position": 8.9,
+  "timestamp": "2026-05-06 16:10",
+  "twii_position": 8.8,
   "results": [
     {
       "symbol": "0050",
       "name": "元大台灣50",
-      "price": 94.5999984741211,
-      "change": 0.0,
-      "ma60_pos": 19.7,
-      "rsi": 81.6,
+      "price": 95.75,
+      "change": 1.22,
+      "ma60_pos": 20.6,
+      "rsi": 81.7,
       "position": 0.0,
       "action": "HOLD x0"
     },
     {
       "symbol": "00646",
       "name": "富邦S&P500",
-      "price": 71.6500015258789,
-      "change": -0.56,
-      "ma60_pos": 5.2,
-      "rsi": 85.4,
-      "position": -0.6,
+      "price": 72.30000305175781,
+      "change": 0.91,
+      "ma60_pos": 6.0,
+      "rsi": 85.1,
+      "position": 0.0,
       "action": "HOLD x0"
     },
     {
       "symbol": "00878",
       "name": "國泰永續高息",
-      "price": 26.579999923706055,
-      "change": 1.64,
-      "ma60_pos": 14.9,
-      "rsi": 89.7,
+      "price": 27.329999923706055,
+      "change": 2.82,
+      "ma60_pos": 17.7,
+      "rsi": 90.9,
       "position": 0.0,
       "action": "HOLD x0"
     },
     {
       "symbol": "00919",
       "name": "群益台灣精選高息",
-      "price": 24.200000762939453,
-      "change": 1.0,
-      "ma60_pos": 5.0,
-      "rsi": 74.2,
+      "price": 24.90999984741211,
+      "change": 2.93,
+      "ma60_pos": 8.0,
+      "rsi": 79.2,
       "position": 0.0,
-      "action": "HOLD x0.5"
+      "action": "HOLD x0"
     }
   ]
 }

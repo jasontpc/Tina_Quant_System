@@ -3,7 +3,7 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8')
 
 DB = Path('data/yfinance.db')
-TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
+TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjF9.ivums9mfJUrM2MYazJiOEg49RiYLOJMZtejqX79YWS8'
 BASE = 'https://api.finmindtrade.com/api/v4/data'
 
 SYMS = [('3081','聯亞'), ('6442','光聖'), ('4979','華星光'), ('4971','IET-KY')]

@@ -61,7 +61,7 @@ ETF_NAMES = {
     '00757': '統一大FANG+', '00762': '元大石油', '00895': '富邦上証'
 }
 
-FINMIND_TOKEN = os.getenv('FINMIND_TOKEN', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM')
+FINMIND_TOKEN = os.getenv('FINMIND_TOKEN', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjF9.ivums9mfJUrM2MYazJiOEg49RiYLOJMZtejqX79YWS8')
 FINMIND_URL = 'https://api.finmindtrade.com/api/v4/data'
 
 # ============================================================
