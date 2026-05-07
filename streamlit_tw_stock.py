@@ -141,10 +141,19 @@ def _try_get_chat_id():
         raw = st.secrets.get('tg_chat_id', st.secrets.get('chat_id', None))
         if raw is None:
             return _KNOWN_CHAT_ID
+        raw_type = type(raw).__name__
         # Already a plain digit string
         if isinstance(raw, str) and raw.isdigit():
             return raw
-        # Dict with string values
+        # AttrDict (Streamlit Cloud custom class) — access via .get() or hasattr
+        if hasattr(raw, 'get'):
+            v = raw.get('chat_id') or raw.get('tg_chat_id') or raw.get('value')
+            if isinstance(v, str) and v.isdigit():
+                return v
+            # AttrDict may have tg_chat_id as attribute
+            if hasattr(raw, 'tg_chat_id') and str(raw.tg_chat_id).isdigit():
+                return str(raw.tg_chat_id)
+        # Dict with string values (plain dict, not AttrDict)
         if isinstance(raw, dict):
             v = raw.get('chat_id') or raw.get('tg_chat_id') or raw.get('value')
             if isinstance(v, str) and v.isdigit():
