@@ -1,32 +1,36 @@
 # Leo 科技股波段團隊 — 索引文檔
-> 最後更新：2026-04-26 16:13
+> 最後更新：2026-05-07 17:30
 
-## 📁 團隊結構
+## 正式版腳本
 
-```
-teams/leadtrades/leos/
-├── leos_v65.py              # 主策略（v6.5）
-├── leos_light.py            # 輕量版（Cron 使用）
-├── leos_v70.py             # 整合版（v7.0，進場+停利/停損+法人）
-├── leo_analysis.py         # 每日主動分析報告（v7.0）
-├── leo_backtest.py         # 歷史回測系統（v7.0）
-├── leo_sim_trade.py        # 模擬交易系統
-├── leo_autonomous.py      # 主動分析學習系統（WFA 參數優化）
-├── leo_institutional_flow.py # 法人資金流向追蹤
-├── leos_trades.json        # 交易記錄
-├── leos_analysis_report.json  # 分析報告
-├── leos_backtest_report.csv  # 回測報告
-└── INDEX.md                # 本索引
-```
+| 檔案 | 狀態 | 說明 |
+|:-----|:----:|:-----|
+| `leos_v65.py` | **✅ 正式版** | 主策略，P1/P2 功能完整（最近更新：2026-05-07） |
+| `leos_v65_p1p2.py` | 備份 | P1+P2 改版備份 |
+| `leos_v65_original_backup.py` | 歸檔 | 原始版本備份 |
+| `leos_v68.py` | 歸檔 | 較舊版本（2026-04-26），已被 v65 取代 |
 
-## 🎯 策略版本
+## Cron 調用（分散排程後）
 
-| 版本 | 檔案 | 功能 | 執行頻率 |
-|:----|:-----|:-----|:---------|
-| v6.5 | `leos_v65.py` | 完整分析（RSI 45-70進場，15%停利，10%停損）| 按需 |
-| 輕量版 | `leos_light.py` | Cron 快速掃描（60秒完成）| 每天5次 |
+| Job ID | 名稱 | 時間 | 腳本 |
+|:-------|:-----|:-----|:-----|
+| `98b172e3` | Leo 每日PaperTrade檢討 | 平日 09:00 | Agent 模式（tina_think 整合） |
+| `6263e6d0` | Leo v6.5 科技股波段 | 平日 8,11,14,17,21時 | 輕量版 Leo 分析 |
+| `7f841931` | Leo 法人資金流向 | 平日 10:00, 13:00, 15:00 | leo_institutional_flow.py |
+| `c6eb5e6b` | Leo AI 產業分析報告 | 平日 15:50 | leo_analysis.py |
+| `dfbb5263` | Leo AI 每日分析報告 | 平日 16:05 | leo_analysis.py |
 
-## 📊 當前持倉
+## 📈 績效（2026-05-07）
+
+- **勝率：** 85%（83W / 15L）
+- **總損益：** +$587,109
+- **持倉：** 13 TW / 10 US（共 23 口）
+
+## Archive
+
+較舊版本已移至 `archive/old/`（待清理）
+
+---
 
 | 代碼 | 名稱 | 進場價 | RSI | 狀態 |
 |:----:|:-----|------:|----:|:-----:|
