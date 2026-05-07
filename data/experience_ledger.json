@@ -144,5 +144,71 @@
       "手動止損"
     ],
     "source": "leo_paper_trade_closed"
+  },
+  {
+    "date": "2026-04-27",
+    "symbol": "2379",
+    "team": "LEO",
+    "lesson": "Leo波段系統，27筆交易",
+    "total_trades": 27,
+    "wins": 14,
+    "losses": 12,
+    "win_rate": 51.9,
+    "total_pnl": -16505.0,
+    "avg_holding_days": 5.4,
+    "avg_entry": 542.44,
+    "avg_exit": 539.0,
+    "exit_reasons": [
+      "excess_positions_reduced"
+    ],
+    "tags": [
+      "leo_bandwave",
+      "backfill_20260507"
+    ],
+    "source": "leo_trades_backfill"
+  },
+  {
+    "date": "2026-04-27",
+    "symbol": "3034",
+    "team": "LEO",
+    "lesson": "Leo波段系統，29筆交易",
+    "total_trades": 29,
+    "wins": 29,
+    "losses": 0,
+    "win_rate": 100.0,
+    "total_pnl": 229604.0,
+    "avg_holding_days": 5.3,
+    "avg_entry": 416.31,
+    "avg_exit": 449.14,
+    "exit_reasons": [
+      "excess_positions_reduced"
+    ],
+    "tags": [
+      "leo_bandwave",
+      "backfill_20260507"
+    ],
+    "source": "leo_trades_backfill"
+  },
+  {
+    "date": "2026-04-29",
+    "symbol": "2376",
+    "team": "LEO",
+    "lesson": "Leo波段系統，23筆交易",
+    "total_trades": 23,
+    "wins": 23,
+    "losses": 0,
+    "win_rate": 100.0,
+    "total_pnl": 277679.0,
+    "avg_holding_days": 4.4,
+    "avg_entry": 276.67,
+    "avg_exit": 309.96,
+    "exit_reasons": [
+      "excess_positions_reduced"
+    ],
+    "tags": [
+      "leo_bandwave",
+      "backfill_20260507"
+    ],
+    "source": "leo_trades_backfill"
   }
 ]
