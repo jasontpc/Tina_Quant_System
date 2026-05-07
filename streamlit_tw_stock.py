@@ -201,6 +201,10 @@ def _to_json_safe(obj):
 def push_telegram(message):
     # Clean and validate token before use — last-resort regex extraction
     import json, re, urllib.parse
+    # DEBUG: print exact values at function entry
+    import sys as _sys
+    print(f'[DEBUG push_telegram] TELEGRAM_CHAT_ID={repr(TELEGRAM_CHAT_ID)} type={type(TELEGRAM_CHAT_ID).__name__}', file=_sys.stderr)
+    print(f'[DEBUG push_telegram] TELEGRAM_BOT_TOKEN={repr(TELEGRAM_BOT_TOKEN)[:30]}... type={type(TELEGRAM_BOT_TOKEN).__name__}', file=_sys.stderr)
     token_raw = TELEGRAM_BOT_TOKEN
     token_str = str(token_raw).strip()
     # If token looks like dict-string repr, do final regex extraction
