@@ -1165,10 +1165,7 @@ with tw_tab:
             g_c = g3.checkbox("C", value=True, key="tw_grade_c")
             g_d = g4.checkbox("D", value=True, key="tw_grade_d")
             if gall.form_submit_button("全", help="Select All", use_container_width=True):
-                st.session_state.tw_grade_a = True
-                st.session_state.tw_grade_b = True
-                st.session_state.tw_grade_c = True
-                st.session_state.tw_grade_d = True
+                pass  # Checkbox values are auto-managed by Streamlit via key=
             tw_grade = [g for g, on in zip(["A","B","C","D"], [g_a, g_b, g_c, g_d]) if on]
 
         tw_score_min = st.slider("Score Min", 0, 1000, 0, key="tw_score")
@@ -1645,10 +1642,7 @@ with us_tab:
             u_c = u3.checkbox("C", value=True, key="us_grade_c")
             u_d = u4.checkbox("D", value=True, key="us_grade_d")
             if uall.form_submit_button("全", help="Select All", use_container_width=True):
-                st.session_state.us_grade_a = True
-                st.session_state.us_grade_b = True
-                st.session_state.us_grade_c = True
-                st.session_state.us_grade_d = True
+                pass  # Checkbox values are auto-managed by Streamlit via key=
             us_grade = [g for g, on in zip(["A","B","C","D"], [u_a, u_b, u_c, u_d]) if on]
 
         us_score_min = st.slider("Score Min", 0, 1000, 0, key="us_score")
