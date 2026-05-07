@@ -365,11 +365,11 @@ def format_telegram(results, title):
 
             f" ${r['price']:.2f} ({r['chg']:+.2f}%)"
 
-            f" S={r['score']:.0f}/1000 R={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
+            f" 評分={r['score']:.0f}/1000 RSI={r['rsi']:.0f} K={r['k']:.0f} D={r['d']:.0f}"
 
-            f" BB%={r['bb_pct']:.0f} BIAS={r['bias5']:+.1f}% Vol={r['vol_ratio']:.1f}x"
+            f" 布林={r['bb_pct']:.0f}% 偏離={r['bias5']:+.1f}% 量={r['vol_ratio']:.1f}x"
 
-            f" M={macd_icon} MACD={macd_hist:+.2f}{macd_warn} MA={ma_icon} {bull} {kd}{inst_str}"
+            f" 動={macd_icon} MACD={macd_hist:+.2f}{macd_warn} 均線={ma_icon} {bull} {kd}{inst_str}"
 
         )
 
@@ -381,7 +381,7 @@ def format_telegram(results, title):
 
     all_lines.append("=" * 40)
 
-    all_lines.append(f"Grade: A={a} B={b} C={c} | Total={len(results)}")
+    all_lines.append(f"評級: A={a} B={b} C={c} | 合計={len(results)}")
 
     chunks = []
 
@@ -1327,7 +1327,7 @@ with tw_tab:
         tw_cat = st.selectbox("Category", list(TW_CATS.keys()), key="tw_cat")
 
         with st.form(key="grade_filter_tw"):
-            st.markdown("**Grade**")
+            st.markdown("**評級**")
             g1, g2, g3, g4, gall = st.columns([1,1,1,1,1])
             g_a = g1.checkbox("A", value=True, key="tw_grade_a")
             g_b = g2.checkbox("B", value=True, key="tw_grade_b")
@@ -1804,7 +1804,7 @@ with us_tab:
         us_cat = st.selectbox("Category", list(US_CATS.keys()), key="us_cat")
 
         with st.form(key="grade_filter_us"):
-            st.markdown("**Grade**")
+            st.markdown("**評級**")
             u1, u2, u3, u4, uall = st.columns([1,1,1,1,1])
             u_a = u1.checkbox("A", value=True, key="us_grade_a")
             u_b = u2.checkbox("B", value=True, key="us_grade_b")
