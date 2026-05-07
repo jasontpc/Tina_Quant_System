@@ -527,11 +527,191 @@ def run_daily_review(mode=MODE_AUTO_THINK):
             # === 即時寫入 Lessons（每筆平倉都沉積）===
             _write_trade_lesson(t, entry, cur, net_pnl, pnl_pct, reason, mkt, days_held, rsi_exit)
 
+            # === 即時寫入量化 Decision Log ===
+            entry_rsi_t = t.get('entry_rsi', 50)
+            _write_decision_json(
+                sym=t['symbol'], market=mkt,
+                entry_price=entry, exit_price=cur,
+                net_pnl=net_pnl, pnl_pct=t['pnl_pct'],
+                reason=reason,
+                entry_rsi=entry_rsi_t, exit_rsi=rsi_exit,
+                days_held=days_held,
+                decision=committee.get('decision', 'EXIT'),
+                mode=mode
+            )
+
 
 # ============================================================
-# Lesson 即時寫入系統
+# Lesson 即時寫入系統（具體數值版）
 # ============================================================
+def _gen_lesson_text(sym, entry_price, exit_price, net_pnl, pnl_pct, reason, market,
+                    days_held, rsi_entry, rsi_exit, mkt_label, holding_str, tags):
+    """生成具有具體數值的 lesson 文字（非模板）"""
+    entry_str = f'${entry_price:.2f}' if entry_price else 'N/A'
+    exit_str = f'${exit_price:.2f}' if exit_price else 'N/A'
+    pnl_str = f'${net_pnl:,.0f}' if net_pnl else 'N/A'
+    pnl_pct_str = f'{pnl_pct:+.2f}%' if pnl_pct else 'N/A'
+    is_win = net_pnl > 0
+    folder = 'wins' if is_win else 'losses'
+
+    # === 自動生成犯錯根源（具體原因，非模板）===
+    root_cause = ''
+    improvement = ''
+    rule_violated = ''
+
+    if 'excess' in str(reason):
+        root_cause = f'同檔股票（{sym}）持有過多口，系統超載自動減倉'
+        rule_violated = '同股票最多 3 口'
+        improvement = '下次進場前先確認該檔已有口數 < 3'
+    elif 'stop_loss' in str(reason) and rsi_entry and rsi_entry > 65:
+        root_cause = f'RSI {rsi_entry:.0f} 過熱進場（>65），機構派發止損'
+        rule_violated = 'RSI > 65 禁止進場（持有中例外）'
+        improvement = '等 RSI 回到 < 50 再考慮進場'
+    elif 'stop_loss' in str(reason) and rsi_entry and rsi_entry <= 65:
+        root_cause = f'市場突發逆行走勢，RSI {rsi_entry:.0f} 進場後止損'
+        rule_violated = '停損紀律'
+        improvement = '進場時即設停損，RSI > 65 不進場原則'
+    elif days_held and days_held > 20 and rsi_exit and rsi_exit > 50:
+        root_cause = f'持有 {days_held:.0f} 天 + RSI {rsi_exit:.0f} → 最危險組合（Leo 核心教訓）'
+        rule_violated = '持有 > 15天 + RSI > 50 → 強制減半或全出'
+        improvement = f'持有 > {max(15, days_held-5):.0f} 天後每天檢視，RSI > 50 立刻評估出逃'
+    elif days_held and days_held > 20:
+        root_cause = f'持有時間過長（{days_held:.0f} 天），市場風向改變'
+        rule_violated = '持有 > 20 天需強制複檢'
+        improvement = '設定持有天數警告線，超過即推播提醒'
+    elif 'overbought' in str(reason) and rsi_exit and rsi_exit > 80:
+        root_cause = f'RSI {rsi_exit:.0f} 過熱未及時獲利了結，利潤回吐'
+        rule_violated = 'RSI > 80 + 獲利 > 5% → 移動停損'
+        improvement = 'RSI > 80 即設移動停損，不貪心'
+    elif rsi_entry and rsi_entry > 70:
+        root_cause = f'進場時 RSI {rsi_entry:.0f} 已經過熱，市場派發格局'
+        rule_violated = 'RSI > 65 不進場'
+        improvement = '進場前先看 RSI，避免在派發格局進場'
+    elif is_win:
+        root_cause = '正常獲利了結'
+        improvement = '持續複製此進場條件'
+    else:
+        root_cause = f'市場逆行走損，{reason or "不明原因"}'
+        rule_violated = '待個案分析'
+        improvement = '個案分析'
+
+    # === 生成 lesson 文字 ===
+    if is_win:
+        text = f'**{sym} 獲利了結** — {reason or "目標達陣"}\n\n'
+        text += f'- {mkt_label} | 進場 {entry_str} → 出場 {exit_str}\n'
+        text += f'- 持有 {holding_str} | 進場RSI {rsi_entry:.0f} → 出場RSI {rsi_exit:.0f}\n'
+        text += f'- 損益 {pnl_str}（{pnl_pct_str}）\n'
+        if tags:
+            text += f'- 標籤：{"|".join(tags)}\n'
+        text += f'\n**勝利關鍵：** {root_cause}\n'
+        text += f'**持續條件：** {improvement}\n'
+    else:
+        text = f'**{sym} 虧損止血** — {reason or "停損執行"}\n\n'
+        text += f'- {mkt_label} | 進場 {entry_str} → 出場 {exit_str}\n'
+        text += f'- 持有 {holding_str} | 進場RSI {rsi_entry:.0f} → 出場RSI {rsi_exit:.0f}\n'
+        text += f'- 虧損 {pnl_str}（{pnl_pct_str}）\n'
+        if tags:
+            text += f'- 標籤：{"|".join(tags)}\n'
+        text += f'\n**犯錯根源：** {root_cause}\n'
+        text += f'**違反規則：** {rule_violated}\n'
+        text += f'**下次改善：** {improvement}\n'
+
+    text += f'\n---\n'
+    text += f'_Tina Brain {time.strftime("%Y-%m-%d %H:%M")}_\n'
+    return text, folder
+
+
 def _write_trade_lesson(t, entry_price, exit_price, net_pnl, pnl_pct, reason, market, days_held, rsi_exit):
+    """每次平倉立即寫入 lessons/wins 或 lessons/losses（具體數值版）"""
+    sym = t.get('symbol', 'UNK')
+    mkt = market or t.get('market', 'TW')
+    mkt_label = f'{mkt}:{sym}'
+    entry_rsi = t.get('entry_rsi', 50)
+    is_win = net_pnl > 0
+
+    # 自動分類 tags
+    tags = []
+    if 'excess' in str(reason):
+        tags.append('excess_positions')
+    if 'overbought' in str(reason):
+        tags.append('overbought_exit')
+    if 'stop_loss' in str(reason):
+        tags.append('stop_loss')
+    if 'take_profit' in str(reason):
+        tags.append('take_profit')
+    if 'force_reduce' in str(reason):
+        tags.append('force_reduce')
+    if days_held and days_held > 20:
+        tags.append('holding_too_long')
+    if rsi_exit and rsi_exit > 70 and is_win:
+        tags.append('rsi_overbought_profit')
+    if entry_rsi and entry_rsi > 65:
+        tags.append('rsi_too_hot_entry')
+
+    holding_str = f'{days_held:.0f}天' if days_held else 'N/A'
+
+    # 生成 lesson 文字
+    text, folder = _gen_lesson_text(
+        sym, entry_price, exit_price, net_pnl, pnl_pct,
+        reason, market, days_held, entry_rsi, rsi_exit,
+        mkt_label, holding_str, tags
+    )
+
+    # 寫入檔案
+    folder_path = os.path.join(LESSONS_DIR, folder)
+    os.makedirs(folder_path, exist_ok=True)
+    ts = time.strftime('%Y%m%d_%H%M%S')
+    suffix = 'win' if is_win else 'loss'
+    filename = f'{sym}_{ts}_{suffix}.md'
+    filepath = os.path.join(folder_path, filename)
+
+    try:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(text)
+        print(f'  [LESSON] {folder.upper()} {os.path.basename(filepath)}')
+    except Exception as e:
+        print(f'  [LESSON] Failed: {e}')
+
+
+# ============================================================
+# Decision Log 量化寫入系統
+# ============================================================
+def _write_decision_json(sym, market, entry_price, exit_price, net_pnl, pnl_pct,
+                          reason, entry_rsi, exit_rsi, days_held, decision, mode):
+    """寫入 decision_log.json（量化版，可被日後回測驗證）"""
+    LOG_DIR = Path.home() / '.openclaw' / 'workspace' / 'memory' / 'portfolio' / 'decisions'
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    log_file = LOG_DIR / 'decision_log.json'
+
+    entry = {
+        'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
+        'symbol': f'{market}:{sym}' if market else sym,
+        'entry_price': entry_price,
+        'exit_price': exit_price,
+        'net_pnl': round(net_pnl, 0) if net_pnl else 0,
+        'pnl_pct': round(pnl_pct, 2) if pnl_pct else 0,
+        'exit_reason': reason,
+        'decision': decision,
+        'mode': mode,
+        'entry_rsi': entry_rsi,
+        'exit_rsi': exit_rsi,
+        'holding_days': round(days_held, 1) if days_held else None,
+        'lesson_written': True
+    }
+
+    try:
+        if log_file.exists():
+            with open(log_file, 'r', encoding='utf-8') as f:
+                logs = json.load(f)
+        else:
+            logs = []
+        logs.append(entry)
+        # Keep last 500 entries
+        logs = logs[-500:]
+        with open(log_file, 'w', encoding='utf-8') as f:
+            json.dump(logs, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f'  [DECISION LOG] Failed: {e}')
     """每次平倉立即寫入 lessons/wins 或 lessons/losses"""
     sym = t.get('symbol', 'UNK')
     mkt = market or t.get('market', 'TW')

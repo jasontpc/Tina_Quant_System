@@ -10,6 +10,7 @@ P2-3: 加入手續費估算（0.4%/筆）
 P2-4: Cooldown 60min→24小時（1440分鐘）
 """
 import sys, json, os, time
+from pathlib import Path
 import yfinance as yf
 import numpy as np
 
@@ -17,6 +18,70 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 TRADES_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_trades.json'
 ANALYSIS_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_analysis_v65.json'
+
+# === Lessons 查詢系統 ===
+LESSONS_DIR = os.path.join(os.path.expanduser('~'), '.openclaw', 'workspace', 'memory', 'lessons')
+LEDGER_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\data\experience_ledger.json'
+
+
+def _query_lessons(sym, max_results=3):
+    """
+    進場前查詢 Lessons 庫，活化過往失敗/成功經驗
+    返回：{'losses': [...], 'wins': [...], 'ledger_entries': [...]}
+    """
+    result = {'losses': [], 'wins': [], 'ledger_entries': [], 'warnings': []}
+    loss_dir = os.path.join(LESSONS_DIR, 'losses')
+    win_dir = os.path.join(LESSONS_DIR, 'wins')
+
+    # 讀取 losses
+    if os.path.exists(loss_dir):
+        for f in sorted(Path(loss_dir).glob(f'{sym}_*.md'), key=lambda x: -x.stat().st_mtime)[:max_results]:
+            try:
+                result['losses'].append(f.read_text(encoding='utf-8')[:300])
+            except: pass
+
+    # 讀取 wins
+    if os.path.exists(win_dir):
+        for f in sorted(Path(win_dir).glob(f'{sym}_*.md'), key=lambda x: -x.stat().st_mtime)[:max_results]:
+            try:
+                result['wins'].append(f.read_text(encoding='utf-8')[:300])
+            except: pass
+
+    # 讀取 ledger（experience_ledger.json）
+    if os.path.exists(LEDGER_FILE):
+        try:
+            with open(LEDGER_FILE, 'r', encoding='utf-8') as f:
+                ledger = json.load(f)
+            for e in ledger:
+                if sym in str(e.get('symbol', '')):
+                    result['ledger_entries'].append(e)
+        except: pass
+
+    # 生成警告文字
+    if result['losses']:
+        result['warnings'].append(f'⚠️ {sym} 有 {len(result["losses"])} 筆失敗紀錄，進場需格外謹慎')
+    if result['ledger_entries']:
+        for e in result['ledger_entries']:
+            if e.get('win_rate', 100) < 50:
+                result['warnings'].append(f'⚠️ {sym} 歷史勝率 {e.get("win_rate", 0):.0f}%，三思而後行')
+
+    return result
+
+
+def _inject_lessons_warning(sym, rsi):
+    """產生 Lessons 活化警告字串，注入進場報告"""
+    lr = _query_lessons(sym, max_results=2)
+    lines = []
+    if lr['losses']:
+        lines.append('  [LESSONS] 失敗案例：')
+        for l in lr['losses'][:2]:
+            lines.append(f'    • {l[:150]}...')
+    if lr['warnings']:
+        for w in lr['warnings']:
+            lines.append(f'  {w}')
+    if not lines:
+        lines.append(f'  [LESSONS] {sym} 無不良紀錄，系統信心進場')
+    return '\n'.join(lines)
 
 # === 核心參數（v2.0 自主學習最優化）===
 ENTRY_RSI_MIN = 45
@@ -294,7 +359,10 @@ def analyze_stock(sym, name, market='TW', index_close=None, idx_returns=None, st
             'shares': shares,
             'fee_estimate': fee_estimate,
             'twii_rsi': round(twii_rsi, 1),
-            'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
+            'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
+            # P0: Lessons 活化 — 每次分析自動注入進場警告
+            'lessons_warning': _inject_lessons_warning(sym, rsi),
+            'lessons_query': _query_lessons(sym, max_results=2),
         }
     except Exception as e:
         return None
@@ -519,6 +587,12 @@ def run_cycle():
         trades_data['trades'].append(trade)
         entries += 1
         print(f'  ENTRY {sym}({mkt}) {stock["name"]}: ${stock["price"]} RSI={rsi} Score={score}{pos_note}')
+        # P0: Lessons 活化報告注入
+        lw = stock.get('lessons_warning', '')
+        if lw and lw != f'  [LESSONS] {sym} 無不良紀錄，系統信心進場':
+            for line in lw.split('\n'):
+                if line.strip():
+                    print(f'    {line.strip()}')
         print(f'    -> Target: ${stock["target"]} | Stop: ${stock["stop"]} | RelStr: {rel_strength:.0f}')
 
     save_trades(trades_data)
