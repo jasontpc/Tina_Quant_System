@@ -1578,13 +1578,19 @@ with tw_tab:
                 f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
                 f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
                 f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:,}")
-            col1, col2 = st.columns([1, 4])
+            col1, _ = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
-                ok, err = push_telegram(msg)
-                if ok:
-                    st.success("Telegram sent!")
+                st.info("TW send clicked")
+                try:
+                    ok, err = push_telegram(msg)
+                    st.info(f"ok={ok} err={err}")
+                except Exception as ex:
+                    st.error(f"ex={ex}")
                 else:
-                    st.error(f"Failed: {err}")
+                    if ok:
+                        st.success("Telegram sent!")
+                    else:
+                        st.error(f"Failed: {err}")
 
 
 # ═══════════════════════════ US TAB ═══════════════════════════
@@ -2025,13 +2031,19 @@ with us_tab:
                 f"[CHART] MA20=${r['ma20']:.0f} MA60={ma60_str}\n"
                 f"[BOX] Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
                 f"法人: F={f_v:+,} T={t_v:+,} D={d_v:,}")
-            col1, col2 = st.columns([1, 4])
+            col1, _ = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
-                ok, err = push_telegram(msg)
-                if ok:
-                    st.success("Telegram sent!")
+                st.info("US send clicked")
+                try:
+                    ok, err = push_telegram(msg)
+                    st.info(f"ok={ok} err={err}")
+                except Exception as ex:
+                    st.error(f"ex={ex}")
                 else:
-                    st.error(f"Failed: {err}")
+                    if ok:
+                        st.success("Telegram sent!")
+                    else:
+                        st.error(f"Failed: {err}")
 
 
 # ═══════════════════════════ BRAIN TAB ═══════════════════════════
