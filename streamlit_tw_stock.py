@@ -427,7 +427,7 @@ def format_telegram(results, title):
 
 SESSION_CACHE = {}
 
-CACHE_TTL = 300  # 5-minute TTL per stock entry
+CACHE_TTL = 60   # 60-second TTL — faster UI response, was 300s
 
 
 
@@ -845,33 +845,19 @@ def fetch_price(code, market='TW'):
     try:
 
         if market == 'TW':
-
             # ETF codes with letters (like 00981A) should NOT be zfill'd
-
             code_str = str(code)
-
             has_letter = any(c.isalpha() for c in code_str)
-
             for suffix in ['.TW', '.TWO']:
-
                 sym = code_str + suffix if has_letter else code_str.zfill(4) + suffix
-
                 h = yf.Ticker(sym).history(period='6mo')
-
                 if h is not None and len(h) >= 10:
-
                     SESSION_CACHE[cache_key] = (now, h)
-
-                    return h
-
+                    return h  # early exit on success — avoid redundant .TWO call
         else:
-
             h = yf.Ticker(code).history(period='6mo')
-
             if h is not None and len(h) >= 30:
-
                 SESSION_CACHE[cache_key] = (now, h)
-
                 return h
 
     except:
