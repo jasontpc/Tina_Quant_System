@@ -81,6 +81,9 @@ def _validate_chat_id(raw):
                               list(raw.values())[0] if raw else '1616824689'))
         else:
             raw = raw[0] if raw else '1616824689'
+    # Strip 'telegram:' or 'tg_' prefixes that Streamlit Cloud may inject
+    if isinstance(raw, str):
+        raw = raw.replace('telegram:', '').replace('tg_', '')
     return str(raw) if raw else '1616824689'
 
 def _validate_token(raw):
