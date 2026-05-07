@@ -100,15 +100,29 @@ def _validate_token(raw):
 _raw_chat = st.secrets.get('tg_chat_id', st.secrets.get('chat_id', '1616824689'))
 if isinstance(_raw_chat, dict):
     _raw_chat = _raw_chat.get('tg_chat_id', _raw_chat.get('chat_id', '1616824689'))
+# Also check for TOML [section] style: st.secrets['tg_bot_token'] = {'tg_bot_token': 'token'}
+if isinstance(_raw_chat, dict):
+    _raw_chat = _raw_chat.get('tg_bot_token', _raw_chat.get('chat_id', _raw_chat.get('value', '1616824689')))
 TELEGRAM_CHAT_ID = _validate_chat_id(_raw_chat)
 
-# Force direct token unwrap same way
-_raw_token = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', ''))
-if isinstance(_raw_token, dict):
-    _raw_token = _raw_token.get('tg_bot_token', _raw_token.get('bot_token', ''))
-_token_candidate = _raw_token if isinstance(_raw_token, str) else ''
-if not _token_candidate or len(_token_candidate) < 20:
+# Force direct token unwrap — with HARD CODED FALLBACK to prevent empty token
+_hard_coded_token = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'  # Only used if ALL methods fail
+_raw_token = st.secrets.get('tg_bot_token', st.secrets.get('bot_token', None))
+if _raw_token is None:
+    _raw_token = ''
+elif isinstance(_raw_token, dict):
+    _raw_token = _raw_token.get('tg_bot_token', _raw_token.get('bot_token', _raw_token.get('value', '')))
+elif not isinstance(_raw_token, str):
+    _raw_token = str(_raw_token) if _raw_token else ''
+_token_candidate = _raw_token.strip() if isinstance(_raw_token, str) else ''
+# Validate length (token should be 40+ chars)
+if len(_token_candidate) < 20:
     _token_candidate = os.getenv("TG_BOT_TOKEN", os.getenv("TELEGRAM_BOT_TOKEN", ""))
+if len(_token_candidate) < 20:
+    _token_candidate = os.getenv("TELEGRAM_BOT_TOKEN", "")
+if len(_token_candidate) < 20:
+    # LAST RESORT: use hard-coded token (only if everything else fails)
+    _token_candidate = _hard_coded_token
 TELEGRAM_BOT_TOKEN = _token_candidate
 
 # DEBUG: Log raw st.secrets on Streamlit Cloud (when no local secrets.toml)
