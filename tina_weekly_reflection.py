@@ -188,12 +188,75 @@ _Last major update: {today.strftime('%Y-%m-%d')}_
 except Exception as e:
     print(f'  MEMORY.md 更新失敗：{e}')
 
-# ===== Step 6: 檢查是否需要更新 SOUL.md =====
-print(f'\n[Step 6] 原則變更檢查...')
-needs_soul_update = len(this_week_files) > 0  # 每次都做基本檢查
-if needs_soul_update:
-    print('  本週有新學習，但 SOUL.md 原則暫無需變更')
-    print('  （如有大方向調整，才更新 SOUL.md）')
+# ===== Step 6: PDCA 委員會權重更新 + Lessons 蒸餾進 SOUL.md =====
+print(f'\n[Step 6] PDCA 反饋 + Lessons 蒸餾進 SOUL.md...')
+
+try:
+    # 6a: 委員會預測準確率計算
+    from tina_think import compute_committee_accuracy, update_expert_weights_if_needed
+    update_expert_weights_if_needed()
+    acc = compute_committee_accuracy()
+    if acc:
+        print(f'  委員會準確率：{acc}')
+    else:
+        print(f'  委員會準確率：數據不足（需 >10 筆），使用預設權重')
+
+    # 6b: Lessons 蒸餾 — 從本週 lessons 目錄提取新規則
+    lessons_dir = os.path.join(MEMORY_DIR, 'lessons')
+    new_rules = []
+
+    if os.path.exists(lessons_dir):
+        win_dir = os.path.join(lessons_dir, 'wins')
+        loss_dir = os.path.join(lessons_dir, 'losses')
+
+        # 分析 losses 中的 Pattern
+        loss_patterns = {}
+        if os.path.exists(loss_dir):
+            for f in os.listdir(loss_dir):
+                if f.endswith('.md') and (datetime.now() - datetime.fromtimestamp(os.path.getmtime(os.path.join(loss_dir, f)))).days <= 7:
+                    try:
+                        content = open(os.path.join(loss_dir, f), 'r', encoding='utf-8').read()
+                        if '持有' in content and 'RSI' in content:
+                            # 提取持有天數和 RSI 組合
+                            import re
+                            days_m = re.search(r'持有 (\d+)天', content)
+                            rsi_m = re.search(r'RSI ([\d.]+)', content)
+                            if days_m and rsi_m:
+                                key = f"holding_{days_m.group(1)}d_RSI_{rsi_m.group(1)}"
+                                loss_patterns[key] = loss_patterns.get(key, 0) + 1
+                    except: pass
+
+        if loss_patterns:
+            for pattern, count in loss_patterns.items():
+                if count >= 2:
+                    rule = f'  - [{pattern}] 出現 {count} 次 → 自動警告'
+                    new_rules.append(rule)
+                    print(f'  新規則蒸餾：{rule}')
+
+    # 6c: 寫入 SOUL.md（如果有大原則改變）
+    if new_rules:
+        with open(SOUL_FILE, 'r', encoding='utf-8') as f:
+            soul = f.read()
+
+        # 在「進化歷史」前面插入「實驗室規則」區段
+        lab_marker = '\n## 實驗室規則（v3.7+）\n'
+        if lab_marker not in soul:
+            new_section = f'{lab_marker}\n自動蒸餾新規則（每週更新）：\n'
+            new_section += '\n'.join(new_rules)
+            new_section += f'\n\n_自動更新：{today.strftime("%Y-%m-%d")}_\n\n'
+
+            soul = soul.replace('\n## 進化歷史\n', f'{new_section}\n## 進化歷史\n')
+
+            with open(SOUL_FILE, 'w', encoding='utf-8') as f:
+                f.write(soul)
+            print(f'  SOUL.md 實驗室規則已更新（+{len(new_rules)} 條）')
+        else:
+            print('  SOUL.md 已有實驗室規則區段，略過')
+    else:
+        print('  本週無新增規則，SOUL.md 保持不變')
+
+except Exception as e:
+    print(f'  PDCA/蒸餾失敗：{e}')
 
 print('\n' + '=' * 60)
 print('每週大腦回顧完成')
