@@ -61,29 +61,40 @@ def _get_secret(key, default=""):
     return val if val else default
 
 def _validate_chat_id(raw):
-    """Robust chat_id extraction — handles dict/List/int all edge cases on Streamlit Cloud."""
+    """Robust chat_id extraction — handles dict/List/int/all edge cases on Streamlit Cloud.
+
+    Streamlit Cloud st.secrets returns values as Python string repr of dicts,
+    e.g. "{'tg_chat_id': '1616824689'}" instead of actual dicts.
+    """
     if raw is None:
         return '1616824689'
-    if isinstance(raw, str) and raw.isdigit():
-        return raw
-    if isinstance(raw, dict):
-        raw = raw.get('chat_id', raw.get('tg_chat_id', '1616824689'))
-    if isinstance(raw, str) and raw.startswith('{') and 'chat_id' in raw:
-        try:
-            import json
-            parsed = json.loads(raw.replace("'", '"'))
-            raw = parsed.get('chat_id', parsed.get('tg_chat_id', raw))
-        except:
-            pass
+
+    # STEP 1: If raw is a string that looks like dict-string repr, parse it first
+    if isinstance(raw, str):
+        s = raw.strip()
+        if s.startswith('{') and 'chat_id' in s:
+            try:
+                import json
+                parsed = json.loads(s.replace("'", '"'))
+                if isinstance(parsed, dict):
+                    raw = parsed.get('chat_id', parsed.get('tg_chat_id', parsed.get('value', raw)))
+            except:
+                pass
+        # STEP 2: Strip 'telegram:' or 'tg_' prefixes (BEFORE isdigit check!)
+        raw = raw.replace('telegram:', '').replace('tg_', '')
+
+    # STEP 3: Unwrap nested dict/List layers
     while isinstance(raw, (dict, list)):
         if isinstance(raw, dict):
             raw = raw.get('chat_id', raw.get('tg_chat_id',
                               list(raw.values())[0] if raw else '1616824689'))
         else:
             raw = raw[0] if raw else '1616824689'
-    # Strip 'telegram:' or 'tg_' prefixes that Streamlit Cloud may inject
+
+    # STEP 4: Final guard — strip prefixes again after all unwrapping
     if isinstance(raw, str):
         raw = raw.replace('telegram:', '').replace('tg_', '')
+
     return str(raw) if raw else '1616824689'
 
 def _validate_token(raw):
@@ -201,10 +212,6 @@ def _to_json_safe(obj):
 def push_telegram(message):
     # Clean and validate token before use — last-resort regex extraction
     import json, re, urllib.parse
-    # DEBUG: print exact values at function entry
-    import sys as _sys
-    print(f'[DEBUG push_telegram] TELEGRAM_CHAT_ID={repr(TELEGRAM_CHAT_ID)} type={type(TELEGRAM_CHAT_ID).__name__}', file=_sys.stderr)
-    print(f'[DEBUG push_telegram] TELEGRAM_BOT_TOKEN={repr(TELEGRAM_BOT_TOKEN)[:30]}... type={type(TELEGRAM_BOT_TOKEN).__name__}', file=_sys.stderr)
     token_raw = TELEGRAM_BOT_TOKEN
     token_str = str(token_raw).strip()
     # If token looks like dict-string repr, do final regex extraction
