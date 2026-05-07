@@ -14,8 +14,19 @@ OVERBOUGHT_EXIT_RSI = 80
 BIG_GAIN_TAKE_PROFIT_PCT = 15.0
 
 # 美股絕對停利/停損（每口$2000）
+# P1-4: US停利改為「目標15% OR $300，取小者」（取小=更容易觸發）
 US_TAKE_PROFIT_AMOUNT = 300
 US_STOP_LOSS_AMOUNT = 200
+
+# P1-2: 移動停利（進場+5%後停損→成本價）
+TRAILING_PROFIT_PCT = 5.0
+
+# P1-3: 持有10天未達目標強制減倉
+FORCE_REDUCE_DAYS = 10
+FORCE_REDUCE_PCT = 0.5
+
+# P2-3: 手續費估算（0.4%）
+FEE_RATE = 0.004
 
 def get_rsi(closes, period=12):
     if len(closes) < period + 1: return 50.0
@@ -143,26 +154,57 @@ def run_daily_review():
 
         # Exit conditions
         if mkt == 'US':
-            # 美股：用絕對金額停利/停損
-            if pnl_abs >= US_TAKE_PROFIT_AMOUNT:
-                reason = 'take_profit_us'
+            # P1-4: US停利「目標15% OR $300，取小者」（取小=更容易觸發）
+            target_15pct_abs = (entry * 0.15) * shares
+            us_tp_threshold = min(US_TAKE_PROFIT_AMOUNT, target_15pct_abs)
+            if pnl_abs >= us_tp_threshold:
+                reason = 'take_profit_us_15pct_or_300'
             elif pnl_abs <= -US_STOP_LOSS_AMOUNT:
                 reason = 'stop_loss_us'
             elif rsi > 85 and pnl_pct > 3:
                 reason = f'overbought_lock_profit_RSI{int(rsi)}_pnl{pnl_pct:.1f}'
+            # P1-2: 移動停利 — 進場+5%後停損→成本價
+            if reason is None and pnl_pct >= TRAILING_PROFIT_PCT and not t.get('trailing_stop_active'):
+                t['trailing_stop'] = entry
+                t['trailing_stop_active'] = True
+                print(f'    [TRAILING STOP] {sym}: stop -> ${entry} (cost basis)')
+            elif reason is None and t.get('trailing_stop_active') and cur <= t.get('trailing_stop', stop):
+                reason = 'trailing_stop_triggered'
         else:
             # 台股：用百分比停利/停損
             if cur >= target:
                 reason = 'take_profit_target'
             elif cur <= stop:
                 reason = 'stop_loss'
+            # P1-2: 移動停利（TW）— 進場+5%後停損→成本價
+            elif pnl_pct >= TRAILING_PROFIT_PCT and not t.get('trailing_stop_active'):
+                t['trailing_stop'] = entry
+                t['trailing_stop_active'] = True
+                print(f'    [TRAILING STOP] {sym}: stop -> ${entry} (cost basis)')
+            elif t.get('trailing_stop_active') and cur <= t.get('trailing_stop', stop):
+                reason = 'trailing_stop_triggered'
             elif rsi > OVERBOUGHT_EXIT_RSI and pnl_pct > OVERBOUGHT_PROFIT_LOCK_PCT:
                 reason = f'overbought_lock_profit_RSI{int(rsi)}_pnl{pnl_pct:.1f}'
 
+        # P1-3: 持有10天未達目標強制減倉50%
+        if reason is None and days_held >= FORCE_REDUCE_DAYS and pnl_pct < 5 and not t.get('reduced_once'):
+            new_shares = int(shares * FORCE_REDUCE_PCT)
+            if new_shares >= 1:
+                t['shares'] = new_shares
+                t['amount'] = round(new_shares * cur, 0)
+                t['reduced_once'] = True
+                t['exit_reason'] = f'force_reduce_day10_pnl{pnl_pct:.1f}pct'
+                if t.get('trailing_stop_active'):
+                    t['trailing_stop'] = max(entry, t.get('trailing_stop', entry))
+                print(f'    [REDUCED] {sym}: {shares}->{new_shares} shares (day10, pnl={pnl_pct:+.1f}%)')
+                reason = 'force_reduce'
+                exits_to_run.append((t, 'force_reduce', cur, pnl_pct, pnl_abs))
+
+
         # 通用條件
-        if pnl_pct > BIG_GAIN_TAKE_PROFIT_PCT:
+        if reason is None and pnl_pct > BIG_GAIN_TAKE_PROFIT_PCT:
             reason = f'big_gain_take_profit_{pnl_pct:.1f}'
-        elif days_held > MAX_HOLD_DAYS:
+        elif reason is None and days_held > MAX_HOLD_DAYS:
             reason = f'max_hold_days_{days_held:.0f}'
 
         print(f'\n  {mkt}:{sym} {t.get("name","")}')
@@ -183,8 +225,12 @@ def run_daily_review():
         t['exit_price'] = cur
         t['exit_reason'] = reason
         t['exit_time'] = time.strftime('%Y-%m-%d %H:%M:%S')
-        t['pnl'] = round(pnl_abs, 0)
-        t['pnl_pct'] = round(pnl_pct, 2)
+        # P2-3: 手續費估算（0.4%，進場+出場各一次）
+        fee = round(entry * shares * FEE_RATE + cur * shares * FEE_RATE, 0)
+        net_pnl = pnl_abs - fee
+        t['pnl'] = round(net_pnl, 0)
+        t['pnl_pct'] = round((cur - entry) / entry * 100 - FEE_RATE * 200, 2)  # 扣除來回0.8%費用
+        t['fee'] = fee
         mkt = t.get('market', 'TW')
         print(f'  EXITED {mkt}:{t["symbol"]}: {reason} -> ${cur:.2f} ({pnl_pct:+.1f}%)')
 
@@ -209,8 +255,12 @@ def run_daily_review():
                 t['exit_price'] = cur
                 t['exit_reason'] = 'excess_positions_reduced'
                 t['exit_time'] = time.strftime('%Y-%m-%d %H:%M:%S')
-                t['pnl'] = round(pnl_abs, 0)
-                t['pnl_pct'] = round(pnl_pct, 2)
+                # P2-3: 手續費估算（0.4%來回）
+                fee = round(t['entry_price'] * t['shares'] * FEE_RATE + cur * t['shares'] * FEE_RATE, 0)
+                net_pnl = pnl_abs - fee
+                t['pnl'] = round(net_pnl, 0)
+                t['pnl_pct'] = round(pnl_pct - FEE_RATE * 200, 2)
+                t['fee'] = fee
                 print(f'  Closed {mkt}:{t["symbol"]} (excess): ${t["entry_price"]:.2f} -> ${cur:.2f} ({pnl_pct:+.1f}%)')
 
     # Recalculate stats from scratch (P0 fix: stats were computed but never saved)
