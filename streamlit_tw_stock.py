@@ -521,6 +521,8 @@ US_CATS = {
 
     'AI 基礎設施': ['NVDA','AMD','AVGO','MRVL','AMZN','MSFT','GOOGL','META','ANET','VRT','DELL','PLTR','NOW','ORCL','COHR','LITE','GLW','AMSC','NVT','SBGSY','EQIX','DLR','AMKR'],
 
+    '費半指數 (SOX)': ['NVDA','AMD','AVGO','AMAT','LRCX','KLAC','MU','INTC','ASML','NXPI','QCOM','TSM','AMKR','ON','MPWR','MCHP','ADI','SWKS','TER','ENTG','FORM','LQLGY','ASX','ZBRA','COHR','AMBA','QRVO','POWI','SPLK','SMCI','GEN','PTC','SNPS','CDNS','CDW','VECO','UMC','SMTC','MRVL','AVGO','LEDS'],
+
     '金融科技': ['PYPL','SQ','AFRM','COIN','HOOD','DB','AFC','GREM','UPST','LC','RBLX','NU','SOFI'],
 
     '電動車/綠能': ['TSLA','RIVN','LCID','F','GM','HYLN','ENPH','SEDG','SPWR','FSLR','RUN','ALB','NIO','XPEV','CHPT','BLNK','CCID','NOVA'],
