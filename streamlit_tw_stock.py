@@ -1578,6 +1578,7 @@ with tw_tab:
                 f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
                 f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
                 f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:,}")
+            st.write("DEBUG: TW Send button rendering now")
             col1, _ = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
                 st.info("TW send clicked")
@@ -2032,6 +2033,7 @@ with us_tab:
                 f"[CHART] MA20=${r['ma20']:.0f} MA60={ma60_str}\n"
                 f"[BOX] Vol: {r['vol_ratio']:.1f}x | {r.get('bullish','N')}\n"
                 f"法人: F={f_v:+,} T={t_v:+,} D={d_v:,}")
+            st.write("DEBUG: US Send button rendering now")
             col1, _ = st.columns([1, 4])
             if col1.button("Send Telegram", use_container_width=True):
                 st.info("US send clicked")
