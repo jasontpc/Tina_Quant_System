@@ -384,6 +384,208 @@ def run_expert_committee(stock_data, positions_data):
     }
 
 # ========================
+# 沙盤推演：三情境模擬
+# ========================
+def sandbox_scenario(entry_price, target_price, stop_price, rsi_entry, days_limit=30):
+    """
+    沙盤推演 — 模擬三情境（樂觀/中性/悲觀）
+    返回：(passes: bool, scenarios: dict)
+    """
+    shares = 100  # 標準化股數
+
+    scenarios = {
+        'optimistic': {
+            'price': round(target_price, 2),
+            'gain_pct': round((target_price - entry_price) / entry_price * 100, 1),
+            'gain_abs': round((target_price - entry_price) * shares, 0),
+            'days': 5,
+            'reason': '動能強勁，MA 多頭排列'
+        },
+        'neutral': {
+            'price': round(entry_price * 1.05, 2),
+            'gain_pct': 5.0,
+            'gain_abs': round(entry_price * 0.05 * shares, 0),
+            'days': 15,
+            'reason': '正常行走，TP 到達'
+        },
+        'pessimistic': {
+            'price': round(stop_price, 2),
+            'loss_pct': round((entry_price - stop_price) / entry_price * 100, 1),
+            'loss_abs': round((entry_price - stop_price) * shares, 0),
+            'days': 3,
+            'reason': '立即停損或市場反轉'
+        }
+    }
+
+    # 驗證：悲觀情境 Loss 是否在單筆最大虧損內（-8%）
+    max_loss_pct = 8
+    passes = scenarios['pessimistic']['loss_pct'] <= max_loss_pct
+
+    # 額外檢查：持有天數是否會觸發危險線
+    if days_limit > 20:
+        scenarios['holding_warning'] = f'持有 {days_limit} 天超過 20 天危險線，RSI > 50 即出'
+
+    return passes, scenarios
+
+
+def generate_sandbox_report(sym, entry_price, target_price, stop_price, rsi_entry, days_limit=30):
+    """生成沙盤推演報告字串"""
+    passes, scenarios = sandbox_scenario(entry_price, target_price, stop_price, rsi_entry, days_limit)
+
+    lines = ['\n📊 *沙盤推演*']
+    for name, s in scenarios.items():
+        if 'gain' in s:
+            lines.append(f'  {name}: ${s["price"]} ({s["gain_pct"]:+.1f}%) {s["days"]}天 — {s["reason"]}')
+        else:
+            lines.append(f'  {name}: ${s["price"]} ({s["loss_pct"]:+.1f}%) {s["days"]}天 — {s["reason"]}')
+    if 'holding_warning' in scenarios:
+        lines.append(f'  !! {scenarios["holding_warning"]}')
+    lines.append(f'  --> 通過: {"YES" if passes else "NO"} (悲觀 loss <= 8%)')
+
+    return '\n'.join(lines)
+
+
+# ========================
+# 自我博弈：激進派 vs 保守派 裁判
+# ========================
+def self_debate(proposal_data):
+    """
+    自我博弈 — 激進派 vs 保守派辯論，裁判裁決
+
+    激進派：假設市場對你有利，追蹤最大獲利
+    保守派：假設 Overfitting / 市場逆轉，最大虧損
+    裁判：整合雙方，輸出最終決策
+    """
+    sym = proposal_data.get('symbol', '')
+    entry_price = proposal_data.get('price', 0)
+    target_price = proposal_data.get('target', entry_price * 1.15)
+    stop_price = proposal_data.get('stop', entry_price * 0.90)
+    rsi = proposal_data.get('rsi', 50)
+    score = proposal_data.get('score', 50)
+
+    # 激進派論點
+    aggressive_args = []
+    if score > 70:
+        aggressive_args.append(f'Score {score} 強，動能強勁')
+    if rsi < 50:
+        aggressive_args.append(f'RSI {rsi} 偏低，進場空間佳')
+    if target_price / entry_price > 1.10:
+        aggressive_args.append(f'TP/Entry = {target_price/entry_price:.2f}，空間大')
+
+    # 保守派論點
+    conservative_args = []
+    if score < 50:
+        conservative_args.append(f'Score {score} 偏弱，不宜重倉')
+    if rsi > 60:
+        conservative_args.append(f'RSI {rsi} 偏高，回調風險')
+    if target_price / entry_price < 1.05:
+        conservative_args.append(f'TP/Entry = {target_price/entry_price:.2f}，空間不足')
+
+    # 裁判裁決
+    # 激進派加分：+1 per arg, 保守派減分：-1 per arg
+    aggressive_score = len(aggressive_args)
+    conservative_score = len(conservative_args)
+
+    if aggressive_score > conservative_score + 1:
+        verdict = 'AGGRESSIVE'
+        position_scale = 1.0
+        reason = f'激進派勝({aggressive_score}v{conservative_score}): {"|".join(aggressive_args[:2])}'
+    elif conservative_score > aggressive_score + 1:
+        verdict = 'CONSERVATIVE'
+        position_scale = 0.5
+        reason = f'保守派勝({conservative_score}v{aggressive_score}): {"|".join(conservative_args[:2])}'
+    else:
+        verdict = 'BALANCED'
+        position_scale = 0.75
+        reason = f'平衡({aggressive_score}v{conservative_score})'
+
+    # 沙盤推演最終把關
+    passes, scenarios = sandbox_scenario(entry_price, target_price, stop_price, rsi)
+    if not passes:
+        verdict = 'REJECT'
+        reason = f'Sandbox 失敗：悲觀情境 loss > 8%'
+        position_scale = 0
+
+    return {
+        'verdict': verdict,
+        'position_scale': position_scale,
+        'aggressive_args': aggressive_args,
+        'conservative_args': conservative_args,
+        'reason': reason,
+        'scenarios': scenarios
+    }
+    """
+    計算委員會預測準確率，調整專家權重
+    讀取 committee_pred.json，計算每個專家的預測 vs 實際勝率
+    """
+    log_dir = os.path.join(os.path.expanduser('~'), '.openclaw', 'workspace', 'memory', 'portfolio', 'decisions')
+    log_file = os.path.join(log_dir, 'committee_pred.json')
+    if not os.path.exists(log_file):
+        return None
+
+    try:
+        with open(log_file, 'r', encoding='utf-8') as f:
+            logs = json.load(f)
+    except:
+        return None
+
+    # 至少有10筆以上才調整
+    if len(logs) < 10:
+        return None
+
+    # 計算每個專家的預測準確率
+    experts = {'quant': [], 'dev': [], 'risk': []}
+    for entry in logs:
+        actual = entry.get('actual_result')
+        if not actual:
+            continue
+        verdict = 1 if actual == 'win' else (0 if actual == 'loss' else 0.5)
+        for exp in experts:
+            pred = entry.get(f'{exp}_predicted', '')
+            if pred == 'BUY' and actual == 'win':
+                experts[exp].append(1)
+            elif pred == 'SELL' and actual == 'loss':
+                experts[exp].append(1)
+            elif pred == 'HOLD':
+                experts[exp].append(0.5)  # partial credit
+            else:
+                experts[exp].append(0)
+
+    # 計算準確率並調整權重
+    if not any(experts.values()):
+        return None
+
+    new_weights = {}
+    for exp, preds in experts.items():
+        if preds:
+            acc = sum(preds) / len(preds)
+            new_weights[exp] = round(acc, 2)
+        else:
+            new_weights[exp] = EXPERT_WEIGHTS.get(exp, 0.33)
+
+    return new_weights
+
+
+def update_expert_weights_if_needed():
+    """
+    每月自動檢查並更新專家權重（PDCA）
+    """
+    new_w = compute_committee_accuracy()
+    if not new_w:
+        return
+
+    global EXPERT_WEIGHTS
+    changed = any(
+        abs(new_w.get(k, 0) - EXPERT_WEIGHTS.get(k, 0)) > 0.05
+        for k in EXPERT_WEIGHTS
+    )
+    if changed:
+        EXPERT_WEIGHTS = new_w
+        print(f'[PDCA] Expert weights updated: {new_w}')
+        # 寫入 SOUL.md 更新記錄（可選）
+
+
+# ========================
 # 思考報告生成
 # ========================
 def generate_thinking_report(symbol, name, market, stock_data, positions_data, mode):
