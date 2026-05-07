@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Ray DCA 市場分析 — 完整版（TW + US）
 TW: 0050/00646/00878/00919
@@ -92,8 +92,8 @@ print('=== TW ETF DCA ===')
 print(f'{"ETF":<14} {"Price":>8} {"Chg%":>6} {"MA60%":>6} {"RSI":>5} {"BB%":>5} {"Pos52w":>7} {"Action":>10}')
 print('-' * 70)
 
-hot_tw = twii_rsi > 80 or twii_pos > 20
-warm_tw = twii_rsi > 65 or twii_pos > 10
+hot_tw = bool(twii_rsi > 80 or twii_pos > 20)
+warm_tw = bool(twii_rsi > 65 or twii_pos > 10)
 
 for sym, name in ETFS_TW:
     try:
@@ -140,8 +140,8 @@ print('=== US ETF DCA (VOO 70% + QQQ 30%) ===')
 print(f'{"ETF":<22} {"Price":>8} {"Chg%":>6} {"MA60%":>6} {"RSI":>5} {"BB%":>5} {"Pos52w":>7} {"Action":>10}')
 print('-' * 75)
 
-hot_us = spy_rsi > 80
-warm_us = spy_rsi > 65
+hot_us = bool(spy_rsi > 80)
+warm_us = bool(spy_rsi > 65)
 
 for sym, name, target_pct in ETFS_US:
     try:
@@ -211,7 +211,7 @@ with open(REPORT_FILE, 'w', encoding='utf-8') as f:
     json.dump({
         'timestamp': time.strftime('%Y-%m-%d %H:%M'),
         'twii_rsi': round(twii_rsi, 1), 'spy_rsi': round(spy_rsi, 1),
-        'hot_tw': hot_tw, 'hot_us': hot_us,
+        'hot_tw': bool(hot_tw), 'hot_us': bool(hot_us),
         'results': results
     }, f, ensure_ascii=False, indent=2)
 
