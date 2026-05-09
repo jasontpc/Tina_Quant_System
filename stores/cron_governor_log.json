@@ -169,5 +169,14 @@
     "pending_jobs": 0,
     "cpu": 3.0,
     "memory_percent": 38.2
+  },
+  {
+    "timestamp": "2026-05-09T11:41:13.127866",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 2.7,
+    "memory_percent": 37.6
   }
 ]
