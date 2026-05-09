@@ -32,6 +32,21 @@ from pathlib import Path
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+import logging
+
+from logging.handlers import RotatingFileHandler
+
+# ── Debug Log Setup ──────────────────────────────────────────────────────
+LOG_DIR = Path(__file__).parent / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+_log = logging.getLogger("tina_scanner")
+_log.setLevel(logging.INFO)
+if not _log.handlers:
+    _h = RotatingFileHandler(LOG_DIR / "streamlit_debug.log", maxBytes=5*1024*1024, backupCount=3, encoding="utf-8")
+    _h.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s", datefmt="%H:%M:%S"))
+    _log.addHandler(_h)
+    _log.info("=== Tina Scanner 啟動 ===")
+
 
 
 def _get_secret(key, default=""):
@@ -1216,6 +1231,7 @@ def analyze(code, market='TW'):
 st.set_page_config(page_title="Tina Scanner v3.0", page_icon="[UP]", layout="wide")
 
 st.title("[UP] Tina Scanner v3.0 — TW+US Tech Scoring")
+_log.info("[UI] Page setup complete")
 
 
 
@@ -1336,6 +1352,7 @@ with tw_tab:
         st.info(f"{len(codes)} stocks")
 
         analyze_tw = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_analyze")
+        _log.info("[UI] TW Analyze button ready")
 
 
 
@@ -1390,6 +1407,7 @@ with tw_tab:
             results = [r for _, r in results]
 
             bar.empty()
+            _log.info(f"[batch] TW done total={len(results)}")
 
             filtered = [r for r in results
 
@@ -1867,6 +1885,7 @@ with us_tab:
             results = [r for _, r in results]
 
             bar.empty()
+            _log.info(f"[batch] TW done total={len(results)}")
 
             filtered = [r for r in results
 
