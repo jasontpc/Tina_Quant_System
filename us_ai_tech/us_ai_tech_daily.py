@@ -15,6 +15,10 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+# Tina 標準化框架
+sys.path.insert(0, str(Path(__file__).parent.parent / 'stores'))
+from script_standards import ScriptStandard
+
 DATA_DIR = Path(__file__).parent
 
 def main():
@@ -112,4 +116,38 @@ def main():
     print("=" * 70)
 
 if __name__ == '__main__':
-    main()
+    # Tina 標準化入口
+    std = ScriptStandard('us_ai_tech', 'US')
+    
+    try:
+        # 執行前：讀取脈絡
+        context = std.before_execute()
+        print(f"[Brain-Aware] Execution ID: {context['execution_id']}")
+        
+        # 執行主要邏輯
+        main()
+        
+        # 執行後：讀取報告檔案作為 signals
+        report_file = DATA_DIR / f"daily_report_{datetime.now().strftime('%Y%m%d')}.json"
+        if report_file.exists():
+            with open(report_file, 'r', encoding='utf-8') as f:
+                report = json.load(f)
+            signals = report.get('signals', [])
+            metrics = {
+                'total_stocks': report.get('total_stocks', 0),
+                'buy_count': report.get('summary', {}).get('buy_count', 0),
+                'watch_count': report.get('summary', {}).get('watch_count', 0)
+            }
+        else:
+            signals = []
+            metrics = {}
+        
+        std.after_execute(success=True, signals=signals, metrics=metrics)
+        
+    except Exception as e:
+        std.handle_error(e, 'us_ai_tech_daily.py 執行失敗')
+        std.after_execute(success=False, signals=[], metrics={'error': str(e)})
+        raise
+    finally:
+        health = std.finalize()
+        print(f"[Health] status={health['status']}, duration={health['duration_ms']}ms")

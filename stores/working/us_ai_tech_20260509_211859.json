@@ -1,0 +1,47 @@
+{
+  "execution_id": "20260509_211859",
+  "timestamp": "2026-05-09T21:18:59.611812",
+  "job_name": "us_ai_tech",
+  "universe": "US",
+  "success": true,
+  "signals": [
+    {
+      "symbol": "UPST",
+      "name": "Upstart",
+      "entry_price": 28.959999084472656,
+      "entry_rsi": 30.893789904202734,
+      "target_price": 30.41,
+      "stop_loss": 26.64,
+      "tp_pct": 5,
+      "sl_pct": 8,
+      "hold_days": 20,
+      "status": "SIGNAL",
+      "timestamp": "2026-05-09T21:19:03.000394"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta",
+      "entry_price": 609.6300048828125,
+      "entry_rsi": 27.95679755296787,
+      "target_price": 640.11,
+      "stop_loss": 560.86,
+      "tp_pct": 5,
+      "sl_pct": 8,
+      "hold_days": 20,
+      "status": "SIGNAL",
+      "timestamp": "2026-05-09T21:19:03.000394"
+    }
+  ],
+  "metrics": {
+    "total_stocks": 15,
+    "buy_count": 2,
+    "watch_count": 2
+  },
+  "health": {
+    "status": "running",
+    "errors": [],
+    "warnings": [],
+    "duration_ms": 0,
+    "last_success": null
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "execution_id": "20260509_211443",
+  "timestamp": "2026-05-09T21:14:43.174950",
+  "job_name": "test_job",
+  "universe": "TW",
+  "success": true,
+  "signals": [
+    {
+      "symbol": "2330",
+      "signal": "BUY",
+      "rsi": 35,
+      "price": 1050
+    },
+    {
+      "symbol": "2303",
+      "signal": "WATCH",
+      "rsi": 42,
+      "price": 125
+    }
+  ],
+  "metrics": {
+    "signals_found": 2,
+    "rsi_avg": 38.5,
+    "scan_time": "08:30"
+  },
+  "health": {
+    "status": "running",
+    "errors": [],
+    "warnings": [],
+    "duration_ms": 0,
+    "last_success": null
+  }
+}

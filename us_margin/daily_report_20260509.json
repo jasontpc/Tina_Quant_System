@@ -1,0 +1,156 @@
+{
+  "date": "2026-05-09T21:20:23.273941",
+  "total_stocks": 17,
+  "high_risk_count": 8,
+  "alerts_count": 7,
+  "high_risk": [
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 400.79998779296875,
+      "rsi_14": 89.31759898618039,
+      "short_ratio": 2.72,
+      "days_to_cover": 0.0,
+      "change_pct": 0.7060472945409888
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "price": 124.91999816894531,
+      "rsi_14": 88.3847484931108,
+      "short_ratio": 1.38,
+      "days_to_cover": 0.0,
+      "change_pct": 13.957302535134572
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "ProShares 3x Long",
+      "price": 76.27999877929688,
+      "rsi_14": 84.23626959840615,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 6.924590264917745
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Nasdaq 100",
+      "price": 711.22998046875,
+      "rsi_14": 84.16755608859742,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 2.3440840892904617
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 455.19000244140625,
+      "rsi_14": 80.726212108474,
+      "short_ratio": 1.08,
+      "days_to_cover": 0.0,
+      "change_pct": 11.440535661732595
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 272.67999267578125,
+      "rsi_14": 79.62609577858919,
+      "short_ratio": 2.02,
+      "days_to_cover": 0.0,
+      "change_pct": 0.5568385784843713
+    },
+    {
+      "symbol": "SPY",
+      "name": "S&P 500 ETF",
+      "price": 737.6199951171875,
+      "rsi_14": 73.82135368243965,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 0.8256073001242178
+    },
+    {
+      "symbol": "SPXL",
+      "name": "3x Long S&P 500",
+      "price": 265.55999755859375,
+      "rsi_14": 72.88052166294781,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 2.3826018040879293
+    }
+  ],
+  "short_squeeze": [],
+  "alerts": [
+    {
+      "symbol": "AMD",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 455.19000244140625,
+      "margin_ratio": null,
+      "reason": "RSI=80.7 overbought, margin risk high",
+      "timestamp": "2026-05-09T21:20:23.271839"
+    },
+    {
+      "symbol": "AMD",
+      "alert_type": "SHORT_SQUEEZE_RISK",
+      "severity": "HIGH",
+      "price": 455.19000244140625,
+      "margin_ratio": null,
+      "reason": "+11.4% in one day, short squeeze risk",
+      "timestamp": "2026-05-09T21:20:23.271839"
+    },
+    {
+      "symbol": "GOOGL",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 400.79998779296875,
+      "margin_ratio": null,
+      "reason": "RSI=89.3 overbought, margin risk high",
+      "timestamp": "2026-05-09T21:20:23.271839"
+    },
+    {
+      "symbol": "INTC",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 124.91999816894531,
+      "margin_ratio": null,
+      "reason": "RSI=88.4 overbought, margin risk high",
+      "timestamp": "2026-05-09T21:20:23.271839"
+    },
+    {
+      "symbol": "INTC",
+      "alert_type": "SHORT_SQUEEZE_RISK",
+      "severity": "HIGH",
+      "price": 124.91999816894531,
+      "margin_ratio": null,
+      "reason": "+14.0% in one day, short squeeze risk",
+      "timestamp": "2026-05-09T21:20:23.271839"
+    },
+    {
+      "symbol": "QQQ",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 711.22998046875,
+      "margin_ratio": null,
+      "reason": "RSI=84.2 overbought, margin risk high",
+      "timestamp": "2026-05-09T21:20:23.271839"
+    },
+    {
+      "symbol": "TQQQ",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 76.27999877929688,
+      "margin_ratio": null,
+      "reason": "RSI=84.2 overbought, margin risk high",
+      "timestamp": "2026-05-09T21:20:23.271839"
+    }
+  ],
+  "params": {
+    "initial_margin": 0.5,
+    "maintenance_margin": 0.25,
+    "margin_call_threshold": 0.3,
+    "max_margin_ratio": 0.4
+  },
+  "summary": {
+    "high_severity": 7,
+    "medium_severity": 0
+  }
+}
