@@ -847,8 +847,8 @@ def fetch_institutional(code):
 
             return result
 
-    except:
-
+    except Exception as e:
+        _log_error(f"[analyze] {code} EXCEPTION: {type(e).__name__}: {e}")
         return None
 
 
@@ -904,10 +904,12 @@ def analyze(code, market='TW'):
         return None
 
     inst = fetch_institutional(code) if market == 'TW' else None
+    _log_debug(f"[analyze] {code} inst={'fetched' if inst is not None else 'None'}")
 
     try:
-
+        _log_debug(f"[analyze] {code} try block start")
         close = price_hist['Close'].astype(float).dropna()
+        _log_debug(f"[analyze] {code} close type={type(close)} len={len(close)}")
 
         if len(close) < 2:
             return None
@@ -1185,9 +1187,8 @@ def analyze(code, market='TW'):
 
         }
         _log_info(f"[analyze] {code} done score={score} tier={tier}")
-        _log_info(f"[analyze] {code} done score={score} tier={tier}")
-    except:
-
+    except Exception as e:
+        _log_error(f"[analyze] {code} EXCEPTION: {type(e).__name__}: {e}")
         return None
 
 
@@ -1340,9 +1341,12 @@ with tw_tab:
             def _analyze_one(idx_code):
                 try:
                     i, code = idx_code
+                    _log_debug(f"[_analyze_one] start {code}")
                     r = analyze(code, 'TW')
+                    _log_debug(f"[_analyze_one] {code} result={type(r)}")
                     return i, r
-                except Exception:
+                except Exception as e:
+                    _log_error(f"[_analyze_one] EXCEPTION: {type(e).__name__}: {e}")
                     return None, None
 
             results = []
@@ -1371,6 +1375,7 @@ with tw_tab:
             results = [r for _, r in results]
             bar.empty()
             elapsed = _time.time() - _t0
+            _log_info(f"[batch] TW done total={len(results)} elapsed={elapsed:.1f}s")
             st.info(f"Done {len(results)} stocks in {elapsed:.1f}s")
 
             filtered = [r for r in results
