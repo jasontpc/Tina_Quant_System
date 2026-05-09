@@ -1,30 +1,41 @@
 {
-  "deleted_at": "2026-05-09T19:53:00+08:00",
-  "reason": "重複/過期 jobs 清理",
+  "deleted_at": "2026-05-09T20:00:00+08:00",
+  "reason": "第二波清理（重複/過期/delivery error jobs）",
   "deleted_jobs": [
     {
-      "id": "0c847110-5447-466b-acb0-b2a77d704b6b",
-      "name": "Tina 每日市場快報",
-      "description": "每日08:00整合本地所有DB輸出市場快報（漲跌停/社群情緒/技術面/法人/槓桿ETF）",
-      "reason": "timeout 120s 仍超時，已被 tina_daily_brief.py 取代"
+      "id": "089bf5ff-61dc-43ff-8866-134e5855aaa7",
+      "name": "Tina 策略複盤（每日收盤後）",
+      "description": "Tina 量化系統 - 每日策略複盤",
+      "reason": "enabled=false，被其他 Job 取代"
     },
     {
-      "id": "542dfa44-4972-4c74-8524-4db23d9aa08b",
-      "name": "Tina 股票追蹤-收盤更新",
-      "description": "每日收盤股票追蹤更新",
-      "reason": "已被 stock_tracking_update.py 取代"
+      "id": "1c5349f9-df2b-49b6-b64b-da722cc123d6",
+      "name": "RSI 數值覆核",
+      "description": "RSI數值覆核 - 每8/16/22時段",
+      "reason": "enabled=false，執行正常但頻率過高（每8小時），已被風控檢查覆蓋"
     },
     {
-      "id": "5d0b913f-0c68-42a7-9885-db7f7949288c",
-      "name": "Plan B 今日完成提醒",
-      "description": "Plan B 今日期限提醒",
-      "reason": "一次性過期 job，執行於 2026-05-08 已失效"
+      "id": "21fb6e6d-c370-4129-ad35-d4c48608f410",
+      "name": "US AI Tech 美股收盤更新",
+      "description": "US AI Tech 美股收盤更新",
+      "reason": "enabled=false，被 d8fe08ae (US AI Tech 每日分析) 取代"
     },
     {
-      "id": "c0befe86-6610-4e01-a78a-0de60161d760",
-      "name": "Leo 每日DB收盤更新",
-      "description": "Leo科技股每日DB收盤更新（TW+US yfinance）",
-      "reason": "已被 leo_db_update.py 取代"
+      "id": "61ff29be-d27b-48b9-8819-90d5f4e7ee71",
+      "name": "Tina P2 資料庫清理",
+      "description": "P2 閒置資料庫清理排程",
+      "reason": "enabled=false，delivery error（Delivering to Telegram requires target <chatId>），目標已於 2026-05-07 執行完畢（deleteAfterRun）"
+    },
+    {
+      "id": "8db4964f-7b5f-4a40-8012-ea5ac26d2b6f",
+      "name": "Tina 記憶系統維護",
+      "description": "記憶系統降級/清理/壓縮 每日上午6點執行",
+      "reason": "enabled=false，delivery error（mode=none），已被每日輕度蒸餾（20:00）取代"
     }
-  ]
+  ],
+  "previous_batch": {
+    "deleted_at": "2026-05-09T19:53:00+08:00",
+    "count": 4,
+    "reason": "重複/過期 jobs 清理"
+  }
 }
