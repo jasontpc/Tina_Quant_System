@@ -32,31 +32,6 @@ from pathlib import Path
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-import logging
-from logging.handlers import RotatingFileHandler
-
-# ── Debug Log Setup ────────────────────────────────────────────────────────────
-LOG_DIR = Path(__file__).parent / "logs"
-LOG_DIR.mkdir(exist_ok=True)
-_log = logging.getLogger("tina_scanner")
-_log.setLevel(logging.DEBUG)
-if not _log.handlers:
-    _handler = RotatingFileHandler(LOG_DIR / "streamlit_debug.log", maxBytes=5*1024*1024, backupCount=3, encoding="utf-8")
-    _handler.setLevel(logging.DEBUG)
-    _fmt = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s", datefmt="%H:%M:%S")
-    _handler.setFormatter(_fmt)
-    _log.addHandler(_handler)
-    _log.info("=== Tina Scanner 啟動 ===")
-
-def _log_debug(msg):
-    _log.debug(msg)
-
-def _log_info(msg):
-    _log.info(msg)
-
-def _log_error(msg):
-    _log.error(msg)
-
 
 
 def _get_secret(key, default=""):
@@ -847,8 +822,8 @@ def fetch_institutional(code):
 
             return result
 
-    except Exception as e:
-        _log_error(f"[analyze] {code} EXCEPTION: {type(e).__name__}: {e}")
+    except:
+
         return None
 
 
@@ -875,12 +850,12 @@ def fetch_price(code, market='TW'):
             has_letter = any(c.isalpha() for c in code_str)
             for suffix in ['.TW', '.TWO']:
                 sym = code_str + suffix if has_letter else code_str.zfill(4) + suffix
-                h = yf.Ticker(sym).history(period='6mo', timeout=10)
+                h = yf.Ticker(sym).history(period='6mo')
                 if h is not None and len(h) >= 10:
                     SESSION_CACHE[cache_key] = (now, h)
                     return h  # early exit on success — avoid redundant .TWO call
         else:
-            h = yf.Ticker(code).history(period='6mo', timeout=10)
+            h = yf.Ticker(code).history(period='6mo')
             if h is not None and len(h) >= 30:
                 SESSION_CACHE[cache_key] = (now, h)
                 return h
@@ -894,22 +869,20 @@ def fetch_price(code, market='TW'):
 
 
 def analyze(code, market='TW'):
-    _log_debug(f"[analyze] start code={code} market={market}")
+
     name = (TW_NAMES if market == 'TW' else US_NAMES).get(code, code)
 
     price_hist = fetch_price(code, market)
-    _log_debug(f"[analyze] {code} price_hist={'OK '+str(len(price_hist)) if price_hist is not None else 'None'}")
+
     if price_hist is None:
-        _log_debug(f"[analyze] {code} returning None (no price_hist)")
+
         return None
 
     inst = fetch_institutional(code) if market == 'TW' else None
-    _log_debug(f"[analyze] {code} inst={'fetched' if inst is not None else 'None'}")
 
     try:
-        _log_debug(f"[analyze] {code} try block start")
+
         close = price_hist['Close'].astype(float).dropna()
-        _log_debug(f"[analyze] {code} close type={type(close)} len={len(close)}")
 
         if len(close) < 2:
             return None
@@ -921,11 +894,10 @@ def analyze(code, market='TW'):
         chg = (price - prev) / prev * 100
 
         rsi = float(calc_rsi(close).iloc[-1])
-        _log_debug(f"[analyze] {code} rsi={rsi:.1f}")
+
         if np.isnan(rsi): rsi = 50.0
 
         ma20 = float(close.rolling(20).mean().iloc[-1])
-        _log_debug(f"[analyze] {code} ma20={ma20:.2f}")
 
         ma60_val = float(close.rolling(60).mean().iloc[-1])
 
@@ -934,7 +906,6 @@ def analyze(code, market='TW'):
         ma_bull = bool(ma60 and ma20 > ma60)
 
         macd_val, macd_sig, macd_hist = calc_macd(close)
-        _log_debug(f"[analyze] {code} macd_hist={macd_hist:.2f}")
 
         macd_bull = macd_hist > 0
 
@@ -953,7 +924,6 @@ def analyze(code, market='TW'):
         d_val = float(d_series.iloc[-1])
 
         kd_golden = bool(k_val > d_val and k_val < 30)
-        _log_debug(f"[analyze] {code} k={k_val:.1f} d={d_val:.1f} kd_golden={kd_golden}")
 
         bb_ma20 = close.rolling(20).mean()
 
@@ -974,207 +944,255 @@ def analyze(code, market='TW'):
         vol_ma5 = float(vol.rolling(5).mean().iloc[-1])
 
         vol_ratio = float(vol.iloc[-1] / vol_ma5) if vol_ma5 > 0 else 1.0
-        _log_debug(f"[analyze] {code} vol_ratio={vol_ratio:.2f}")
 
         bullish = "Y" if (ma_bull and macd_bull) else ("W" if macd_bull else "N")
 
-        _log_debug(f"[analyze] {code} entering scoring phase")
-        # ── Tina Brain v3.0 Scoring (1000 max) ─────────────────────
-        # 改用理由：
-        # v2.0 的問題：
-        #  1. Trend 150分在 comment 提到，但完全沒有實作（實際只950分）
-        #  2. RSI 200分與 KD 重疊（都在衡量 45-60 區間）
-        #  3. 缺少「相對強度」（vs 大盤 TWII/QQQ）
-        #  4. RSI 40 以下超賣沒有得到足夠分數（錯過反彈機會）
-        #
-        # 新架構（1000分）：
-        #   RSI: 200    — 修正：讓超賣 30-40 有合理分數
-        #   MACD: 200   — 保留：衡量動量強度
-        #   Trend: 150   — 新增：終於實作！（MA多頭排列 + 短期動能）
-        #   K+D: 150    — 合併：KD一體，減少重疊
-        #   BB: 100     — 正常化
-        #   Rel.Str: 100 — 新增：相對強度（vs TWII）
-        #   Vol: 50     — 保留
-        #   Funda: 50   — 新增：殖利率 + 機構持股
+        # ── Tina Brain v2.0 Scoring (1000 max) ─────────────────────
 
-        # Key principle: reward TREND + MOMENTUM, not just "comfort zone"
+        # RSI: 200 | MACD: 200 | K: 150 | D: 100 | BB%: 150 | MA: 100 | Vol: 50 | Trend: 150
 
-        # ── RSI: 200pts ────────────────────────────────────────────
-        # 變更：讓超賣（30-40）有更高分數（反彈預期）
-        # 讓超強（65-80）也有合理分數（動能延續）
-        if 40 <= rsi <= 60:
-            rsi_s = 200       # 最佳區間
-        elif 30 <= rsi < 40:
-            rsi_s = 160       # 超賣：反彈潛力（比舊版 80-100 更高）
-        elif 60 < rsi <= 70:
-            rsi_s = 140       # 偏強：動能延續
-        elif 20 <= rsi < 30:
-            rsi_s = 100       # 深度超賣：關注
-        elif 70 < rsi <= 80:
-            rsi_s = 60        # 過熱：警覺
-        elif rsi >= 80:
-            rsi_s = 20        # 嚴重過熱：減分
+        # Key principle: reward STRENGTH not WEAKNESS
+
+
+
+        # RSI: 200pts — reward moderate (45-55 = best), reduce oversold reward
+
+        if 45 <= rsi <= 55:
+
+            rsi_s = 200
+
+        elif 40 <= rsi < 45:
+
+            rsi_s = 150
+
+        elif 55 < rsi <= 60:
+
+            rsi_s = 130
+
+        elif 35 <= rsi < 40:
+
+            rsi_s = 100
+
+        elif 60 < rsi <= 65:
+
+            rsi_s = 80
+
+        elif rsi < 30:
+
+            rsi_s = 60   # oversold but NOT automatically a buy signal
+
+        elif 30 <= rsi < 35:
+
+            rsi_s = 80
+
+        elif 65 < rsi <= 70:
+
+            rsi_s = 30
+
         else:
-            rsi_s = 0         # 極度超買或其他
 
-        # ── MACD: 200pts ────────────────────────────────────────────
+            rsi_s = 0
+
+
+
+        # MACD: 200pts — require STRENGTH, not just >0
+
         if macd_hist > 2:
+
             macd_s = 200
+
         elif macd_hist > 1.5:
+
             macd_s = 170
+
         elif macd_hist > 1.0:
+
             macd_s = 140
+
         elif macd_hist > 0.5:
+
             macd_s = 100
+
         elif macd_hist > 0:
-            macd_s = 50
+
+            macd_s = 50    # just positive = marginal
+
         elif macd_hist > -1:
+
             macd_s = 20
+
         else:
+
             macd_s = 0
 
-        # ── Trend: 150pts ───────────────────────────────────────────
-        # 新增！衡量均線多頭排列的品質
-        ma5_val = float(ma5.iloc[-1]) if not np.isnan(float(ma5.iloc[-1])) else price
-        ma20_val = float(ma20.iloc[-1]) if not np.isnan(float(ma20.iloc[-1])) else price
-        ma60_val = float(ma60.iloc[-1]) if not np.isnan(float(ma60.iloc[-1])) else price
 
-        trend_s = 0
-        if ma5_val > ma20_val > ma60_val:
-            trend_s = 150   # 完美多頭排列
-        elif ma5_val > ma20_val:
-            # 檢查是否在多頭過程中
-            if ma20_val > ma60_val * 1.02:  # MA20 > MA60 2%以上
-                trend_s = 100
-            else:
-                trend_s = 70
-        elif ma20_val > ma60_val:
-            trend_s = 40   # 只有 2-tier 多頭
-        elif ma5_val < ma20_val < ma60_val:
-            trend_s = 0    # 空頭排列
+
+        # K: 150pts — reward MOMENTUM (40-70 = strongest), low K = weakness
+
+        if 45 <= k_val <= 70:
+
+            k_s = 150
+
+        elif 35 <= k_val < 45:
+
+            k_s = 110
+
+        elif 70 < k_val <= 80:
+
+            k_s = 100
+
+        elif 25 <= k_val < 35:
+
+            k_s = 60
+
+        elif k_val < 25:
+
+            k_s = 20    # low K = weak momentum
+
         else:
-            trend_s = 0
 
-        # ── K+D: 150pts ────────────────────────────────────────────
-        # 合併評分：KD 一起看，減少與 RSI 重疊
-        kd_s = 0
-        if 40 <= k_val <= 70 and 40 <= d_val <= 70:
-            kd_s = 150   # 雙雙在最佳區間
-        elif 35 <= k_val < 40 and 35 <= d_val < 40:
-            kd_s = 100   # 輕微超賣但即將反轉
-        elif 40 <= k_val <= 70:
-            kd_s = 80    # K 最佳但 D 偏離
-        elif 40 <= d_val <= 70:
-            kd_s = 50    # D 最佳但 K 偏離
-        elif k_val > 80 or d_val > 80:
-            kd_s = 30    # 警訊：過熱
-        elif k_val < 25 or d_val < 25:
-            kd_s = 20    # 低動量
+            k_s = 0
+
+
+
+        # D: 100pts — same logic, mid-range = strong
+
+        if 45 <= d_val <= 70:
+
+            d_s = 100
+
+        elif 35 <= d_val < 45:
+
+            d_s = 70
+
+        elif 70 < d_val <= 80:
+
+            d_s = 60
+
+        elif 25 <= d_val < 35:
+
+            d_s = 40
+
+        elif d_val < 25:
+
+            d_s = 10
+
         else:
-            kd_s = 0
 
-        # ── BB%: 100pts ────────────────────────────────────────────
+            d_s = 0
+
+
+
+        # BB%: 150pts — reward NORMAL range (20-45), extremes get less
+
         if 20 <= bb_pct <= 45:
-            bb_s = 100
+
+            bb_s = 150
+
         elif 10 <= bb_pct < 20:
-            bb_s = 70
+
+            bb_s = 100
+
         elif 45 < bb_pct <= 60:
-            bb_s = 70
+
+            bb_s = 100
+
         elif 5 <= bb_pct < 10:
-            bb_s = 40
+
+            bb_s = 50
+
         elif 60 < bb_pct <= 80:
-            bb_s = 30
+
+            bb_s = 50
+
         else:
-            bb_s = 10
 
-        # ── Relative Strength vs TWII: 100pts ──────────────────────
-        # 新增！衡量個股相對大盤的強度
-        # 計算方法：個股 20日報酬 vs TWII 20日報酬
-        try:
-            if len(close) >= 21:
-                stock_return_20d = (close.iloc[-1] / close.iloc[-20] - 1) * 100
-            else:
-                stock_return_20d = 0
-        except:
-            stock_return_20d = 0
+            bb_s = 20
 
-        # 相對強度：個股報酬 - 大盤報酬（假設 TWII 同期變化 0%）
-        # 以 ±10% 為範圍評分
-        rs = stock_return_20d  # vs 0 (假設大盤不變)
-        if rs >= 10:
-            rs_s = 100
-        elif rs >= 5:
-            rs_s = 80
-        elif rs >= 2:
-            rs_s = 60
-        elif rs >= 0:
-            rs_s = 40
-        elif rs >= -5:
-            rs_s = 20
+
+
+        # MA multi-tier: 100pts
+
+        ma5_val = float(ma5.iloc[-1]) if not np.isnan(float(ma5.iloc[-1])) else price
+
+        if ma5_val > ma20 > (ma60 or 0):
+
+            ma_s = 100   # 3-tier bullish
+
+        elif ma20 > (ma60 or 0):
+
+            ma_s = 60    # 2-tier bullish
+
         else:
-            rs_s = 0
 
-        # ── Vol: 50pts ─────────────────────────────────────────────
+            ma_s = 0
+
+
+
+        # Vol: 50pts — add finer granularity
+
         if vol_ratio >= 2.5:
+
             vol_s = 50
+
         elif vol_ratio >= 2.0:
+
             vol_s = 45
+
         elif vol_ratio >= 1.5:
+
             vol_s = 35
+
         elif vol_ratio >= 1.2:
+
             vol_s = 25
+
         elif vol_ratio >= 1.0:
+
             vol_s = 15
+
         elif vol_ratio >= 0.8:
+
             vol_s = 5
+
         else:
+
             vol_s = 0
 
-        _log_debug(f"[analyze] {code} before funda calculation")
-        f_s = 0
-        # 殖利率：嘗試從 yfinance info 取得（僅 US 市場有可靠數據）
-        try:
-            info_data = yf.Ticker(code if market == 'US' else f"{code}.TW").info
-            div_yield = info_data.get('dividendYield', 0) or 0
-        except:
-            div_yield = 0
-        if div_yield > 0:
-            if div_yield >= 0.04:  # > 4%
-                f_s = 50
-            elif div_yield >= 0.025:  # > 2.5%
-                f_s = 35
-            elif div_yield >= 0.015:  # > 1.5%
-                f_s = 20
-            else:
-                f_s = 10
-        # 如果沒有殖利率數據，保守給 0
+        score = rsi_s + macd_s + k_s + d_s + bb_s + ma_s + vol_s
 
-        _log_debug(f"[analyze] {code} scoring done rsi={rsi_s} macd={macd_s} trend={trend_s} kd={kd_s} bb={bb_s}")
-        # ── 總分計算 ─────────────────────────────────────────────────
-        score = rsi_s + macd_s + trend_s + kd_s + bb_s + rs_s + vol_s + f_s
+        # Grade from score (v2.0 — stricter thresholds)
 
-        _log_debug(f"[analyze] {code} score={score} calculating tier")
-        # ── Tier 等級（v3.0 — 拉開差距）────────────────────────────────
-        # 舊版：750/550/350 → 太集中在 350-550
-        # 新版：800/600/400/200 → 更清晰的分離
-        if score >= 800:
+        if score >= 750:
+
             tier = "A"
-        elif score >= 600:
+
+        elif score >= 550:
+
             tier = "B"
-        elif score >= 400:
+
+        elif score >= 350:
+
             tier = "C"
-        elif score >= 200:
-            tier = "D"
+
         else:
-            tier = "F"
+
+            tier = "D"
 
         return {
+
             'code': code, 'name': name,
+
             'price': price, 'chg': chg, 'rsi': rsi,
+
             'macd': macd_val, 'macd_sig': macd_sig, 'macd_hist': macd_hist,
+
             'ma20': ma20, 'ma60': ma60, 'ma20_above_ma60': ma_bull,
+
             'k': k_val, 'd': d_val, 'kd_golden': kd_golden,
+
             'bb_upper': bb_upper, 'bb_lower': bb_lower, 'bb_pct': bb_pct,
+
             'bias5': bias5, 'vol_ratio': vol_ratio,
 
             'bullish': bullish,
@@ -1183,26 +1201,25 @@ def analyze(code, market='TW'):
 
             'score': score, 'tier': tier,
 
-            'score_breakdown': {'rsi': rsi_s, 'macd': macd_s, 'trend': trend_s, 'kd': kd_s, 'bb': bb_s, 'rel_str': rs_s, 'vol': vol_s, 'funda': f_s},
+            'score_breakdown': {'rsi': rsi_s, 'macd': macd_s, 'k': k_s, 'd': d_s, 'bb': bb_s, 'ma': ma_s, 'vol': vol_s},
 
         }
-        _log_info(f"[analyze] {code} done score={score} tier={tier}")
-    except Exception as e:
-        _log_error(f"[analyze] {code} EXCEPTION: {type(e).__name__}: {e}")
+
+    except:
+
         return None
 
 
 
 # ── Page Setup ──────────────────────────────────────────────────────────────
+
 st.set_page_config(page_title="Tina Scanner v3.0", page_icon="[UP]", layout="wide")
-_log_info("[UI] Page setup complete")
 
 st.title("[UP] Tina Scanner v3.0 — TW+US Tech Scoring")
 
 
 
 tw_tab, us_tab = st.tabs(["📊 Taiwan", "🇺🇸 US"])
-_log_info("[UI] Tabs rendered")
 
 # ── Market Overview ──────────────────────────────────────────────────────
 
@@ -1320,8 +1337,6 @@ with tw_tab:
 
         analyze_tw = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_analyze")
 
-    _log_info("[UI] TW analyze button rendered")
-
 
 
     if 'tw_results' not in st.session_state:
@@ -1335,58 +1350,63 @@ with tw_tab:
 
 
     if analyze_tw:
-        import time as _time
-        _t0 = _time.time()
-        with st.spinner("Analyzing... (first batch ~5s)"):
+
+        with st.spinner("Analyzing + Fetching Institutional..."):
+
             def _analyze_one(idx_code):
-                try:
-                    i, code = idx_code
-                    _log_debug(f"[_analyze_one] start {code}")
-                    r = analyze(code, 'TW')
-                    _log_debug(f"[_analyze_one] {code} result={type(r)}")
-                    return i, r
-                except Exception as e:
-                    _log_error(f"[_analyze_one] EXCEPTION: {type(e).__name__}: {e}")
-                    return None, None
+
+                i, code = idx_code
+
+                return i, analyze(code, 'TW')
 
             results = []
-            bar = st.progress(0)
-            total = len(codes)
-            last_update = [0]
-            def _update_bar(done):
-                if done - last_update[0] >= 2 or done == total:
-                    bar.progress(min(done, total) / total)
-                    last_update[0] = done
 
-            with ThreadPoolExecutor(max_workers=4) as pool:
+            bar = st.progress(0)
+
+            total = len(codes)
+
+            with ThreadPoolExecutor(max_workers=8) as pool:
+
                 futures = {pool.submit(_analyze_one, (i, code)): i for i, code in enumerate(codes)}
-                done = 0
+
                 for future in as_completed(futures):
+
                     try:
-                        i, r = future.result(timeout=30)
+
+                        i, r = future.result()
+
                         if r:
+
                             results.append((i, r))
+
                     except Exception:
+
                         pass
-                    done += 1
-                    _update_bar(done)
+
+                    bar.progress(min(len(results) + 1, total) / total)
 
             results.sort(key=lambda x: x[0])
+
             results = [r for _, r in results]
+
             bar.empty()
-            elapsed = _time.time() - _t0
-            _log_info(f"[batch] TW done total={len(results)} elapsed={elapsed:.1f}s")
-            st.info(f"Done {len(results)} stocks in {elapsed:.1f}s")
 
             filtered = [r for r in results
+
                         if r['rsi'] <= tw_rsi_max
+
                         and r['tier'] in tw_grade
+
                         and r['score'] >= tw_score_min
+
                         and (not tw_macd_filter or r['macd_hist'] >= 0)]
+
             filtered.sort(key=lambda x: x['score'], reverse=True)
 
             st.session_state.tw_results = results
+
             st.session_state.tw_filtered = filtered
+
             st.session_state.tw_cat_saved = tw_cat
 
 
@@ -1612,7 +1632,7 @@ with tw_tab:
             bd = r.get('score_breakdown', {})
 
             # ═══════════════════════════════════════
-            #  ACTION BAR (v3.0)
+            #  ACTION BAR
             # ═══════════════════════════════════════
             score = r['score']
             tier  = r['tier']
@@ -1622,14 +1642,13 @@ with tw_tab:
             ma_bull = r['ma20_above_ma60']
             kd_ok   = r['kd_golden']
 
-            # v3.0: 修正門檻以配合新評分架構
-            pos = (kd_ok*150)+(ma_bull*150)+((40<=rsi_v<=70)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)+(r['score']//10)
-            pct = min(100, max(0, int(pos*100/640)))
+            pos = (kd_ok*200)+(ma_bull*150)+((35<=rsi_v<=60)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)
+            pct = min(100, max(0, int(pos*100/690)))
             bar = "█"*(pct//10) + "░"*(10-pct//10)
 
-            if kd_ok and ma_bull and macd_v>0 and rsi_v<70:
+            if kd_ok and ma_bull and macd_v>0 and rsi_v<65:
                 act,col,trend = "強力买入","green","多頭"
-            elif score>=600 and rsi_v<75:
+            elif score>=700 and rsi_v<70:
                 act,col,trend = "买入","blue","多頭"
             elif score>=400:
                 act,col,trend = "觀望","gray","中性"
@@ -1697,17 +1716,16 @@ with tw_tab:
             bias_st = "偏離大" if abs(bias_v)>3 else "正常"
             d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_st}")
 
-            # ── Score Breakdown (v3.0 TW) ──
+            # ── Score Breakdown (color-coded inline) ──
             bd = r.get('score_breakdown', {})
             items = [
-                ('RSI',    bd.get('rsi',0),     (40<=rsi_v<=70)),
-                ('MACD',   bd.get('macd',0),    (macd_v>0)),
-                ('Trend',  bd.get('trend',0),    ma_bull),
-                ('KD',     bd.get('kd',0),      kd_ok),
-                ('BB',     bd.get('bb',0),      (20<=bb_v<=80)),
-                ('Rel.Str',bd.get('rel_str',0), (bd.get('rel_str',0)>=60)),
-                ('Vol',    bd.get('vol',0),     (vol_v>=1.2)),
-                ('Funda',  bd.get('funda',0),   (bd.get('funda',0)>=35)),
+                ('RSI',  bd.get('rsi',0),  (35<=rsi_v<=60)),
+                ('MACD', bd.get('macd',0), (macd_v>0)),
+                ('K',    bd.get('k',0),    kd_ok),
+                ('D',    bd.get('d',0),    not kd_ok),
+                ('BB',   bd.get('bb',0),   (20<=bb_v<=80)),
+                ('MA',   bd.get('ma',0),   ma_bull),
+                ('Vol',  bd.get('vol',0),  (0.8<=vol_v<=1.5)),
             ]
             sb_parts = []
             for k,v,good in items:
@@ -2081,7 +2099,7 @@ with us_tab:
             bd = r.get('score_breakdown', {})
 
             # ═══════════════════════════════════════
-            #  ACTION BAR (v3.0 US stocks)
+            #  ACTION BAR
             # ═══════════════════════════════════════
             score = r['score']
             tier  = r['tier']
@@ -2091,14 +2109,13 @@ with us_tab:
             ma_bull = r['ma20_above_ma60']
             kd_ok   = r['kd_golden']
 
-            # v3.0: updated thresholds for new scoring
-            pos = (kd_ok*150)+(ma_bull*150)+((40<=rsi_v<=70)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)+(r['score']//10)
-            pct = min(100, max(0, int(pos*100/640)))
+            pos = (kd_ok*200)+(ma_bull*150)+((35<=rsi_v<=60)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)
+            pct = min(100, max(0, int(pos*100/690)))
             bar = "█"*(pct//10) + "░"*(10-pct//10)
 
-            if kd_ok and ma_bull and macd_v>0 and rsi_v<70:
+            if kd_ok and ma_bull and macd_v>0 and rsi_v<65:
                 act,col,trend = "強力买入","green","多頭"
-            elif score>=600 and rsi_v<75:
+            elif score>=700 and rsi_v<70:
                 act,col,trend = "买入","blue","多頭"
             elif score>=400:
                 act,col,trend = "觀望","gray","中性"
@@ -2166,17 +2183,16 @@ with us_tab:
             bias_st = "偏離大" if abs(bias_v)>3 else "正常"
             d4.metric("BIAS5", f"{bias_v:+.1f}%", help=f"Status: {bias_st}")
 
-            # ── Score Breakdown (v3.0 US) ──
+            # ── Score Breakdown (color-coded inline) ──
             bd = r.get('score_breakdown', {})
             items = [
-                ('RSI',    bd.get('rsi',0),     (40<=rsi_v<=70)),
-                ('MACD',   bd.get('macd',0),    (macd_v>0)),
-                ('Trend',  bd.get('trend',0),    ma_bull),
-                ('KD',     bd.get('kd',0),      kd_ok),
-                ('BB',     bd.get('bb',0),      (20<=bb_v<=80)),
-                ('Rel.Str',bd.get('rel_str',0), (bd.get('rel_str',0)>=60)),
-                ('Vol',    bd.get('vol',0),     (vol_v>=1.2)),
-                ('Funda',  bd.get('funda',0),   (bd.get('funda',0)>=35)),
+                ('RSI',  bd.get('rsi',0),  (35<=rsi_v<=60)),
+                ('MACD', bd.get('macd',0), (macd_v>0)),
+                ('K',    bd.get('k',0),    kd_ok),
+                ('D',    bd.get('d',0),    not kd_ok),
+                ('BB',   bd.get('bb',0),   (20<=bb_v<=80)),
+                ('MA',   bd.get('ma',0),   ma_bull),
+                ('Vol',  bd.get('vol',0),  (0.8<=vol_v<=1.5)),
             ]
             sb_parts = []
             for k,v,good in items:
