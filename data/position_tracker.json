@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-05-08T18:10:50.727676",
+  "positions": [
+    {
+      "symbol": "00713",
+      "name": "元大高息低波",
+      "shares": 300,
+      "cost": 53.22,
+      "current_price": 54.75,
+      "cost_total": 15966.0,
+      "current_total": 16425.0,
+      "pnl": 459.0,
+      "pnl_pct": 2.87,
+      "days_held": 8,
+      "target": 55.5,
+      "stop_loss": 51.0,
+      "risk_status": "TARGET",
+      "risk_alert": "達到目標價 $55.5"
+    },
+    {
+      "symbol": "META",
+      "name": "META",
+      "shares": 1,
+      "cost": 606.0,
+      "current_price": 616.81,
+      "cost_total": 606.0,
+      "current_total": 616.81,
+      "pnl": 10.81,
+      "pnl_pct": 1.78,
+      "days_held": 8,
+      "target": 640,
+      "stop_loss": 570,
+      "risk_status": "PASS",
+      "risk_alert": null
+    },
+    {
+      "symbol": "MSFT",
+      "name": "MSFT",
+      "shares": 2,
+      "cost": 410.14,
+      "current_price": 420.77,
+      "cost_total": 820.28,
+      "current_total": 841.54,
+      "pnl": 21.26,
+      "pnl_pct": 2.59,
+      "days_held": 8,
+      "target": 430,
+      "stop_loss": 380,
+      "risk_status": "PASS",
+      "risk_alert": null
+    }
+  ],
+  "summary": {
+    "total_pnl": 491.07,
+    "total_pnl_pct": 2.82,
+    "total_cost": 17392.28,
+    "position_count": 3,
+    "risk_count": 1
+  }
+}

@@ -32,14 +32,10 @@ def days_old(date_str):
     except:
         return 999
 
-lines = [f"## 🧠 Tina DB 健康監控 | {datetime.now().strftime('%Y-%m-%d %H:%M')}", ""]
+lines = [f"[MONITOR] Tina 大腦監控 | {datetime.now().strftime('%Y-%m-%d %H:%M')}", ""]
 
 critical_dbs = [
-    # maggy.db is a known empty shell - data written to yfinance.db instead
-    ('maggy.db', 'Maggy', 999),  # 999 = disabled check (design issue, not bug)
     ('yfinance.db', 'yfinance', 1),
-    # margin_balance in macro_institutional.db is empty (FinMind v2 limitation)
-    # - monitored via alternative check below
     ('macro_institutional.db', '法人數據', 3),
     ('etf.db', 'ETF', 1),
     ('tw_history.db', 'TW歷史', 2),
@@ -49,26 +45,12 @@ alerts = []
 for db_file, db_name, max_age in critical_dbs:
     db_path = os.path.join(DATA_DIR, db_file)
     if not os.path.exists(db_path):
-        lines.append(f"❌ {db_name}: 檔案不存在")
+        lines.append(f"[ERR] {db_name}: 檔案不存在")
         alerts.append(f"缺少 {db_file}")
         continue
     latest = get_latest_date(db_path)
     age = days_old(latest)
-    # Known design issues - suppress false alerts
-    if db_file == 'maggy.db':
-        # maggy.db is intentionally empty - data written to yfinance.db
-        # Only alert if yfinance.db is also stale (>5 days)
-        yf_latest = get_latest_date(os.path.join(DATA_DIR, 'yfinance.db'))
-        yf_age = days_old(yf_latest)
-        if yf_age <= 5:
-            lines.append(f"✅ {db_name}: {yf_latest}（yfinance.db, {yf_age}天）[Maggy data OK]")
-            continue
-        else:
-            lines.append(f"🔴 {db_name}: Maggy系統落後{yf_age}天（yfinance.db）")
-            alerts.append("Maggy 系統落後")
-            continue
-    elif db_file == 'macro_institutional.db' and age > max_age:
-        # Check which table is the problem: institutional_daily vs margin_balance
+    if db_file == 'macro_institutional.db' and age > max_age:
         conn2 = sqlite3.connect(db_path)
         cur2 = conn2.cursor()
         inst_latest = cur2.execute("SELECT MAX(date) FROM institutional_daily").fetchone()[0]
@@ -82,21 +64,40 @@ for db_file, db_name, max_age in critical_dbs:
         except: pass
         conn3.close()
         if inst_age > 3 and margin_cnt == 0:
-            lines.append(f"🔴 {db_name}: 法人停在{inst_latest}({inst_age}天) + 融資券0筆[FinMind限制]")
-            alerts.append(f"法人/融資券資料受限")
+            lines.append(f"[WARN] {db_name}: 法人停在{inst_latest}({inst_age}天) + 融資券0筆[FinMind限制]")
+            alerts.append("法人/融資券資料受限")
         elif inst_age > 3:
-            lines.append(f"🔴 {db_name}: 停在{latest}（落後{age}天，限制{max_age}天）")
+            lines.append(f"[WARN] {db_name}: 停在{latest}（落後{age}天，限制{max_age}天）")
             alerts.append(f"{db_name} 落後 {age} 天")
         else:
-            lines.append(f"✅ {db_name}: {latest}（{age}天）")
+            lines.append(f"[OK] {db_name}: {latest}（{age}天）")
         continue
     if age > max_age:
-        lines.append(f"🔴 {db_name}: 停在 {latest}（落後 {age} 天，限制{max_age}天）")
+        lines.append(f"[WARN] {db_name}: 停在 {latest}（落後 {age} 天，限制{max_age}天）")
         alerts.append(f"{db_name} 落後 {age} 天")
     else:
-        lines.append(f"✅ {db_name}: {latest}（{age}天）")
+        lines.append(f"[OK] {db_name}: {latest}（{age}天）")
 
-lines.append(f"**異常警示**: {'無 ✅' if not alerts else ', '.join(alerts)}")
+# Maggy check via yfinance.db (maggy.db may not exist)
+maggy_db = os.path.join(DATA_DIR, 'maggy.db')
+yf_latest = get_latest_date(os.path.join(DATA_DIR, 'yfinance.db'))
+yf_age = days_old(yf_latest)
+if os.path.exists(maggy_db):
+    if yf_age <= 5:
+        lines.append(f"[OK] Maggy: {yf_latest}（yfinance.db, {yf_age}天）[Maggy data OK]")
+    else:
+        lines.append(f"[WARN] Maggy: Maggy系統落後{yf_age}天（yfinance.db）")
+        alerts.append("Maggy 系統落後")
+else:
+    if yf_age <= 5:
+        lines.append(f"[OK] Maggy: {yf_latest}（yfinance.db, {yf_age}天）[Maggy data OK]")
+    else:
+        lines.append(f"[WARN] Maggy: Maggy系統落後{yf_age}天（yfinance.db）")
+        alerts.append("Maggy 系統落後")
+
+alerts_txt = '無 [OK]' if not alerts else ', '.join(alerts)
+lines.append(f"")
+lines.append(f"[ALERTS] {alerts_txt}")
 
 # Send Telegram
 msg = '\n'.join(lines)

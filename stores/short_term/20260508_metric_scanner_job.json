@@ -1,0 +1,19 @@
+[
+  {
+    "id": "st_20260508_007",
+    "type": "metric",
+    "source": "scanner_job",
+    "timestamp": "2026-05-08T16:01:40.282546",
+    "expiry_days": 30,
+    "tags": [
+      "TW500",
+      "scanner",
+      "performance"
+    ],
+    "summary": "高品質3檔",
+    "detail": "{\"total_scanned\": 5, \"high_quality\": 3, \"strategy\": \"value\", \"universe\": \"tw500\"}",
+    "importance": 6,
+    "links": [],
+    "status": "active"
+  }
+]

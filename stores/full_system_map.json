@@ -1,0 +1,1106 @@
+{
+  "generated_at": "2026-05-08T16:26:49.482735",
+  "summary": {
+    "total_scripts": 20,
+    "cron_active": 9,
+    "brain_aware": 1,
+    "pending_brain_aware": 8,
+    "total_dbs": 19
+  },
+  "scripts": {
+    "daily_db_update.py": {
+      "cron": "30 16 * * 1-5",
+      "type": "db",
+      "universe": "MULTI",
+      "description": "每日收盤 DB 更新（yfinance + tw_history）",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "db",
+        "update",
+        "daily"
+      ],
+      "brain_aware": false
+    },
+    "etf_daily_update.py": {
+      "cron": "35 16 * * 1-5",
+      "type": "etf",
+      "universe": "MULTI",
+      "description": "ETF 每日收盤更新",
+      "dbs_write": [
+        "etf.db",
+        "sherry_etf.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "etf",
+        "update"
+      ],
+      "brain_aware": false
+    },
+    "tina_auto_learner.py": {
+      "cron": "0 17 * * 1-5",
+      "type": "learner",
+      "universe": "MULTI",
+      "description": "自動學習擴充 DB",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_stock_registry.db"
+      ],
+      "memory_type": "lesson",
+      "memory_tags": [
+        "learn",
+        "expand"
+      ],
+      "brain_aware": false
+    },
+    "nana_v68.py": {
+      "cron": "0 8,10,13,15,17 * * 1-5",
+      "type": "nana",
+      "universe": "TW",
+      "description": "Nana 波段掃描（v6.8）",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "output": "logs/nana_v68_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "nana",
+        "band",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "leos_v65.py": {
+      "cron": "0 8,11,14,17,21 * * 1-5",
+      "type": "leo",
+      "universe": "TW",
+      "description": "Leo 科技股波段（v6.5）",
+      "dbs_read": [
+        "yfinance.db",
+        "us_history.db"
+      ],
+      "dbs_write": [
+        "sherry_sim_trades.db"
+      ],
+      "output": "logs/leos_v65_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "leo",
+        "tech",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "universe_scanner.py": {
+      "cron": "Sun 10:00 (TW500), Mon (SP500), etc",
+      "type": "scanner",
+      "universe": "MULTI",
+      "description": "Universe 多策略掃描（價值/成長/動能）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/{universe}/{date}_{strategy}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "scanner",
+        "universe"
+      ],
+      "brain_aware": true
+    },
+    "macro_data_fetcher.py": {
+      "cron": "07:30 (morning), 14:00 (afternoon)",
+      "type": "macro",
+      "universe": "MULTI",
+      "description": "Macro 數據抓取（yfinance + Tavily）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/macro/{date}_{type}.json",
+      "memory_type": "observation",
+      "memory_tags": [
+        "macro",
+        "TWII",
+        "VIX"
+      ],
+      "brain_aware": false
+    },
+    "memory_distiller.py": {
+      "cron": "daily 20:00 / weekly Fri 18:00 / monthly last Sun 22:00",
+      "type": "distill",
+      "universe": "MEMORY",
+      "description": "記憶蒸餾引擎",
+      "dbs_read": [],
+      "dbs_write": [
+        "stores/long_term/patterns.json",
+        "stores/long_term/lessons.json"
+      ],
+      "memory_type": "pattern",
+      "memory_tags": [
+        "distill",
+        "memory"
+      ],
+      "brain_aware": false
+    },
+    "brain_dashboard.py": {
+      "cron": null,
+      "type": "dashboard",
+      "universe": "MEMORY",
+      "description": "全系統 Brain Dashboard",
+      "dbs_read": [
+        "all_dbs"
+      ],
+      "dbs_write": [
+        "stores/brain_dashboard.json"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "dashboard",
+        "system"
+      ],
+      "brain_aware": false
+    },
+    "update_us_history.py": {
+      "cron": null,
+      "type": "db_build",
+      "universe": "US",
+      "description": "建立美股歷史資料庫",
+      "dbs_write": [
+        "us_history.db"
+      ],
+      "memory_type": "lesson",
+      "memory_tags": [
+        "db",
+        "build",
+        "us"
+      ],
+      "brain_aware": false
+    },
+    "build_tw_history.py": {
+      "cron": null,
+      "type": "db_build",
+      "universe": "TW",
+      "description": "建立台股歷史資料庫",
+      "dbs_write": [
+        "tw_history.db"
+      ],
+      "memory_type": "lesson",
+      "memory_tags": [
+        "db",
+        "build",
+        "tw"
+      ],
+      "brain_aware": false
+    },
+    "build_us_fundamental.py": {
+      "cron": null,
+      "type": "fundamental",
+      "universe": "US",
+      "description": "建立美股基本面資料庫",
+      "dbs_write": [
+        "us_history.db",
+        "yfinance.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "fundamental",
+        "us"
+      ],
+      "brain_aware": false
+    },
+    "build_rsi_db.py": {
+      "cron": null,
+      "type": "technical",
+      "universe": "TW",
+      "description": "建立 RSI 驗證資料庫",
+      "dbs_write": [
+        "data/rsi_verification.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "rsi",
+        "technical",
+        "tw"
+      ],
+      "brain_aware": false
+    },
+    "master_backtest.py": {
+      "cron": null,
+      "type": "backtest",
+      "universe": "MULTI",
+      "description": "主回測系統",
+      "dbs_write": [
+        "master_backtest.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "backtest",
+        "system"
+      ],
+      "brain_aware": false
+    },
+    "us_backtest.py": {
+      "cron": null,
+      "type": "backtest",
+      "universe": "US",
+      "description": "美股回測系統",
+      "dbs_write": [
+        "us_sim_trades.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "backtest",
+        "us"
+      ],
+      "brain_aware": false
+    },
+    "daily_premarket.py": {
+      "cron": "0 7 * * 1-5",
+      "type": "morning",
+      "universe": "MULTI",
+      "description": "晨間市場快報",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "memory_type": "observation",
+      "memory_tags": [
+        "morning",
+        "premarket"
+      ],
+      "brain_aware": false
+    },
+    "risk_check.py": {
+      "cron": null,
+      "type": "risk",
+      "universe": "MULTI",
+      "description": "風險檢查",
+      "dbs_read": [
+        "sherry_sim_trades.db",
+        "us_sim_trades.db"
+      ],
+      "dbs_write": [],
+      "memory_type": "lesson",
+      "memory_tags": [
+        "risk",
+        "check"
+      ],
+      "brain_aware": false
+    },
+    "global_market.py": {
+      "cron": null,
+      "type": "macro",
+      "universe": "MULTI",
+      "description": "全球市場數據",
+      "dbs_read": [
+        "yfinance.db",
+        "macro_institutional.db"
+      ],
+      "dbs_write": [],
+      "memory_type": "observation",
+      "memory_tags": [
+        "global",
+        "macro",
+        "market"
+      ],
+      "brain_aware": false
+    },
+    "institutional_flow.py": {
+      "cron": null,
+      "type": "institutional",
+      "universe": "TW",
+      "description": "法人流向追蹤",
+      "dbs_write": [
+        "macro_institutional.db"
+      ],
+      "memory_type": "observation",
+      "memory_tags": [
+        "institutional",
+        "tw"
+      ],
+      "brain_aware": false
+    },
+    "finmind_tw.py": {
+      "cron": null,
+      "type": "db",
+      "universe": "TW",
+      "description": "FinMind 台股資料抓取",
+      "dbs_write": [
+        "finmind.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "finmind",
+        "tw"
+      ],
+      "brain_aware": false
+    }
+  },
+  "script_to_db": {
+    "daily_db_update.py": {
+      "read": [],
+      "write": [
+        "yfinance.db",
+        "tw_history.db"
+      ]
+    },
+    "etf_daily_update.py": {
+      "read": [],
+      "write": [
+        "etf.db",
+        "sherry_etf.db"
+      ]
+    },
+    "tina_auto_learner.py": {
+      "read": [],
+      "write": [
+        "yfinance.db",
+        "tw_stock_registry.db"
+      ]
+    },
+    "nana_v68.py": {
+      "read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "write": []
+    },
+    "leos_v65.py": {
+      "read": [
+        "yfinance.db",
+        "us_history.db"
+      ],
+      "write": [
+        "sherry_sim_trades.db"
+      ]
+    },
+    "universe_scanner.py": {
+      "read": [
+        "yfinance.db"
+      ],
+      "write": []
+    },
+    "macro_data_fetcher.py": {
+      "read": [
+        "yfinance.db"
+      ],
+      "write": []
+    },
+    "memory_distiller.py": {
+      "read": [],
+      "write": [
+        "stores/long_term/patterns.json",
+        "stores/long_term/lessons.json"
+      ]
+    },
+    "brain_dashboard.py": {
+      "read": [
+        "all_dbs"
+      ],
+      "write": [
+        "stores/brain_dashboard.json"
+      ]
+    },
+    "update_us_history.py": {
+      "read": [],
+      "write": [
+        "us_history.db"
+      ]
+    },
+    "build_tw_history.py": {
+      "read": [],
+      "write": [
+        "tw_history.db"
+      ]
+    },
+    "build_us_fundamental.py": {
+      "read": [],
+      "write": [
+        "us_history.db",
+        "yfinance.db"
+      ]
+    },
+    "build_rsi_db.py": {
+      "read": [],
+      "write": [
+        "data/rsi_verification.db"
+      ]
+    },
+    "master_backtest.py": {
+      "read": [],
+      "write": [
+        "master_backtest.db"
+      ]
+    },
+    "us_backtest.py": {
+      "read": [],
+      "write": [
+        "us_sim_trades.db"
+      ]
+    },
+    "daily_premarket.py": {
+      "read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "write": []
+    },
+    "risk_check.py": {
+      "read": [
+        "sherry_sim_trades.db",
+        "us_sim_trades.db"
+      ],
+      "write": []
+    },
+    "global_market.py": {
+      "read": [
+        "yfinance.db",
+        "macro_institutional.db"
+      ],
+      "write": []
+    },
+    "institutional_flow.py": {
+      "read": [],
+      "write": [
+        "macro_institutional.db"
+      ]
+    },
+    "finmind_tw.py": {
+      "read": [],
+      "write": [
+        "finmind.db"
+      ]
+    }
+  },
+  "db_to_scripts": {
+    "yfinance.db": {
+      "read": [
+        "nana_v68.py",
+        "leos_v65.py",
+        "universe_scanner.py",
+        "macro_data_fetcher.py",
+        "daily_premarket.py",
+        "global_market.py"
+      ],
+      "write": [
+        "daily_db_update.py",
+        "tina_auto_learner.py",
+        "build_us_fundamental.py"
+      ]
+    },
+    "tw_history.db": {
+      "read": [
+        "nana_v68.py",
+        "daily_premarket.py"
+      ],
+      "write": [
+        "daily_db_update.py",
+        "build_tw_history.py"
+      ]
+    },
+    "etf.db": {
+      "read": [],
+      "write": [
+        "etf_daily_update.py"
+      ]
+    },
+    "sherry_etf.db": {
+      "read": [],
+      "write": [
+        "etf_daily_update.py"
+      ]
+    },
+    "tw_stock_registry.db": {
+      "read": [],
+      "write": [
+        "tina_auto_learner.py"
+      ]
+    },
+    "us_history.db": {
+      "read": [
+        "leos_v65.py"
+      ],
+      "write": [
+        "update_us_history.py",
+        "build_us_fundamental.py"
+      ]
+    },
+    "sherry_sim_trades.db": {
+      "read": [
+        "risk_check.py"
+      ],
+      "write": [
+        "leos_v65.py"
+      ]
+    },
+    "stores/long_term/patterns.json": {
+      "read": [],
+      "write": [
+        "memory_distiller.py"
+      ]
+    },
+    "stores/long_term/lessons.json": {
+      "read": [],
+      "write": [
+        "memory_distiller.py"
+      ]
+    },
+    "all_dbs": {
+      "read": [
+        "brain_dashboard.py"
+      ],
+      "write": []
+    },
+    "stores/brain_dashboard.json": {
+      "read": [],
+      "write": [
+        "brain_dashboard.py"
+      ]
+    },
+    "data/rsi_verification.db": {
+      "read": [],
+      "write": [
+        "build_rsi_db.py"
+      ]
+    },
+    "master_backtest.db": {
+      "read": [],
+      "write": [
+        "master_backtest.py"
+      ]
+    },
+    "us_sim_trades.db": {
+      "read": [
+        "risk_check.py"
+      ],
+      "write": [
+        "us_backtest.py"
+      ]
+    },
+    "macro_institutional.db": {
+      "read": [
+        "global_market.py"
+      ],
+      "write": [
+        "institutional_flow.py"
+      ]
+    },
+    "finmind.db": {
+      "read": [],
+      "write": [
+        "finmind_tw.py"
+      ]
+    }
+  },
+  "db_sizes_mb": {
+    "etf.db": 7.4,
+    "finmind.db": 0.9,
+    "leverage_etf.db": 21.1,
+    "macro_institutional.db": 8.8,
+    "master_backtest.db": 0.3,
+    "news_trends.db": 0.1,
+    "sherry_backtest.db": 0.5,
+    "sherry_etf.db": 11.3,
+    "sherry_sim_trades.db": 0.3,
+    "stock_trends.db": 0.2,
+    "twse_data.db": 0.3,
+    "tw_active_etf.db": 0.1,
+    "tw_history.db": 9.9,
+    "tw_margin.db": 1.5,
+    "tw_stock_registry.db": 0.3,
+    "us_history.db": 28.8,
+    "us_sim_trades.db": 0.5,
+    "yfinance.db": 186.2,
+    "yuan_zheng2.db": 0.1
+  },
+  "cron_jobs": {
+    "daily_db_update.py": {
+      "cron": "30 16 * * 1-5",
+      "type": "db",
+      "universe": "MULTI",
+      "description": "每日收盤 DB 更新（yfinance + tw_history）",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "db",
+        "update",
+        "daily"
+      ],
+      "brain_aware": false
+    },
+    "etf_daily_update.py": {
+      "cron": "35 16 * * 1-5",
+      "type": "etf",
+      "universe": "MULTI",
+      "description": "ETF 每日收盤更新",
+      "dbs_write": [
+        "etf.db",
+        "sherry_etf.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "etf",
+        "update"
+      ],
+      "brain_aware": false
+    },
+    "tina_auto_learner.py": {
+      "cron": "0 17 * * 1-5",
+      "type": "learner",
+      "universe": "MULTI",
+      "description": "自動學習擴充 DB",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_stock_registry.db"
+      ],
+      "memory_type": "lesson",
+      "memory_tags": [
+        "learn",
+        "expand"
+      ],
+      "brain_aware": false
+    },
+    "nana_v68.py": {
+      "cron": "0 8,10,13,15,17 * * 1-5",
+      "type": "nana",
+      "universe": "TW",
+      "description": "Nana 波段掃描（v6.8）",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "output": "logs/nana_v68_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "nana",
+        "band",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "leos_v65.py": {
+      "cron": "0 8,11,14,17,21 * * 1-5",
+      "type": "leo",
+      "universe": "TW",
+      "description": "Leo 科技股波段（v6.5）",
+      "dbs_read": [
+        "yfinance.db",
+        "us_history.db"
+      ],
+      "dbs_write": [
+        "sherry_sim_trades.db"
+      ],
+      "output": "logs/leos_v65_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "leo",
+        "tech",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "universe_scanner.py": {
+      "cron": "Sun 10:00 (TW500), Mon (SP500), etc",
+      "type": "scanner",
+      "universe": "MULTI",
+      "description": "Universe 多策略掃描（價值/成長/動能）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/{universe}/{date}_{strategy}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "scanner",
+        "universe"
+      ],
+      "brain_aware": true
+    },
+    "macro_data_fetcher.py": {
+      "cron": "07:30 (morning), 14:00 (afternoon)",
+      "type": "macro",
+      "universe": "MULTI",
+      "description": "Macro 數據抓取（yfinance + Tavily）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/macro/{date}_{type}.json",
+      "memory_type": "observation",
+      "memory_tags": [
+        "macro",
+        "TWII",
+        "VIX"
+      ],
+      "brain_aware": false
+    },
+    "memory_distiller.py": {
+      "cron": "daily 20:00 / weekly Fri 18:00 / monthly last Sun 22:00",
+      "type": "distill",
+      "universe": "MEMORY",
+      "description": "記憶蒸餾引擎",
+      "dbs_read": [],
+      "dbs_write": [
+        "stores/long_term/patterns.json",
+        "stores/long_term/lessons.json"
+      ],
+      "memory_type": "pattern",
+      "memory_tags": [
+        "distill",
+        "memory"
+      ],
+      "brain_aware": false
+    },
+    "daily_premarket.py": {
+      "cron": "0 7 * * 1-5",
+      "type": "morning",
+      "universe": "MULTI",
+      "description": "晨間市場快報",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "memory_type": "observation",
+      "memory_tags": [
+        "morning",
+        "premarket"
+      ],
+      "brain_aware": false
+    }
+  },
+  "active_jobs": {
+    "daily_db_update.py": {
+      "cron": "30 16 * * 1-5",
+      "type": "db",
+      "universe": "MULTI",
+      "description": "每日收盤 DB 更新（yfinance + tw_history）",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "db",
+        "update",
+        "daily"
+      ],
+      "brain_aware": false
+    },
+    "etf_daily_update.py": {
+      "cron": "35 16 * * 1-5",
+      "type": "etf",
+      "universe": "MULTI",
+      "description": "ETF 每日收盤更新",
+      "dbs_write": [
+        "etf.db",
+        "sherry_etf.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "etf",
+        "update"
+      ],
+      "brain_aware": false
+    },
+    "tina_auto_learner.py": {
+      "cron": "0 17 * * 1-5",
+      "type": "learner",
+      "universe": "MULTI",
+      "description": "自動學習擴充 DB",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_stock_registry.db"
+      ],
+      "memory_type": "lesson",
+      "memory_tags": [
+        "learn",
+        "expand"
+      ],
+      "brain_aware": false
+    },
+    "nana_v68.py": {
+      "cron": "0 8,10,13,15,17 * * 1-5",
+      "type": "nana",
+      "universe": "TW",
+      "description": "Nana 波段掃描（v6.8）",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "output": "logs/nana_v68_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "nana",
+        "band",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "leos_v65.py": {
+      "cron": "0 8,11,14,17,21 * * 1-5",
+      "type": "leo",
+      "universe": "TW",
+      "description": "Leo 科技股波段（v6.5）",
+      "dbs_read": [
+        "yfinance.db",
+        "us_history.db"
+      ],
+      "dbs_write": [
+        "sherry_sim_trades.db"
+      ],
+      "output": "logs/leos_v65_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "leo",
+        "tech",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "universe_scanner.py": {
+      "cron": "Sun 10:00 (TW500), Mon (SP500), etc",
+      "type": "scanner",
+      "universe": "MULTI",
+      "description": "Universe 多策略掃描（價值/成長/動能）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/{universe}/{date}_{strategy}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "scanner",
+        "universe"
+      ],
+      "brain_aware": true
+    },
+    "macro_data_fetcher.py": {
+      "cron": "07:30 (morning), 14:00 (afternoon)",
+      "type": "macro",
+      "universe": "MULTI",
+      "description": "Macro 數據抓取（yfinance + Tavily）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/macro/{date}_{type}.json",
+      "memory_type": "observation",
+      "memory_tags": [
+        "macro",
+        "TWII",
+        "VIX"
+      ],
+      "brain_aware": false
+    },
+    "memory_distiller.py": {
+      "cron": "daily 20:00 / weekly Fri 18:00 / monthly last Sun 22:00",
+      "type": "distill",
+      "universe": "MEMORY",
+      "description": "記憶蒸餾引擎",
+      "dbs_read": [],
+      "dbs_write": [
+        "stores/long_term/patterns.json",
+        "stores/long_term/lessons.json"
+      ],
+      "memory_type": "pattern",
+      "memory_tags": [
+        "distill",
+        "memory"
+      ],
+      "brain_aware": false
+    },
+    "daily_premarket.py": {
+      "cron": "0 7 * * 1-5",
+      "type": "morning",
+      "universe": "MULTI",
+      "description": "晨間市場快報",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "memory_type": "observation",
+      "memory_tags": [
+        "morning",
+        "premarket"
+      ],
+      "brain_aware": false
+    }
+  },
+  "brain_aware_scripts": {
+    "universe_scanner.py": {
+      "cron": "Sun 10:00 (TW500), Mon (SP500), etc",
+      "type": "scanner",
+      "universe": "MULTI",
+      "description": "Universe 多策略掃描（價值/成長/動能）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/{universe}/{date}_{strategy}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "scanner",
+        "universe"
+      ],
+      "brain_aware": true
+    }
+  },
+  "pending_brain_aware": {
+    "daily_db_update.py": {
+      "cron": "30 16 * * 1-5",
+      "type": "db",
+      "universe": "MULTI",
+      "description": "每日收盤 DB 更新（yfinance + tw_history）",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "db",
+        "update",
+        "daily"
+      ],
+      "brain_aware": false
+    },
+    "etf_daily_update.py": {
+      "cron": "35 16 * * 1-5",
+      "type": "etf",
+      "universe": "MULTI",
+      "description": "ETF 每日收盤更新",
+      "dbs_write": [
+        "etf.db",
+        "sherry_etf.db"
+      ],
+      "memory_type": "metric",
+      "memory_tags": [
+        "etf",
+        "update"
+      ],
+      "brain_aware": false
+    },
+    "tina_auto_learner.py": {
+      "cron": "0 17 * * 1-5",
+      "type": "learner",
+      "universe": "MULTI",
+      "description": "自動學習擴充 DB",
+      "dbs_write": [
+        "yfinance.db",
+        "tw_stock_registry.db"
+      ],
+      "memory_type": "lesson",
+      "memory_tags": [
+        "learn",
+        "expand"
+      ],
+      "brain_aware": false
+    },
+    "nana_v68.py": {
+      "cron": "0 8,10,13,15,17 * * 1-5",
+      "type": "nana",
+      "universe": "TW",
+      "description": "Nana 波段掃描（v6.8）",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "output": "logs/nana_v68_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "nana",
+        "band",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "leos_v65.py": {
+      "cron": "0 8,11,14,17,21 * * 1-5",
+      "type": "leo",
+      "universe": "TW",
+      "description": "Leo 科技股波段（v6.5）",
+      "dbs_read": [
+        "yfinance.db",
+        "us_history.db"
+      ],
+      "dbs_write": [
+        "sherry_sim_trades.db"
+      ],
+      "output": "logs/leos_v65_{date}.json",
+      "memory_type": "decision",
+      "memory_tags": [
+        "leo",
+        "tech",
+        "TW"
+      ],
+      "brain_aware": false
+    },
+    "macro_data_fetcher.py": {
+      "cron": "07:30 (morning), 14:00 (afternoon)",
+      "type": "macro",
+      "universe": "MULTI",
+      "description": "Macro 數據抓取（yfinance + Tavily）",
+      "dbs_read": [
+        "yfinance.db"
+      ],
+      "dbs_write": [],
+      "output": "reports/macro/{date}_{type}.json",
+      "memory_type": "observation",
+      "memory_tags": [
+        "macro",
+        "TWII",
+        "VIX"
+      ],
+      "brain_aware": false
+    },
+    "memory_distiller.py": {
+      "cron": "daily 20:00 / weekly Fri 18:00 / monthly last Sun 22:00",
+      "type": "distill",
+      "universe": "MEMORY",
+      "description": "記憶蒸餾引擎",
+      "dbs_read": [],
+      "dbs_write": [
+        "stores/long_term/patterns.json",
+        "stores/long_term/lessons.json"
+      ],
+      "memory_type": "pattern",
+      "memory_tags": [
+        "distill",
+        "memory"
+      ],
+      "brain_aware": false
+    },
+    "daily_premarket.py": {
+      "cron": "0 7 * * 1-5",
+      "type": "morning",
+      "universe": "MULTI",
+      "description": "晨間市場快報",
+      "dbs_read": [
+        "yfinance.db",
+        "tw_history.db"
+      ],
+      "dbs_write": [],
+      "memory_type": "observation",
+      "memory_tags": [
+        "morning",
+        "premarket"
+      ],
+      "brain_aware": false
+    }
+  }
+}

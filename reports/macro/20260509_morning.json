@@ -1,0 +1,84 @@
+{
+  "date": "2026-05-09",
+  "type": "macro_morning",
+  "report_timestamp": "2026-05-09T10:56:04.908883",
+  "geopolitical": {
+    "summary": "美中貿易談判持續進行，市場預期5月底前達成協議機率約68%；台海局勢無實質軍事衝突跡象，但美軍驅逐艦通過台海引關注。",
+    "items": [
+      "Polymarket預測：美中5/31前達成關稅協議機率68%",
+      "美軍驅逐艦2026年首次通過台海（5月初）",
+      "台灣通過250億美元國防預算案",
+      "美中日內瓦90天貿易休戰持續展延"
+    ],
+    "confidence": 0.72,
+    "actual": null
+  },
+  "economic": {
+    "summary": "聯準會降息預期大幅收斂，市場甚至開始定價升息機率；3月CPI 3.3%，4月預估升至3.5%；通膨上行風險來自油價飆升（中東局勢）。",
+    "items": [
+      "Fed Watch：2026年降息機率收斂，升息機率33%（一個月前近零）",
+      "3月CPI年增3.3%，4月預估3.5%（5/12發布）",
+      "PIIE：2026年底通膨可能突破4%",
+      "高盛：2026年Fed降息2次，經濟成長2-2.5%"
+    ],
+    "confidence": 0.75,
+    "actual": null
+  },
+  "market_data": {
+    "US10Y": {
+      "price": 86.08,
+      "change_pct": 0.5
+    },
+    "DXY": {
+      "price": 27.34,
+      "change_pct": -0.26
+    },
+    "VIX": {
+      "price": 17.19,
+      "change_pct": 0.64
+    },
+    "DOW": {
+      "price": 49609.16,
+      "change_pct": 0.02
+    },
+    "NASDAQ": {
+      "price": 26247.08,
+      "change_pct": 1.71
+    },
+    "SP500": {
+      "price": 7398.93,
+      "change_pct": 0.84
+    },
+    "TWII": {
+      "price": 41603.94,
+      "change_pct": -0.79
+    }
+  },
+  "trend_theme": {
+    "summary": "AI晶片需求爆發，半導體進入「gigacycle」時代；NVIDIA CEO黃仁勳要求台積電加速擴產；CoWoS封裝產能持續緊缺。",
+    "items": [
+      "AI晶片僅佔2024年晶圓產能0.2%，卻創造20%營收（高度集中）",
+      "Deloitte：2026年半導體市場AI相關收入將佔整體約50%",
+      "台積電先進製程產能持續供不應求",
+      "Micron關閉消費性Crucial品牌，轉攻HBM/企業市場"
+    ],
+    "confidence": 0.78
+  },
+  "earnings": {
+    "highlights": [
+      "AI應用帶動半導體進入兆美元時代（2026）",
+      "NVIDIA GTC 2026公佈Vera Rubin架構，成本效率提升10倍",
+      "AMD資料中心營收首度超越Intel"
+    ],
+    "items": [
+      "半導體景氣由AI datacenter需求驅動，消費/手機需求持平",
+      "記憶體價格開始回升（景氣循環結束去庫存）",
+      "台灣AI產業鏈（台積電/聯發科/鴻海）持續受惠"
+    ],
+    "confidence": 0.72
+  },
+  "taiwan_impact": {
+    "forecast": "美股Nasdaq大漲1.71%對台股科技鏈正面，但台股加權今早小跌0.79%；台積電供應鏈緊缺＋AI需求暴增，中長期支撐台股，半導體/AI族群短線偏多。",
+    "confidence": 0.68
+  }
+}

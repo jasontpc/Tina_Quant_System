@@ -26,7 +26,7 @@ import urllib.request
 
 import json
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pathlib import Path
 
@@ -47,6 +47,57 @@ if not _log.handlers:
     _log.addHandler(_h)
     _log.info("=== Tina Scanner 啟動 ===")
 
+# ── Shioaji Real-Time Data (優先 > yfinance) ────────────────────────
+import shioaji as sj
+_SJ_API = None
+_SJ_READY = False
+
+def _get_shioaji_api():
+    global _SJ_API, _SJ_READY
+    if _SJ_READY:
+        return _SJ_API
+    try:
+        _SJ_API = sj.Shioaji(simulation=False)
+        _SJ_API.login(
+            api_key=os.getenv("SJ_API_KEY", "3r6UGMUX7bnxhnbrZ92sSseGVzL3C63kkBxH3WkAPsgW"),
+            secret_key=os.getenv("SJ_SECRET_KEY", "FCcefW9iatHvYyp3XgSYVM1VhdmZMawjQ49Mzp97WPBF")
+        )
+        _SJ_READY = True
+        _log.info(f"[Shioaji] Connected: {_SJ_API.stock_account.account_id}")
+    except Exception as e:
+        _SJ_READY = False
+        _log.warning(f"[Shioaji] Connection failed: {e}")
+    return _SJ_API
+
+def sj_get_quote(code):
+    try:
+        api = _get_shioaji_api()
+        if not api:
+            return None
+        c = api.Contracts.Stocks[code]
+        snap = api.snapshots([c])[0]
+        return {'close': float(snap.close), 'open': float(snap.open),
+                'high': float(snap.high), 'low': float(snap.low),
+                'volume': int(snap.total_volume),
+                'change': float(snap.change_price), 'change_rate': float(snap.change_rate)}
+    except Exception as e:
+        _log.debug(f"[Shioaji] quote error {code}: {e}")
+        return None
+
+def sj_get_kbars(code, days=5):
+    try:
+        api = _get_shioaji_api()
+        if not api:
+            return None
+        c = api.Contracts.Stocks[code]
+        end = datetime.now().strftime('%Y-%m-%d')
+        start = (datetime.now() - timedelta(days=days)).strftime('%Y-%m-%d')
+        kb = api.kbars(c, start=start, end=end)
+        return {'ts': kb.ts, 'Open': kb.Open, 'High': kb.High,
+                'Low': kb.Low, 'Close': kb.Close, 'Volume': kb.Volume}
+    except Exception as e:
+        _log.debug(f"[Shioaji] kbars error {code}: {e}")
+        return None
 
 
 def _get_secret(key, default=""):
@@ -446,6 +497,9 @@ CACHE_TTL = 60   # 60-second TTL — faster UI response, was 300s
 
 
 
+INST_CACHE = {}
+INST_CACHE_TTL = 1800  # 30 minutes
+
 import atexit
 
 def _clear_expired():
@@ -778,9 +832,17 @@ def calc_macd(close):
 
 
 def fetch_institutional(code):
-
-    """Fetch F/T/D from FinMind TaiwanStockInstitutionalInvestorsBuySell (real-time)"""
-
+    """Fetch F/T/D from FinMind TaiwanStockInstitutionalInvestorsBuySell (30-min cache)"""
+    # ── Check cache first ─────────────────────────────────────────────
+    now = time.time()
+    if code in INST_CACHE:
+        ts, cached = INST_CACHE[code]
+        if now - ts < INST_CACHE_TTL:
+            _log.debug("[fetch_institutional] " + code + " CACHE HIT")
+            return cached
+        else:
+            del INST_CACHE[code]
+    _log.info("[fetch_institutional] " + str(code) + " cache miss, fetching... token_set=" + str(bool(FINMIND_TOKEN)))
     try:
 
         import urllib.request
@@ -835,32 +897,40 @@ def fetch_institutional(code):
 
                     result['dealer'] += net
 
+            _log.info("[fetch_institutional] " + str(code) + " success=" + str(result))
+            INST_CACHE[code] = (now, result)  # Cache for 30 min
             return result
 
-    except:
-
+    except Exception as e:
+        _log.error("[fetch_institutional] " + str(code) + " error=" + str(e))
         return None
 
 
 
 def fetch_price(code, market='TW'):
-
     cache_key = f"{market}:{code}"
-
     now = time.time()
-
     if cache_key in SESSION_CACHE:
-
         ts, cached_h = SESSION_CACHE[cache_key]
-
         if now - ts < CACHE_TTL:
-
             return cached_h
-
+    # ── 優先：Shioaji kbars（TW only）──────────────────────────
+    if market == 'TW':
+        try:
+            kb = sj_get_kbars(code, days=180)
+            if kb and 'Close' in kb and len(kb['Close']) >= 30:
+                import pandas as pd
+                df = pd.DataFrame(kb)
+                df['Datetime'] = pd.to_datetime(df['ts'], unit='ns')
+                df = df.set_index('Datetime').sort_index()
+                SESSION_CACHE[cache_key] = (now, df)
+                _log.info("[fetch_price] " + code + " from Shioaji (rows=" + str(len(df)) + ")")
+                return df
+        except Exception as e:
+            _log.debug("[fetch_price] Shioaji failed " + code + ": " + str(e))
+    # ── 備援：yfinance ─────────────────────────────────────────
     try:
-
         if market == 'TW':
-            # ETF codes with letters (like 00981A) should NOT be zfill'd
             code_str = str(code)
             has_letter = any(c.isalpha() for c in code_str)
             for suffix in ['.TW', '.TWO']:
@@ -868,17 +938,14 @@ def fetch_price(code, market='TW'):
                 h = yf.Ticker(sym).history(period='6mo')
                 if h is not None and len(h) >= 10:
                     SESSION_CACHE[cache_key] = (now, h)
-                    return h  # early exit on success — avoid redundant .TWO call
+                    return h
         else:
             h = yf.Ticker(code).history(period='6mo')
             if h is not None and len(h) >= 30:
                 SESSION_CACHE[cache_key] = (now, h)
                 return h
-
     except:
-
         pass
-
     return None
 
 

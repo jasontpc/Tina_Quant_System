@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-05-08T13:32:52.039523",
+  "cron": {
+    "ok": 38,
+    "error": 0,
+    "idle": 17
+  },
+  "zero_files": [],
+  "dbs": {
+    "yfinance.db": 186171392,
+    "tw_history.db": 9912320,
+    "us_history.db": 28794880
+  },
+  "memory": {
+    "memory_md": 11795,
+    "ledger": 9192
+  }
+}

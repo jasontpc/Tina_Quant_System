@@ -1,0 +1,19 @@
+{
+  "insights": [
+    {
+      "timestamp": "2026-05-09T07:05:05.416423",
+      "days": 3,
+      "memories": 8,
+      "patterns_promoted": 0,
+      "lessons_promoted": 1
+    }
+  ],
+  "metadata": {
+    "last_aggregated": "2026-05-09T07:05:05.416423",
+    "sources": [
+      "PS",
+      "scanner",
+      "macro"
+    ]
+  }
+}

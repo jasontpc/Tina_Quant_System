@@ -1,0 +1,61 @@
+{
+  "date": "2026-05-08",
+  "type": "macro_morning",
+  "report_timestamp": "2026-05-08T15:25:41.045171",
+  "geopolitical": {
+    "summary": "",
+    "items": [],
+    "confidence": 0.3,
+    "actual": null
+  },
+  "economic": {
+    "summary": "",
+    "items": [],
+    "confidence": 0.3,
+    "actual": null
+  },
+  "market_data": {
+    "US10Y": {
+      "price": 85.65,
+      "change_pct": -0.5
+    },
+    "DXY": {
+      "price": 27.41,
+      "change_pct": 0.22
+    },
+    "VIX": {
+      "price": 17.08,
+      "change_pct": 0.0
+    },
+    "DOW": {
+      "price": 49596.97,
+      "change_pct": -0.63
+    },
+    "NASDAQ": {
+      "price": 25806.2,
+      "change_pct": -0.13
+    },
+    "SP500": {
+      "price": 7337.11,
+      "change_pct": -0.38
+    },
+    "TWII": {
+      "price": 41603.94,
+      "change_pct": -0.79
+    }
+  },
+  "trend_theme": {
+    "summary": "",
+    "items": [],
+    "confidence": 0.3
+  },
+  "earnings": {
+    "highlights": [],
+    "items": [],
+    "confidence": 0.3
+  },
+  "taiwan_impact": {
+    "forecast": null,
+    "confidence": 0.5
+  }
+}

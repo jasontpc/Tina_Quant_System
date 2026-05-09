@@ -1,0 +1,19 @@
+{
+  "last_action": null,
+  "last_score": 50,
+  "activity_score": 80,
+  "window_mode": "market_hours",
+  "last_check": "2026-05-09T10:41:32.614503",
+  "allow_new_jobs": false,
+  "max_concurrent": 1,
+  "suppress_low_priority": true,
+  "metrics": {
+    "cpu_percent": 6.1,
+    "memory_percent": 38.2,
+    "event_loop_delay_ms": 0,
+    "cron_queue_depth": 0,
+    "active_jobs": 0,
+    "timestamp": "2026-05-09T10:41:31.547279",
+    "gateway_ok": false
+  }
+}

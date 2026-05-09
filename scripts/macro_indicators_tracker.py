@@ -19,7 +19,8 @@ os.makedirs(LOG_DIR, exist_ok=True)
 logging.basicConfig(
     filename=f"{LOG_DIR}/macro_indicators.log",
     level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(message)s"
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    encoding='utf-8'
 )
 logger = logging.getLogger(__name__)
 

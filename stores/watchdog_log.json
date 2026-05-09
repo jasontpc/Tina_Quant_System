@@ -1,0 +1,313 @@
+[
+  {
+    "gateway_alive": true,
+    "last_check": "2026-05-08T22:25:04.877398",
+    "action": "startup_check"
+  },
+  {
+    "timestamp": "2026-05-08T22:53:13.176158",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T22:53:17.399323",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T22:53:21.748863",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T22:53:26.507249",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T22:53:35.083650",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:09:02.797414",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:09:07.035702",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:09:11.402288",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:09:16.124963",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:09:24.703660",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:10:22.263706",
+    "event": "crash_detected",
+    "detail": "failures=3",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:10:26.487147",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:10:30.860309",
+    "event": "crash_detected",
+    "detail": "failures=3",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:10:35.575709",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:10:44.168195",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:17:11.705416",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:17:15.951992",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:17:20.385200",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:17:25.039965",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:17:33.700088",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:18:31.210768",
+    "event": "crash_detected",
+    "detail": "failures=3",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:18:35.430041",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:18:39.882088",
+    "event": "crash_detected",
+    "detail": "failures=3",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:18:44.524105",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:18:53.224302",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:25:29.410059",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:25:33.607096",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:25:42.698234",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:25:50.739988",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:25:54.951854",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:26:04.011840",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:31:08.145692",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:31:12.553916",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[13464]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:31:16.788669",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:31:21.634882",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:31:30.259122",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:32:34.328990",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:32:38.766462",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[12592]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:32:45.834377",
+    "event": "restart_verified",
+    "detail": "",
+    "gateway_alive": true
+  },
+  {
+    "timestamp": "2026-05-08T23:35:55.764178",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:36:00.177851",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[15780]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:36:09.273271",
+    "event": "restart_failed",
+    "detail": "",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:43:47.950495",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": true
+  },
+  {
+    "timestamp": "2026-05-08T23:43:51.865462",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[34768]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:43:58.892643",
+    "event": "restart_verified",
+    "detail": "",
+    "gateway_alive": true
+  },
+  {
+    "timestamp": "2026-05-08T23:44:43.407277",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": true
+  },
+  {
+    "timestamp": "2026-05-08T23:44:46.855886",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[37428]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:44:53.904552",
+    "event": "restart_verified",
+    "detail": "",
+    "gateway_alive": true
+  },
+  {
+    "timestamp": "2026-05-08T23:45:00.944452",
+    "event": "crash_detected",
+    "detail": "failures=1",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:45:05.126636",
+    "event": "restart_attempt",
+    "detail": "success=True killed=[]",
+    "gateway_alive": false
+  },
+  {
+    "timestamp": "2026-05-08T23:45:12.178855",
+    "event": "restart_verified",
+    "detail": "",
+    "gateway_alive": true
+  }
+]

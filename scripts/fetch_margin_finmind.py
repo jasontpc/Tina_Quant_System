@@ -3,13 +3,13 @@ from datetime import datetime, date, timedelta
 import sqlite3
 import json
 
-token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjF9.ivums9mfJUrM2MYazJiOEg49RiYLOJMZtejqX79YWS8'
+token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjJ9.1LHB4yKHeZFoXStyjK2W9F6X3nZLMA1IfPWpDVlv6K0'
 base = 'https://api.finmindtrade.com/api/v4/data'
 
 def fetch_margin_finmind(stock_id, start_date, end_date):
     """使用 FinMind API 取得融資融券資料"""
     params = {
-        'dataset': 'TaiwanMargin',
+        'dataset': 'TaiwanDailyShortSaleBalances',
         'data_id': stock_id,
         'start_date': start_date.strftime('%Y-%m-%d'),
         'end_date': end_date.strftime('%Y-%m-%d'),
@@ -40,18 +40,18 @@ def save_margin_records(stock_id, records):
         if not date_str:
             continue
         
-        margin_buy = r.get('MarginBuy', 0) or 0
-        margin_sell = r.get('MarginSell', 0) or 0
-        margin_balance = r.get('MarginBalance', 0) or 0
-        short_buy = r.get('ShortBuy', 0) or 0
-        short_sell = r.get('ShortSell', 0) or 0
-        short_balance = r.get('ShortBalance', 0) or 0
+        margin_balance = r.get('MarginShortSalesCurrentDayBalance', 0) or 0
+        margin_buy = r.get('MarginShortSalesShortSales', 0) or 0
+        margin_repay = r.get('MarginShortSalesShortCovering', 0) or 0
+        short_balance = r.get('SBLShortSalesCurrentDayBalance', 0) or 0
+        short_sell = r.get('SBLShortSalesShortSales', 0) or 0
+        short_cover = r.get('SBLShortSalesReturns', 0) or 0
         
         c.execute('''
             INSERT OR REPLACE INTO margin_summary 
             (stock_id, date, margin_buy, margin_repay, margin_balance, short_cover, short_sell, short_balance)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (stock_id, date_str, margin_buy, margin_sell, margin_balance, short_buy, short_sell, short_balance))
+        ''', (stock_id, date_str, margin_buy, margin_repay, margin_balance, short_cover, short_sell, short_balance))
     
     conn.commit()
     conn.close()
@@ -98,7 +98,7 @@ stocks = [
     ('3034', '緯穎'),
 ]
 
-end_date = date(2026, 5, 2)
+end_date = date.today()
 start_date = date(2026, 1, 1)
 
 total_records = 0

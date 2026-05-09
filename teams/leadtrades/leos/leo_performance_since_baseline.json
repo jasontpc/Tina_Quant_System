@@ -1,0 +1,26 @@
+{
+  "baseline": "2026-05-07",
+  "calculated_at": "2026-05-08 21:40",
+  "since_baseline": {
+    "open_count": 39,
+    "open_fresh_count": 39,
+    "open_aged_count": 0,
+    "exited_count": 109,
+    "total_count": 148,
+    "wins": 83,
+    "losses": 17,
+    "win_rate": 83.0,
+    "total_pnl": 585230.0,
+    "open_invested": 2169807.0,
+    "open_invested_all": 2169807.0,
+    "max_holding_days": 3
+  },
+  "aged_sample": [],
+  "historical_reference": {
+    "total": 98,
+    "wins": 83,
+    "losses": 15,
+    "win_rate": 84.7,
+    "total_pnl": 587109.0
+  }
+}

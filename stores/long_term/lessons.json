@@ -1,0 +1,24 @@
+{
+  "lessons": [
+    {
+      "id": "st_20260508_002",
+      "type": "decision",
+      "date": "2026-05-08",
+      "summary": "2881.TW buy @ $96.69999694824219 — value評分76.1分",
+      "detail": "{\"symbol\": \"2881.TW\", \"action\": \"buy\", \"price\": 96.69999694824219, \"score\": 76.1, \"reason\": \"value評分76.1分\", \"strength\": 7.609999999999999, \"strategy\": \"value\", \"universe\": \"tw500\"}",
+      "source": "scanner_job",
+      "tags": [
+        "TW500",
+        "2881.TW",
+        "buy",
+        "scanner"
+      ],
+      "status": "archived",
+      "importance": 7.609999999999999
+    }
+  ],
+  "metadata": {
+    "last_updated": "2026-05-09T07:05:05.416423",
+    "total": 1
+  }
+}

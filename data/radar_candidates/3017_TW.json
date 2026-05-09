@@ -1,0 +1,22 @@
+{
+  "symbol": "3017.TW",
+  "discovered_at": "2026-05-08 14:04",
+  "source": "market_radar",
+  "virtual": true,
+  "entry_criteria": {
+    "rsi_max": 50,
+    "rsi_min": 30,
+    "macd_positive": true,
+    "ma_bullish": true
+  },
+  "risk_params": {
+    "stop_loss_pct": 10,
+    "take_profit_pct": 8
+  },
+  "score": 30,
+  "reasons": [
+    "RSI 46 進場區"
+  ],
+  "vol_ratio": 2.14,
+  "status": "virtual_tracking"
+}

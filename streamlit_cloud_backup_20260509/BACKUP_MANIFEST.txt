@@ -1,0 +1,95 @@
+# Streamlit Cloud 備份清單
+# 備份時間：2026-05-09 00:32 GMT+8
+# 來源：https://tinaquantsystem-rmpu5sfrce9a6s9ebw3moj.streamlit.app/
+
+═══════════════════════════════════════════════════
+📋 備份檔案
+═══════════════════════════════════════════════════
+
+streamlit_tw_stock.py (103,259 bytes)
+  - 主程式，包含所有 UI、分析邏輯、評分系統
+  - 備份位置：streamlit_cloud_backup_20260509/
+
+secrets.toml (328 bytes)
+  - tg_bot_token: 8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q
+  - tg_chat_id: 1616824689
+  - finmind_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+
+═══════════════════════════════════════════════════
+⚙️ 關鍵設定（從程式碼逆分析）
+═══════════════════════════════════════════════════
+
+【評分系統 v3.0 — 1000分制】
+
+  RSI:      200分（40-60 最佳；30-40 超賣反彈潛力）
+  MACD:     200分（hist > 2.0 → 200分）
+  Trend:    150分（MA5 > MA20 > MA60 多頭排列）
+  K+D:      150分（雙雙在 40-70 區間）
+  BB%:      100分（20-45 區間最佳）
+  Rel.Str:  100分（20日報酬 vs 大盤）
+  Vol:       50分（vol_ratio > 1.5 高量）
+  Funda:     50分（殖利率 > 4% → 50分）
+
+  Tier 門檻：A ≥800 / B ≥600 / C ≥400 / D ≥200
+
+【資料來源】
+
+  - 價格：yfinance（6個月歷史）
+  - 法人：FinMind API（TaiwanStockInstitutionalInvestorsBuySell）
+  - 市場：TW（.TW/.TWO）、US（原始代碼）
+  - 快取：SESSION_CACHE（60秒TTL，無磁盤寫入）
+
+【快取設定】
+
+  CACHE_TTL = 60 秒（原為300秒）
+
+【對話框格式】
+
+  TELEGRAM_CHAT_ID = 1616824689
+  TELEGRAM_BOT_TOKEN = 8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q
+
+【主要符號清單】
+
+  TW火熱股：2330, 2454, 2317, 2382, 3034, 3665, 2881, 2603, 2303, 1216...
+  US主要：AAPL, MSFT, GOOGL, AMZN, NVDA, META, TSLA, AMD, INTC, CRM...
+  ETF（TW）：0050, 0051, 0056, 00881, 00713, 00919, 00740B...
+  ETF（US）：VOO, QQQ, SOXX, SCHD, VYM, VTI, VXUS, VWO...
+
+【評估函式】
+
+  calc_rsi()      — 14日RSI（pandas rolling）
+  calc_rsi_simple() — 單值RSI
+  calc_macd()      — EMA12/26 + Signal9
+  fetch_institutional() — FinMind法人數據（最近5日）
+  fetch_price()    — yfinance 6個月歷史
+
+【-streamlit 版本】
+  雲端：預設（可能是1.40+）
+  本機：1.57.0
+
+═══════════════════════════════════════════════════
+🔧 已知問題 / 待修復
+═══════════════════════════════════════════════════
+
+  1. 批次分析卡在 "Analyzing..." — 相對強度計算使用未定義變數
+     close_prices → 應為 close（已修復，本地版本）
+
+  2. 記憶體限制：Streamlit Cloud 免費版有記憶體上限
+     建議：優化批次大小或使用 progressive loading
+
+  3. 本機執行：
+     cd C:\Users\USER\.openclaw\workspace\Tina_Quant_System
+     python streamlit_tw_stock.py
+
+═══════════════════════════════════════════════════
+📌 回復步驟（如果需要重新部署到 Streamlit Cloud）
+═══════════════════════════════════════════════════
+
+  1. 將 streamlit_tw_stock.py 上传到 Streamlit Cloud
+  2. 在 Streamlit Cloud secrets 中設定：
+     - tg_bot_token
+     - tg_chat_id
+     - finmind_token
+  3. 確認所有依賴：yfinance, pandas, numpy, streamlit
+
+""

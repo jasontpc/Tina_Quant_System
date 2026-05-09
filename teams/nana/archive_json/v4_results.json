@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-04-23 19:15",
+  "market_status": "overbought",
+  "max_hold": 5,
+  "total_scanned": 51,
+  "tradeable": 8,
+  "results": [
+    {
+      "symbol": "2379",
+      "tier": 1,
+      "score": 44.2,
+      "inst": 60,
+      "tech": 40,
+      "trend": 25,
+      "rsi": 71.2,
+      "bias": 5.5,
+      "atr": 2.91,
+      "f_days": 10,
+      "t_days": 0,
+      "ma20": 514.0,
+      "ma60": 494.0,
+      "price": 542.0,
+      "can_trade": 

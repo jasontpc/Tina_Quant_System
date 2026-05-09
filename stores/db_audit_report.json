@@ -1,0 +1,4533 @@
+{
+  "etf.db": {
+    "tables": {
+      "etf_daily": {
+        "rows": 74198,
+        "schema": "CREATE TABLE etf_daily (\n            symbol TEXT NOT NULL,\n            date TEXT NOT NULL,\n            open REAL, high REAL, low REAL, close REAL, volume INTEGER,\n            PRIMARY KEY (symbol, date",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_etf_daily_1"
+        ]
+      },
+      "etf_info": {
+        "rows": 90,
+        "schema": "CREATE TABLE etf_info (\n            symbol TEXT PRIMARY KEY,\n            name TEXT,\n            updated_at TEXT\n        , source TEXT)",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          },
+          {
+            "name": "source",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_etf_info_1"
+        ]
+      }
+    },
+    "size_mb": 7.4,
+    "errors": []
+  },
+  "finmind.db": {
+    "tables": {
+      "daily_price": {
+        "rows": 1971,
+        "schema": "CREATE TABLE daily_price (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT, date TEXT,\n            open REAL, high REAL, low REAL, close REAL,\n            volume INTEGER, t",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "turnover",
+            "type": "REAL"
+          },
+          {
+            "name": "spread",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "idx_price",
+          "sqlite_autoindex_daily_price_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 4,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "institutional": {
+        "rows": 1962,
+        "schema": "CREATE TABLE institutional (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT, date TEXT,\n            buy_volume INTEGER, sell_volume INTEGER,\n            net_volume INTEGER",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "buy_volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "sell_volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "net_volume",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "idx_inst",
+          "sqlite_autoindex_institutional_1"
+        ]
+      },
+      "margin": {
+        "rows": 1968,
+        "schema": "CREATE TABLE margin (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT, date TEXT,\n            margin_balance INTEGER, short_balance INTEGER,\n            margin_ratio REAL,\n",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "margin_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_ratio",
+            "type": "REAL"
+          }
+        ],
+        "indexes": [
+          "idx_margin",
+          "sqlite_autoindex_margin_1"
+        ]
+      },
+      "per_data": {
+        "rows": 0,
+        "schema": "CREATE TABLE per_data (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT, date TEXT,\n            per REAL, yield REAL, pbr REAL,\n            UNIQUE(stock_id, date)\n        )",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "per",
+            "type": "REAL"
+          },
+          {
+            "name": "yield",
+            "type": "REAL"
+          },
+          {
+            "name": "pbr",
+            "type": "REAL"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_per_data_1"
+        ]
+      },
+      "futures_daily": {
+        "rows": 494,
+        "schema": "CREATE TABLE futures_daily (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT, contract TEXT,\n            open REAL, high REAL, low REAL, close REAL,\n            volume INTEGER,",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "contract",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "open_interest",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_futures_daily_1"
+        ]
+      },
+      "futures_institutional": {
+        "rows": 0,
+        "schema": "CREATE TABLE futures_institutional (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT, contract TEXT,\n            buy_volume INTEGER, sell_volume INTEGER,\n            UNIQUE(con",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "contract",
+            "type": "TEXT"
+          },
+          {
+            "name": "buy_volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "sell_volume",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_futures_institutional_1"
+        ]
+      },
+      "month_revenue": {
+        "rows": 0,
+        "schema": "CREATE TABLE month_revenue (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT, year_month TEXT,\n            revenue INTEGER, accum_revenue INTEGER,\n            UNIQUE(stock_",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "year_month",
+            "type": "TEXT"
+          },
+          {
+            "name": "revenue",
+            "type": "INTEGER"
+          },
+          {
+            "name": "accum_revenue",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_month_revenue_1"
+        ]
+      },
+      "fetch_log": {
+        "rows": 0,
+        "schema": "CREATE TABLE fetch_log (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            timestamp TEXT, dataset TEXT, stock_id TEXT,\n            status TEXT, rows INTEGER, error TEXT\n        )",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "timestamp",
+            "type": "TEXT"
+          },
+          {
+            "name": "dataset",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "status",
+            "type": "TEXT"
+          },
+          {
+            "name": "rows",
+            "type": "INTEGER"
+          },
+          {
+            "name": "error",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      },
+      "stock_list": {
+        "rows": 3086,
+        "schema": "CREATE TABLE stock_list (\n            stock_id TEXT PRIMARY KEY,\n            stock_name TEXT, industry TEXT, type TEXT\n        )",
+        "columns": [
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_name",
+            "type": "TEXT"
+          },
+          {
+            "name": "industry",
+            "type": "TEXT"
+          },
+          {
+            "name": "type",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stock_list_1"
+        ]
+      }
+    },
+    "size_mb": 0.9,
+    "errors": []
+  },
+  "leverage_etf.db": {
+    "tables": {
+      "etf_meta": {
+        "rows": 22,
+        "schema": "CREATE TABLE etf_meta (\n            symbol          TEXT PRIMARY KEY,\n            name            TEXT,\n            sector          TEXT,\n            leverage        INTEGER,\n            dividend_yiel",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "sector",
+            "type": "TEXT"
+          },
+          {
+            "name": "leverage",
+            "type": "INTEGER"
+          },
+          {
+            "name": "dividend_yield",
+            "type": "REAL"
+          },
+          {
+            "name": "expense_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "inception_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_etf_meta_1"
+        ]
+      },
+      "daily_ohlcv": {
+        "rows": 95664,
+        "schema": "CREATE TABLE daily_ohlcv (\n            id         INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol     TEXT    NOT NULL,\n            date       TEXT    NOT NULL,\n            open       REAL,\n    ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "change_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_20",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_60",
+            "type": "REAL"
+          },
+          {
+            "name": "atr_14",
+            "type": "REAL"
+          },
+          {
+            "name": "macd",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_sig",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_hist",
+            "type": "REAL"
+          },
+          {
+            "name": "vol_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_lev_date",
+          "idx_lev_symbol",
+          "sqlite_autoindex_daily_ohlcv_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 4,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "performance": {
+        "rows": 22,
+        "schema": "CREATE TABLE performance (\n            symbol        TEXT PRIMARY KEY,\n            ret_1d        REAL,\n            ret_1w        REAL,\n            ret_1m        REAL,\n            ret_3m        REAL,\n ",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "ret_1d",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_1w",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_1m",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_3m",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_6m",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_ytd",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_1y",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_3y",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_5y",
+            "type": "REAL"
+          },
+          {
+            "name": "ann_ret_1y",
+            "type": "REAL"
+          },
+          {
+            "name": "ann_ret_3y",
+            "type": "REAL"
+          },
+          {
+            "name": "ann_ret_5y",
+            "type": "REAL"
+          },
+          {
+            "name": "ann_vol_1y",
+            "type": "REAL"
+          },
+          {
+            "name": "max_dd_1y",
+            "type": "REAL"
+          },
+          {
+            "name": "sharpe_1y",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_performance_1"
+        ]
+      },
+      "dividends": {
+        "rows": 673,
+        "schema": "CREATE TABLE dividends (\n            id         INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol     TEXT    NOT NULL,\n            date       TEXT    NOT NULL,\n            amount     REAL,\n      ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "amount",
+            "type": "REAL"
+          }
+        ],
+        "indexes": [
+          "idx_div_symbol",
+          "sqlite_autoindex_dividends_1"
+        ]
+      },
+      "db_version": {
+        "rows": 1,
+        "schema": "CREATE TABLE db_version (\n            id         INTEGER PRIMARY KEY,\n            version    TEXT    NOT NULL,\n            updated_at TEXT    DEFAULT CURRENT_TIMESTAMP\n        )",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "version",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      },
+      "signals": {
+        "rows": 1,
+        "schema": "CREATE TABLE signals (\n            id          INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol      TEXT    NOT NULL,\n            date        TEXT    NOT NULL,\n            signal_type TEXT    NO",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal_type",
+            "type": "TEXT"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "bias_20",
+            "type": "REAL"
+          },
+          {
+            "name": "momentum_1m",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_hist",
+            "type": "REAL"
+          },
+          {
+            "name": "atr_14",
+            "type": "REAL"
+          },
+          {
+            "name": "score",
+            "type": "INTEGER"
+          },
+          {
+            "name": "strength",
+            "type": "TEXT"
+          },
+          {
+            "name": "action",
+            "type": "TEXT"
+          },
+          {
+            "name": "notes",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_sig_date",
+          "idx_sig_symbol",
+          "sqlite_autoindex_signals_1"
+        ]
+      },
+      "entry_recommendations": {
+        "rows": 1,
+        "schema": "CREATE TABLE entry_recommendations (\n            id          INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol      TEXT    NOT NULL,\n            date        TEXT    NOT NULL,\n            entry_pr",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_price",
+            "type": "REAL"
+          },
+          {
+            "name": "stop_loss",
+            "type": "REAL"
+          },
+          {
+            "name": "take_profit",
+            "type": "REAL"
+          },
+          {
+            "name": "risk_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "reward_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "rr_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "position_size_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "confidence",
+            "type": "TEXT"
+          },
+          {
+            "name": "action",
+            "type": "TEXT"
+          },
+          {
+            "name": "status",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_entry_recommendations_1"
+        ]
+      }
+    },
+    "size_mb": 21.1,
+    "errors": []
+  },
+  "macro_institutional.db": {
+    "tables": {
+      "institutional_daily": {
+        "rows": 61066,
+        "schema": "CREATE TABLE institutional_daily (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL,\n            stock_id TEXT,\n            stock_name TEXT,\n            foreign_buy INT",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_name",
+            "type": "TEXT"
+          },
+          {
+            "name": "foreign_buy",
+            "type": "INTEGER"
+          },
+          {
+            "name": "foreign_sell",
+            "type": "INTEGER"
+          },
+          {
+            "name": "foreign_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trust_buy",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trust_sell",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trust_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "dealer_buy",
+            "type": "INTEGER"
+          },
+          {
+            "name": "dealer_sell",
+            "type": "INTEGER"
+          },
+          {
+            "name": "dealer_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "total_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_inst_date",
+          "sqlite_autoindex_institutional_daily_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 4,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "sector_flow": {
+        "rows": 48,
+        "schema": "CREATE TABLE sector_flow (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL,\n            sector TEXT NOT NULL,\n            foreign_net INTEGER DEFAULT 0,\n            tr",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "sector",
+            "type": "TEXT"
+          },
+          {
+            "name": "foreign_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trust_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "dealer_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "total_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_sector_date",
+          "sqlite_autoindex_sector_flow_1"
+        ]
+      },
+      "etf_holding": {
+        "rows": 0,
+        "schema": "CREATE TABLE etf_holding (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL,\n            etf_id TEXT NOT NULL,\n            etf_name TEXT,\n            stock_id TEXT NOT ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "etf_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "etf_name",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_name",
+            "type": "TEXT"
+          },
+          {
+            "name": "shares",
+            "type": "INTEGER"
+          },
+          {
+            "name": "change",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_etf_holding_1"
+        ]
+      },
+      "margin_balance": {
+        "rows": 0,
+        "schema": "CREATE TABLE margin_balance (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL,\n            stock_id TEXT NOT NULL,\n            stock_name TEXT,\n            margin_bala",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "stock_name",
+            "type": "TEXT"
+          },
+          {
+            "name": "margin_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_balance_value",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_call_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "balance_change",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_margin_date",
+          "sqlite_autoindex_margin_balance_1"
+        ]
+      },
+      "us_fund_flow": {
+        "rows": 81,
+        "schema": "CREATE TABLE us_fund_flow (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL,\n            symbol TEXT NOT NULL,\n            sector TEXT,\n            net_flow_billion RE",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "sector",
+            "type": "TEXT"
+          },
+          {
+            "name": "net_flow_billion",
+            "type": "REAL"
+          },
+          {
+            "name": "price_change",
+            "type": "REAL"
+          },
+          {
+            "name": "volume_billion",
+            "type": "REAL"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_usflow_date",
+          "sqlite_autoindex_us_fund_flow_1"
+        ]
+      },
+      "macro_indicators": {
+        "rows": 5,
+        "schema": "CREATE TABLE macro_indicators (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL,\n            indicator TEXT NOT NULL,\n            value REAL DEFAULT 0,\n            cha",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "indicator",
+            "type": "TEXT"
+          },
+          {
+            "name": "value",
+            "type": "REAL"
+          },
+          {
+            "name": "change_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "source",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_macro_date",
+          "sqlite_autoindex_macro_indicators_1"
+        ]
+      },
+      "sqlite_stat1": {
+        "rows": 8,
+        "schema": "CREATE TABLE sqlite_stat1(tbl,idx,stat)",
+        "columns": [
+          {
+            "name": "tbl",
+            "type": ""
+          },
+          {
+            "name": "idx",
+            "type": ""
+          },
+          {
+            "name": "stat",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      }
+    },
+    "size_mb": 8.8,
+    "errors": []
+  },
+  "master_backtest.db": {
+    "tables": {
+      "backtest_results": {
+        "rows": 0,
+        "schema": "CREATE TABLE backtest_results (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        system TEXT NOT NULL,\n        symbol TEXT NOT NULL,\n        strategy TEXT NOT NULL,\n        entry_rsi REAL,\n      ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "system",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "strategy",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "max_hold",
+            "type": "INTEGER"
+          },
+          {
+            "name": "total_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "winning_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "losing_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "win_rate",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_return",
+            "type": "REAL"
+          },
+          {
+            "name": "total_return",
+            "type": "REAL"
+          },
+          {
+            "name": "best_trade",
+            "type": "REAL"
+          },
+          {
+            "name": "worst_trade",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_holding_days",
+            "type": "REAL"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_backtest_results_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 2,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "trade_archive": {
+        "rows": 2155,
+        "schema": "CREATE TABLE trade_archive (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        system TEXT NOT NULL,\n        symbol TEXT NOT NULL,\n        strategy TEXT,\n        entry_date TEXT,\n        entry_pri",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "system",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "strategy",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_price",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "exit_price",
+            "type": "REAL"
+          },
+          {
+            "name": "quantity",
+            "type": "INTEGER"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "return_amount",
+            "type": "REAL"
+          },
+          {
+            "name": "holding_days",
+            "type": "INTEGER"
+          },
+          {
+            "name": "entry_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_reason",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      },
+      "market_daily": {
+        "rows": 1,
+        "schema": "CREATE TABLE market_daily (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        date TEXT NOT NULL UNIQUE,\n        twii_rsi REAL,\n        tx_price REAL,\n        tx_rsi REAL,\n        sp500_rsi REAL,\n",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "twii_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "tx_price",
+            "type": "REAL"
+          },
+          {
+            "name": "tx_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "sp500_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "nasdaq_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "market_zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_market_daily_1"
+        ]
+      }
+    },
+    "size_mb": 0.3,
+    "errors": []
+  },
+  "news_trends.db": {
+    "tables": {
+      "news_articles": {
+        "rows": 113,
+        "schema": "CREATE TABLE news_articles (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            country TEXT NOT NULL,\n            date TEXT,\n            datetime TEXT,\n            category TEXT,\n         ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "country",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "datetime",
+            "type": "TEXT"
+          },
+          {
+            "name": "category",
+            "type": "TEXT"
+          },
+          {
+            "name": "headline",
+            "type": "TEXT"
+          },
+          {
+            "name": "content",
+            "type": "TEXT"
+          },
+          {
+            "name": "sentiment",
+            "type": "REAL"
+          },
+          {
+            "name": "sentiment_score",
+            "type": "INTEGER"
+          },
+          {
+            "name": "source",
+            "type": "TEXT"
+          },
+          {
+            "name": "url",
+            "type": "TEXT"
+          },
+          {
+            "name": "related_stocks",
+            "type": "TEXT"
+          },
+          {
+            "name": "fetched_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_news_sentiment",
+          "idx_news_country_date",
+          "sqlite_autoindex_news_articles_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 3,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "daily_trends": {
+        "rows": 3,
+        "schema": "CREATE TABLE daily_trends (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            country TEXT NOT NULL,\n            date TEXT NOT NULL,\n            avg_sentiment REAL DEFAULT 0,\n            a",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "country",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "avg_sentiment",
+            "type": "REAL"
+          },
+          {
+            "name": "article_count",
+            "type": "INTEGER"
+          },
+          {
+            "name": "hot_categories",
+            "type": "TEXT"
+          },
+          {
+            "name": "hot_stocks",
+            "type": "TEXT"
+          },
+          {
+            "name": "trend_direction",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_trends_country",
+          "sqlite_autoindex_daily_trends_1"
+        ]
+      },
+      "sources": {
+        "rows": 14,
+        "schema": "CREATE TABLE sources (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            country TEXT NOT NULL,\n            source_name TEXT NOT NULL,\n            source_url TEXT,\n            priority INT",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "country",
+            "type": "TEXT"
+          },
+          {
+            "name": "source_name",
+            "type": "TEXT"
+          },
+          {
+            "name": "source_url",
+            "type": "TEXT"
+          },
+          {
+            "name": "priority",
+            "type": "INTEGER"
+          },
+          {
+            "name": "last_fetch",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_sources_1"
+        ]
+      }
+    },
+    "size_mb": 0.1,
+    "errors": []
+  },
+  "sherry_backtest.db": {
+    "tables": {
+      "dca_sim": {
+        "rows": 432,
+        "schema": "CREATE TABLE dca_sim (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        start_date TEXT NOT NULL,\n        end_date TEXT NOT NULL,\n        monthly_amount REAL NOT NUL",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "start_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "end_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "monthly_amount",
+            "type": "REAL"
+          },
+          {
+            "name": "total_invested",
+            "type": "REAL"
+          },
+          {
+            "name": "total_shares",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_cost",
+            "type": "REAL"
+          },
+          {
+            "name": "final_value",
+            "type": "REAL"
+          },
+          {
+            "name": "total_return",
+            "type": "REAL"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "annualized",
+            "type": "REAL"
+          },
+          {
+            "name": "years",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_dca_sim_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 2,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "dca_monthly": {
+        "rows": 2304,
+        "schema": "CREATE TABLE dca_monthly (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        invest_date TEXT NOT NULL,\n        price REAL NOT NULL,\n        shares REAL NOT NULL,\n   ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "invest_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "shares",
+            "type": "REAL"
+          },
+          {
+            "name": "amount",
+            "type": "REAL"
+          },
+          {
+            "name": "cumulative_shares",
+            "type": "REAL"
+          },
+          {
+            "name": "cumulative_invested",
+            "type": "REAL"
+          },
+          {
+            "name": "current_value",
+            "type": "REAL"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_dca_monthly_1"
+        ]
+      },
+      "strategy_compare": {
+        "rows": 0,
+        "schema": "CREATE TABLE strategy_compare (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        strategy TEXT NOT NULL,\n        start_date TEXT NOT NULL,\n        end_date TEXT NOT ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "strategy",
+            "type": "TEXT"
+          },
+          {
+            "name": "start_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "end_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "annualized",
+            "type": "REAL"
+          },
+          {
+            "name": "max_drawdown",
+            "type": "REAL"
+          },
+          {
+            "name": "sharpe_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_strategy_compare_1"
+        ]
+      }
+    },
+    "size_mb": 0.5,
+    "errors": []
+  },
+  "sherry_etf.db": {
+    "tables": {
+      "etf_daily": {
+        "rows": 43056,
+        "schema": "CREATE TABLE etf_daily (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        date TEXT NOT NULL,\n        open REAL, high REAL, low REAL, close REAL, volume INTEGER,\n   ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "sma_20",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_50",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_200",
+            "type": "REAL"
+          },
+          {
+            "name": "ema_12",
+            "type": "REAL"
+          },
+          {
+            "name": "ema_26",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_7",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_line",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_signal",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_hist",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_upper",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_middle",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_lower",
+            "type": "REAL"
+          },
+          {
+            "name": "atr_14",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "yield_12m",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_etf_daily_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 1,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "etf_summary": {
+        "rows": 39,
+        "schema": "CREATE TABLE etf_summary (\n        symbol TEXT PRIMARY KEY,\n        name TEXT,\n        category TEXT,\n        focus TEXT,\n        current_price REAL,\n        current_rsi REAL,\n        current_zone TEX",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "category",
+            "type": "TEXT"
+          },
+          {
+            "name": "focus",
+            "type": "TEXT"
+          },
+          {
+            "name": "current_price",
+            "type": "REAL"
+          },
+          {
+            "name": "current_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "current_zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "high_52w",
+            "type": "REAL"
+          },
+          {
+            "name": "low_52w",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "yield_12m",
+            "type": "REAL"
+          },
+          {
+            "name": "expense_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "aum",
+            "type": "REAL"
+          },
+          {
+            "name": "total_records",
+            "type": "INTEGER"
+          },
+          {
+            "name": "last_updated",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_etf_summary_1"
+        ]
+      },
+      "dca_signals": {
+        "rows": 0,
+        "schema": "CREATE TABLE dca_signals (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        signal_date TEXT NOT NULL,\n        signal_type TEXT,\n        price REAL,\n        rsi REAL",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal_type",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "reason",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_dca_signals_1"
+        ]
+      },
+      "dca_simulation": {
+        "rows": 0,
+        "schema": "CREATE TABLE dca_simulation (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        start_date TEXT NOT NULL,\n        monthly_amount REAL DEFAULT 1000,\n        shares REA",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "start_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "monthly_amount",
+            "type": "REAL"
+          },
+          {
+            "name": "shares",
+            "type": "REAL"
+          },
+          {
+            "name": "total_invested",
+            "type": "REAL"
+          },
+          {
+            "name": "current_value",
+            "type": "REAL"
+          },
+          {
+            "name": "total_return",
+            "type": "REAL"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_cost",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      }
+    },
+    "size_mb": 11.3,
+    "errors": []
+  },
+  "sherry_sim_trades.db": {
+    "tables": {
+      "open_positions": {
+        "rows": 888,
+        "schema": "CREATE TABLE open_positions (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        entry_date TEXT NOT NULL,\n        entry_price REAL NOT NULL,\n        shares REAL DEFAU",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_price",
+            "type": "REAL"
+          },
+          {
+            "name": "shares",
+            "type": "REAL"
+          },
+          {
+            "name": "amount",
+            "type": "REAL"
+          },
+          {
+            "name": "entry_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "strategy",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_open_positions_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 2,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "closed_positions": {
+        "rows": 883,
+        "schema": "CREATE TABLE closed_positions (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        entry_date TEXT NOT NULL,\n        entry_price REAL NOT NULL,\n        exit_date TEXT,",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_price",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "exit_price",
+            "type": "REAL"
+          },
+          {
+            "name": "shares",
+            "type": "REAL"
+          },
+          {
+            "name": "amount",
+            "type": "REAL"
+          },
+          {
+            "name": "entry_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "holding_days",
+            "type": "INTEGER"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "return_amount",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_reason",
+            "type": "TEXT"
+          },
+          {
+            "name": "strategy",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      },
+      "trade_log": {
+        "rows": 0,
+        "schema": "CREATE TABLE trade_log (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        action TEXT NOT NULL,\n        date TEXT NOT NULL,\n        price REAL NOT NULL,\n        shar",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "action",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "shares",
+            "type": "REAL"
+          },
+          {
+            "name": "amount",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "reason",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      },
+      "portfolio_summary": {
+        "rows": 0,
+        "schema": "CREATE TABLE portfolio_summary (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        date TEXT NOT NULL,\n        total_value REAL DEFAULT 0,\n        total_invested REAL DEFAULT 0,\n        total_retu",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "total_value",
+            "type": "REAL"
+          },
+          {
+            "name": "total_invested",
+            "type": "REAL"
+          },
+          {
+            "name": "total_return",
+            "type": "REAL"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "open_positions",
+            "type": "INTEGER"
+          },
+          {
+            "name": "closed_positions",
+            "type": "INTEGER"
+          },
+          {
+            "name": "winning_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "losing_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "win_rate",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_portfolio_summary_1"
+        ]
+      },
+      "performance": {
+        "rows": 36,
+        "schema": "CREATE TABLE performance (\n        symbol TEXT PRIMARY KEY,\n        total_trades INTEGER DEFAULT 0,\n        winning_trades INTEGER DEFAULT 0,\n        losing_trades INTEGER DEFAULT 0,\n        win_rate ",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "total_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "winning_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "losing_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "win_rate",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_return",
+            "type": "REAL"
+          },
+          {
+            "name": "total_return",
+            "type": "REAL"
+          },
+          {
+            "name": "best_trade",
+            "type": "REAL"
+          },
+          {
+            "name": "worst_trade",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_holding_days",
+            "type": "REAL"
+          },
+          {
+            "name": "last_trade_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_performance_1"
+        ]
+      }
+    },
+    "size_mb": 0.3,
+    "errors": []
+  },
+  "stock_trends.db": {
+    "tables": {
+      "stocks": {
+        "rows": 0,
+        "schema": "CREATE TABLE stocks (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT UNIQUE NOT NULL,\n        name TEXT,\n        market TEXT,  -- TW, US\n        sector TEXT,\n        category TEXT, ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "market",
+            "type": "TEXT"
+          },
+          {
+            "name": "sector",
+            "type": "TEXT"
+          },
+          {
+            "name": "category",
+            "type": "TEXT"
+          },
+          {
+            "name": "last_updated",
+            "type": "TIMESTAMP"
+          },
+          {
+            "name": "is_active",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stocks_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 4,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "daily_prices": {
+        "rows": 1831,
+        "schema": "CREATE TABLE daily_prices (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        date TEXT NOT NULL,\n        open REAL,\n        high REAL,\n        low REAL,\n        clos",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_daily_prices_1"
+        ]
+      },
+      "technical_indicators": {
+        "rows": 31,
+        "schema": "CREATE TABLE technical_indicators (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        date TEXT NOT NULL,\n        rsi_14 REAL,\n        rsi_28 REAL,\n        ma5 REAL,\n",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_28",
+            "type": "REAL"
+          },
+          {
+            "name": "ma5",
+            "type": "REAL"
+          },
+          {
+            "name": "ma20",
+            "type": "REAL"
+          },
+          {
+            "name": "ma60",
+            "type": "REAL"
+          },
+          {
+            "name": "ma120",
+            "type": "REAL"
+          },
+          {
+            "name": "bias20",
+            "type": "REAL"
+          },
+          {
+            "name": "bias60",
+            "type": "REAL"
+          },
+          {
+            "name": "momentum_5d",
+            "type": "REAL"
+          },
+          {
+            "name": "momentum_20d",
+            "type": "REAL"
+          },
+          {
+            "name": "vol_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "trend_zone",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_technical_indicators_1"
+        ]
+      },
+      "trend_signals": {
+        "rows": 0,
+        "schema": "CREATE TABLE trend_signals (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        date TEXT,\n        signal_type TEXT,  -- BUY, SELL, WATCH, STRONG_BUY, STRONG_SELL\n    ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal_type",
+            "type": "TEXT"
+          },
+          {
+            "name": "source",
+            "type": "TEXT"
+          },
+          {
+            "name": "strength",
+            "type": "REAL"
+          },
+          {
+            "name": "price_at_signal",
+            "type": "REAL"
+          },
+          {
+            "name": "reason",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TIMESTAMP"
+          }
+        ],
+        "indexes": []
+      },
+      "watchlist": {
+        "rows": 31,
+        "schema": "CREATE TABLE watchlist (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT UNIQUE NOT NULL,\n        name TEXT,\n        market TEXT,\n        added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "market",
+            "type": "TEXT"
+          },
+          {
+            "name": "added_at",
+            "type": "TIMESTAMP"
+          },
+          {
+            "name": "notes",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_watchlist_1"
+        ]
+      },
+      "trending_signals": {
+        "rows": 41,
+        "schema": "CREATE TABLE trending_signals (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    symbol TEXT NOT NULL,\n    price REAL,\n    rsi_14 REAL,\n    bias20 REAL,\n    momentum_20d REAL,\n    trend_zone TEXT,\n    up",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "bias20",
+            "type": "REAL"
+          },
+          {
+            "name": "momentum_20d",
+            "type": "REAL"
+          },
+          {
+            "name": "trend_zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TIMESTAMP"
+          }
+        ],
+        "indexes": []
+      },
+      "sqlite_stat1": {
+        "rows": 4,
+        "schema": "CREATE TABLE sqlite_stat1(tbl,idx,stat)",
+        "columns": [
+          {
+            "name": "tbl",
+            "type": ""
+          },
+          {
+            "name": "idx",
+            "type": ""
+          },
+          {
+            "name": "stat",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      }
+    },
+    "size_mb": 0.2,
+    "errors": []
+  },
+  "tw_active_etf.db": {
+    "tables": {
+      "etf_daily": {
+        "rows": 18,
+        "schema": "CREATE TABLE etf_daily (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol TEXT NOT NULL,\n            name TEXT,\n            category TEXT,\n            price REAL,\n            rsi_1",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "category",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_30",
+            "type": "REAL"
+          },
+          {
+            "name": "bias20",
+            "type": "REAL"
+          },
+          {
+            "name": "bias60",
+            "type": "REAL"
+          },
+          {
+            "name": "mom1m",
+            "type": "REAL"
+          },
+          {
+            "name": "mom3m",
+            "type": "REAL"
+          },
+          {
+            "name": "mom6m",
+            "type": "REAL"
+          },
+          {
+            "name": "mom1y",
+            "type": "REAL"
+          },
+          {
+            "name": "ma20",
+            "type": "REAL"
+          },
+          {
+            "name": "ma60",
+            "type": "REAL"
+          },
+          {
+            "name": "ma120",
+            "type": "REAL"
+          },
+          {
+            "name": "atr14",
+            "type": "REAL"
+          },
+          {
+            "name": "vol_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_etf_daily_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 1,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "active_etf": {
+        "rows": 8,
+        "schema": "CREATE TABLE active_etf (\n        code TEXT PRIMARY KEY,\n        name_cn TEXT,\n        type TEXT,\n        price REAL,\n        rsi_14 REAL,\n        ret_1m REAL,\n        ret_3m REAL,\n        ma_20 REAL,",
+        "columns": [
+          {
+            "name": "code",
+            "type": "TEXT"
+          },
+          {
+            "name": "name_cn",
+            "type": "TEXT"
+          },
+          {
+            "name": "type",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_1m",
+            "type": "REAL"
+          },
+          {
+            "name": "ret_3m",
+            "type": "REAL"
+          },
+          {
+            "name": "ma_20",
+            "type": "REAL"
+          },
+          {
+            "name": "ma_60",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "REAL"
+          },
+          {
+            "name": "aum",
+            "type": "REAL"
+          },
+          {
+            "name": "expense_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_active_etf_1"
+        ]
+      },
+      "rsi_history": {
+        "rows": 240,
+        "schema": "CREATE TABLE rsi_history (\n        code TEXT,\n        date TEXT,\n        rsi_14 REAL,\n        price REAL,\n        PRIMARY KEY (code, date)\n    )",
+        "columns": [
+          {
+            "name": "code",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_rsi_history_1"
+        ]
+      }
+    },
+    "size_mb": 0.1,
+    "errors": []
+  },
+  "tw_history.db": {
+    "tables": {
+      "stocks": {
+        "rows": 59,
+        "schema": "CREATE TABLE stocks (\n            symbol TEXT PRIMARY KEY,\n            name TEXT NOT NULL,\n            industry TEXT,\n            created_at TEXT DEFAULT CURRENT_TIMESTAMP\n        )",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "industry",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stocks_1"
+        ]
+      },
+      "daily_ohlcv": {
+        "rows": 31760,
+        "schema": "CREATE TABLE daily_ohlcv (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol TEXT NOT NULL,\n            date TEXT NOT NULL,\n            open REAL,\n            high REAL,\n           ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "change",
+            "type": "REAL"
+          },
+          {
+            "name": "change_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_5",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_20",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_5",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_10",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_20",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_60",
+            "type": "REAL"
+          },
+          {
+            "name": "ema_12",
+            "type": "REAL"
+          },
+          {
+            "name": "ema_26",
+            "type": "REAL"
+          },
+          {
+            "name": "macd",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_signal",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_hist",
+            "type": "REAL"
+          },
+          {
+            "name": "k",
+            "type": "REAL"
+          },
+          {
+            "name": "d",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_upper",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_mid",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_lower",
+            "type": "REAL"
+          },
+          {
+            "name": "atr",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_ohlcv_date",
+          "idx_ohlcv_symbol",
+          "sqlite_autoindex_daily_ohlcv_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 3,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "institutional": {
+        "rows": 0,
+        "schema": "CREATE TABLE institutional (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol TEXT NOT NULL,\n            date TEXT NOT NULL,\n            foreign_net INTEGER,\n            trust_net ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "foreign_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trust_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "dealer_net",
+            "type": "INTEGER"
+          },
+          {
+            "name": "total_net",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "idx_inst_symbol",
+          "sqlite_autoindex_institutional_1"
+        ]
+      },
+      "rsi_signals": {
+        "rows": 760,
+        "schema": "CREATE TABLE rsi_signals (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol TEXT NOT NULL,\n            date TEXT NOT NULL,\n            rsi_value REAL,\n            zone TEXT,\n      ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "rsi_value",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal_type",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "expected_return",
+            "type": "REAL"
+          },
+          {
+            "name": "verified",
+            "type": "INTEGER"
+          },
+          {
+            "name": "outcome",
+            "type": "TEXT"
+          },
+          {
+            "name": "exit_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "exit_price",
+            "type": "REAL"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "hold_days",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "idx_signals_symbol",
+          "sqlite_autoindex_rsi_signals_1"
+        ]
+      },
+      "ma_signals": {
+        "rows": 0,
+        "schema": "CREATE TABLE ma_signals (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol TEXT NOT NULL,\n            date TEXT NOT NULL,\n            ma_type TEXT,\n            -- GOLD_CROSS_5_20, ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "ma_type",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_ma_signals_1"
+        ]
+      },
+      "trades": {
+        "rows": 0,
+        "schema": "CREATE TABLE trades (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            trade_id TEXT UNIQUE,\n            symbol TEXT NOT NULL,\n            entry_date TEXT,\n            exit_date TEXT,\n   ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trade_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "exit_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_price",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_price",
+            "type": "REAL"
+          },
+          {
+            "name": "shares",
+            "type": "INTEGER"
+          },
+          {
+            "name": "position_value",
+            "type": "REAL"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "return_ntd",
+            "type": "REAL"
+          },
+          {
+            "name": "hold_days",
+            "type": "INTEGER"
+          },
+          {
+            "name": "strategy",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_reason",
+            "type": "TEXT"
+          },
+          {
+            "name": "verified",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "idx_trades_symbol",
+          "sqlite_autoindex_trades_1"
+        ]
+      },
+      "market_index": {
+        "rows": 964,
+        "schema": "CREATE TABLE market_index (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol TEXT NOT NULL,\n            date TEXT NOT NULL,\n            close REAL,\n            rsi_14 REAL,\n       ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "idx_market_symbol",
+          "sqlite_autoindex_market_index_1"
+        ]
+      },
+      "db_version": {
+        "rows": 1,
+        "schema": "CREATE TABLE db_version (\n            id INTEGER PRIMARY KEY,\n            version TEXT NOT NULL,\n            created_at TEXT DEFAULT CURRENT_TIMESTAMP\n        )",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "version",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      },
+      "stock_price": {
+        "rows": 910,
+        "schema": "CREATE TABLE stock_price (symbol TEXT, date TEXT, open REAL, high REAL, low REAL, close REAL, volume INTEGER, UNIQUE(symbol, date))",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stock_price_1"
+        ]
+      },
+      "sqlite_stat1": {
+        "rows": 10,
+        "schema": "CREATE TABLE sqlite_stat1(tbl,idx,stat)",
+        "columns": [
+          {
+            "name": "tbl",
+            "type": ""
+          },
+          {
+            "name": "idx",
+            "type": ""
+          },
+          {
+            "name": "stat",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "tw_history": {
+        "rows": 19,
+        "schema": "CREATE TABLE tw_history (\n    stock TEXT, date TEXT, open REAL, high REAL, low REAL, close REAL,\n    volume INTEGER, rsi14 REAL, ma20 REAL, ma60 REAL, bias REAL,\n    pe REAL, mktcap REAL, updated_at T",
+        "columns": [
+          {
+            "name": "stock",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "rsi14",
+            "type": "REAL"
+          },
+          {
+            "name": "ma20",
+            "type": "REAL"
+          },
+          {
+            "name": "ma60",
+            "type": "REAL"
+          },
+          {
+            "name": "bias",
+            "type": "REAL"
+          },
+          {
+            "name": "pe",
+            "type": "REAL"
+          },
+          {
+            "name": "mktcap",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_tw_history_1"
+        ]
+      }
+    },
+    "size_mb": 9.9,
+    "errors": []
+  },
+  "tw_margin.db": {
+    "tables": {
+      "margin_summary": {
+        "rows": 0,
+        "schema": "CREATE TABLE margin_summary (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT NOT NULL,\n            date TEXT NOT NULL,\n            margin_balance INTEGER,  -- 融資餘額\n       ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "margin_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_buy",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_repay",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_sell",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_cover",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_limit",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_limit",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_stock_date",
+          "sqlite_autoindex_margin_summary_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 1,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "margin_stats": {
+        "rows": 0,
+        "schema": "CREATE TABLE margin_stats (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT NOT NULL,\n            date TEXT NOT NULL,\n            margin_ratio REAL,       -- 融資佔比 (margin_b",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "margin_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "short_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "margin_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "net_margin",
+            "type": "INTEGER"
+          },
+          {
+            "name": "net_short",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_margin_ratio",
+          "sqlite_autoindex_margin_stats_1"
+        ]
+      },
+      "watchlist": {
+        "rows": 0,
+        "schema": "CREATE TABLE watchlist (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT NOT NULL UNIQUE,\n            name TEXT,\n            margin_ratio REAL,\n            short_ratio REAL",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "margin_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "short_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "trend",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_watchlist_1"
+        ]
+      },
+      "margin_daily": {
+        "rows": 11844,
+        "schema": "CREATE TABLE margin_daily (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            stock_id TEXT NOT NULL,\n            date TEXT NOT NULL,\n            margin_buy INTEGER DEFAULT 0,\n            ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "margin_buy",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_repay",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_cover",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_sell",
+            "type": "INTEGER"
+          },
+          {
+            "name": "short_balance",
+            "type": "INTEGER"
+          },
+          {
+            "name": "margin_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "short_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "net_margin_change",
+            "type": "INTEGER"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_margin_date",
+          "sqlite_autoindex_margin_daily_1"
+        ]
+      },
+      "stock_list": {
+        "rows": 54,
+        "schema": "CREATE TABLE stock_list (\n            stock_id TEXT PRIMARY KEY,\n            name TEXT,\n            exchange TEXT,\n            margin_ratio_avg REAL DEFAULT 0,\n            short_ratio_avg REAL DEFAULT",
+        "columns": [
+          {
+            "name": "stock_id",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "exchange",
+            "type": "TEXT"
+          },
+          {
+            "name": "margin_ratio_avg",
+            "type": "REAL"
+          },
+          {
+            "name": "short_ratio_avg",
+            "type": "REAL"
+          },
+          {
+            "name": "last_updated",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stock_list_1"
+        ]
+      }
+    },
+    "size_mb": 1.5,
+    "errors": []
+  },
+  "tw_stock_registry.db": {
+    "tables": {
+      "stock_registry": {
+        "rows": 3084,
+        "schema": "CREATE TABLE stock_registry (code TEXT PRIMARY KEY, name_cn TEXT, industry TEXT, market TEXT, last_updated TEXT)",
+        "columns": [
+          {
+            "name": "code",
+            "type": "TEXT"
+          },
+          {
+            "name": "name_cn",
+            "type": "TEXT"
+          },
+          {
+            "name": "industry",
+            "type": "TEXT"
+          },
+          {
+            "name": "market",
+            "type": "TEXT"
+          },
+          {
+            "name": "last_updated",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stock_registry_1"
+        ]
+      }
+    },
+    "size_mb": 0.3,
+    "errors": []
+  },
+  "twse_data.db": {
+    "tables": {
+      "twse_mi_5mins": {
+        "rows": 3241,
+        "schema": "CREATE TABLE twse_mi_5mins (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            tradedate TEXT NOT NULL,\n            traded_time TEXT,\n            bid_count_acc INTEGER,\n            bid_vol",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "tradedate",
+            "type": "TEXT"
+          },
+          {
+            "name": "traded_time",
+            "type": "TEXT"
+          },
+          {
+            "name": "bid_count_acc",
+            "type": "INTEGER"
+          },
+          {
+            "name": "bid_vol_acc",
+            "type": "INTEGER"
+          },
+          {
+            "name": "ask_count_acc",
+            "type": "INTEGER"
+          },
+          {
+            "name": "ask_vol_acc",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trade_count",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trade_vol",
+            "type": "INTEGER"
+          },
+          {
+            "name": "trade_value",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_twse_mi_5mins_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 2,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "twse_mi_index": {
+        "rows": 2,
+        "schema": "CREATE TABLE twse_mi_index (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            tradedate TEXT NOT NULL,\n            title TEXT,\n            data TEXT,\n            created_at TEXT DEFAULT C",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "tradedate",
+            "type": "TEXT"
+          },
+          {
+            "name": "title",
+            "type": "TEXT"
+          },
+          {
+            "name": "data",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_twse_mi_index_1"
+        ]
+      }
+    },
+    "size_mb": 0.3,
+    "errors": []
+  },
+  "us_history.db": {
+    "tables": {
+      "daily_ohlcv": {
+        "rows": 110215,
+        "schema": "CREATE TABLE daily_ohlcv (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        symbol TEXT NOT NULL,\n        date TEXT NOT NULL,\n        open REAL, high REAL, low REAL, close REAL, volume INTEGER,\n ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "sma_20",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_60",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_120",
+            "type": "REAL"
+          },
+          {
+            "name": "ema_12",
+            "type": "REAL"
+          },
+          {
+            "name": "ema_26",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_7",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_28",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_line",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_signal",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_hist",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_upper",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_middle",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_lower",
+            "type": "REAL"
+          },
+          {
+            "name": "atr_14",
+            "type": "REAL"
+          },
+          {
+            "name": "kdj_k",
+            "type": "REAL"
+          },
+          {
+            "name": "kdj_d",
+            "type": "REAL"
+          },
+          {
+            "name": "kdj_j",
+            "type": "REAL"
+          },
+          {
+            "name": "cci_14",
+            "type": "REAL"
+          },
+          {
+            "name": "zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_daily_ohlcv_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 1,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "stock_summary": {
+        "rows": 184,
+        "schema": "CREATE TABLE stock_summary (\n        symbol TEXT PRIMARY KEY,\n        name TEXT,\n        sector TEXT,\n        current_price REAL, current_rsi REAL, current_zone TEXT,\n        high_52w REAL, low_52w RE",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "sector",
+            "type": "TEXT"
+          },
+          {
+            "name": "current_price",
+            "type": "REAL"
+          },
+          {
+            "name": "current_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "current_zone",
+            "type": "TEXT"
+          },
+          {
+            "name": "high_52w",
+            "type": "REAL"
+          },
+          {
+            "name": "low_52w",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "total_records",
+            "type": "INTEGER"
+          },
+          {
+            "name": "last_updated",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stock_summary_1"
+        ]
+      },
+      "watchlist": {
+        "rows": 78,
+        "schema": "CREATE TABLE watchlist (\n        symbol TEXT PRIMARY KEY,\n        name TEXT,\n        sector TEXT,\n        added_at TEXT\n    )",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "sector",
+            "type": "TEXT"
+          },
+          {
+            "name": "added_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_watchlist_1"
+        ]
+      },
+      "stock_price": {
+        "rows": 1600,
+        "schema": "CREATE TABLE stock_price (symbol TEXT, date TEXT, open REAL, high REAL, low REAL, close REAL, volume INTEGER, UNIQUE(symbol, date))",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_stock_price_1"
+        ]
+      },
+      "sqlite_stat1": {
+        "rows": 4,
+        "schema": "CREATE TABLE sqlite_stat1(tbl,idx,stat)",
+        "columns": [
+          {
+            "name": "tbl",
+            "type": ""
+          },
+          {
+            "name": "idx",
+            "type": ""
+          },
+          {
+            "name": "stat",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      }
+    },
+    "size_mb": 28.8,
+    "errors": []
+  },
+  "us_sim_trades.db": {
+    "tables": {
+      "sim_trades": {
+        "rows": 3653,
+        "schema": "CREATE TABLE sim_trades (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL, entry_date TEXT, entry_price REAL, exit_date TEXT, exit_price REAL, quantity INTEGER, side TEXT, entry_rsi REAL, ex",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_price",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_date",
+            "type": "TEXT"
+          },
+          {
+            "name": "exit_price",
+            "type": "REAL"
+          },
+          {
+            "name": "quantity",
+            "type": "INTEGER"
+          },
+          {
+            "name": "side",
+            "type": "TEXT"
+          },
+          {
+            "name": "entry_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_rsi",
+            "type": "REAL"
+          },
+          {
+            "name": "holding_days",
+            "type": "INTEGER"
+          },
+          {
+            "name": "return_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "return_amount",
+            "type": "REAL"
+          },
+          {
+            "name": "exit_reason",
+            "type": "TEXT"
+          },
+          {
+            "name": "strategy",
+            "type": "TEXT"
+          },
+          {
+            "name": "status",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      },
+      "sqlite_sequence": {
+        "rows": 1,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "trade_summary": {
+        "rows": 0,
+        "schema": "CREATE TABLE trade_summary (symbol TEXT PRIMARY KEY, total_trades INTEGER DEFAULT 0, winning_trades INTEGER DEFAULT 0, avg_return REAL DEFAULT 0, total_return REAL DEFAULT 0, best_trade REAL DEFAULT 0",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "total_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "winning_trades",
+            "type": "INTEGER"
+          },
+          {
+            "name": "avg_return",
+            "type": "REAL"
+          },
+          {
+            "name": "total_return",
+            "type": "REAL"
+          },
+          {
+            "name": "best_trade",
+            "type": "REAL"
+          },
+          {
+            "name": "avg_holding_days",
+            "type": "REAL"
+          },
+          {
+            "name": "last_updated",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_trade_summary_1"
+        ]
+      }
+    },
+    "size_mb": 0.5,
+    "errors": []
+  },
+  "yfinance.db": {
+    "tables": {
+      "symbols": {
+        "rows": 1194,
+        "schema": "CREATE TABLE symbols (\n            symbol TEXT PRIMARY KEY,\n            name TEXT,\n            exchange TEXT,\n            category TEXT,\n            universe_group TEXT,\n            last_updated TEXT,",
+        "columns": [
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "name",
+            "type": "TEXT"
+          },
+          {
+            "name": "exchange",
+            "type": "TEXT"
+          },
+          {
+            "name": "category",
+            "type": "TEXT"
+          },
+          {
+            "name": "universe_group",
+            "type": "TEXT"
+          },
+          {
+            "name": "last_updated",
+            "type": "TEXT"
+          },
+          {
+            "name": "notes",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_symbols_1"
+        ]
+      },
+      "daily_ohlcv": {
+        "rows": 810459,
+        "schema": "CREATE TABLE daily_ohlcv (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            symbol TEXT NOT NULL,\n            date TEXT NOT NULL,\n            open REAL, high REAL, low REAL, close REAL,\n ",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "change_pct",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_20",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_60",
+            "type": "REAL"
+          },
+          {
+            "name": "sma_120",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "atr_14",
+            "type": "REAL"
+          },
+          {
+            "name": "macd",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_sig",
+            "type": "REAL"
+          },
+          {
+            "name": "macd_hist",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_upper",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_middle",
+            "type": "REAL"
+          },
+          {
+            "name": "bb_lower",
+            "type": "REAL"
+          },
+          {
+            "name": "vol_ratio",
+            "type": "REAL"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "idx_ohlcv_symbol_date",
+          "sqlite_autoindex_daily_ohlcv_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 2,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "fetch_log": {
+        "rows": 18,
+        "schema": "CREATE TABLE fetch_log (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            timestamp TEXT,\n            symbol TEXT,\n            status TEXT,\n            rows_fetched INTEGER,\n            r",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "timestamp",
+            "type": "TEXT"
+          },
+          {
+            "name": "symbol",
+            "type": "TEXT"
+          },
+          {
+            "name": "status",
+            "type": "TEXT"
+          },
+          {
+            "name": "rows_fetched",
+            "type": "INTEGER"
+          },
+          {
+            "name": "rows_saved",
+            "type": "INTEGER"
+          },
+          {
+            "name": "error",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      }
+    },
+    "size_mb": 186.2,
+    "errors": []
+  },
+  "yuan_zheng2.db": {
+    "tables": {
+      "daily_data": {
+        "rows": 484,
+        "schema": "CREATE TABLE daily_data (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL UNIQUE,\n            open REAL,\n            high REAL,\n            low REAL,\n            close",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "open",
+            "type": "REAL"
+          },
+          {
+            "name": "high",
+            "type": "REAL"
+          },
+          {
+            "name": "low",
+            "type": "REAL"
+          },
+          {
+            "name": "close",
+            "type": "REAL"
+          },
+          {
+            "name": "volume",
+            "type": "INTEGER"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_30",
+            "type": "REAL"
+          },
+          {
+            "name": "ma5",
+            "type": "REAL"
+          },
+          {
+            "name": "ma10",
+            "type": "REAL"
+          },
+          {
+            "name": "ma20",
+            "type": "REAL"
+          },
+          {
+            "name": "ma60",
+            "type": "REAL"
+          },
+          {
+            "name": "bias5",
+            "type": "REAL"
+          },
+          {
+            "name": "bias10",
+            "type": "REAL"
+          },
+          {
+            "name": "bias20",
+            "type": "REAL"
+          },
+          {
+            "name": "bias60",
+            "type": "REAL"
+          },
+          {
+            "name": "mom1d",
+            "type": "REAL"
+          },
+          {
+            "name": "mom5d",
+            "type": "REAL"
+          },
+          {
+            "name": "mom10d",
+            "type": "REAL"
+          },
+          {
+            "name": "mom20d",
+            "type": "REAL"
+          },
+          {
+            "name": "atr14",
+            "type": "REAL"
+          },
+          {
+            "name": "updated_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": [
+          "sqlite_autoindex_daily_data_1"
+        ]
+      },
+      "sqlite_sequence": {
+        "rows": 1,
+        "schema": "CREATE TABLE sqlite_sequence(name,seq)",
+        "columns": [
+          {
+            "name": "name",
+            "type": ""
+          },
+          {
+            "name": "seq",
+            "type": ""
+          }
+        ],
+        "indexes": []
+      },
+      "trading_log": {
+        "rows": 0,
+        "schema": "CREATE TABLE trading_log (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            date TEXT NOT NULL,\n            signal TEXT,\n            price REAL,\n            rsi_14 REAL,\n            bias2",
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER"
+          },
+          {
+            "name": "date",
+            "type": "TEXT"
+          },
+          {
+            "name": "signal",
+            "type": "TEXT"
+          },
+          {
+            "name": "price",
+            "type": "REAL"
+          },
+          {
+            "name": "rsi_14",
+            "type": "REAL"
+          },
+          {
+            "name": "bias20",
+            "type": "REAL"
+          },
+          {
+            "name": "notes",
+            "type": "TEXT"
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT"
+          }
+        ],
+        "indexes": []
+      }
+    },
+    "size_mb": 0.1,
+    "errors": []
+  }
+}

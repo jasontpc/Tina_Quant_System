@@ -1,0 +1,851 @@
+[
+  {
+    "timestamp": "2026-04-25 15:34:13",
+    "backtest": {
+      "date": "2026-04-25 15:34",
+      "total_days": 425,
+      "total_trades": 114,
+      "win_rate": 57.0,
+      "avg_return": 0.19,
+      "max_gain": 4.61,
+      "max_loss": -4.52,
+      "regime_stats": {
+        "NEUTRAL": {
+          "count": 105,
+          "total_return": 13.440130984961097,
+          "avg_return": 0.128
+        },
+        "OVERSOLD": {
+          "count": 66,
+          "total_return": 13.382780981477072,
+          "avg_return": 0.203
+        },
+        "BEAR": {
+          "count": 17,
+          "total_return": -5.076487322816021,
+          "avg_return": -0.299
+        },
+        "OVERBOUGHT": {
+          "count": 22,
+          "total_return": 4.942855006798404,
+          "avg_return": 0.225
+        },
+        "BULL": {
+          "count": 214,
+          "total_return": 31.99681020445648,
+          "avg_return": 0.15
+        }
+      },
+      "trades": [
+        {
+          "entry_date": "2025-12-24",
+          "exit_date": "2025-12-26",
+          "entry_price": 28371.98046875,
+          "exit_price": 28556.01953125,
+          "return_pct": 0.65,
+          "entry_rsi": 59.51074693451268,
+          "exit_rsi": 59.495497099105094,
+          "regime": "BULL",
+          "hold_days": 349
+        },
+        {
+          "entry_date": "2025-12-29",
+          "exit_date": "2025-12-30",
+          "entry_price": 28810.890625,
+          "exit_price": 28707.130859375,
+          "return_pct": -0.36,
+          "entry_rsi": 58.564877277036615,
+          "exit_rsi": 58.91152977279182,
+          "regime": "BULL",
+          "hold_days": 351
+        },
+        {
+          "entry_date": "2025-12-31",
+          "exit_date": "2026-01-02",
+          "entry_price": 28963.599609375,
+          "exit_price": 29349.810546875,
+          "return_pct": 1.33,
+          "entry_rsi": 59.43989974063851,
+          "exit_rsi": 72.14664430340822,
+          "regime": "BULL",
+          "hold_days": 353
+        },
+        {
+          "entry_date": "2026-02-02",
+          "exit_date": "2026-02-03",
+          "entry_price": 31624.029296875,
+          "exit_price": 32195.359375,
+          "return_pct": 1.81,
+          "entry_rsi": 60.03944720866726,
+          "exit_rsi": 62.78432098986749,
+          "regime": "BULL",
+          "hold_days": 375
+        },
+        {
+          "entry_date": "2026-02-05",
+          "exit_date": "2026-02-06",
+          "entry_price": 31801.26953125,
+          "exit_price": 31782.919921875,
+          "return_pct": -0.06,
+          "entry_rsi": 54.126692388174675,
+          "exit_rsi": 51.58036300275632,
+          "regime": "BULL",
+          "hold_days": 378
+        },
+        {
+          "entry_date": "2026-02-09",
+          "exit_date": "2026-02-10",
+          "entry_price": 32404.619140625,
+          "exit_price": 33072.96875,
+          "return_pct": 2.06,
+          "entry_rsi": 56.38849316341226,
+          "exit_rsi": 67.5635831235274,
+          "regime": "BULL",
+          "hold_days": 380
+        },
+        {
+          "entry_date": "2026-03-04",
+          "exit_date": "2026-03-05",
+          "entry_price": 32828.87890625,
+          "exit_price": 33672.94140625,
+          "return_pct": 2.57,
+          "entry_rsi": 58.1520577079572,
+          "exit_rsi": 59.64154135788717,
+          "regime": "BULL",
+          "hold_days": 389
+        },
+        {
+          "entry_date": "2026-03-06",
+          "exit_date": "2026-03-09",
+          "entry_price": 33599.5390625,
+          "exit_price": 32110.419921875,
+          "return_pct": -4.43,
+          "entry_rsi": 58.569801902381236,
+          "exit_rsi": 51.7886276795515,
+          "regime": "BULL",
+          "hold_days": 391
+        },
+        {
+          "entry_date": "2026-03-10",
+          "exit_date": "2026-03-11",
+          "entry_price": 32771.87109375,
+          "exit_price": 34114.19140625,
+          "return_pct": 4.1,
+          "entry_rsi": 55.32540924760872,
+          "exit_rsi": 58.54287742678247,
+          "regime": "BULL",
+          "hold_days": 393
+        },
+        {
+          "entry_date": "2026-03-12",
+          "exit_date": "2026-03-13",
+          "entry_price": 33581.859375,
+          "exit_price": 33400.3203125,
+          "return_pct": -0.54,
+          "entry_rsi": 52.578014646137426,
+          "exit_rsi": 48.921110570777245,
+          "regime": "BULL",
+          "hold_days": 395
+        },
+        {
+          "entry_date": "2026-03-16",
+          "exit_date": "2026-03-17",
+          "entry_price": 33342.51171875,
+          "exit_price": 33836.5703125,
+          "return_pct": 1.48,
+          "entry_rsi": 47.710936861032486,
+          "exit_rsi": 45.18543583896035,
+          "regime": "NEUTRAL",
+          "hold_days": 397
+        },
+        {
+          "entry_date": "2026-03-18",
+          "exit_date": "2026-03-19",
+          "entry_price": 34348.578125,
+          "exit_price": 33689.6796875,
+          "return_pct": -1.92,
+          "entry_rsi": 43.934606551809026,
+          "exit_rsi": 40.85720331893846,
+          "regime": "NEUTRAL",
+          "hold_days": 399
+        },
+        {
+          "entry_date": "2026-03-20",
+          "exit_date": "2026-03-23",
+          "entry_price": 33543.87890625,
+          "exit_price": 32722.5,
+          "return_pct": -2.45,
+          "entry_rsi": 41.623236989976405,
+          "exit_rsi": 41.399950736249686,
+          "regime": "NEUTRAL",
+          "hold_days": 401
+        },
+        {
+          "entry_date": "2026-03-24",
+          "exit_date": "2026-03-25",
+          "entry_price": 32612.240234375,
+          "exit_price": 33439.109375,
+          "return_pct": 2.54,
+          "entry_rsi": 48.63309781621482,
+          "exit_rsi": 48.521406640961736,
+          "regime": "NEUTRAL",
+          "hold_days": 403
+        },
+        {
+          "entry_date": "2026-03-26",
+          "exit_date": "2026-03-27",
+          "entry_price": 33337.62109375,
+          "exit_price": 33112.58984375,
+          "return_pct": -0.68,
+          "entry_rsi": 48.34967227761519,
+          "exit_rsi": 57.51111712260848,
+          "regime": "NEUTRAL",
+          "hold_days": 405
+        },
+        {
+          "entry_date": "2026-03-30",
+          "exit_date": "2026-03-31",
+          "entry_price": 32518.16015625,
+          "exit_price": 31722.990234375,
+          "return_pct": -2.45,
+          "entry_rsi": 48.07917637922234,
+          "exit_rsi": 30.26108103872636,
+          "regime": "NEUTRAL",
+          "hold_days": 407
+        },
+        {
+          "entry_date": "2026-04-01",
+          "exit_date": "2026-04-02",
+          "entry_price": 33174.8203125,
+          "exit_price": 32572.4296875,
+          "return_pct": -1.82,
+          "entry_rsi": 47.08281401700559,
+          "exit_rsi": 44.4041948736363,
+          "regime": "NEUTRAL",
+          "hold_days": 409
+        },
+        {
+          "entry_date": "2026-04-07",
+          "exit_date": "2026-04-08",
+          "entry_price": 33229.8203125,
+          "exit_price": 34761.37890625,
+          "return_pct": 4.61,
+          "entry_rsi": 49.295414835536555,
+          "exit_rsi": 55.11820351923378,
+          "regime": "NEUTRAL",
+          "hold_days": 411
+        },
+        {
+          "entry_date": "2026-04-09",
+          "exit_date": "2026-04-10",
+          "entry_price": 34861.16015625,
+          "exit_price": 35417.828125,
+          "return_pct": 1.6,
+          "entry_rsi": 52.97242834354867,
+          "exit_rsi": 60.141660385524574,
+          "regime": "BULL",
+          "hold_days": 413
+        },
+        {
+          "entry_date": "2026-04-13",
+          "exit_date": "2026-04-14",
+          "entry_price": 35457.2890625,
+          "exit_price": 36296.12109375,
+          "return_pct": 2.37,
+          "entry_rsi": 61.37079143083575,
+          "exit_rsi": 71.19293802704533,
+          "regime": "BULL",
+          "hold_days": 415
+        }
+      ]
+    },
+    "sim_stats": {
+      "total_trades": 0,
+      "win_rate": 0,
+      "avg_return": 0,
+      "max_gain": 0,
+      "max_loss": 0,
+      "total_profit": 0,
+      "last_updated": "2026-04-25 15:34"
+    },
+    "learnings": [
+      {
+        "type": "backtest_avg_return",
+        "desc": "歷史均報酬0.19%",
+        "avg_return": 0.19
+      },
+      {
+        "type": "market_regime",
+        "desc": "OVERBOUGHT市場禁止進場（歷史勝率97.4% BIAS離場）",
+        "regime": "OVERBOUGHT",
+        "rule": "BIAS>5.0時離場"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-04-25 16:06:42",
+    "backtest": {
+      "date": "2026-04-25 16:06",
+      "total_days": 425,
+      "total_trades": 114,
+      "win_rate": 57.0,
+      "avg_return": 0.19,
+      "max_gain": 4.61,
+      "max_loss": -4.52,
+      "regime_stats": {
+        "NEUTRAL": {
+          "count": 105,
+          "total_return": 13.440130984961097,
+          "avg_return": 0.128
+        },
+        "OVERSOLD": {
+          "count": 66,
+          "total_return": 13.382780981477072,
+          "avg_return": 0.203
+        },
+        "BEAR": {
+          "count": 17,
+          "total_return": -5.076487322816021,
+          "avg_return": -0.299
+        },
+        "OVERBOUGHT": {
+          "count": 22,
+          "total_return": 4.942855006798404,
+          "avg_return": 0.225
+        },
+        "BULL": {
+          "count": 214,
+          "total_return": 31.99681020445648,
+          "avg_return": 0.15
+        }
+      },
+      "trades": [
+        {
+          "entry_date": "2025-12-24",
+          "exit_date": "2025-12-26",
+          "entry_price": 28371.98046875,
+          "exit_price": 28556.01953125,
+          "return_pct": 0.65,
+          "entry_rsi": 59.51074693451268,
+          "exit_rsi": 59.495497099105094,
+          "regime": "BULL",
+          "hold_days": 349
+        },
+        {
+          "entry_date": "2025-12-29",
+          "exit_date": "2025-12-30",
+          "entry_price": 28810.890625,
+          "exit_price": 28707.130859375,
+          "return_pct": -0.36,
+          "entry_rsi": 58.564877277036615,
+          "exit_rsi": 58.91152977279182,
+          "regime": "BULL",
+          "hold_days": 351
+        },
+        {
+          "entry_date": "2025-12-31",
+          "exit_date": "2026-01-02",
+          "entry_price": 28963.599609375,
+          "exit_price": 29349.810546875,
+          "return_pct": 1.33,
+          "entry_rsi": 59.43989974063851,
+          "exit_rsi": 72.14664430340822,
+          "regime": "BULL",
+          "hold_days": 353
+        },
+        {
+          "entry_date": "2026-02-02",
+          "exit_date": "2026-02-03",
+          "entry_price": 31624.029296875,
+          "exit_price": 32195.359375,
+          "return_pct": 1.81,
+          "entry_rsi": 60.03944720866726,
+          "exit_rsi": 62.78432098986749,
+          "regime": "BULL",
+          "hold_days": 375
+        },
+        {
+          "entry_date": "2026-02-05",
+          "exit_date": "2026-02-06",
+          "entry_price": 31801.26953125,
+          "exit_price": 31782.919921875,
+          "return_pct": -0.06,
+          "entry_rsi": 54.126692388174675,
+          "exit_rsi": 51.58036300275632,
+          "regime": "BULL",
+          "hold_days": 378
+        },
+        {
+          "entry_date": "2026-02-09",
+          "exit_date": "2026-02-10",
+          "entry_price": 32404.619140625,
+          "exit_price": 33072.96875,
+          "return_pct": 2.06,
+          "entry_rsi": 56.38849316341226,
+          "exit_rsi": 67.5635831235274,
+          "regime": "BULL",
+          "hold_days": 380
+        },
+        {
+          "entry_date": "2026-03-04",
+          "exit_date": "2026-03-05",
+          "entry_price": 32828.87890625,
+          "exit_price": 33672.94140625,
+          "return_pct": 2.57,
+          "entry_rsi": 58.1520577079572,
+          "exit_rsi": 59.64154135788717,
+          "regime": "BULL",
+          "hold_days": 389
+        },
+        {
+          "entry_date": "2026-03-06",
+          "exit_date": "2026-03-09",
+          "entry_price": 33599.5390625,
+          "exit_price": 32110.419921875,
+          "return_pct": -4.43,
+          "entry_rsi": 58.569801902381236,
+          "exit_rsi": 51.7886276795515,
+          "regime": "BULL",
+          "hold_days": 391
+        },
+        {
+          "entry_date": "2026-03-10",
+          "exit_date": "2026-03-11",
+          "entry_price": 32771.87109375,
+          "exit_price": 34114.19140625,
+          "return_pct": 4.1,
+          "entry_rsi": 55.32540924760872,
+          "exit_rsi": 58.54287742678247,
+          "regime": "BULL",
+          "hold_days": 393
+        },
+        {
+          "entry_date": "2026-03-12",
+          "exit_date": "2026-03-13",
+          "entry_price": 33581.859375,
+          "exit_price": 33400.3203125,
+          "return_pct": -0.54,
+          "entry_rsi": 52.578014646137426,
+          "exit_rsi": 48.921110570777245,
+          "regime": "BULL",
+          "hold_days": 395
+        },
+        {
+          "entry_date": "2026-03-16",
+          "exit_date": "2026-03-17",
+          "entry_price": 33342.51171875,
+          "exit_price": 33836.5703125,
+          "return_pct": 1.48,
+          "entry_rsi": 47.710936861032486,
+          "exit_rsi": 45.18543583896035,
+          "regime": "NEUTRAL",
+          "hold_days": 397
+        },
+        {
+          "entry_date": "2026-03-18",
+          "exit_date": "2026-03-19",
+          "entry_price": 34348.578125,
+          "exit_price": 33689.6796875,
+          "return_pct": -1.92,
+          "entry_rsi": 43.934606551809026,
+          "exit_rsi": 40.85720331893846,
+          "regime": "NEUTRAL",
+          "hold_days": 399
+        },
+        {
+          "entry_date": "2026-03-20",
+          "exit_date": "2026-03-23",
+          "entry_price": 33543.87890625,
+          "exit_price": 32722.5,
+          "return_pct": -2.45,
+          "entry_rsi": 41.623236989976405,
+          "exit_rsi": 41.399950736249686,
+          "regime": "NEUTRAL",
+          "hold_days": 401
+        },
+        {
+          "entry_date": "2026-03-24",
+          "exit_date": "2026-03-25",
+          "entry_price": 32612.240234375,
+          "exit_price": 33439.109375,
+          "return_pct": 2.54,
+          "entry_rsi": 48.63309781621482,
+          "exit_rsi": 48.521406640961736,
+          "regime": "NEUTRAL",
+          "hold_days": 403
+        },
+        {
+          "entry_date": "2026-03-26",
+          "exit_date": "2026-03-27",
+          "entry_price": 33337.62109375,
+          "exit_price": 33112.58984375,
+          "return_pct": -0.68,
+          "entry_rsi": 48.34967227761519,
+          "exit_rsi": 57.51111712260848,
+          "regime": "NEUTRAL",
+          "hold_days": 405
+        },
+        {
+          "entry_date": "2026-03-30",
+          "exit_date": "2026-03-31",
+          "entry_price": 32518.16015625,
+          "exit_price": 31722.990234375,
+          "return_pct": -2.45,
+          "entry_rsi": 48.07917637922234,
+          "exit_rsi": 30.26108103872636,
+          "regime": "NEUTRAL",
+          "hold_days": 407
+        },
+        {
+          "entry_date": "2026-04-01",
+          "exit_date": "2026-04-02",
+          "entry_price": 33174.8203125,
+          "exit_price": 32572.4296875,
+          "return_pct": -1.82,
+          "entry_rsi": 47.08281401700559,
+          "exit_rsi": 44.4041948736363,
+          "regime": "NEUTRAL",
+          "hold_days": 409
+        },
+        {
+          "entry_date": "2026-04-07",
+          "exit_date": "2026-04-08",
+          "entry_price": 33229.8203125,
+          "exit_price": 34761.37890625,
+          "return_pct": 4.61,
+          "entry_rsi": 49.295414835536555,
+          "exit_rsi": 55.11820351923378,
+          "regime": "NEUTRAL",
+          "hold_days": 411
+        },
+        {
+          "entry_date": "2026-04-09",
+          "exit_date": "2026-04-10",
+          "entry_price": 34861.16015625,
+          "exit_price": 35417.828125,
+          "return_pct": 1.6,
+          "entry_rsi": 52.97242834354867,
+          "exit_rsi": 60.141660385524574,
+          "regime": "BULL",
+          "hold_days": 413
+        },
+        {
+          "entry_date": "2026-04-13",
+          "exit_date": "2026-04-14",
+          "entry_price": 35457.2890625,
+          "exit_price": 36296.12109375,
+          "return_pct": 2.37,
+          "entry_rsi": 61.37079143083575,
+          "exit_rsi": 71.19293802704533,
+          "regime": "BULL",
+          "hold_days": 415
+        }
+      ]
+    },
+    "sim_stats": {
+      "total_trades": 0,
+      "win_rate": 0,
+      "avg_return": 0,
+      "max_gain": 0,
+      "max_loss": 0,
+      "total_profit": 0,
+      "last_updated": "2026-04-25 16:06"
+    },
+    "learnings": [
+      {
+        "type": "backtest_avg_return",
+        "desc": "歷史均報酬0.19%",
+        "avg_return": 0.19
+      },
+      {
+        "type": "market_regime",
+        "desc": "OVERBOUGHT市場禁止進場（歷史勝率97.4% BIAS離場）",
+        "regime": "OVERBOUGHT",
+        "rule": "BIAS>5.0時離場"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-04-26 00:05:22",
+    "backtest": {
+      "date": "2026-04-26 00:05",
+      "total_days": 425,
+      "total_trades": 114,
+      "win_rate": 57.0,
+      "avg_return": 0.19,
+      "max_gain": 4.61,
+      "max_loss": -4.52,
+      "regime_stats": {
+        "NEUTRAL": {
+          "count": 105,
+          "total_return": 13.440130984961097,
+          "avg_return": 0.128
+        },
+        "OVERSOLD": {
+          "count": 66,
+          "total_return": 13.382780981477072,
+          "avg_return": 0.203
+        },
+        "BEAR": {
+          "count": 17,
+          "total_return": -5.076487322816021,
+          "avg_return": -0.299
+        },
+        "OVERBOUGHT": {
+          "count": 22,
+          "total_return": 4.942855006798404,
+          "avg_return": 0.225
+        },
+        "BULL": {
+          "count": 214,
+          "total_return": 31.99681020445648,
+          "avg_return": 0.15
+        }
+      },
+      "trades": [
+        {
+          "entry_date": "2025-12-24",
+          "exit_date": "2025-12-26",
+          "entry_price": 28371.98046875,
+          "exit_price": 28556.01953125,
+          "return_pct": 0.65,
+          "entry_rsi": 59.51074693451268,
+          "exit_rsi": 59.495497099105094,
+          "regime": "BULL",
+          "hold_days": 349
+        },
+        {
+          "entry_date": "2025-12-29",
+          "exit_date": "2025-12-30",
+          "entry_price": 28810.890625,
+          "exit_price": 28707.130859375,
+          "return_pct": -0.36,
+          "entry_rsi": 58.564877277036615,
+          "exit_rsi": 58.91152977279182,
+          "regime": "BULL",
+          "hold_days": 351
+        },
+        {
+          "entry_date": "2025-12-31",
+          "exit_date": "2026-01-02",
+          "entry_price": 28963.599609375,
+          "exit_price": 29349.810546875,
+          "return_pct": 1.33,
+          "entry_rsi": 59.43989974063851,
+          "exit_rsi": 72.14664430340822,
+          "regime": "BULL",
+          "hold_days": 353
+        },
+        {
+          "entry_date": "2026-02-02",
+          "exit_date": "2026-02-03",
+          "entry_price": 31624.029296875,
+          "exit_price": 32195.359375,
+          "return_pct": 1.81,
+          "entry_rsi": 60.03944720866726,
+          "exit_rsi": 62.78432098986749,
+          "regime": "BULL",
+          "hold_days": 375
+        },
+        {
+          "entry_date": "2026-02-05",
+          "exit_date": "2026-02-06",
+          "entry_price": 31801.26953125,
+          "exit_price": 31782.919921875,
+          "return_pct": -0.06,
+          "entry_rsi": 54.126692388174675,
+          "exit_rsi": 51.58036300275632,
+          "regime": "BULL",
+          "hold_days": 378
+        },
+        {
+          "entry_date": "2026-02-09",
+          "exit_date": "2026-02-10",
+          "entry_price": 32404.619140625,
+          "exit_price": 33072.96875,
+          "return_pct": 2.06,
+          "entry_rsi": 56.38849316341226,
+          "exit_rsi": 67.5635831235274,
+          "regime": "BULL",
+          "hold_days": 380
+        },
+        {
+          "entry_date": "2026-03-04",
+          "exit_date": "2026-03-05",
+          "entry_price": 32828.87890625,
+          "exit_price": 33672.94140625,
+          "return_pct": 2.57,
+          "entry_rsi": 58.1520577079572,
+          "exit_rsi": 59.64154135788717,
+          "regime": "BULL",
+          "hold_days": 389
+        },
+        {
+          "entry_date": "2026-03-06",
+          "exit_date": "2026-03-09",
+          "entry_price": 33599.5390625,
+          "exit_price": 32110.419921875,
+          "return_pct": -4.43,
+          "entry_rsi": 58.569801902381236,
+          "exit_rsi": 51.7886276795515,
+          "regime": "BULL",
+          "hold_days": 391
+        },
+        {
+          "entry_date": "2026-03-10",
+          "exit_date": "2026-03-11",
+          "entry_price": 32771.87109375,
+          "exit_price": 34114.19140625,
+          "return_pct": 4.1,
+          "entry_rsi": 55.32540924760872,
+          "exit_rsi": 58.54287742678247,
+          "regime": "BULL",
+          "hold_days": 393
+        },
+        {
+          "entry_date": "2026-03-12",
+          "exit_date": "2026-03-13",
+          "entry_price": 33581.859375,
+          "exit_price": 33400.3203125,
+          "return_pct": -0.54,
+          "entry_rsi": 52.578014646137426,
+          "exit_rsi": 48.921110570777245,
+          "regime": "BULL",
+          "hold_days": 395
+        },
+        {
+          "entry_date": "2026-03-16",
+          "exit_date": "2026-03-17",
+          "entry_price": 33342.51171875,
+          "exit_price": 33836.5703125,
+          "return_pct": 1.48,
+          "entry_rsi": 47.710936861032486,
+          "exit_rsi": 45.18543583896035,
+          "regime": "NEUTRAL",
+          "hold_days": 397
+        },
+        {
+          "entry_date": "2026-03-18",
+          "exit_date": "2026-03-19",
+          "entry_price": 34348.578125,
+          "exit_price": 33689.6796875,
+          "return_pct": -1.92,
+          "entry_rsi": 43.934606551809026,
+          "exit_rsi": 40.85720331893846,
+          "regime": "NEUTRAL",
+          "hold_days": 399
+        },
+        {
+          "entry_date": "2026-03-20",
+          "exit_date": "2026-03-23",
+          "entry_price": 33543.87890625,
+          "exit_price": 32722.5,
+          "return_pct": -2.45,
+          "entry_rsi": 41.623236989976405,
+          "exit_rsi": 41.399950736249686,
+          "regime": "NEUTRAL",
+          "hold_days": 401
+        },
+        {
+          "entry_date": "2026-03-24",
+          "exit_date": "2026-03-25",
+          "entry_price": 32612.240234375,
+          "exit_price": 33439.109375,
+          "return_pct": 2.54,
+          "entry_rsi": 48.63309781621482,
+          "exit_rsi": 48.521406640961736,
+          "regime": "NEUTRAL",
+          "hold_days": 403
+        },
+        {
+          "entry_date": "2026-03-26",
+          "exit_date": "2026-03-27",
+          "entry_price": 33337.62109375,
+          "exit_price": 33112.58984375,
+          "return_pct": -0.68,
+          "entry_rsi": 48.34967227761519,
+          "exit_rsi": 57.51111712260848,
+          "regime": "NEUTRAL",
+          "hold_days": 405
+        },
+        {
+          "entry_date": "2026-03-30",
+          "exit_date": "2026-03-31",
+          "entry_price": 32518.16015625,
+          "exit_price": 31722.990234375,
+          "return_pct": -2.45,
+          "entry_rsi": 48.07917637922234,
+          "exit_rsi": 30.26108103872636,
+          "regime": "NEUTRAL",
+          "hold_days": 407
+        },
+        {
+          "entry_date": "2026-04-01",
+          "exit_date": "2026-04-02",
+          "entry_price": 33174.8203125,
+          "exit_price": 32572.4296875,
+          "return_pct": -1.82,
+          "entry_rsi": 47.08281401700559,
+          "exit_rsi": 44.4041948736363,
+          "regime": "NEUTRAL",
+          "hold_days": 409
+        },
+        {
+          "entry_date": "2026-04-07",
+          "exit_date": "2026-04-08",
+          "entry_price": 33229.8203125,
+          "exit_price": 34761.37890625,
+          "return_pct": 4.61,
+          "entry_rsi": 49.295414835536555,
+          "exit_rsi": 55.11820351923378,
+          "regime": "NEUTRAL",
+          "hold_days": 411
+        },
+        {
+          "entry_date": "2026-04-09",
+          "exit_date": "2026-04-10",
+          "entry_price": 34861.16015625,
+          "exit_price": 35417.828125,
+          "return_pct": 1.6,
+          "entry_rsi": 52.97242834354867,
+          "exit_rsi": 60.141660385524574,
+          "regime": "BULL",
+          "hold_days": 413
+        },
+        {
+          "entry_date": "2026-04-13",
+          "exit_date": "2026-04-14",
+          "entry_price": 35457.2890625,
+          "exit_price": 36296.12109375,
+          "return_pct": 2.37,
+          "entry_rsi": 61.37079143083575,
+          "exit_rsi": 71.19293802704533,
+          "regime": "BULL",
+          "hold_days": 415
+        }
+      ]
+    },
+    "sim_stats": {
+      "total_trades": 0,
+      "win_rate": 0,
+      "avg_return": 0,
+      "max_gain": 0,
+      "max_loss": 0,
+      "total_profit": 0,
+      "last_updated": "2026-04-26 00:05"
+    },
+    "learnings": [
+      {
+        "type": "backtest_avg_return",
+        "desc": "歷史均報酬0.19%",
+        "avg_return": 0.19
+      },
+      {
+        "type": "market_regime",
+        "desc": "OVERBOUGHT市場禁止進場（歷史勝率97.4% BIAS離場）",
+        "regime": "OVERBOUGHT",
+        "rule": "BIAS>5.0時離場"
+      }
+    ]
+  }
+]

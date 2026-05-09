@@ -1,0 +1,93 @@
+{
+  "date": "2026-05-08",
+  "universe": "tw500",
+  "strategy": "value",
+  "strategy_name": "價值投資",
+  "total_scanned": 5,
+  "top_picks": [
+    {
+      "symbol": "2881.TW",
+      "price": 96.69999694824219,
+      "score": 76.1,
+      "details": {
+        "pe_ok": true,
+        "pb_ok": true,
+        "dy_ok": true
+      },
+      "analyst_target": 98.025,
+      "analyst_rating": "buy",
+      "rsi": 81.2949324387371,
+      "ma_bullish": false,
+      "pe_ratio": 11.553165,
+      "revenue_growth": 24.0
+    },
+    {
+      "symbol": "2892.TW",
+      "price": 29.5,
+      "score": 67.0,
+      "details": {
+        "pe_ok": true,
+        "pb_ok": true,
+        "dy_ok": true
+      },
+      "analyst_target": 30.9,
+      "analyst_rating": "none",
+      "rsi": 60.0,
+      "ma_bullish": false,
+      "pe_ratio": 15.775401,
+      "revenue_growth": 12.0
+    },
+    {
+      "symbol": "2891.TW",
+      "price": 56.400001525878906,
+      "score": 60.9,
+      "details": {
+        "pe_ok": true,
+        "pb_ok": true,
+        "dy_ok": true
+      },
+      "analyst_target": 56.05,
+      "analyst_rating": "strong_buy",
+      "rsi": 72.00002034505209,
+      "ma_bullish": true,
+      "pe_ratio": 13.891626,
+      "revenue_growth": 43.3
+    },
+    {
+      "symbol": "2317.TW",
+      "price": 250.0,
+      "score": 55.1,
+      "details": {
+        "pe_ok": true,
+        "pb_ok": true,
+        "dy_ok": true
+      },
+      "analyst_target": 292.6316,
+      "analyst_rating": "buy",
+      "rsi": 79.33333333333333,
+      "ma_bullish": true,
+      "pe_ratio": 18.642803,
+      "revenue_growth": 22.3
+    },
+    {
+      "symbol": "2882.TW",
+      "price": 80.0,
+      "score": 47.9,
+      "details": {
+        "pe_ok": true,
+        "pb_ok": true,
+        "dy_ok": false
+      },
+      "analyst_target": 78.35556,
+      "analyst_rating": "buy",
+      "rsi": 68.38234469140235,
+      "ma_bullish": true,
+      "pe_ratio": 11.331445,
+      "revenue_growth": 112.9
+    }
+  ],
+  "summary": {
+    "high_score_count": 3,
+    "medium_score_count": 2
+  }
+}

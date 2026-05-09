@@ -39,13 +39,36 @@ def get_db_info(db_name):
     return {'latest': latest, 'age_days': age, 'size_mb': round(size_mb, 2), 'tables': len(tables), 'status': 'ok' if age < 999 else 'stale'}
 
 def check_gateway():
+    # 方法1：TCP Port 檢查（最可靠）
+    try:
+        import socket
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(3)
+        result = sock.connect_ex(('127.0.0.1', 18789))
+        sock.close()
+        if result == 0:
+            return {'status': 'online', 'uptime': 'N/A', 'method': 'tcp'}
+    except:
+        pass
+    
+    # 方法2：HTTP Health 端點
     try:
         req = urllib.request.Request('http://127.0.0.1:18789/health', timeout=3)
         with urllib.request.urlopen(req, timeout=3) as resp:
             gw_data = json.loads(resp.read())
-        return {'status': 'online', 'uptime': gw_data.get('uptime', 'N/A')}
+        return {'status': 'online', 'uptime': gw_data.get('uptime', 'N/A'), 'method': 'http'}
     except:
-        return {'status': 'offline', 'uptime': 'N/A'}
+        pass
+    
+    # 方法3：CLI 檢查
+    try:
+        out = subprocess.run(['node', OPENCLAW_CLI, 'gateway', 'status'], capture_output=True, text=True, timeout=10)
+        if 'Listening' in out.stdout or 'ok' in out.stdout.lower():
+            return {'status': 'online', 'uptime': 'N/A', 'method': 'cli'}
+    except:
+        pass
+    
+    return {'status': 'offline', 'uptime': 'N/A', 'method': 'all_failed'}
 
 def check_cron():
     try:

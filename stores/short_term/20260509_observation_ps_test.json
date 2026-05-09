@@ -1,0 +1,18 @@
+[
+  {
+    "id": "st_20260509_001",
+    "type": "observation",
+    "source": "ps_test",
+    "timestamp": "2026-05-09T07:05:01.970667",
+    "expiry_days": 7,
+    "tags": [
+      "test",
+      "ps_integration"
+    ],
+    "summary": "Test observation from PowerShell integration",
+    "detail": "",
+    "importance": 5,
+    "links": [],
+    "status": "active"
+  }
+]

@@ -1,65 +1,69 @@
 {
-  "updated_at": "2026-05-07T15:32:14",
+  "updated_at": "2026-05-08T14:33:47",
   "version": 1,
   "gateway": {
-    "status": "offline",
-    "uptime": "N/A"
+    "status": "online",
+    "uptime": "N/A",
+    "method": "tcp"
   },
   "dbs": {
     "yfinance": {
       "latest": "2026-05-07",
-      "age_days": 0,
-      "size_mb": 177.54,
+      "age_days": 1,
+      "size_mb": 177.55,
       "tables": 4,
       "status": "ok"
     },
     "macro_institutional": {
       "latest": "2026-05-06",
-      "age_days": 1,
+      "age_days": 2,
       "size_mb": 8.39,
       "tables": 8,
       "status": "ok"
     },
     "etf": {
-      "latest": "2026-05-06",
-      "age_days": 1,
+      "latest": "2026-05-08",
+      "age_days": 0,
       "size_mb": 7.05,
       "tables": 2,
       "status": "ok"
     },
     "tw_history": {
-      "latest": "2026-05-06",
+      "latest": "2026-05-07",
       "age_days": 1,
       "size_mb": 9.45,
       "tables": 12,
       "status": "ok"
     },
     "leo_stocks": {
-      "latest": "2026-05-04",
-      "age_days": 3,
-      "size_mb": 0.04,
-      "tables": 5,
-      "status": "ok"
+      "latest": null,
+      "age_days": 999,
+      "size_mb": 0,
+      "tables": 0,
+      "status": "missing"
     },
     "finmind": {
-      "latest": "2026-04-30",
-      "age_days": 7,
-      "size_mb": 0.82,
+      "latest": "2026-05-08",
+      "age_days": 0,
+      "size_mb": 0.84,
       "tables": 10,
       "status": "ok"
     }
   },
   "cron_summary": {
-    "total": 51,
-    "ok": 40,
-    "error": 0,
-    "idle": 8,
+    "total": 63,
+    "ok": 41,
+    "error": 2,
+    "idle": 17,
     "running": 2,
-    "error_jobs": []
+    "error_jobs": [
+      "News Trends PM (Reports) cron 0 14 * * * (exact) in 23h 27m ago error isolated announce -> telegram:1616824689 (explicit) tina-re... -",
+      "Price Check 價格檢核（每日3次） cron 30 13 * * 1-5 (exact) in 3d 1h ago error isolated announce -> telegram:1616824689 (explicit) - -"
+    ]
   },
   "market": {
-    "twii": 41933.78125,
-    "twii_chg": 1.93,
+    "twii": 41603.94140625,
+    "twii_chg": -0.79,
     "twii_rsi": NaN,
     "signal": "neutral"
   },
@@ -68,9 +72,9 @@
       "name": "元大高息低波",
       "qty": 300,
       "cost": 53.22,
-      "price": 54.29999923706055,
-      "pnl": 324.0,
-      "pnl_pct": 2.03
+      "price": 54.75,
+      "pnl": 459.0,
+      "pnl_pct": 2.87
     }
   }
 }

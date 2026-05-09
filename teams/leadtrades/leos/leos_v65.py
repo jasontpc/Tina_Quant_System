@@ -16,6 +16,11 @@ import numpy as np
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+# 修補：確保 Tina_Quant_System 在 sys.path 中（讓 tina_think 可被找到）
+_TINA_ROOT = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System'
+if _TINA_ROOT not in sys.path:
+    sys.path.insert(0, _TINA_ROOT)
+
 TRADES_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_trades.json'
 ANALYSIS_FILE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\teams\leadtrades\leos\leos_analysis_v65.json'
 
@@ -522,6 +527,7 @@ def run_cycle():
             print(f'  EXIT {t["symbol"]}({mkt}): {reason} -> ${cur} ({pnl_pct:+.1f}%)')
 
     # === 評估進場 ===
+    open_pos = [t for t in trades_data['trades'] if t.get('status') == 'open']
     for stock in analysis:
         sym = stock['symbol']
         mkt = stock['market']

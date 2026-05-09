@@ -1,0 +1,93 @@
+{
+  "date": "2026-05-08T18:02:59.629571",
+  "total_stocks": 17,
+  "high_risk_count": 6,
+  "alerts_count": 2,
+  "high_risk": [
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 397.989990234375,
+      "rsi_14": 84.31444603055701,
+      "short_ratio": 2.72,
+      "days_to_cover": 0.0,
+      "change_pct": -0.012566151510679122
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "price": 109.62000274658203,
+      "rsi_14": 81.80692185550494,
+      "short_ratio": 1.38,
+      "days_to_cover": 0.0,
+      "change_pct": -2.9997339399762915
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Nasdaq 100",
+      "price": 694.9400024414062,
+      "rsi_14": 78.78108070406527,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.11929474776779606
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "ProShares 3x Long",
+      "price": 71.33999633789062,
+      "rsi_14": 78.78104265109006,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": -0.3213683916645693
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 408.4599914550781,
+      "rsi_14": 76.01295065176215,
+      "short_ratio": 1.08,
+      "days_to_cover": 0.0,
+      "change_pct": -3.068421828682105
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 271.1700134277344,
+      "rsi_14": 74.56502366117059,
+      "short_ratio": 2.02,
+      "days_to_cover": 0.0,
+      "change_pct": -1.389133038400723
+    }
+  ],
+  "short_squeeze": [],
+  "alerts": [
+    {
+      "symbol": "GOOGL",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 397.989990234375,
+      "margin_ratio": null,
+      "reason": "RSI=84.3 overbought, margin risk high",
+      "timestamp": "2026-05-08T18:02:59.627565"
+    },
+    {
+      "symbol": "INTC",
+      "alert_type": "OVERBOUGHT",
+      "severity": "HIGH",
+      "price": 109.62000274658203,
+      "margin_ratio": null,
+      "reason": "RSI=81.8 overbought, margin risk high",
+      "timestamp": "2026-05-08T18:02:59.627565"
+    }
+  ],
+  "params": {
+    "initial_margin": 0.5,
+    "maintenance_margin": 0.25,
+    "margin_call_threshold": 0.3,
+    "max_margin_ratio": 0.4
+  },
+  "summary": {
+    "high_severity": 2,
+    "medium_severity": 0
+  }
+}

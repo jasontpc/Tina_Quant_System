@@ -1,0 +1,12 @@
+{
+  "consecutive_failures": 1,
+  "restart_cooldown": true,
+  "cooldown_until": 1778255167.1669965,
+  "last_restart": "2026-05-08T23:44:58.898257",
+  "restart_count": 1,
+  "gateway_alive": true,
+  "started_at": "2026-05-08T21:25:50.707237",
+  "last_check": "2026-05-08T23:44:58.898257",
+  "last_event": "restart_verified",
+  "last_event_time": "2026-05-08T23:45:12.195042"
+}

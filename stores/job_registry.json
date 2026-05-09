@@ -1,0 +1,408 @@
+{
+  "profiles": {
+    "universe_scanner": {
+      "name": "Universe Scanner",
+      "universe": "MULTI",
+      "job_type": "scanner",
+      "frequency": "weekly",
+      "tags": [
+        "scanner",
+        "value",
+        "growth",
+        "momentum",
+        "revenue"
+      ],
+      "output_format": "reports/{universe}/{date}_{strategy}.json",
+      "memory_types": [
+        "observation",
+        "decision",
+        "metric"
+      ],
+      "decision_tags": [
+        "buy",
+        "watch",
+        "sell"
+      ],
+      "metrics": [
+        "total_scanned",
+        "high_quality",
+        "strategy",
+        "universe"
+      ],
+      "signals_per_run": 5,
+      "status": "active",
+      "brain_aware": true
+    },
+    "macro_morning": {
+      "name": "晨間宏觀快報",
+      "universe": "MULTI",
+      "job_type": "macro",
+      "frequency": "daily",
+      "tags": [
+        "macro",
+        "morning",
+        "TWII",
+        "VIX",
+        "DXY",
+        "geopolitical"
+      ],
+      "output_format": "reports/macro/{date}_morning.json",
+      "memory_types": [
+        "observation"
+      ],
+      "metrics": [
+        "TWII_change",
+        "VIX",
+        "DXY",
+        "yield_10y",
+        "confidence"
+      ],
+      "forecast_tags": [
+        "TWII_direction",
+        "VIX_direction",
+        "台股影響"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "macro_data_fetcher.py"
+    },
+    "macro_afternoon": {
+      "name": "盤後宏觀整合報告",
+      "universe": "MULTI",
+      "job_type": "macro",
+      "frequency": "daily",
+      "tags": [
+        "macro",
+        "afternoon",
+        "TWII",
+        "VIX",
+        "geopolitical",
+        "thematic"
+      ],
+      "output_format": "reports/macro/{date}_afternoon.json",
+      "memory_types": [
+        "observation"
+      ],
+      "metrics": [
+        "TWII_close",
+        "VIX",
+        "yield_curve",
+        "thematic_trends"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "macro_data_fetcher.py"
+    },
+    "nana_v68": {
+      "name": "Nana 波段v6.4",
+      "universe": "TW",
+      "job_type": "nana",
+      "frequency": "intraday",
+      "schedule": "0 8,10,13,15,17 * * 1-5",
+      "tags": [
+        "TW",
+        "nana",
+        "波段",
+        "RSI",
+        "MA",
+        "value"
+      ],
+      "output_format": "logs/nana_v68_{timestamp}.json",
+      "memory_types": [
+        "decision",
+        "metric"
+      ],
+      "decision_tags": [
+        "buy",
+        "sell",
+        "hold",
+        "watch"
+      ],
+      "metrics": [
+        "signals_total",
+        "win_rate_estimate",
+        "positions_active"
+      ],
+      "signals_per_run": 10,
+      "status": "active",
+      "brain_aware": false,
+      "script": "teams/nana/nana_v68.py",
+      "framework": "NANA_BAND_SYSTEM"
+    },
+    "leo_v65": {
+      "name": "Leo 科技股波段v6.5",
+      "universe": "TW",
+      "job_type": "leo",
+      "frequency": "intraday",
+      "schedule": "0 8,11,14,17,21 * * 1-5",
+      "tags": [
+        "TW",
+        "leo",
+        "科技股",
+        "AI",
+        "RSI"
+      ],
+      "output_format": "logs/leos_v65_{timestamp}.json",
+      "memory_types": [
+        "decision",
+        "metric"
+      ],
+      "decision_tags": [
+        "buy",
+        "sell",
+        "hold",
+        "watch"
+      ],
+      "metrics": [
+        "signals_total",
+        "win_rate_estimate",
+        "tech_sector_exposure"
+      ],
+      "signals_per_run": 10,
+      "status": "active",
+      "brain_aware": false,
+      "script": "teams/leadtrades/leos/leos_v65.py",
+      "framework": "LEO_AI_CHAIN"
+    },
+    "daily_db_update": {
+      "name": "每日DB收盤更新",
+      "universe": "MULTI",
+      "job_type": "db",
+      "frequency": "daily",
+      "schedule": "30 16 * * 1-5",
+      "tags": [
+        "db",
+        "update",
+        "TW",
+        "US",
+        "closing"
+      ],
+      "memory_types": [
+        "metric"
+      ],
+      "metrics": [
+        "symbols_updated",
+        "total_rows",
+        "new_records"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "scripts/daily_db_update.py"
+    },
+    "etf_daily_update": {
+      "name": "ETF 每日收盤更新",
+      "universe": "MULTI",
+      "job_type": "etf",
+      "frequency": "daily",
+      "schedule": "35 16 * * 1-5",
+      "tags": [
+        "etf",
+        "update",
+        "TW",
+        "US"
+      ],
+      "memory_types": [
+        "metric"
+      ],
+      "metrics": [
+        "etfs_updated",
+        "total_records"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "scripts/etf_daily_update.py"
+    },
+    "tina_auto_learner": {
+      "name": "Tina 自動學習擴充DB",
+      "universe": "MULTI",
+      "job_type": "learner",
+      "frequency": "daily",
+      "schedule": "0 17 * * 1-5",
+      "tags": [
+        "learn",
+        "expand",
+        "db"
+      ],
+      "memory_types": [
+        "lesson",
+        "metric"
+      ],
+      "metrics": [
+        "symbols_added",
+        "data_quality",
+        "learning_actions"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "scripts/tina_auto_learner.py"
+    },
+    "daily_light_distill": {
+      "name": "每日輕度蒸餾",
+      "universe": "MEMORY",
+      "job_type": "distill",
+      "frequency": "daily",
+      "schedule": "0 20 * * *",
+      "tags": [
+        "distill",
+        "short_term",
+        "cleanup"
+      ],
+      "memory_types": [
+        "metric"
+      ],
+      "metrics": [
+        "short_term_total",
+        "cleaned",
+        "preserved"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "stores/memory_distiller.py"
+    },
+    "weekly_medium_distill": {
+      "name": "每週中度蒸餾",
+      "universe": "MEMORY",
+      "job_type": "distill",
+      "frequency": "weekly",
+      "schedule": "0 18 * * 5",
+      "tags": [
+        "distill",
+        "promotion",
+        "pattern",
+        "lesson"
+      ],
+      "memory_types": [
+        "pattern",
+        "lesson"
+      ],
+      "metrics": [
+        "promotions",
+        "patterns_total",
+        "lessons_total"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "stores/memory_distiller.py"
+    },
+    "monthly_deep_distill": {
+      "name": "月度深度蒸餾",
+      "universe": "MEMORY",
+      "job_type": "distill",
+      "frequency": "monthly",
+      "schedule": "0 22 * * 0",
+      "tags": [
+        "distill",
+        "deep",
+        "framework",
+        "decay"
+      ],
+      "memory_types": [
+        "framework_change",
+        "pattern"
+      ],
+      "metrics": [
+        "patterns_decayed",
+        "patterns_confirmed",
+        "frameworks_updated"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "stores/memory_distiller.py"
+    },
+    "weekly_brain_distill": {
+      "name": "每週大腦蒸餾",
+      "universe": "MEMORY",
+      "job_type": "distill",
+      "frequency": "weekly",
+      "schedule": "0 10 * * 0",
+      "tags": [
+        "distill",
+        "brain",
+        "decision_patterns",
+        "macro"
+      ],
+      "memory_types": [
+        "lesson",
+        "framework_change"
+      ],
+      "metrics": [
+        "decision_patterns_updated",
+        "macro_lessons"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": null
+    },
+    "risk_check": {
+      "name": "風控檢查",
+      "universe": "MULTI",
+      "job_type": "risk",
+      "frequency": "hourly",
+      "tags": [
+        "risk",
+        "stop_loss",
+        "RSI",
+        "holding_days"
+      ],
+      "memory_types": [
+        "lesson",
+        "alert"
+      ],
+      "metrics": [
+        "positions_checked",
+        "violations",
+        "alerts"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": null
+    },
+    "autonomous_decision": {
+      "name": "自主決策五大層",
+      "universe": "MULTI",
+      "job_type": "decision",
+      "frequency": "hourly",
+      "tags": [
+        "autonomous",
+        "decision",
+        "layer"
+      ],
+      "memory_types": [
+        "decision",
+        "observation"
+      ],
+      "metrics": [
+        "decisions_made",
+        "confidence"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": null
+    },
+    "morning_db_snapshot": {
+      "name": "晨間資料庫快照",
+      "universe": "MULTI",
+      "job_type": "snapshot",
+      "frequency": "daily",
+      "schedule": "0 7 * * 1-5",
+      "tags": [
+        "morning",
+        "snapshot",
+        "TWII",
+        "VIX"
+      ],
+      "memory_types": [
+        "observation",
+        "metric"
+      ],
+      "metrics": [
+        "symbols_snapshot",
+        "prev_close_available"
+      ],
+      "status": "active",
+      "brain_aware": false,
+      "script": "macro_data_fetcher.py"
+    }
+  },
+  "updated": "2026-05-09T00:35:45.583123"
+}

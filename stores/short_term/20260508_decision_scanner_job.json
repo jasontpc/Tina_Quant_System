@@ -1,0 +1,92 @@
+[
+  {
+    "id": "st_20260508_002",
+    "type": "decision",
+    "source": "scanner_job",
+    "timestamp": "2026-05-08T16:01:40.251527",
+    "expiry_days": 60,
+    "tags": [
+      "TW500",
+      "2881.TW",
+      "buy",
+      "scanner"
+    ],
+    "summary": "2881.TW buy @ $96.69999694824219 — value評分76.1分",
+    "detail": "{\"symbol\": \"2881.TW\", \"action\": \"buy\", \"price\": 96.69999694824219, \"score\": 76.1, \"reason\": \"value評分76.1分\", \"strength\": 7.609999999999999, \"strategy\": \"value\", \"universe\": \"tw500\"}",
+    "importance": 7.609999999999999,
+    "links": [],
+    "status": "active"
+  },
+  {
+    "id": "st_20260508_003",
+    "type": "decision",
+    "source": "scanner_job",
+    "timestamp": "2026-05-08T16:01:40.254540",
+    "expiry_days": 60,
+    "tags": [
+      "TW500",
+      "2892.TW",
+      "buy",
+      "scanner"
+    ],
+    "summary": "2892.TW buy @ $29.5 — value評分67.0分",
+    "detail": "{\"symbol\": \"2892.TW\", \"action\": \"buy\", \"price\": 29.5, \"score\": 67.0, \"reason\": \"value評分67.0分\", \"strength\": 6.7, \"strategy\": \"value\", \"universe\": \"tw500\"}",
+    "importance": 6.7,
+    "links": [],
+    "status": "active"
+  },
+  {
+    "id": "st_20260508_004",
+    "type": "decision",
+    "source": "scanner_job",
+    "timestamp": "2026-05-08T16:01:40.262500",
+    "expiry_days": 60,
+    "tags": [
+      "TW500",
+      "2891.TW",
+      "buy",
+      "scanner"
+    ],
+    "summary": "2891.TW buy @ $56.400001525878906 — value評分60.9分",
+    "detail": "{\"symbol\": \"2891.TW\", \"action\": \"buy\", \"price\": 56.400001525878906, \"score\": 60.9, \"reason\": \"value評分60.9分\", \"strength\": 6.09, \"strategy\": \"value\", \"universe\": \"tw500\"}",
+    "importance": 6.09,
+    "links": [],
+    "status": "active"
+  },
+  {
+    "id": "st_20260508_005",
+    "type": "decision",
+    "source": "scanner_job",
+    "timestamp": "2026-05-08T16:01:40.269529",
+    "expiry_days": 60,
+    "tags": [
+      "TW500",
+      "2317.TW",
+      "watch",
+      "scanner"
+    ],
+    "summary": "2317.TW watch @ $250.0 — value評分55.1分",
+    "detail": "{\"symbol\": \"2317.TW\", \"action\": \"watch\", \"price\": 250.0, \"score\": 55.1, \"reason\": \"value評分55.1分\", \"strength\": 5.51, \"strategy\": \"value\", \"universe\": \"tw500\"}",
+    "importance": 5.51,
+    "links": [],
+    "status": "active"
+  },
+  {
+    "id": "st_20260508_006",
+    "type": "decision",
+    "source": "scanner_job",
+    "timestamp": "2026-05-08T16:01:40.276005",
+    "expiry_days": 60,
+    "tags": [
+      "TW500",
+      "2882.TW",
+      "watch",
+      "scanner"
+    ],
+    "summary": "2882.TW watch @ $80.0 — value評分47.9分",
+    "detail": "{\"symbol\": \"2882.TW\", \"action\": \"watch\", \"price\": 80.0, \"score\": 47.9, \"reason\": \"value評分47.9分\", \"strength\": 4.79, \"strategy\": \"value\", \"universe\": \"tw500\"}",
+    "importance": 4.79,
+    "links": [],
+    "status": "active"
+  }
+]
