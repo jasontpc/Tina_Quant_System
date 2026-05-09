@@ -1,0 +1,23 @@
+{
+  "execution_id": "20260509_213205",
+  "timestamp": "2026-05-09T21:32:05.471330",
+  "job_name": "leo_v65",
+  "universe": "TW",
+  "success": false,
+  "signals": [],
+  "metrics": {
+    "error": "'list' object has no attribute 'get'"
+  },
+  "health": {
+    "status": "running",
+    "errors": [
+      {
+        "timestamp": "2026-05-09T21:32:20.211495",
+        "error": "leos_v65.py 執行失敗: 'list' object has no attribute 'get'"
+      }
+    ],
+    "warnings": [],
+    "duration_ms": 0,
+    "last_success": null
+  }
+}

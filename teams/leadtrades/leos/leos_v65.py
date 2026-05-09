@@ -16,6 +16,10 @@ import numpy as np
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+# Tina 標準化框架
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'stores'))
+from script_standards import ScriptStandard
+
 # 修補：確保 Tina_Quant_System 在 sys.path 中（讓 tina_think 可被找到）
 _TINA_ROOT = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System'
 if _TINA_ROOT not in sys.path:
@@ -654,4 +658,51 @@ def run_cycle():
     return trades_data
 
 if __name__ == '__main__':
-    run_cycle()
+    # Tina 標準化入口
+    std = ScriptStandard('leo_v65', 'TW')
+    
+    try:
+        context = std.before_execute()
+        print(f"[Brain-Aware] Execution ID: {context['execution_id']}")
+        
+        result = run_cycle()
+        
+        # 讀取分析結果作為 signals
+        if os.path.exists(ANALYSIS_FILE):
+            with open(ANALYSIS_FILE, 'r', encoding='utf-8') as f:
+                analysis = json.load(f)
+            # analysis 可能是 list 或 dict
+            if isinstance(analysis, list):
+                signals = analysis[:10]
+                metrics = {
+                    'total_trades': len(result.get('trades', [])),
+                    'open_positions': len([t for t in result.get('trades', []) if t.get('status') == 'open']),
+                    'entries': len(analysis),
+                    'exits': 0
+                }
+            else:
+                signals = analysis.get('entry_signals', [])[:10] if isinstance(analysis, dict) else []
+                summary_key = 'summary' if isinstance(analysis, dict) and 'summary' in analysis else None
+                if summary_key:
+                    summ = analysis[summary_key]
+                else:
+                    summ = {'entries': len(signals), 'exits': 0, 'reduces': 0}
+                metrics = {
+                    'total_trades': len(result.get('trades', [])),
+                    'open_positions': len([t for t in result.get('trades', []) if t.get('status') == 'open']),
+                    'entries': summ.get('entries', 0),
+                    'exits': summ.get('exits', 0)
+                }
+        else:
+            signals = []
+            metrics = {}
+        
+        std.after_execute(success=True, signals=signals, metrics=metrics)
+        
+    except Exception as e:
+        std.handle_error(e, 'leos_v65.py 執行失敗')
+        std.after_execute(success=False, signals=[], metrics={'error': str(e)})
+        raise
+    finally:
+        health = std.finalize()
+        print(f"[Health] status={health['status']}, duration={health['duration_ms']}ms")

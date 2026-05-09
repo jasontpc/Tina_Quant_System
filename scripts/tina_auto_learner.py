@@ -9,9 +9,15 @@
 """
 
 import os
+import sys
 import json
 import sqlite3
 from datetime import datetime
+from pathlib import Path
+
+# Tina 標準化框架
+sys.path.insert(0, str(Path(__file__).parent.parent / 'stores'))
+from script_standards import ScriptStandard
 
 WORKSPACE = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System'
 DB_PATH = os.path.join(WORKSPACE, 'data', 'yfinance.db')
@@ -247,4 +253,37 @@ def suggest_from_analysis(symbols_found, reason='from analysis'):
 
 
 if __name__ == '__main__':
-    auto_learn()
+    # Tina 標準化入口
+    std = ScriptStandard('auto_learner', 'MULTI')
+    
+    try:
+        context = std.before_execute()
+        print(f"[Brain-Aware] Execution ID: {context['execution_id']}")
+        
+        result = auto_learn()
+        
+        # 讀取 candidate_watchlist.json 作為 signals
+        candidate_path = os.path.join(WORKSPACE, 'data', 'candidate_watchlist.json')
+        if os.path.exists(candidate_path):
+            with open(candidate_path, 'r', encoding='utf-8') as f:
+                candidates = json.load(f)
+            signals = candidates.get('candidates', [])[:10]  # 最多 10 個
+            metrics = {
+                'candidates_pending': len(candidates.get('candidates', [])),
+                'learned': len(candidates.get('learned', [])),
+                'rejected': len(candidates.get('rejected', []))
+            }
+        else:
+            signals = []
+            metrics = {}
+        
+        metrics['new_additions'] = result.get('new_additions', 0)
+        std.after_execute(success=True, signals=signals, metrics=metrics)
+        
+    except Exception as e:
+        std.handle_error(e, 'tina_auto_learner.py 執行失敗')
+        std.after_execute(success=False, signals=[], metrics={'error': str(e)})
+        raise
+    finally:
+        health = std.finalize()
+        print(f"[Health] status={health['status']}, duration={health['duration_ms']}ms")
