@@ -1,0 +1,30 @@
+{
+  "deleted_at": "2026-05-09T19:53:00+08:00",
+  "reason": "重複/過期 jobs 清理",
+  "deleted_jobs": [
+    {
+      "id": "0c847110-5447-466b-acb0-b2a77d704b6b",
+      "name": "Tina 每日市場快報",
+      "description": "每日08:00整合本地所有DB輸出市場快報（漲跌停/社群情緒/技術面/法人/槓桿ETF）",
+      "reason": "timeout 120s 仍超時，已被 tina_daily_brief.py 取代"
+    },
+    {
+      "id": "542dfa44-4972-4c74-8524-4db23d9aa08b",
+      "name": "Tina 股票追蹤-收盤更新",
+      "description": "每日收盤股票追蹤更新",
+      "reason": "已被 stock_tracking_update.py 取代"
+    },
+    {
+      "id": "5d0b913f-0c68-42a7-9885-db7f7949288c",
+      "name": "Plan B 今日完成提醒",
+      "description": "Plan B 今日期限提醒",
+      "reason": "一次性過期 job，執行於 2026-05-08 已失效"
+    },
+    {
+      "id": "c0befe86-6610-4e01-a78a-0de60161d760",
+      "name": "Leo 每日DB收盤更新",
+      "description": "Leo科技股每日DB收盤更新（TW+US yfinance）",
+      "reason": "已被 leo_db_update.py 取代"
+    }
+  ]
+}
