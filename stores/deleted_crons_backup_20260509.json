@@ -1,21 +1,20 @@
 {
-  "deleted_at": "2026-05-09T20:08:00+08:00",
-  "reason": "第三波清理（systemEvent + 被取代 jobs）",
+  "deleted_at": "2026-05-09T20:12:00+08:00",
+  "reason": "第四波清理（timeout jobs）",
   "deleted_jobs": [
     {
-      "id": "d1968dd9-9fcd-452c-a97f-04a4cfe418c3",
-      "name": "Leo AI產業鏈早盤掃描",
-      "description": "Leo AI/科技產業鏈早盤分析",
-      "reason": "enabled=false, sessionTarget=main (應為 isolated), systemEvent (非 agentTurn)，與 Leo AI產業鏈每日追蹤 c6eb5e6b 功能重複"
-    },
-    {
-      "id": "f1b74b58-f585-4813-a196-65472444f4d7",
-      "name": "US ETF 每日分析",
-      "description": "US ETF 每日分析（08:15）",
-      "reason": "enabled=false，被 15896cca (US ETF 高股息掃描每週一) 取代"
+      "id": "fe1a584c-44db-4b61-8d49-a6dacaf4b6dc",
+      "name": "Trending Stocks RSI追蹤（每日3次）",
+      "description": "每日追蹤 Trending Stocks RSI",
+      "reason": "enabled=false, timeout 180s 仍超時，被 Tina Cron v2 Layer 3 持倉計時器取代"
     }
   ],
   "previous_batches": [
+    {
+      "deleted_at": "2026-05-09T20:08:00+08:00",
+      "count": 2,
+      "reason": "第三波清理（systemEvent + 被取代 jobs）"
+    },
     {
       "deleted_at": "2026-05-09T20:00:00+08:00",
       "count": 5,
@@ -27,5 +26,5 @@
       "reason": "第一波清理（重複/過期 jobs）"
     }
   ],
-  "total_deleted": 11
+  "total_deleted": 12
 }
