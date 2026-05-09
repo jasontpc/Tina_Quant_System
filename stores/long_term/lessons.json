@@ -1,6 +1,53 @@
 {
   "lessons": [
     {
+      "date": "2026-05-09",
+      "title": "系統清理 Phase 1-3 完成：106 腳本整頓",
+      "severity": "major",
+      "team": "system",
+      "summary": "全系統腳本清理，完成 P0/P1/P2/P3 + A/C/D/E 共 7 項改造",
+      "detail": {
+        "P0": "INST_CACHE 30min — FinMind rate limit 600/hr 問題解決",
+        "P1": "刪除 15 個廢腳本（_TRASH_, check_leo_db, 重複 health_check）",
+        "P2": "sync_margin_data.py 統一 TWSE+FinMind margin",
+        "P3": "Archive 91 個腳本：Backtest 30→3, Leo 35→7, Ray 26→3",
+        "A": "階梯式排程：08:00 峰値 14→4 jobs（-71%）",
+        "C": "Universe 掃描移至 02:00（週一二三）",
+        "D": "15 個 agentId=? jobs → tina-reports",
+        "E": "Macro jobs 重疊移除（已納入院程調整）"
+      },
+      "scripts_deleted": [
+        "scripts/_TRASH_/ tina_brain_*.py (8個)",
+        "check_leo_db.py (x3)",
+        "tina_health_check.py, automation/system_health_check.py, backtest/api_health_check.py, scripts/us_health_check.py"
+      ],
+      "scripts_archived": {
+        "backtest/archive/": "23 個（v3/v41/v42, rolling_*, cycle9, master, unified, us_backtest）",
+        "teams/nana/archive_backtest/": "7 個（nana_backtest*.py）",
+        "teams/leadtrades/leos/archive_versions/": "leo_vOfficial, leo_master, v1v2_compare, version_tracker, analysis, deep_compare, vfinal, v123_compare, leos_v65_original_backup, p1p2",
+        "teams/leadtrades/leos/archive_autonomous/": "leo_autonomous, autonomous_v2, autonomous_ai_chain, autonomous_optimizer, sim_trade, rsi_analysis, market_temp, dual_filter, overheat_strategy, position_size, failure_analysis, light",
+        "teams/leadtrades/leos/archive_per_stock/": "leo_per_stock_v2/v3/trade/optimizer",
+        "teams/leo/archive/": "inspect_nana_leo_db, leo_db_update, leo_analyzer, leo_improved",
+        "teams/ray/archive/": "26 個（ray_autonomous_cycle, ray_learner, ray_kline_*, dca_*, etc.）"
+      },
+      "scripts_created": [
+        "scripts/sync_margin_data.py — 統一 TWSE + FinMind margin 數據",
+        "SCRIPT_INTEGRATION_REPORT.md — Phase 1-3 完整整合方案"
+      ],
+      "cron_changes": {
+        "US AI Tech 每日分析": "08:00→08:30",
+        "US ETF 每日分析": "08:00→08:15",
+        "每日開盤前策略報告": "08:00→08:45",
+        "Tina 每日市場快報": "08:00→09:00",
+        "Tina 大腦每日晨報": "08:00→08:30",
+        "S&P 500 價值掃描": "08:00 Mon→02:00 Mon",
+        "Nasdaq 100 AI": "08:00 Tue→02:00 Tue",
+        "SOX 30": "08:00 Wed→02:00 Wed",
+        "US ETF 高股息": "08:30 Mon→09:30 Mon",
+        "US ETF 成長型": "08:30 Tue→09:30 Tue"
+      }
+    },
+    {
       "id": "st_20260508_002",
       "type": "decision",
       "date": "2026-05-08",
@@ -20,5 +67,6 @@
   "metadata": {
     "last_updated": "2026-05-09T07:05:05.416423",
     "total": 1
-  }
+  },
+  "last_updated": "2026-05-09 12:19"
 }

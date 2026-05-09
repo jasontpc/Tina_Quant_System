@@ -1,0 +1,22 @@
+{
+  "type": "observation",
+  "date": "2026-05-09",
+  "title": "系統整頓完成",
+  "summary": "P0/P1/P2/P3 + A/C/D/E 共 7 項改造，106 腳本整頓，Git 3次push",
+  "phases": {
+    "P0": "INST_CACHE 30min — FinMind rate limit 解決",
+    "P1": "刪除 15 個廢腳本",
+    "P2": "sync_margin_data.py 建立，報告寫入",
+    "P3": "Archive 91 個腳本（Backtest 30→3, Leo 35→7, Ray 26→3）",
+    "A": "階梯式排程 — 08:00 14→4 jobs",
+    "C": "Universe scanner → 02:00",
+    "D": "15 agentId=? → tina-reports",
+    "E": "Macro 重疊移除"
+  },
+  "git_commits": [
+    "74dddfb: Gateway load optimization — Acde implementation",
+    "90de1aa: chore: P1 cleanup — remove 15 redundant scripts",
+    "64044fc: feat: P2 script integration",
+    "5cb22bf: refactor: P3 archive — 91 redundant scripts consolidated"
+  ]
+}
