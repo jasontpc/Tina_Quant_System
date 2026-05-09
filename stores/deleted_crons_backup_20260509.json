@@ -1,15 +1,26 @@
 {
-  "deleted_at": "2026-05-09T20:12:00+08:00",
-  "reason": "第四波清理（timeout jobs）",
+  "deleted_at": "2026-05-09T20:20:00+08:00",
+  "reason": "第五波清理（重複 jobs）",
   "deleted_jobs": [
     {
-      "id": "fe1a584c-44db-4b61-8d49-a6dacaf4b6dc",
-      "name": "Trending Stocks RSI追蹤（每日3次）",
-      "description": "每日追蹤 Trending Stocks RSI",
-      "reason": "enabled=false, timeout 180s 仍超時，被 Tina Cron v2 Layer 3 持倉計時器取代"
+      "id": "a22b3527-ac54-4538-973b-01292e1fe518",
+      "name": "Tina 交易日記+預警",
+      "description": "每日交易日記與警報（trade_journal.py --alert）每日 16:00",
+      "reason": "enabled=false, delivery error（缺 to），功能被日誌收盤檢討（16:30）+ 風控檢查覆蓋，16:00 時間不佳，從未執行過（0 runs）"
+    },
+    {
+      "id": "ca3be530-d5b4-47f1-8438-2c83096c0d28",
+      "name": "Tina 股票交易週報",
+      "description": "每週股票交易報告（trade_journal.py --report）每週五 17:00",
+      "reason": "enabled=false, delivery error（缺 to），功能被 852520d6 策略績效週報（週五18:30）完全取代，時間更合理，從未執行過（0 runs）"
     }
   ],
   "previous_batches": [
+    {
+      "deleted_at": "2026-05-09T20:12:00+08:00",
+      "count": 1,
+      "reason": "第四波清理（timeout jobs）"
+    },
     {
       "deleted_at": "2026-05-09T20:08:00+08:00",
       "count": 2,
@@ -26,5 +37,5 @@
       "reason": "第一波清理（重複/過期 jobs）"
     }
   ],
-  "total_deleted": 12
+  "total_deleted": 14
 }
