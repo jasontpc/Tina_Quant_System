@@ -1,0 +1,229 @@
+{
+  "version": "1.0",
+  "generated": "2026-05-09T12:44:00+08:00",
+  "description": "Tina 量化系統 三大分類策略腳本地圖 v1.0",
+  "scope": "波段交易 / DCA / ETF 全策略腳本索引",
+  "maintainer": "Tina-Macro",
+
+  "categories": {
+
+    "A_Swing_Trading": {
+      "description": "波段交易（Short-term Swing）- 持有期 5-10天，RSI均值回歸",
+      "color": "🔴",
+      "entry_rsi_max": 55,
+      "stop_loss": "2.0x ATR 或 -8%",
+      "take_profit": "3.5-4.0x ATR，分批出",
+      "max_hold_days": 7,
+      "institutional_filter": true,
+      "scripts": {
+        "core_executor": {
+          "path": "scripts/stock_strategy_executor.py",
+          "role": "讀取策略配置、檢查進場/出场條件、產出交易訊號",
+          "status": "active"
+        },
+        "backtest_engine": {
+          "path": "scripts/tina_backtest_engine.py",
+          "role": "本地DB波段回測引擎（RSI<35進場，-8%停損）",
+          "status": "active"
+        },
+        "paper_trading": {
+          "path": "scripts/tina_paper_trading.py",
+          "role": "模擬交易引擎",
+          "status": "active"
+        },
+        "tw_growth_screener": {
+          "path": "scripts/tw_growth_screener_unlimited.py",
+          "role": "台股成長股三層篩選（基礎→基本面→技術面），股價<100",
+          "status": "active"
+        },
+        "us_value_growth_screener": {
+          "path": "scripts/us_value_growth_screener.py",
+          "role": "美股價值成長股三層過濾，股價<$100",
+          "status": "active"
+        },
+        "hunter_scan": {
+          "path": "scripts/hunter_scan.py",
+          "role": "短線獵人掃描",
+          "status": "active"
+        },
+        "dynamic_rsi_scanner": {
+          "path": "scripts/dynamic_rsi_scanner.py",
+          "role": "動態RSI掃描器",
+          "status": "active"
+        },
+        "guard_market_scanner": {
+          "path": "scripts/guard_market_scanner.py",
+          "role": "市場警示掃描",
+          "status": "active"
+        },
+        "strategy_tracker": {
+          "path": "scripts/stock_strategy_tracker.py",
+          "role": "個股策略追蹤與日誌",
+          "status": "active"
+        },
+        "reasoning_engine": {
+          "path": "scripts/tina_reasoning_engine.py",
+          "role": "波段推理引擎（結合總經數據）",
+          "status": "active"
+        }
+      },
+      "blacklist": ["2615","1590","2382","2317","2303","3008","3231","2408","3443","6446","6669","2597","2379"],
+      "performance_baseline": {
+        "win_rate": "84.7% (歷史參考)",
+        "avg_return": "NT$587,109 (98筆)",
+        "current_run": "148檔在倉，0檔已出"
+      }
+    },
+
+    "B_DCA": {
+      "description": "DCA（長期定投）- 定期定額累積低成本部位，養股不炒短",
+      "color": "🟡",
+      "entry_rsi_max": 40,
+      "dca_frequency": "每月",
+      "hold_outlook": "長期（不在乎短期波動）",
+      "score_logic": {
+        "RSI_30_below": 50,
+        "RSI_40_below": 40,
+        "RSI_50_below": 25,
+        "RSI_60_below": 10,
+        "RSI_above_60": 0
+      },
+      "scripts": {
+        "dca_recommendation": {
+          "path": "scripts/dca_recommendation.py",
+          "role": "DCA推薦（低RSI=好進場點，EXCELLENT/GOOD/FAIR/EXPENSIVE）",
+          "status": "active"
+        },
+        "us_etf_dca": {
+          "path": "scripts/us_etf_dca.py",
+          "role": "美股ETF DCA分析（VTI/IWM/QQQ/SPY/BND/TLT/GLD/SLV等）",
+          "status": "active"
+        },
+        "tw_value_growth": {
+          "path": "scripts/tw_value_growth.py",
+          "role": "台股價值成長定投標的",
+          "status": "active"
+        },
+        "us_value_growth_screener_for_dca": {
+          "path": "scripts/us_value_growth_screener.py",
+          "role": "美股價值成長定投候選（含DCA評分）",
+          "status": "active"
+        },
+        "portfolio_tracker": {
+          "path": "scripts/portfolio_tracker.py",
+          "role": "部位追蹤（適用於DCA組合）",
+          "status": "active"
+        },
+        "strategy_updater": {
+          "path": "scripts/stock_strategy_updater.py",
+          "role": "策略參數更新（適用於DCA再平衡）",
+          "status": "active"
+        }
+      },
+      "dca_etf_list": {
+        "us_equity": ["VTI","IWM","QQQ","SPY","VOO"],
+        "us_bond": ["BND","TLT","AGG","SCHZ","TIP"],
+        "us_metal": ["GLD","SLV"],
+        "us_intl": ["VEA","VWO"]
+      }
+    },
+
+    "C_ETF": {
+      "description": "ETF（指數被動投資）- ETF篩選與進場時機判斷，含槓桿/反向ETF",
+      "color": "🟢",
+      "entry_score_threshold": 60,
+      "watch_score_threshold": 40,
+      "score_weights": {
+        "RSI_low": 30,
+        "MACD_positive": 20,
+        "MA_bullish": 15,
+        "return_6m_above_15pct": 25,
+        "yield_above_3pct": 10
+      },
+      "scripts": {
+        "etf_analysis": {
+          "path": "scripts/etf_analysis.py",
+          "role": "台股+美股ETF完整分析（16:30 TW收盤後自動）",
+          "status": "active"
+        },
+        "etf_best_return": {
+          "path": "scripts/etf_best_return.py",
+          "role": "ETF報酬排名",
+          "status": "active"
+        },
+        "tw_active_etf_tracker": {
+          "path": "scripts/tw_active_etf_tracker.py",
+          "role": "台股主動型ETF追蹤",
+          "status": "active"
+        },
+        "us_active_etf_screener": {
+          "path": "scripts/us_active_etf_screener.py",
+          "role": "美股主動型ETF篩選",
+          "status": "active"
+        },
+        "leverage_etf_analysis": {
+          "path": "scripts/leverage_etf_analysis.py",
+          "role": "槓桿/反向ETF分析（SOXL/TQQQ/QLD/UPRO/SOXS等）",
+          "status": "active"
+        },
+        "leverage_etf_db": {
+          "path": "scripts/leverage_etf_db.py",
+          "role": "槓桿ETF資料庫建置",
+          "status": "active"
+        },
+        "tw_etf_analysis": {
+          "path": "scripts/tw_etf_analysis.py",
+          "role": "台股ETF分析",
+          "status": "active"
+        }
+      },
+      "etf_lists": {
+        "tw_etf": ["0050","0056","00646","00662","00713","00757","00919","00927"],
+        "us_etf": ["VTI","VEA","BND","SCHD","SPY","QQQ","VIG","VWO"],
+        "leverage_etf": ["SOXL","TQQQ","QLD","SPXL","UPRO","SOXS","SQQQ","SDS"]
+      }
+    }
+
+  },
+
+  "new_strategy_pipeline": {
+    "growth_long": {
+      "description": "台美股長期持有成長股策略（新開發）",
+      "holding_period": "6-24個月",
+      "target_return": "+50-100%",
+      "stop_loss": "-20%",
+      "entry_rsi_max": 50,
+      "entry_conditions": [
+        "RSI(14) < 50",
+        "MA20 > MA60（多頭排列）",
+        "營收 YoY > 15%",
+        "近3月無重大負面新聞",
+        "法人連續買超（3天內）"
+      ],
+      "exit_conditions": [
+        "持有期達18個月（無論績效）",
+        "RSI(14) > 75",
+        "追蹤止損：高點拉回20%"
+      ],
+      "development_status": "in_progress",
+      "script_to_create": "scripts/growth_paper_engine.py",
+      "candidates_file": "data/growth_candidates.json",
+      "backtest_framework": "scripts/backtest_framework.py"
+    }
+  },
+
+  "decision_committee": {
+    "sop_doc": "configs/decision_committee_sop_v1.md",
+    "slow_think_trigger": [
+      "新策略開發前",
+      "回測結果解讀（勝率變化>10%）",
+      "市場體制轉換（TWII RSI突破75或跌破30）",
+      "黑名單更新",
+      "每月第一個交易日"
+    ],
+    "fast_path": "Macro→Nana→Ray 自動分流"
+  },
+
+  "blacklist_source": "configs/unified_strategy_config.json",
+  "parameter_source": "configs/unified_strategy_config.json"
+}

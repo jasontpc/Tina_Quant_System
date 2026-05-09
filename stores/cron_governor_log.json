@@ -178,5 +178,41 @@
     "pending_jobs": 0,
     "cpu": 2.7,
     "memory_percent": 37.6
+  },
+  {
+    "timestamp": "2026-05-09T12:41:16.702576",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 4.9,
+    "memory_percent": 37.9
+  },
+  {
+    "timestamp": "2026-05-09T13:41:21.192849",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 1.5,
+    "memory_percent": 37.6
+  },
+  {
+    "timestamp": "2026-05-09T14:41:16.971210",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 4.1,
+    "memory_percent": 37.4
+  },
+  {
+    "timestamp": "2026-05-09T15:41:16.614477",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 3.2,
+    "memory_percent": 39.0
   }
 ]

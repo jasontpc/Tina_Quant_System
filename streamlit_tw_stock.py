@@ -48,12 +48,20 @@ if not _log.handlers:
     _log.info("=== Tina Scanner 啟動 ===")
 
 # ── Shioaji Real-Time Data (優先 > yfinance) ────────────────────────
-import shioaji as sj
+_SHIOAJI_AVAILABLE = False
+try:
+    import shioaji as sj
+    _SHIOAJI_AVAILABLE = True
+except ImportError:
+    _SHIOAJI_AVAILABLE = False
+    _log.warning("[Shioaji] Not available in this environment, using yfinance fallback")
 _SJ_API = None
 _SJ_READY = False
 
 def _get_shioaji_api():
     global _SJ_API, _SJ_READY
+    if not _SHIOAJI_AVAILABLE:
+        return None
     if _SJ_READY:
         return _SJ_API
     try:

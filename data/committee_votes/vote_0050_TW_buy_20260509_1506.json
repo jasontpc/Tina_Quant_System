@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-05-09T15:06:58.670890",
+  "symbol": "0050.TW",
+  "action": "buy",
+  "strategy": "etf_trend",
+  "decision": "APPROVED",
+  "threshold": 3,
+  "votes": [
+    {
+      "member": "Tina",
+      "vote": "disagree",
+      "confidence": 60,
+      "reason": "策略歷史報酬+4.7%; 綜合評分不足",
+      "tags": []
+    },
+    {
+      "member": "Nana",
+      "vote": "agree",
+      "confidence": 75,
+      "reason": "RSI=50.0（區間OK）; ATR=1.9（2.0%）; ATR停損$94比%停損$8更合理",
+      "tags": []
+    },
+    {
+      "member": "Leo",
+      "vote": "agree",
+      "confidence": 65,
+      "reason": "MA死亡交叉; RSI=50.0未超買; 60日動能+33.6%; 策略歷史+4.7%",
+      "tags": []
+    },
+    {
+      "member": "Macro",
+      "vote": "abstain",
+      "confidence": 50,
+      "reason": "宏觀中性偏觀望",
+      "tags": []
+    },
+    {
+      "member": "Ray",
+      "vote": "agree",
+      "confidence": 65,
+      "reason": "委員分布：2贊成/1反對/0棄權 | 少數優勢，支持買入",
+      "tags": []
+    }
+  ],
+  "tally": {
+    "agree_count": 3,
+    "disagree_count": 1,
+    "abstain_count": 1,
+    "watch_count": 0,
+    "total_weight": 3.5
+  }
+}

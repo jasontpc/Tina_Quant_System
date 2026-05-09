@@ -1,0 +1,24 @@
+﻿
+python : Traceback (most recent call last):
+位於 線路:1 字元:66
++ ... m\scripts ; python decision_committee_vote.py --symbol 6442.TW --acti ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\USER\.openclaw\workspace\Tina_Quant_System\scripts\decision_committee_vote.py", line 677, in <module>
+[Committee] Starting vote: BUY 6442.TW (growth_long)
+
+================================================================
+  [決策委員會表決] 6442.TW - 買進 (growth_long)
+  時間：2026-05-09 15:57 | 現價：$2110.00
+================================================================
+
+  【各委員投票】
+    main()
+  File "C:\Users\USER\.openclaw\workspace\Tina_Quant_System\scripts\decision_committee_vote.py", line 658, in main
+    print_committee_report(symbol, action, strategy, votes, tally)
+  File "C:\Users\USER\.openclaw\workspace\Tina_Quant_System\scripts\decision_committee_vote.py", line 572, in print_com
+mittee_report
+    print(format_vote_card(v))
+UnicodeEncodeError: 'cp950' codec can't encode character '\u5934' in position 78: illegal multibyte sequence
