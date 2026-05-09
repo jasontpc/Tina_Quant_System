@@ -214,5 +214,23 @@
     "pending_jobs": 0,
     "cpu": 3.2,
     "memory_percent": 39.0
+  },
+  {
+    "timestamp": "2026-05-09T17:45:31.779255",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 4.9,
+    "memory_percent": 37.9
+  },
+  {
+    "timestamp": "2026-05-09T19:41:45.460839",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 0.8,
+    "memory_percent": 37.8
   }
 ]

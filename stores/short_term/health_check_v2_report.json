@@ -1,0 +1,211 @@
+{
+  "timestamp": "2026-05-09T19:27:33.431896",
+  "sections": {
+    "system": {
+      "db": {
+        "status": "OK",
+        "details": [
+          {
+            "file": "etf.db",
+            "size_mb": 7.1,
+            "status": "OK"
+          },
+          {
+            "file": "finmind.db",
+            "size_mb": 0.8,
+            "status": "OK"
+          },
+          {
+            "file": "growth_paper_trading.db",
+            "size_mb": 0.0,
+            "status": "OK"
+          },
+          {
+            "file": "leverage_etf.db",
+            "size_mb": 20.1,
+            "status": "OK"
+          },
+          {
+            "file": "limitup.db",
+            "size_mb": 0.0,
+            "status": "OK"
+          },
+          {
+            "file": "macro_institutional.db",
+            "size_mb": 8.4,
+            "status": "OK"
+          },
+          {
+            "file": "master_backtest.db",
+            "size_mb": 0.3,
+            "status": "OK"
+          },
+          {
+            "file": "news_trends.db",
+            "size_mb": 0.1,
+            "status": "OK"
+          },
+          {
+            "file": "reddit_sentiment.db",
+            "size_mb": 0.0,
+            "status": "OK"
+          },
+          {
+            "file": "sherry_backtest.db",
+            "size_mb": 0.4,
+            "status": "OK"
+          },
+          {
+            "file": "sherry_etf.db",
+            "size_mb": 10.8,
+            "status": "OK"
+          },
+          {
+            "file": "sherry_sim_trades.db",
+            "size_mb": 0.2,
+            "status": "OK"
+          },
+          {
+            "file": "social_sentiment.db",
+            "size_mb": 0.0,
+            "status": "OK"
+          },
+          {
+            "file": "stock_trends.db",
+            "size_mb": 0.2,
+            "status": "OK"
+          },
+          {
+            "file": "twse_data.db",
+            "size_mb": 0.3,
+            "status": "OK"
+          },
+          {
+            "file": "tw_active_etf.db",
+            "size_mb": 0.1,
+            "status": "OK"
+          },
+          {
+            "file": "tw_history.db",
+            "size_mb": 9.5,
+            "status": "OK"
+          },
+          {
+            "file": "tw_margin.db",
+            "size_mb": 1.5,
+            "status": "OK"
+          },
+          {
+            "file": "tw_stock_registry.db",
+            "size_mb": 0.2,
+            "status": "OK"
+          },
+          {
+            "file": "us_history.db",
+            "size_mb": 27.5,
+            "status": "OK"
+          },
+          {
+            "file": "us_sim_trades.db",
+            "size_mb": 0.5,
+            "status": "OK"
+          },
+          {
+            "file": "yfinance.db",
+            "size_mb": 177.6,
+            "status": "OK"
+          },
+          {
+            "file": "yuan_zheng2.db",
+            "size_mb": 0.1,
+            "status": "OK"
+          }
+        ]
+      },
+      "cron": {
+        "status": "UNKNOWN",
+        "details": "timeout reading cron"
+      }
+    },
+    "market": {
+      "twii": {
+        "rsi": 83.5,
+        "price": 41603.94,
+        "ma20": 38521.91,
+        "ma60": 35048.42,
+        "ma_signal": "bullish"
+      },
+      "vix": 17.19,
+      "inst_flow": {
+        "net": 0,
+        "signal": "unknown"
+      },
+      "sentiment": 25
+    },
+    "positions": {
+      "positions": [
+        {
+          "symbol": "00713",
+          "days": 8,
+          "status": "✅ 正常 | 🟡 TWII警告",
+          "rsi": 60.9,
+          "pnl_pct": 2.87,
+          "dist_to_stop": 6.8,
+          "dist_to_target": 1.4
+        },
+        {
+          "symbol": "META",
+          "days": 8,
+          "status": "✅ 正常 | 🟡 TWII警告",
+          "rsi": 25.2,
+          "pnl_pct": 1.78,
+          "dist_to_stop": 7.6,
+          "dist_to_target": 3.8
+        },
+        {
+          "symbol": "MSFT",
+          "days": 8,
+          "status": "✅ 正常 | 🟡 TWII警告",
+          "rsi": 38.4,
+          "pnl_pct": 2.59,
+          "dist_to_stop": 9.7,
+          "dist_to_target": 2.2
+        }
+      ],
+      "count": 3
+    },
+    "strategy": {
+      "prev_action": "WATCH",
+      "current_action": "WATCH",
+      "consistency": "CONSISTENT"
+    },
+    "memory": {
+      "short_term_files": 7,
+      "long_term": [
+        {
+          "file": "lessons.json",
+          "count": 3
+        },
+        {
+          "file": "patterns.json",
+          "count": 3
+        }
+      ],
+      "last_distillation": {
+        "timestamp": "2026-05-08T18:14:53.529215",
+        "level": "weekly",
+        "short_term_count": 7,
+        "pattern_promotions": 0,
+        "lesson_promotions": 0,
+        "cleaned": 0
+      }
+    }
+  },
+  "summary": {
+    "health_score": 70,
+    "health_label": "🟡 注意",
+    "issues": [
+      "Cron異常"
+    ]
+  }
+}

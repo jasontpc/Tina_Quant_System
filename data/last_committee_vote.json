@@ -1,30 +1,32 @@
 {
-  "timestamp": "2026-05-09T15:06:58.670890",
-  "symbol": "0050.TW",
+  "timestamp": "2026-05-09T16:11:17.357668",
+  "symbol": "SEDG",
   "action": "buy",
-  "strategy": "etf_trend",
+  "strategy": "growth_long",
   "decision": "APPROVED",
   "threshold": 3,
   "votes": [
     {
       "member": "Tina",
-      "vote": "disagree",
-      "confidence": 60,
-      "reason": "策略歷史報酬+4.7%; 綜合評分不足",
-      "tags": []
+      "vote": "agree",
+      "confidence": 72,
+      "reason": "RSI=49.4<50; MA多头排列; 勝率65%",
+      "tags": [
+        "MA多頭排列"
+      ]
     },
     {
       "member": "Nana",
       "vote": "agree",
       "confidence": 75,
-      "reason": "RSI=50.0（區間OK）; ATR=1.9（2.0%）; ATR停損$94比%停損$8更合理",
+      "reason": "RSI=49.4（區間OK）; ATR=3.6（8.4%）; 高波動，縮小部位; ATR停損$38比%停損$3更合理",
       "tags": []
     },
     {
       "member": "Leo",
-      "vote": "agree",
-      "confidence": 65,
-      "reason": "MA死亡交叉; RSI=50.0未超買; 60日動能+33.6%; 策略歷史+4.7%",
+      "vote": "disagree",
+      "confidence": 60,
+      "reason": "評分不足",
       "tags": []
     },
     {
