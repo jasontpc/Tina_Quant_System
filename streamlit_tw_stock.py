@@ -1751,6 +1751,120 @@ with tw_tab:
                 sb_parts.append(f":{color}[{k} {v}]")
             st.markdown("  ".join(sb_parts))
 
+            # ── 📊 Technical Detail Button ──
+            detail_key = f"detail_{single_code}"
+            show_detail = st.button("📊 技術分析詳細解讀", key=f"btn_{detail_key}")
+
+            if show_detail or st.session_state.get('detail_shown_' + single_code, False):
+                st.session_state['detail_shown_' + single_code] = True
+
+                def _s(tag, val, unit="", good=None):
+                    col = "green" if good else ("orange" if good is False else "gray")
+                    return f":{col}[{tag} {val}{unit}]"
+
+                st.markdown("---")
+                st.markdown("### 📈 技術指標詳細解析")
+
+                # RSI Detail
+                rsi_v = r['rsi']
+                rsi_status = "過熱" if rsi_v > 70 else ("超賣" if rsi_v < 30 else ("偏低" if rsi_v < 40 else ("偏高" if rsi_v > 60 else "正常")))
+                rsi_meaning = "動能過強，小心回調" if rsi_v > 70 else ("可能出現反彈機會" if rsi_v < 30 else ("評分偏低" if rsi_v < 40 else ("動能偏強" if rsi_v > 60 else "位於中性區間")))
+                st.markdown(f"**RSI (相對強弱指標)** — 當前 `{rsi_v:.0f}` | 狀態: `{rsi_status}`")
+                st.caption(f"📌 RSI 衡量價格變動頻率。>70超買（過熱），<30超賣。{rsi_meaning}。")
+                st.progress(min(rsi_v / 100, 1.0), text=f"RSI: {rsi_v:.0f}/100")
+                st.markdown("---")
+
+                # MACD Detail
+                macd_hist = r['macd_hist']
+                macd_sig = r.get('macd_sig', 0)
+                macd_status = "多頭" if macd_hist > 0 else "空頭"
+                macd_color = "green" if macd_hist > 0 else "red"
+                st.markdown(f"**MACD (平滑異同移動平均線)** — 柱狀 `{macd_hist:+.2f}` | 訊號線 `{macd_sig:+.2f}` | :{macd_color}[{macd_status}]")
+                st.caption(f"📌 MACD = EMA12-EMA26。柱狀正值代表多頭動能，負值代表空頭動能。{'MACD > 0 = 上漲趨勢' if macd_hist > 0 else 'MACD < 0 = 下跌趨勢'}。")
+                st.markdown("---")
+
+                # K/D Detail
+                k_val, d_val = r['k'], r['d']
+                kd_ok = r['kd_golden']
+                kd_status = "黃金交叉（多頭）" if kd_ok else ("死亡交叉（空頭）" if k_val < d_val else "整理中")
+                st.markdown(f"**K/D (隨機指標)** — K=`{k_val:.0f}` D=`{d_val:.0f}` | 狀態: `{kd_status}`")
+                st.caption(f"📌 K反映近期收盤價相對高低區間位置。K>D為多頭；K<30且K>D為黃金交叉預示反轉。{'K>D 且 K<30 = 即將反轉上漲' if kd_ok else ('K<D = 短線偏空' if k_val < d_val else 'K、D膠著中')}。")
+                st.markdown("---")
+
+                # MA Detail
+                ma20_val = r['ma20']
+                ma60_val = r.get('ma60', 0) or 0
+                ma_status = "多頭排列" if r['ma20_above_ma60'] else "空頭排列"
+                ma_color = "green" if r['ma20_above_ma60'] else "red"
+                diff = ma20_val - ma60_val
+                diff_pct = diff / ma60_val * 100 if ma60_val > 0 else 0
+                st.markdown(f"**MA (均線多頭)** — MA20=`{ma20_val:.0f}` MA60=`{ma60_val:.0f}` | 差: `{diff:+.1f}` ({diff_pct:+.1f}%) | :{ma_color}[{ma_status}]")
+                st.caption(f"📌 MA20>MA60代表中長期趨勢向上；MA20<MA60代表中長期趨勢向下。差超過2%代表趨勢明顯。{'完美多頭排列' if r['ma20_above_ma60'] else '空頭排列，中期趨勢向下'}。")
+                st.markdown("---")
+
+                # BB% Detail
+                bb_v = r['bb_pct']
+                bb_upper, bb_lower = r.get('bb_upper',0), r.get('bb_lower',0)
+                bb_status = "超賣區間" if bb_v < 20 else ("過熱區間" if bb_v > 80 else "中立區間")
+                st.markdown(f"**BB% (布林帶百分比)** — 當前 `{bb_v:.0f}%` (帶: {bb_lower:.0f}~{bb_upper:.0f}) | 狀態: `{bb_status}`")
+                st.caption(f"📌 BB% = (現價-下軌)/(上軌-下軌)*100%。<20%超賣（支撐），>80%超買（回調風險）。{'價格接近下緣，可能有支撐' if bb_v < 20 else ('價格接近上緣，留意回調' if bb_v > 80 else '價格在布林帶中軸附近')}。")
+                st.progress(min(bb_v / 100, 1.0), text=f"BB%: {bb_v:.0f}%")
+                st.markdown("---")
+
+                # BIAS5 Detail
+                bias_v = r['bias5']
+                bias_status = "偏離大" if abs(bias_v) > 3 else "正常"
+                st.markdown(f"**BIAS5 (5日乖離率)** — 當前 `{bias_v:+.1f}%` | 狀態: `{bias_status}`")
+                st.caption(f"📌 BIAS5 = (現價-MA5)/MA5*100%。>3%代表偏離均線過多遲早回調；<-3%代表嚴重超賣。{'價格偏離MA5過大，遲早回歸' if abs(bias_v) > 3 else '偏離程度正常'}。")
+                st.markdown("---")
+
+                # Vol Ratio Detail
+                vol_v = r['vol_ratio']
+                vol_status = "巨量" if vol_v > 2.5 else ("高量" if vol_v > 1.5 else ("低量" if vol_v < 0.8 else "正常量"))
+                st.markdown(f"**Vol Ratio (量比)** — 當前 `{vol_v:.1f}x` | 狀態: `{vol_status}`")
+                st.caption(f"📌 量比 = 今日量/5日均量。>1.5x為高量通常伴隨趨勢；<0.8x為低量動能不足。{'高量動能強' if vol_v > 1.5 else ('低量缺乏方向' if vol_v < 0.8 else '量能正常')}。")
+                st.markdown("---")
+
+                # Score / Tier
+                score = r['score']
+                tier = r['tier']
+                tier_color = {"A":"green","B":"blue","C":"gray","D":"orange","F":"red"}.get(tier,"gray")
+                st.markdown(f"**評分 / 等級** — Score: `{score}/1000` | 等級: :{tier_color}[{tier}]")
+                thresholds = {"A":800,"B":600,"C":400,"D":200}
+                next_tier = next((k for k,v in sorted(thresholds.items(), key=lambda x:x[1]) if score < v), "MAX")
+                st.caption(f"📌 等級：A≥800 B≥600 C≥400 D≥200。距離{tier}需{abs(score - thresholds.get(tier, 0))}分，距{next_tier}還差{abs(score - thresholds.get(next_tier, 1000))}分。")
+                st.markdown("---")
+
+                # Overall Assessment
+                st.markdown("### 🎯 綜合進場評估")
+                bullish_count = sum([1 for sig in sigs if sig[1]=='green'])
+                total_signals = len(sigs) if sigs else 0
+                if total_signals == 0:
+                    assessment = "⚠️ 無明確技術信號，建議觀望"
+                    assessment_col = "gray"
+                elif bullish_count >= 4:
+                    assessment = "✅ 多項技術指標支撐，上漲機率高"
+                    assessment_col = "green"
+                elif bullish_count >= 2:
+                    assessment = "🟡 部分指標支撐，可謹慎關注"
+                    assessment_col = "blue"
+                else:
+                    assessment = "🔴 多數指標偏空，建議觀望或減持"
+                    assessment_col = "red"
+                st.markdown(f":{assessment_col}[{assessment}] ({bullish_count}/{total_signals} 項多頭信號)")
+
+                # Risk warnings
+                risks = []
+                if rsi_v > 75: risks.append("RSI 過熱，回調風險高")
+                if bb_v > 85: risks.append("BB% 接近上緣，過熱風險")
+                if macd_hist < 0: risks.append("MACD 負值，空頭動能")
+                if vol_v < 0.6: risks.append("成交量過低，動能不足")
+                if not r['ma20_above_ma60']: risks.append("均線空頭排列，中期趨勢向下")
+                if risks:
+                    st.markdown("### ⚠️ 風險提示")
+                    for risk in risks:
+                        st.warning(f"⚠️ {risk}")
+
             # ── Institutional (TW only) ──
             inst = r.get("inst") or {}
             f_v = inst.get("foreign",0); t_v = inst.get("trust",0); d_v = inst.get("dealer",0)
@@ -2218,6 +2332,103 @@ with us_tab:
                 color = 'green' if good else 'gray'
                 sb_parts.append(f":{color}[{k} {v}]")
             st.markdown("  ".join(sb_parts))
+
+            # ── 📊 Technical Detail Button (US) ──
+            detail_key_us = f"detail_{us_single_code}"
+            show_us_detail = st.button("📊 技術分析詳細解讀", key=f"btn_{detail_key_us}")
+
+            if show_us_detail or st.session_state.get('us_detail_shown_' + us_single_code, False):
+                st.session_state['us_detail_shown_' + us_single_code] = True
+
+                st.markdown("---")
+                st.markdown("### 📈 技術指標詳細解析 (US)")
+
+                rsi_v = r['rsi']
+                rsi_status = "過熱" if rsi_v > 70 else ("超賣" if rsi_v < 30 else ("偏低" if rsi_v < 40 else ("偏高" if rsi_v > 60 else "正常")))
+                st.markdown(f"**RSI (相對強弱指標)** — 當前 `{rsi_v:.0f}` | 狀態: `{rsi_status}`")
+                st.caption(f"📌 RSI衡量價格變動頻率。>70超買（過熱），<30超賣。{'動能過強，小心回調' if rsi_v > 70 else ('可能出現反彈機會' if rsi_v < 30 else ('評分偏低' if rsi_v < 40 else ('動能偏強' if rsi_v > 60 else '位於中性區間')))}。")
+                st.progress(min(rsi_v / 100, 1.0), text=f"RSI: {rsi_v:.0f}/100")
+                st.markdown("---")
+
+                macd_hist = r['macd_hist']
+                macd_sig = r.get('macd_sig', 0)
+                macd_color = "green" if macd_hist > 0 else "red"
+                st.markdown(f"**MACD** — 柱狀 `{macd_hist:+.2f}` | 訊號線 `{macd_sig:+.2f}` | :{macd_color}['多頭' if macd_hist > 0 else '空頭']")
+                st.caption(f"📌 MACD柱狀正值代表多頭動能。{'上漲趨勢' if macd_hist > 0 else '下跌趨勢'}。")
+                st.markdown("---")
+
+                k_val, d_val = r['k'], r['d']
+                kd_ok = r['kd_golden']
+                kd_status = "黃金交叉（多頭）" if kd_ok else ("死亡交叉（空頭）" if k_val < d_val else "整理中")
+                st.markdown(f"**K/D (隨機指標)** — K=`{k_val:.0f}` D=`{d_val:.0f}` | 狀態: `{kd_status}`")
+                st.caption(f"📌 K>D為多頭；K<30且K>D為黃金交叉預示反轉。{'即將反轉上漲' if kd_ok else ('短線偏空' if k_val < d_val else 'K、D膠著中')}。")
+                st.markdown("---")
+
+                ma20_val = r['ma20']
+                ma60_val = r.get('ma60', 0) or 0
+                ma_color = "green" if r['ma20_above_ma60'] else "red"
+                diff = ma20_val - ma60_val
+                diff_pct = diff / ma60_val * 100 if ma60_val > 0 else 0
+                st.markdown(f"**MA (均線多頭)** — MA20=`{ma20_val:.0f}` MA60=`{ma60_val:.0f}` | 差: `{diff:+.1f}` ({diff_pct:+.1f}%) | :{ma_color}['多頭排列' if r['ma20_above_ma60'] else '空頭排列']")
+                st.caption(f"📌 MA20>MA60代表中長期趨勢向上。{'完美多頭排列' if r['ma20_above_ma60'] else '空頭排列，中期趨勢向下'}。")
+                st.markdown("---")
+
+                bb_v = r['bb_pct']
+                bb_upper, bb_lower = r.get('bb_upper',0), r.get('bb_lower',0)
+                bb_status = "超賣區間" if bb_v < 20 else ("過熱區間" if bb_v > 80 else "中立區間")
+                st.markdown(f"**BB% (布林帶百分比)** — 當前 `{bb_v:.0f}%` (帶: {bb_lower:.0f}~{bb_upper:.0f}) | 狀態: `{bb_status}`")
+                st.caption(f"📌 BB% <20%超賣（支撐），>80%超買（回調風險）。{'接近下緣可能有支撐' if bb_v < 20 else ('接近上緣留意回調' if bb_v > 80 else '在布林帶中軸附近')}。")
+                st.progress(min(bb_v / 100, 1.0), text=f"BB%: {bb_v:.0f}%")
+                st.markdown("---")
+
+                bias_v = r['bias5']
+                bias_status = "偏離大" if abs(bias_v) > 3 else "正常"
+                st.markdown(f"**BIAS5 (5日乖離率)** — 當前 `{bias_v:+.1f}%` | 狀態: `{bias_status}`")
+                st.caption(f"📌 BIAS5 = (現價-MA5)/MA5*100%。>3%偏離均線過多遲早回調。{'偏離過大' if abs(bias_v) > 3 else '偏離正常'}。")
+                st.markdown("---")
+
+                vol_v = r['vol_ratio']
+                vol_status = "巨量" if vol_v > 2.5 else ("高量" if vol_v > 1.5 else ("低量" if vol_v < 0.8 else "正常量"))
+                st.markdown(f"**Vol Ratio (量比)** — 當前 `{vol_v:.1f}x` | 狀態: `{vol_status}`")
+                st.caption(f"📌 量比 >1.5x為高量通常伴隨趨勢；<0.8x為低量動能不足。{'高量動能強' if vol_v > 1.5 else ('低量缺乏方向' if vol_v < 0.8 else '量能正常')}。")
+                st.markdown("---")
+
+                score = r['score']
+                tier = r['tier']
+                tier_color = {"A":"green","B":"blue","C":"gray","D":"orange","F":"red"}.get(tier,"gray")
+                st.markdown(f"**評分 / 等級** — Score: `{score}/1000` | 等級: :{tier_color}[{tier}]")
+                thresholds = {"A":800,"B":600,"C":400,"D":200}
+                next_tier = next((k for k,v in sorted(thresholds.items(), key=lambda x:x[1]) if score < v), "MAX")
+                st.caption(f"📌 等級：A≥800 B≥600 C≥400 D≥200。距離{tier}需{abs(score - thresholds.get(tier, 0))}分，距{next_tier}還差{abs(score - thresholds.get(next_tier, 1000))}分。")
+                st.markdown("---")
+
+                st.markdown("### 🎯 綜合進場評估")
+                us_bullish_count = sum([1 for sig in sigs if sig[1]=='green'])
+                us_total_signals = len(sigs) if sigs else 0
+                if us_total_signals == 0:
+                    assessment = "⚠️ 無明確技術信號，建議觀望"
+                    assessment_col = "gray"
+                elif us_bullish_count >= 4:
+                    assessment = "✅ 多項技術指標支撐，上漲機率高"
+                    assessment_col = "green"
+                elif us_bullish_count >= 2:
+                    assessment = "🟡 部分指標支撐，可謹慎關注"
+                    assessment_col = "blue"
+                else:
+                    assessment = "🔴 多數指標偏空，建議觀望或減持"
+                    assessment_col = "red"
+                st.markdown(f":{assessment_col}[{assessment}] ({us_bullish_count}/{us_total_signals} 項多頭信號)")
+
+                risks = []
+                if rsi_v > 75: risks.append("RSI 過熱，回調風險高")
+                if bb_v > 85: risks.append("BB% 接近上緣，過熱風險")
+                if macd_hist < 0: risks.append("MACD 負值，空頭動能")
+                if vol_v < 0.6: risks.append("成交量過低，動能不足")
+                if not r['ma20_above_ma60']: risks.append("均線空頭排列，中期趨勢向下")
+                if risks:
+                    st.markdown("### ⚠️ 風險提示")
+                    for risk in risks:
+                        st.warning(f"⚠️ {risk}")
 
 
         if not r:
