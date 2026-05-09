@@ -1,41 +1,31 @@
 {
-  "deleted_at": "2026-05-09T20:00:00+08:00",
-  "reason": "第二波清理（重複/過期/delivery error jobs）",
+  "deleted_at": "2026-05-09T20:08:00+08:00",
+  "reason": "第三波清理（systemEvent + 被取代 jobs）",
   "deleted_jobs": [
     {
-      "id": "089bf5ff-61dc-43ff-8866-134e5855aaa7",
-      "name": "Tina 策略複盤（每日收盤後）",
-      "description": "Tina 量化系統 - 每日策略複盤",
-      "reason": "enabled=false，被其他 Job 取代"
+      "id": "d1968dd9-9fcd-452c-a97f-04a4cfe418c3",
+      "name": "Leo AI產業鏈早盤掃描",
+      "description": "Leo AI/科技產業鏈早盤分析",
+      "reason": "enabled=false, sessionTarget=main (應為 isolated), systemEvent (非 agentTurn)，與 Leo AI產業鏈每日追蹤 c6eb5e6b 功能重複"
     },
     {
-      "id": "1c5349f9-df2b-49b6-b64b-da722cc123d6",
-      "name": "RSI 數值覆核",
-      "description": "RSI數值覆核 - 每8/16/22時段",
-      "reason": "enabled=false，執行正常但頻率過高（每8小時），已被風控檢查覆蓋"
-    },
-    {
-      "id": "21fb6e6d-c370-4129-ad35-d4c48608f410",
-      "name": "US AI Tech 美股收盤更新",
-      "description": "US AI Tech 美股收盤更新",
-      "reason": "enabled=false，被 d8fe08ae (US AI Tech 每日分析) 取代"
-    },
-    {
-      "id": "61ff29be-d27b-48b9-8819-90d5f4e7ee71",
-      "name": "Tina P2 資料庫清理",
-      "description": "P2 閒置資料庫清理排程",
-      "reason": "enabled=false，delivery error（Delivering to Telegram requires target <chatId>），目標已於 2026-05-07 執行完畢（deleteAfterRun）"
-    },
-    {
-      "id": "8db4964f-7b5f-4a40-8012-ea5ac26d2b6f",
-      "name": "Tina 記憶系統維護",
-      "description": "記憶系統降級/清理/壓縮 每日上午6點執行",
-      "reason": "enabled=false，delivery error（mode=none），已被每日輕度蒸餾（20:00）取代"
+      "id": "f1b74b58-f585-4813-a196-65472444f4d7",
+      "name": "US ETF 每日分析",
+      "description": "US ETF 每日分析（08:15）",
+      "reason": "enabled=false，被 15896cca (US ETF 高股息掃描每週一) 取代"
     }
   ],
-  "previous_batch": {
-    "deleted_at": "2026-05-09T19:53:00+08:00",
-    "count": 4,
-    "reason": "重複/過期 jobs 清理"
-  }
+  "previous_batches": [
+    {
+      "deleted_at": "2026-05-09T20:00:00+08:00",
+      "count": 5,
+      "reason": "第二波清理（重複/過期/delivery error jobs）"
+    },
+    {
+      "deleted_at": "2026-05-09T19:53:00+08:00",
+      "count": 4,
+      "reason": "第一波清理（重複/過期 jobs）"
+    }
+  ],
+  "total_deleted": 11
 }
