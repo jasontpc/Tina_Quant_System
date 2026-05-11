@@ -35,7 +35,7 @@ def main():
         msg = f"[{ts}] ALERT Gateway DOWN: {result[:100]}"
         
         # 嘗試重啟
-        restart = run_cmd('openclaw gateway start 2>&1', 10)
+        restart = run_cmd('openclaw gateway start 2>&1', 30)
         msg += f" | Restart: {restart[:80]}"
     
     # 寫入日誌

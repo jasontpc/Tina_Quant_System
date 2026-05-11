@@ -58,24 +58,35 @@ except ImportError:
 _SJ_API = None
 _SJ_READY = False
 
+import threading as _threading
+_SJ_LOGIN_LOCK = _threading.Lock()
+
 def _get_shioaji_api():
     global _SJ_API, _SJ_READY
     if not _SHIOAJI_AVAILABLE:
         return None
     if _SJ_READY:
         return _SJ_API
-    try:
-        _SJ_API = sj.Shioaji(simulation=False)
-        _SJ_API.login(
-            api_key=os.getenv("SJ_API_KEY", "3r6UGMUX7bnxhnbrZ92sSseGVzL3C63kkBxH3WkAPsgW"),
-            secret_key=os.getenv("SJ_SECRET_KEY", "FCcefW9iatHvYyp3XgSYVM1VhdmZMawjQ49Mzp97WPBF")
-        )
-        _SJ_READY = True
-        _log.info(f"[Shioaji] Connected: {_SJ_API.stock_account.account_id}")
-    except Exception as e:
-        _SJ_READY = False
-        _log.warning(f"[Shioaji] Connection failed: {e}")
-    return _SJ_API
+    with _SJ_LOGIN_LOCK:
+        if _SJ_READY:
+            return _SJ_API
+        try:
+            _SJ_API = sj.Shioaji(simulation=False)
+            _SJ_API.login(
+                api_key=os.getenv("SJ_API_KEY", "3r6UGMUX7bnxhnbrZ92sSseGVzL3C63kkBxH3WkAPsgW"),
+                secret_key=os.getenv("SJ_SECRET_KEY", "FCcefW9iatHvYyp3XgSYVM1VhdmZMawjQ49Mzp97WPBF")
+            )
+            _SJ_API.activate_ca(
+                ca_path=os.getenv("SJ_CA_PATH", None),
+                ca_passwd=os.getenv("SJ_CA_PASSWD", ""),
+                subscription=Sj.Subscription("FK,OPT")
+            )
+            _SJ_READY = True
+            _log.info(f"[Shioaji] Connected: {_SJ_API.stock_account.account_id}")
+        except Exception as e:
+            _SJ_READY = False
+            _log.warning(f"[Shioaji] Connection failed: {e}")
+        return _SJ_API
 
 def sj_get_quote(code):
     try:
@@ -299,7 +310,22 @@ if not os.path.exists(_secrets_debug_file):
     print(f'[SECRETS] TOKEN after val  = {repr(TELEGRAM_BOT_TOKEN)[:60]}', file=_sys.stderr)
     print(f'[SECRETS] CHAT_ID after val= {repr(TELEGRAM_CHAT_ID)[:60]}', file=_sys.stderr)
 
-FINMIND_TOKEN = os.getenv("FINMIND_TOKEN") or _get_secret("finmind_token", "")
+def _parse_finmind_token(raw):
+    """Parse FinMind token that may come as dict-string repr from Streamlit secrets."""
+    if not raw:
+        return ''
+    raw_str = str(raw).strip()
+    if raw_str.startswith('{'):
+        try:
+            import json as _json
+            parsed = _json.loads(raw_str.replace("'", '"'))
+            if isinstance(parsed, dict):
+                raw_str = parsed.get('finmind_token', parsed.get('token', ''))
+        except:
+            pass
+    return raw_str
+
+FINMIND_TOKEN = _parse_finmind_token(os.getenv("FINMIND_TOKEN") or _get_secret("finmind_token", ""))
 
 
 
