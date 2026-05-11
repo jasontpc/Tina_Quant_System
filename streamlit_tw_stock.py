@@ -2666,6 +2666,65 @@ with us_tab:
                 f"法人: F={f_v:+,} T={t_v:+,} D={d_v:,}")
             st.write("DEBUG: US Send button rendering now")
             col1, _ = st.columns([1, 4])
+
+            # ── Vegas Tunnel Section (US) ───────────────────────────────────────
+            st.divider()
+            st.subheader("Vegas Tunnel (EMA 144/169/576/676)")
+
+            vegas_btn_us = st.button("Vegas 分析", key="btn_vegas_us")
+            if vegas_btn_us:
+                with st.spinner("Computing Vegas Tunnel..."):
+                    v_us = vegas_tunnel(us_single_code, "US")
+                if v_us:
+                    st.session_state['vegas_result_us'] = v_us
+                else:
+                    st.error("無法取得 Vega 資料，請確認股票代碼")
+
+            if 'vegas_result_us' in st.session_state:
+                v_us = st.session_state['vegas_result_us']
+                bias_icon = "BU" if v_us['bias'] == 'BULL' else ("RD" if v_us['bias'] == 'BEAR' else "YL")
+                trend_str = v_us['bias'] + " Trend"
+                st.markdown('**' + bias_icon + ' ' + trend_str + '** &nbsp;&nbsp; **:' + v_us['sig_color'] + '[' + v_us['signal'] + ']** &nbsp;&nbsp; Score ' + str(v_us['score']))
+
+                e1, e2, e3, e4, e5 = st.columns(5)
+                e1.metric("EMA12", str(round(v_us['ema12'],2)), str(round(v_us['ema12_vs_144'],2)) + "% vs 144")
+                e2.metric("EMA144", str(round(v_us['ema144'],2)), str(round(v_us['price_vs_144'],1)) + "%")
+                e3.metric("EMA169", str(round(v_us['ema169'],2)), str(round(v_us['price_vs_169'],1)) + "%")
+                e4.metric("EMA576", str(round(v_us['ema576'],2)))
+                e5.metric("EMA676", str(round(v_us['ema676'],2)))
+
+                s1, s2, s3, s4 = st.columns(4)
+                s1.metric("Price above", "Y" if v_us['price_above'] else "N")
+                s2.metric("EMA12 above", "Y" if v_us['ema12_above'] else "N")
+                s3.metric("EMA12 cross", "Y" if v_us['ema12_cross_up'] else "N")
+                s4.metric("EMA12 inside", "Y" if v_us['ema12_inside'] else "N")
+
+                t1, t2, t3, t4 = st.columns(4)
+                t1.metric("Tunnel W", str(round(v_us['tunnel_w'],2)))
+                t2.metric("Long SL", str(round(v_us['sl_long'],2)), "-" + str(round(v_us['sl_pct'],1)) + "%")
+                t3.metric("TP1", str(round(v_us['tp1'],2)))
+                t4.metric("TP2", str(round(v_us['tp2'],2)))
+
+                t5, t6, t7, t8 = st.columns(4)
+                t5.metric("TP3", str(round(v_us['tp3'],2)))
+                t6.metric("TP4", str(round(v_us['tp4'],2)))
+                t7.metric("H1>H4", "Y" if v_us['h1_above_h4'] else "N")
+                t8.metric("Bias", v_us['bias'])
+
+                sig_map = {
+                    'BUY':          'BUY - 價格突破隧道且EMA12確認，多頭動能強，建議進場',
+                    'PULLBACK':     'PULLBACK - 價格突破隧道但EMA12未確認，等待回調再進',
+                    'INSIDE_TUNNEL':'INSIDE - 價格在隧道內震盪，觀望等待突破',
+                    'FAKEOUT':      'FAKEOUT - 假突破！勿追單',
+                    'SELL':         'SELL - 空頭趨勢，避免做多',
+                    'NEUTRAL':      'NEUTRAL - 隧道糾結，觀望不交易',
+                    'NO_SIGNAL':    'NO SIGNAL - 無明確信號，等待市場表態',
+                }
+                sig_txt = sig_map.get(v_us['signal'], v_us['signal'])
+                st.info(sig_txt)
+            else:
+                st.caption("點擊「Vegas 分析」執行隧道分析")
+
             with st.form(key="us_single_tg_form", clear_on_submit=False):
                 submitted = st.form_submit_button("Send Telegram", use_container_width=True)
                 st.write(f"DEBUG: submitted={submitted}")
