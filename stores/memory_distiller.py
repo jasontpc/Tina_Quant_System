@@ -245,33 +245,30 @@ def cleanup_expired_memories():
     return cleaned, preserved
 
 def daily_distillation():
-    """每日輕度蒸餾"""
+    """每日輕度蒸餾 — 極簡版，避免 Timeout"""
     print(f'\n=== 每日輕度蒸餾 | {datetime.now().strftime("%Y-%m-%d %H:%M")} ===')
     
-    # 讀取最近7天記憶
-    memories = get_short_term_memories(days=7)
-    print(f'Short-term memories (7d): {len(memories)}')
+    # 只計算檔案數量，不讀取內容（快速）
+    today = datetime.now()
+    recent_count = 0
+    for d in range(7):
+        date = (today - timedelta(days=d)).strftime('%Y%m%d')
+        recent_count += len(list(ST_DIR.glob(f'{date}_*.json')))
     
-    # 1. 清理過期
-    cleaned, preserved = cleanup_expired_memories()
-    print(f'Cleaned: {cleaned} expired | Preserved: {preserved}')
+    print(f'Short-term files (7d): {recent_count}')
     
-    # 2. 合併相似（可擴展）
-    # 目前以 tag 群組，但不做實際合併，只做標記
-    
-    # 3. 更新蒸餾日誌
+    # 更新蒸餾日誌（只寫一筆，不做昂貴的 cleanup）
     log = load_json(DISTILL_LOG, [])
     log.append({
         'timestamp': datetime.now().isoformat(),
         'level': 'daily',
-        'short_term_count': len(memories),
-        'cleaned': cleaned,
-        'preserved': preserved
+        'short_term_count': recent_count,
+        'note': 'lightweight - cleanup delegated to weekly'
     })
-    save_json(DISTILL_LOG, log[-100:])  # 保留最近100筆記錄
+    save_json(DISTILL_LOG, log[-100:])
     
-    print('Daily distillation DONE')
-    return {'cleaned': cleaned, 'preserved': preserved}
+    print('Daily distillation DONE (lightweight mode)')
+    return {'short_term_count': recent_count}
 
 def weekly_distillation():
     """每週中度蒸餾"""
