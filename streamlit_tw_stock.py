@@ -840,8 +840,11 @@ def vegas_tunnel(code, market='TW'):
     import numpy as np
     try:
         sym = code + ".TW" if market == 'TW' else code
-        df2 = yf.Ticker(sym).history(period="2y", interval="1d", auto_adjust=True, timeout=10)
-        if df2 is None or df2.empty or len(df2) < 700:
+        try:
+            df2 = yf.Ticker(sym).history(period="2y", interval="1d", auto_adjust=True)
+        except Exception:
+            df2 = yf.Ticker(sym).history(period="1y", interval="1d", auto_adjust=True)
+        if df2 is None or df2.empty or len(df2) < 100:
             return None
         close = df2['Close'].astype(float).dropna()
         price = float(close.iloc[-1])
