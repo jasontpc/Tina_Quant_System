@@ -835,7 +835,83 @@ def calc_macd(close):
 
 
 
+# ── Vegas Tunnel (EMA 144/169/576/676 + EMA 12 Filter) ─────────────────────
+def vegas_tunnel(code, market='TW'):
+    import numpy as np
+    try:
+        sym = code + ".TW" if market == 'TW' else code
+        df2 = yf.Ticker(sym).history(period="2y", interval="1d", auto_adjust=True, timeout=10)
+        if df2 is None or df2.empty or len(df2) < 700:
+            return None
+        close = df2['Close'].astype(float).dropna()
+        price = float(close.iloc[-1])
+        prev  = float(close.iloc[-2]) if len(close) >= 2 else price
+        chg   = (price - prev) / prev * 100
+        for m in [12, 144, 169, 576, 676]:
+            df2['EMA' + str(m)] = df2['Close'].ewm(span=m).mean()
+        cur   = df2.iloc[-1]
+        prev2 = df2.iloc[-2] if len(df2) > 1 else cur
+        ema12  = float(cur['EMA12'])
+        ema144 = float(cur['EMA144'])
+        ema169 = float(cur['EMA169'])
+        ema576 = float(cur['EMA576'])
+        ema676 = float(cur['EMA676'])
+        if any(np.isnan(x) for x in [ema12, ema144, ema169, ema576, ema676]):
+            return None
+        h1_above_h4 = (ema144 > ema576) and (ema169 > ema676)
+        h1_below_h4 = (ema144 < ema576) and (ema169 < ema676)
+        if h1_above_h4: bias = 'BULL'
+        elif h1_below_h4: bias = 'BEAR'
+        else: bias = 'NEUTRAL'
+        price_above   = (price > ema144) and (price > ema169)
+        ema12_above   = (ema12 > ema144) and (ema12 > ema169)
+        ema12_cross_up = (float(prev2['EMA12']) <= float(prev2['EMA144'])) and (ema12 > ema144)
+        ema12_inside   = (min(ema144, ema169) < ema12 < max(ema144, ema169))
+        tunnel_w = abs(ema144 - ema169)
+        tp1 = round(float(price + tunnel_w * 0.55), 2)
+        tp2 = round(float(price + tunnel_w * 0.89), 2)
+        tp3 = round(float(price + tunnel_w * 1.44), 2)
+        tp4 = round(float(price + tunnel_w * 2.33), 2)
+        sl_long = round(float(min(ema144, ema169)), 2)
+        sl_pct  = round((price - sl_long) / price * 100, 2)
+        if bias == 'NEUTRAL':
+            signal, sig_color = 'NEUTRAL', 'gray'
+        elif bias == 'BULL' and price_above and ema12_above:
+            signal, sig_color = 'BUY', 'green'
+        elif bias == 'BULL' and price_above and not ema12_above:
+            signal, sig_color = 'PULLBACK', 'blue'
+        elif bias == 'BULL' and ema12_inside:
+            signal, sig_color = 'INSIDE_TUNNEL', 'orange'
+        elif bias == 'BEAR' and not price_above:
+            signal, sig_color = 'SELL', 'red'
+        elif price_above and not ema12_above:
+            signal, sig_color = 'FAKEOUT', 'orange'
+        else:
+            signal, sig_color = 'NO_SIGNAL', 'gray'
+        bias_sc = 2 if bias == 'BULL' else (-2 if bias == 'BEAR' else 0)
+        brk_sc  = 3 if (price_above and ema12_above) else (1 if price_above else 0)
+        dist_sc = min(5, int((price / min(ema144, ema169) - 1) * 100 / 5))
+        score   = int((bias_sc + brk_sc + dist_sc) * 10)
+        return dict(
+            price=price, chg=chg, bias=bias, signal=signal, sig_color=sig_color,
+            score=score, ema12=ema12, ema144=ema144, ema169=ema169,
+            ema576=ema576, ema676=ema676,
+            price_vs_144=round((price/ema144-1)*100,2),
+            price_vs_169=round((price/ema169-1)*100,2),
+            ema12_vs_144=round((ema12/ema144-1)*100,2),
+            tunnel_w=round(float(tunnel_w),2),
+            sl_long=sl_long, sl_pct=sl_pct,
+            tp1=tp1, tp2=tp2, tp3=tp3, tp4=tp4,
+            price_above=price_above, ema12_above=ema12_above,
+            ema12_cross_up=ema12_cross_up, ema12_inside=ema12_inside,
+            h1_above_h4=h1_above_h4, h1_below_h4=h1_below_h4,
+        )
+    except Exception:
+        return None
+
+
 # ── Data Fetch ──────────────────────────────────────────────────────────────
+
 
 
 
@@ -1967,6 +2043,65 @@ with tw_tab:
                 f"[CHART] MA20={r['ma20']:.0f} MA60={r['ma60'] if r['ma60'] else 'N/A'}\n"
                 f"[BOX] {r.get('bullish','N')} | {'KD Golden' if r['kd_golden'] else 'KD OK'}\n"
                 f"Foreign:{f_val:+,} Trust:{t_val:+,} Dealer:{d_val:,}")
+
+            # ── Vegas Tunnel Section ─────────────────────────────────────────────
+            st.divider()
+            st.subheader("Vegas Tunnel (EMA 144/169/576/676)")
+
+            vegas_btn = st.button("Vegas 分析", key="btn_vegas_tw")
+            if vegas_btn:
+                with st.spinner("Computing Vegas Tunnel..."):
+                    v = vegas_tunnel(single_code, "TW")
+                if v:
+                    st.session_state['vegas_result'] = v
+                else:
+                    st.error("無法取得 Vega 資料，請確認股票代碼")
+
+            if 'vegas_result' in st.session_state:
+                v = st.session_state['vegas_result']
+                bias_icon = "BU" if v['bias'] == 'BULL' else ("RD" if v['bias'] == 'BEAR' else "YL")
+                trend_str = v['bias'] + " Trend"
+                st.markdown('**' + bias_icon + ' ' + trend_str + '** &nbsp;&nbsp; **:' + v['sig_color'] + '[' + v['signal'] + ']** &nbsp;&nbsp; Score ' + str(v['score']))
+
+                e1, e2, e3, e4, e5 = st.columns(5)
+                e1.metric("EMA12", str(round(v['ema12'],2)), str(round(v['ema12_vs_144'],2)) + "% vs 144")
+                e2.metric("EMA144", str(round(v['ema144'],2)), str(round(v['price_vs_144'],1)) + "%")
+                e3.metric("EMA169", str(round(v['ema169'],2)), str(round(v['price_vs_169'],1)) + "%")
+                e4.metric("EMA576", str(round(v['ema576'],2)))
+                e5.metric("EMA676", str(round(v['ema676'],2)))
+
+                s1, s2, s3, s4 = st.columns(4)
+                s1.metric("Price above", "Y" if v['price_above'] else "N")
+                s2.metric("EMA12 above", "Y" if v['ema12_above'] else "N")
+                s3.metric("EMA12 cross", "Y" if v['ema12_cross_up'] else "N")
+                s4.metric("EMA12 inside", "Y" if v['ema12_inside'] else "N")
+
+                t1, t2, t3, t4 = st.columns(4)
+                t1.metric("Tunnel W", str(round(v['tunnel_w'],2)))
+                t2.metric("Long SL", str(round(v['sl_long'],2)), "-" + str(round(v['sl_pct'],1)) + "%")
+                t3.metric("TP1", str(round(v['tp1'],2)))
+                t4.metric("TP2", str(round(v['tp2'],2)))
+
+                t5, t6, t7, t8 = st.columns(4)
+                t5.metric("TP3", str(round(v['tp3'],2)))
+                t6.metric("TP4", str(round(v['tp4'],2)))
+                t7.metric("H1>H4", "Y" if v['h1_above_h4'] else "N")
+                t8.metric("Bias", v['bias'])
+
+                sig_map = {
+                    'BUY':          'BUY - 價格突破隧道且EMA12確認，多頭動能強，建議進場',
+                    'PULLBACK':     'PULLBACK - 價格突破隧道但EMA12未確認，等待回調再進',
+                    'INSIDE_TUNNEL':'INSIDE - 價格在隧道內震盪，觀望等待突破',
+                    'FAKEOUT':      'FAKEOUT - 假突破！勿追單',
+                    'SELL':         'SELL - 空頭趨勢，避免做多',
+                    'NEUTRAL':      'NEUTRAL - 隧道糾結，觀望不交易',
+                    'NO_SIGNAL':    'NO SIGNAL - 無明確信號，等待市場表態',
+                }
+                sig_txt = sig_map.get(v['signal'], v['signal'])
+                st.info(sig_txt)
+            else:
+                st.caption("點擊「Vegas 分析」執行隧道分析")
+
             with st.form(key="tw_single_tg_form", clear_on_submit=False):
                 st.write("DEBUG: TW Send form rendering")
                 col1, _ = st.columns([1, 4])
