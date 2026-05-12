@@ -1408,14 +1408,14 @@ def analyze(code, market='TW'):
 
 # ── Page Setup ──────────────────────────────────────────────────────────────
 
-st.set_page_config(page_title="Tina Scanner v3.1", page_icon="📈", layout="wide")
-
 st.markdown(""""
 <style>
 .metric-card { background-color:white; padding:20px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); border-left:5px solid #1E88E5; }
 [data-testid="stMainBlockContainer"] { padding-top:1rem; }
 </style>
 """, unsafe_allow_html=True)
+
+st.set_page_config(page_title="Tina Scanner v3.1", page_icon="📈", layout="wide")
 
 st.title("[UP] Tina Scanner v3.1 — TW+US Tech Scoring")
 _log.info("[UI] Page setup complete")
@@ -1709,7 +1709,7 @@ with tw_tab:
 
         df = pd.DataFrame(rows)
 
-st.dataframe(
+        st.dataframe(
             df,
             column_config={
                 "Score": st.column_config.NumberColumn("評分", format="%.0f", min_value=0, max_value=1000),
@@ -2370,7 +2370,7 @@ with us_tab:
 
         df = pd.DataFrame(rows)
 
-st.dataframe(
+        st.dataframe(
             df,
             column_config={
                 "Score": st.column_config.NumberColumn("評分", format="%.0f", min_value=0, max_value=1000),
