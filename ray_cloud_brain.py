@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 ray_cloud_brain.py — 雲端搜尋 + 本地 LLM 整合系統
+已啟用 Tavily API
 
 分工：
-- web_search: 連網搜尋（Tavily）
+- Tavily: 連網搜尋趨勢（已啟用 ✅）
 - ray-v1 (1.5B): 快速策略決策
 - ray-deep-v1 (7B): 深度風控審核
 """
@@ -13,24 +14,53 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 import requests
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
+TAVILY_KEY = "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"
 DB = 'ray_wisdom.db'
 
 # ============================================================
-# 1. 搜尋（使用 Jina AI 抓取內容）
+# 1. Tavily 搜尋（已啟用）
 # ============================================================
 
-def fetch_web_content(query):
-    """使用 Jina AI 抓取網頁"""
+def tavily_search(query, max_results=5):
+    """Tavily 搜尋"""
     try:
-        import urllib.parse
-        encoded_query = urllib.parse.quote(query)
-        jina_url = f"https://r.jina.ai/{encoded_query}"
-        import urllib.request
-        req = urllib.request.Request(jina_url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return resp.read().decode("utf-8", errors="replace")[:2000]
+        resp = requests.post(
+            "https://api.tavily.com/search",
+            json={
+                "query": query,
+                "api_key": TAVILY_KEY,
+                "max_results": max_results,
+                "topic": "finance"
+            },
+            timeout=15
+        )
+        if resp.status_code == 200:
+            data = resp.json()
+            results = data.get("results", [])
+            return results
     except Exception as e:
-        return f"Error: {str(e)}"
+        return []
+    return []
+
+def tavily_trend(symbol):
+    """搜尋趨勢"""
+    results = tavily_search(f"{symbol} stock trend analysis 2024", max_results=5)
+    if results:
+        summary = []
+        for r in results[:3]:
+            summary.append(f"- {r.get('title', '')}: {r.get('content', '')[:100]}")
+        return "\n".join(summary)
+    return "無搜尋結果"
+
+def tavily_sentiment(symbol):
+    """搜尋情緒"""
+    results = tavily_search(f"{symbol} stock market sentiment news", max_results=5)
+    if results:
+        summary = []
+        for r in results[:3]:
+            summary.append(f"- {r.get('content', '')[:100]}")
+        return "\n".join(summary)
+    return "無搜尋結果"
 
 # ============================================================
 # 2. 本地 LLM 決策（ray-v1）
@@ -41,14 +71,16 @@ def local_decision(symbol, cloud_data, indicators, strategies):
 
 標的：{symbol}
 
-【雲端數據】
+【雲端搜尋數據】
 {cloud_data}
 
 【本地技術指標】
 {indicators}
 
-【歷史策略】
+【歷史策略表現】
 {strategies}
+
+根據以上數據，給出交易建議。
 
 輸出 JSON（只輸出JSON）：
 {{"signal": "BUY/SELL/WATCH", "confidence": 0.0-1.0, "reason": "原因"}}
@@ -97,27 +129,34 @@ def analyze(symbol, indicators, strategies):
     print(f"=== 分析 {symbol} ===")
     print()
 
-    # 搜尋
-    print("1. 搜尋趨勢...")
-    search_query = f"{symbol} stock market trend analysis"
-    trend_data = fetch_web_content(search_query)
-    print(f"   {trend_data[:80]}...")
+    # Tavily 趨勢
+    print("1. Tavily 趨勢搜尋...")
+    trend = tavily_trend(symbol)
+    print(f"   {trend[:80]}...")
+
+    # Tavily 情緒
+    print()
+    print("2. Tavily 情緒搜尋...")
+    sentiment = tavily_sentiment(symbol)
+    print(f"   {sentiment[:80]}...")
+
+    cloud_data = f"趨勢：\n{trend}\n\n情緒：\n{sentiment}"
 
     # ray-v1 決策
     print()
-    print("2. ray-v1 決策...")
-    decision = local_decision(symbol, trend_data, indicators, strategies)
+    print("3. ray-v1 決策...")
+    decision = local_decision(symbol, cloud_data, indicators, strategies)
     print(f"   {decision[:100]}...")
 
     # ray-deep-v1 風控
     print()
-    print("3. ray-deep-v1 風控...")
+    print("4. ray-deep-v1 風控...")
     risk = risk_review(symbol, decision, indicators)
     print(f"   {risk[:100]}...")
 
-    # 寫入
+    # 解析寫入
     print()
-    print("4. 寫入...")
+    print("5. 寫入資料庫...")
     m = re.search(r'\{[\s\S]*\}', decision)
     signal_json = json.loads(m.group()) if m else None
 
@@ -128,22 +167,29 @@ def analyze(symbol, indicators, strategies):
         c.execute('''INSERT INTO signals_log
             (timestamp, symbol, source, score, sharpe_30d, mdd_30d, win_rate_30d, signal_tag, approved, note)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-            (now, symbol, "CLOUD_BRAIN", signal_json.get("confidence", 0),
+            (now, symbol, "TAVILY_CLOUD", signal_json.get("confidence", 0),
              indicators.get("sharpe", 0), 0, 0,
              signal_json.get("signal", "WATCH"), 0,
-             json.dumps({"trend": trend_data[:300], "decision": decision, "risk": risk})))
+             json.dumps({"trend": trend[:300], "sentiment": sentiment[:300], "decision": decision, "risk": risk})))
         conn.commit()
         conn.close()
-        print(f"   {signal_json.get('signal')} (conf={signal_json.get('confidence')})")
+        print(f"   ✅ {signal_json.get('signal')} (conf={signal_json.get('confidence')})")
 
     return {"decision": decision, "risk": risk}
 
+# ============================================================
+# CLI
+# ============================================================
+
 if __name__ == "__main__":
-    print("=== 雲端搜尋 + 本地 LLM 整合 ===")
+    print("=== 雲端搜尋 + 本地 LLM 整合（Tavily 已啟用）===")
     print()
-    symbol = "VOO"
-    indicators = {"rsi": 58.6, "sharpe": 2.16, "price": 679.52}
-    strategies = "MOMENTUM: Sharpe=1.18, EMA_CROSS: Sharpe=0.77"
+
+    symbol = "NVDA"
+    indicators = {"rsi": 56.5, "sharpe": 2.16, "price": 219.44}
+    strategies = "MOMENTUM: Sharpe=1.30, RSI2: Sharpe=0.52"
+
     result = analyze(symbol, indicators, strategies)
+
     print()
     print("=== 完成 ===")
