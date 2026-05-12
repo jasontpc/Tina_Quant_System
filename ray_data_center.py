@@ -1,286 +1,192 @@
 # -*- coding: utf-8 -*-
 """
-Ray Data Center - Tina Architecture Edition
-Fixed for Windows SQLite: use isolation_level=None + explicit commit
+ray_data_center.py — 經濟型數據中心
+利用 32GB RAM 做本地快取，減少 API 請求次數
 """
+import sys, sqlite3, json, time, logging
+from datetime import datetime, timedelta
+from pathlib import Path
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-import sqlite3, json, os
-from datetime import datetime
-from contextlib import closing
-from typing import Optional, List, Dict
+import yfinance as yf
+import pandas as pd
+import numpy as np
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "ray_wisdom.db")
+DB = 'ray_wisdom.db'
+LOG_DIR = Path("logs")
+LOG_DIR.mkdir(exist_ok=True)
 
+_log = logging.getLogger("ray_data_center")
+_log.setLevel(logging.INFO)
+if not _log.handlers:
+    h = logging.FileHandler(str(LOG_DIR / "ray_data_center.log"), encoding="utf-8")
+    h.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+    _log.addHandler(h)
 
-def _conn(db_path):
-    """Get connection with autocommit on Windows for reliability"""
-    c = sqlite3.connect(db_path, isolation_level=None)
-    c.execute("PRAGMA journal_mode=WAL")
-    c.execute("PRAGMA synchronous=NORMAL")
-    return c
-
-
+# ============================================================
+# 經濟型數據緩存中心
+# ============================================================
 class RayDataCenter:
-    def __init__(self, db_path: str = None):
-        self.db_path = db_path or DB_PATH
-        self._init_db()
+    def __init__(self):
+        self.cache = {}  # RAM 快取
+        self.cache_ttl = 60  # 60 秒 TTL
+        self.last_request_time = {}  # 防止過度請求
 
-    def _init_db(self):
-        with closing(_conn(self.db_path)) as conn:
-            conn.execute("PRAGMA journal_mode=WAL")
-            conn.execute("PRAGMA synchronous=NORMAL")
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS signals_log (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    symbol TEXT NOT NULL,
-                    source TEXT NOT NULL,
-                    score REAL, sharpe_30d REAL, mdd_30d REAL, win_rate_30d REAL,
-                    signal_tag TEXT,
-                    approved BOOLEAN DEFAULT 0,
-                    pushed BOOLEAN DEFAULT 0,
-                    note TEXT
-                )""")
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS positions_log (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    entry_date DATE NOT NULL, symbol TEXT NOT NULL,
-                    entry_price REAL NOT NULL, shares INTEGER,
-                    stop_loss REAL, target_price REAL,
-                    status TEXT DEFAULT 'open',
-                    close_date DATE, close_price REAL, close_reason TEXT,
-                    pnl_pct REAL, rsi_entry REAL, note TEXT
-                )""")
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS trades_log (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    trade_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    symbol TEXT NOT NULL, action TEXT NOT NULL, price REAL NOT NULL,
-                    shares INTEGER, amount REAL, strategy TEXT,
-                    pnl_pct REAL, pnl_abs REAL, holding_days INTEGER,
-                    close_reason TEXT, note TEXT
-                )""")
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS performance_log (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    log_date DATE UNIQUE NOT NULL,
-                    portfolio_value REAL, daily_return_pct REAL,
-                    weekly_return_pct REAL, monthly_return_pct REAL, ytd_return_pct REAL,
-                    open_positions INTEGER, closed_today INTEGER, total_trades INTEGER,
-                    win_rate_today REAL, best_trade_pct REAL, worst_trade_pct REAL, note TEXT
-                )""")
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS backtest_reports (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    strategy_name TEXT, symbol TEXT, indicator TEXT,
-                    params TEXT, sharpe_ratio REAL, max_drawdown REAL,
-                    total_return REAL, win_rate REAL, avg_return REAL,
-                    num_trades INTEGER, passed BOOLEAN, note TEXT
-                )""")
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS sop_versions (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    update_date DATE DEFAULT (date('now')),
-                    version TEXT, content TEXT, changelog TEXT
-                )""")
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS wisdom_logs (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    axiom_json TEXT NOT NULL,
-                    reflection TEXT,
-                    backtest_id INTEGER,
-                    passed BOOLEAN,
-                    model_used TEXT,
-                    note TEXT
-                )""")
+    def _make_cache_key(self, symbol, interval="1d", period="1y"):
+        return f"{symbol}_{interval}_{period}"
 
-    def _write(self, sql: str, params: tuple = ()) -> sqlite3.Cursor:
-        """Execute write SQL with auto-commit on Windows"""
-        conn = _conn(self.db_path)
+    def get_cached(self, symbol, interval="1d", period="1y"):
+        """檢查 RAM 快取是否有效"""
+        key = self._make_cache_key(symbol, interval, period)
+        if key in self.cache:
+            ts, df = self.cache[key]
+            if (datetime.now() - ts).total_seconds() < self.cache_ttl:
+                return df
+        return None
+
+    def set_cached(self, symbol, interval, period, df):
+        """寫入 RAM 快取"""
+        key = self._make_cache_key(symbol, interval, period)
+        self.cache[key] = (datetime.now(), df)
+        _log.debug(f"Cached: {key} ({len(df)} rows)")
+
+    def get_live_data(self, symbol, interval="1d", period="1y"):
+        """
+        經濟型抓取：60秒內不重複請求
+        """
+        # 檢查快取
+        cached = self.get_cached(symbol, interval, period)
+        if cached is not None:
+            _log.debug(f"Cache hit: {symbol}")
+            return cached
+
+        # 防過度請求（每 5 秒最多一次）
+        now = time.time()
+        last = self.last_request_time.get(symbol, 0)
+        if now - last < 5:
+            _log.debug(f"Rate limit: {symbol}, wait {int(5-(now-last))}s")
+            return None
+
+        self.last_request_time[symbol] = now
+
         try:
-            cur = conn.cursor()
-            cur.execute(sql, params)
-            conn.commit()
-            return cur
-        finally:
-            conn.close()
+            ticker = yf.Ticker(symbol)
+            df = ticker.history(period=period, interval=interval)
+            if not df.empty:
+                self.set_cached(symbol, interval, period, df)
+                return df
+        except Exception as e:
+            _log.warning(f"Fetch failed: {symbol} -> {e}")
 
-    def _read(self, sql: str, params: tuple = ()) -> List[Dict]:
-        """Execute read SQL"""
-        conn = _conn(self.db_path)
-        conn.row_factory = sqlite3.Row
-        try:
-            cur = conn.cursor()
-            cur.execute(sql, params)
-            return [dict(r) for r in cur.fetchall()]
-        finally:
-            conn.close()
+        return None
 
-    # ── Signal Operations ───────────────────────────────────────────
-    def log_signal(self, symbol: str, source: str, score: float,
-                   sharpe: float = None, mdd: float = None, win_rate: float = None,
-                   signal_tag: str = None, note: str = None) -> int:
-        approved = 1 if (sharpe is not None and sharpe > 1.5 and mdd is not None and mdd < 0.15) else 0
-        cur = self._write("""
-            INSERT INTO signals_log
-            (symbol, source, score, sharpe_30d, mdd_30d, win_rate_30d, signal_tag, approved, note)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (symbol, source, score, sharpe, mdd, win_rate, signal_tag, approved, note))
-        return cur.lastrowid
+    def get_clean_kline(self, df, rows=5):
+        """
+        Token 節約：只取最新 N 根 K 線
+        """
+        if df is None or df.empty:
+            return ""
+        tail = df.tail(rows)[['Open', 'High', 'Low', 'Close', 'Volume']]
+        return tail.to_string()
 
-    def get_unpushed_approved_signals(self, source: str = None, limit: int = 20) -> List[Dict]:
-        sql = "SELECT * FROM signals_log WHERE approved=1 AND pushed=0"
-        if source: sql += f" AND source='{source}'"
-        sql += " ORDER BY sharpe_30d DESC LIMIT ?"
-        return self._read(sql, (limit,))
+    def get_indicators(self, df):
+        """
+        計算基本指標（本地執行，不消耗 Token）
+        """
+        if df is None or df.empty:
+            return {}
 
-    def mark_signals_pushed(self, ids: List[int]):
-        if not ids: return
-        placeholders = ",".join("?" * len(ids))
-        self._write(f"UPDATE signals_log SET pushed=1 WHERE id IN ({placeholders})", tuple(ids))
+        close = df['Close']
+        close_arr = close.values if hasattr(close, 'values') else np.array(close)
 
-    # ── Position Operations ─────────────────────────────────────────
-    def open_position(self, symbol: str, entry_price: float, shares: int,
-                       stop_loss: float = None, target: float = None,
-                       rsi_entry: float = None, note: str = None) -> int:
-        cur = self._write("""
-            INSERT INTO positions_log (entry_date, symbol, entry_price, shares,
-                stop_loss, target_price, rsi_entry, note)
-            VALUES (date('now'), ?, ?, ?, ?, ?, ?, ?)""",
-            (symbol, entry_price, shares, stop_loss, target, rsi_entry, note))
-        return cur.lastrowid
+        # RSI
+        delta = np.diff(close_arr)
+        gain = np.clip(delta, 0, None).mean()
+        loss = np.clip(-delta, 0, None).mean()
+        rs = gain / loss if loss > 0 else 0
+        rsi = 100 - (100 / (1 + rs)) if rs > 0 else 50
 
-    def close_position(self, symbol: str, close_price: float,
-                        reason: str, pnl_pct: float = None) -> int:
-        cur = self._write("""
-            UPDATE positions_log SET status='closed', close_date=date('now'),
-            close_price=?, close_reason=?, pnl_pct=?
-            WHERE symbol=? AND status='open'
-            ORDER BY entry_date DESC LIMIT 1""",
-            (close_price, reason, pnl_pct, symbol))
-        return cur.rowcount
+        # MA
+        ma5 = close.rolling(5).mean().iloc[-1] if len(close) >= 5 else close.iloc[-1]
+        ma20 = close.rolling(20).mean().iloc[-1] if len(close) >= 20 else close.iloc[-1]
+        ma60 = close.rolling(60).mean().iloc[-1] if len(close) >= 60 else close.iloc[-1]
 
-    def get_open_positions(self) -> List[Dict]:
-        return self._read("SELECT * FROM positions_log WHERE status='open' ORDER BY entry_date DESC")
-
-    def get_position_by_symbol(self, symbol: str) -> Optional[Dict]:
-        rows = self._read("SELECT * FROM positions_log WHERE symbol=? AND status='open' ORDER BY entry_date DESC LIMIT 1", (symbol,))
-        return rows[0] if rows else None
-
-    # ── Trade Operations ─────────────────────────────────────────────
-    def log_trade(self, symbol: str, action: str, price: float,
-                   shares: int = None, amount: float = None,
-                   strategy: str = None, pnl_pct: float = None,
-                   holding_days: int = None, close_reason: str = None,
-                   note: str = None) -> int:
-        cur = self._write("""
-            INSERT INTO trades_log
-            (symbol, action, price, shares, amount, strategy, pnl_pct, holding_days, close_reason, note)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (symbol, action, price, shares, amount, strategy, pnl_pct, holding_days, close_reason, note))
-        return cur.lastrowid
-
-    # ── Performance Operations ───────────────────────────────────────
-    def log_performance(self, portfolio_value: float = None,
-                         daily_return: float = None, open_positions: int = None,
-                         note: str = None) -> int:
-        conn = _conn(self.db_path)
-        try:
-            cur = conn.cursor()
-            cur.execute("""SELECT COUNT(*), AVG(pnl_pct) FROM trades_log
-                           WHERE date(trade_date)=date('now') AND action IN ('SELL','EXIT')""")
-            closed, avg_ret = cur.fetchone()
-            cur.execute("""
-                INSERT INTO performance_log
-                (log_date, portfolio_value, daily_return_pct, open_positions, closed_today, win_rate_today, note)
-                VALUES (date('now'), ?, ?, ?, ?, ?, ?)""",
-                (portfolio_value, daily_return, open_positions, closed, avg_ret, note))
-            conn.commit()
-            return cur.lastrowid
-        finally:
-            conn.close()
-
-    def get_performance_summary(self, days: int = 30) -> Dict:
-        rows = self._read(f"""SELECT * FROM performance_log
-                               WHERE log_date >= date('now', '-{days} days')
-                               ORDER BY log_date ASC""")
-        if not rows: return {}
-        total_return = sum(r.get('daily_return_pct', 0) or 0 for r in rows)
-        wins = [r for r in rows if r.get('daily_return_pct', 0) > 0]
         return {
-            'days': len(rows),
-            'total_return_pct': round(total_return * 100, 2),
-            'win_days': len(wins),
-            'win_rate': round(len(wins)/len(rows)*100, 1) if rows else 0,
-            'avg_return': round(total_return/len(rows)*100, 4) if rows else 0,
+            "rsi": round(rsi, 1),
+            "ma5": round(ma5, 2),
+            "ma20": round(ma20, 2),
+            "ma60": round(ma60, 2),
+            "price": round(close.iloc[-1], 2),
+            "volume": int(df['Volume'].iloc[-1]),
+            "change_pct": round((close.iloc[-1] / close.iloc[-2] - 1) * 100, 2) if len(close) >= 2 else 0
         }
 
-    # ── Backtest Reports ────────────────────────────────────────────
-    def log_backtest(self, strategy_name: str, symbol: str,
-                      indicator: str, params: Dict,
-                      sharpe: float, mdd: float, total_ret: float,
-                      win_rate: float, avg_return: float,
-                      num_trades: int, note: str = None) -> int:
-        passed = 1 if (sharpe > 1.5 and mdd < 0.15) else 0
-        cur = self._write("""
-            INSERT INTO backtest_reports
-            (strategy_name, symbol, indicator, params, sharpe_ratio, max_drawdown,
-             total_return, win_rate, avg_return, num_trades, passed, note)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (strategy_name, symbol, indicator, json.dumps(params),
-             sharpe, mdd, total_ret, win_rate, avg_return, num_trades, passed, note))
-        return cur.lastrowid
+# ============================================================
+# 寫入 daily_performance
+# ============================================================
+def write_daily_perf(symbol, price, change_pct, rsi, sharpe=0, mdd=0):
+    """將每日數據寫入 DB"""
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    today = time.strftime("%Y-%m-%d")
+    try:
+        c.execute('''INSERT INTO daily_performance
+            (date, symbol, pnl_ratio, sharpe_1d, note)
+            VALUES (?, ?, ?, ?, ?)''',
+            (today, symbol, change_pct / 100, sharpe,
+             json.dumps({"price": price, "rsi": rsi, "mdd": mdd})))
+        conn.commit()
+        _log.info(f"Written: {symbol} {price} RSI:{rsi}")
+    except Exception as e:
+        _log.error(f"Write failed: {e}")
+    conn.close()
 
-    def get_recent_backtests(self, symbol: str = None, days: int = 30) -> List[Dict]:
-        sql = "SELECT * FROM backtest_reports WHERE timestamp >= datetime('now', ?)"
-        params = [f'-{days} days']
-        if symbol: sql += f" AND symbol='{symbol}'"
-        sql += " ORDER BY timestamp DESC LIMIT 50"
-        return self._read(sql, params)
+# ============================================================
+# 多標的批量更新
+# ============================================================
+def batch_update(symbols, interval="1d", period="1y"):
+    """
+    批量更新多個標的（異步非阻塞概念）
+    """
+    dc = RayDataCenter()
+    results = []
 
-    def get_approved_backtests(self, limit: int = 20) -> List[Dict]:
-        return self._read("SELECT * FROM backtest_reports WHERE passed=1 ORDER BY sharpe_ratio DESC LIMIT ?", (limit,))
+    for sym in symbols:
+        df = dc.get_live_data(sym, interval, period)
+        if df is not None:
+            ind = dc.get_indicators(df)
+            ind["symbol"] = sym
+            ind["df"] = df
+            results.append(ind)
+            # 寫入 daily_performance
+            write_daily_perf(
+                sym, ind["price"], ind["change_pct"],
+                ind["rsi"]
+            )
+            _log.info(f"Updated: {sym} price={ind['price']} RSI={ind['rsi']}")
 
-    # ── Wisdom Logs ─────────────────────────────────────────────────
-    def log_wisdom(self, axiom_json: str, reflection: str = None,
-                   backtest_id: int = None, passed: bool = None,
-                   model_used: str = None, note: str = None) -> int:
-        cur = self._write("""
-            INSERT INTO wisdom_logs
-            (axiom_json, reflection, backtest_id, passed, model_used, note)
-            VALUES (?, ?, ?, ?, ?, ?)""",
-            (axiom_json, reflection, backtest_id, passed, model_used, note))
-        return cur.lastrowid
+    return results
 
-    def get_wisdom_logs(self, limit: int = 50) -> List[Dict]:
-        return self._read("SELECT * FROM wisdom_logs ORDER BY timestamp DESC LIMIT ?", (limit,))
+# ============================================================
+# 主要標的列表
+# ============================================================
+US_SYMBOLS = ["VTI", "VOO", "QQQ", "BND", "VEA", "SPY", "GLD", "NVDA", "AMD", "TSLA"]
+TW_SYMBOLS = ["2330.TW", "2454.TW"]  # 有限支援
 
-    def get_failed_wisdoms(self, limit: int = 20) -> List[Dict]:
-        return self._read("SELECT * FROM wisdom_logs WHERE passed=0 ORDER BY timestamp DESC LIMIT ?", (limit,))
+def run_data_center():
+    _log.info("=== Ray Data Center 啟動 ===")
 
-    # ── Query Helpers ────────────────────────────────────────────────
-    def get_latest_signal(self, symbol: str, source: str = None) -> Optional[Dict]:
-        sql = "SELECT * FROM signals_log WHERE symbol=?"
-        params = [symbol]
-        if source: sql += " AND source=?"
-        sql += " ORDER BY timestamp DESC LIMIT 1"
-        if source: params.append(source)
-        rows = self._read(sql, params)
-        return rows[0] if rows else None
+    all_symbols = US_SYMBOLS + TW_SYMBOLS
+    results = batch_update(all_symbols)
 
-    def get_signal_stats(self) -> Dict:
-        rows = self._read("SELECT COUNT(*) total, SUM(approved) approved FROM signals_log")
-        if rows: return {"total_signals": rows[0]['total'] or 0, "approved_signals": rows[0]['approved'] or 0}
-        return {"total_signals": 0, "approved_signals": 0}
+    print()
+    print("=== 數據中心更新結果 ===")
+    for r in results:
+        print(f"  {r['symbol']}: price={r['price']} RSI={r['rsi']} MA20={r['ma20']} change={r['change_pct']}%")
 
+    print()
+    print(f"更新完成: {len(results)}/{len(all_symbols)} 檔")
+    return results
 
 if __name__ == "__main__":
-    db = RayDataCenter()
-    print(f"[RayDataCenter] DB: {db.db_path}")
-    stats = db.get_signal_stats()
-    print(f"Signals: {stats['approved_signals']}/{stats['total_signals']} approved")
-    sid = db.log_signal('AAPL', 'test', 5.0, 2.0, 0.10, 0.55, 'BUY', 'auto test')
-    print(f"Inserted signal id={sid}")
-    print(f"Stats after: {db.get_signal_stats()}")
+    run_data_center()
