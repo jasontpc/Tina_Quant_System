@@ -1518,7 +1518,7 @@ with tw_tab:
             g_b = g2.checkbox("B", value=True, key="tw_grade_b")
             g_c = g3.checkbox("C", value=True, key="tw_grade_c")
             g_d = g4.checkbox("D", value=True, key="tw_grade_d")
-            if gall.form_submit_button("全", help="Select All", use_container_width=True):
+            if gall.form_submit_button("全", help="Select All", width='stretch'):
                 pass  # Checkbox values are auto-managed by Streamlit via key=
             tw_grade = [g for g, on in zip(["A","B","C","D"], [g_a, g_b, g_c, g_d]) if on]
 
@@ -1531,7 +1531,7 @@ with tw_tab:
 
         st.info(f"{len(codes)} stocks")
 
-        analyze_tw = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_analyze")
+        analyze_tw = st.button("Analyze", type="primary", width='stretch', key="btn_tw_analyze")
         _log.info("[UI] TW Analyze button ready")
 
 
@@ -1701,7 +1701,7 @@ with tw_tab:
 
         df = pd.DataFrame(rows)
 
-        st.dataframe(df, use_container_width=True, height=600, hide_index=True)
+        st.dataframe(df, width='stretch', height=600, hide_index=True)
 
 
 
@@ -1719,7 +1719,7 @@ with tw_tab:
 
             r1, r2 = st.columns(2)
 
-            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True, key="tw_batch_send"):
+            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), width='stretch', key="tw_batch_send"):
 
                 with st.spinner("Sending..."):
 
@@ -1743,7 +1743,7 @@ with tw_tab:
 
                         st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
 
-            if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", use_container_width=True):
+            if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", width='stretch'):
 
                 with st.spinner("Sending..."):
 
@@ -1811,7 +1811,7 @@ with tw_tab:
 
         st.write(" ")
 
-        do_single = st.button("Analyze", type="primary", use_container_width=True, key="btn_tw_single")
+        do_single = st.button("Analyze", type="primary", width='stretch', key="btn_tw_single")
 
     if do_single or st.session_state.get('tw_analyzed', False):
 
@@ -2134,7 +2134,7 @@ with tw_tab:
             with st.form(key="tw_single_tg_form", clear_on_submit=False):
                 st.write("DEBUG: TW Send form rendering")
                 col1, _ = st.columns([1, 4])
-                submitted = st.form_submit_button("Send Telegram", use_container_width=True)
+                submitted = st.form_submit_button("Send Telegram", width='stretch')
                 st.write(f"DEBUG: submitted={submitted}")
                 if submitted:
                     st.info("TW form submitted!")
@@ -2170,7 +2170,7 @@ with us_tab:
             u_b = u2.checkbox("B", value=True, key="us_grade_b")
             u_c = u3.checkbox("C", value=True, key="us_grade_c")
             u_d = u4.checkbox("D", value=True, key="us_grade_d")
-            if uall.form_submit_button("全", help="Select All", use_container_width=True):
+            if uall.form_submit_button("全", help="Select All", width='stretch'):
                 pass  # Checkbox values are auto-managed by Streamlit via key=
             us_grade = [g for g, on in zip(["A","B","C","D"], [u_a, u_b, u_c, u_d]) if on]
 
@@ -2183,7 +2183,7 @@ with us_tab:
 
         st.info(f"{len(codes)} stocks")
 
-        analyze_us = st.button("Analyze", type="primary", use_container_width=True, key="btn_us_analyze")
+        analyze_us = st.button("Analyze", type="primary", width='stretch', key="btn_us_analyze")
 
 
 
@@ -2342,7 +2342,7 @@ with us_tab:
 
         df = pd.DataFrame(rows)
 
-        st.dataframe(df, use_container_width=True, height=600, hide_index=True)
+        st.dataframe(df, width='stretch', height=600, hide_index=True)
 
 
 
@@ -2360,7 +2360,7 @@ with us_tab:
 
             r1, r2 = st.columns(2)
 
-            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), use_container_width=True, key="us_batch_send"):
+            if r1.button(f"Send ({sc}) Grade {','.join(grade_filter)}", disabled=(sc==0), width='stretch', key="us_batch_send"):
 
                 with st.spinner("Sending..."):
 
@@ -2384,7 +2384,7 @@ with us_tab:
 
                         st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
 
-            if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", use_container_width=True):
+            if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", width='stretch'):
 
                 with st.spinner("Sending..."):
 
@@ -2452,7 +2452,7 @@ with us_tab:
 
         st.write(" ")
 
-        do_us_single = st.button("Analyze", type="primary", use_container_width=True, key="btn_us_single")
+        do_us_single = st.button("Analyze", type="primary", width='stretch', key="btn_us_single")
 
     if do_us_single or st.session_state.get('us_analyzed', False):
 
@@ -2752,7 +2752,7 @@ with us_tab:
                 st.caption("點擊「Vegas 分析」執行隧道分析")
 
             with st.form(key="us_single_tg_form", clear_on_submit=False):
-                submitted = st.form_submit_button("Send Telegram", use_container_width=True)
+                submitted = st.form_submit_button("Send Telegram", width='stretch')
                 st.write(f"DEBUG: submitted={submitted}")
                 if submitted:
                     st.info("US form submitted!")
