@@ -1408,7 +1408,14 @@ def analyze(code, market='TW'):
 
 # ── Page Setup ──────────────────────────────────────────────────────────────
 
-st.set_page_config(page_title="Tina Scanner v3.0", page_icon="[UP]", layout="wide")
+st.set_page_config(page_title="Tina Scanner v3.1", page_icon="📈", layout="wide")
+
+st.markdown(""""
+<style>
+.metric-card { background-color:white; padding:20px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); border-left:5px solid #1E88E5; }
+[data-testid="stMainBlockContainer"] { padding-top:1rem; }
+</style>
+""", unsafe_allow_html=True)
 
 st.title("[UP] Tina Scanner v3.0 — TW+US Tech Scoring")
 _log.info("[UI] Page setup complete")
@@ -1701,7 +1708,23 @@ with tw_tab:
 
         df = pd.DataFrame(rows)
 
-        st.dataframe(df, width='stretch', height=600, hide_index=True)
+st.dataframe(
+            df,
+            column_config={
+                "Score": st.column_config.NumberColumn("評分", format="%.0f", min_value=0, max_value=1000),
+                "Chg%": st.column_config.TextColumn("漲跌%"),
+                "RSI":  st.column_config.TextColumn("RSI"),
+                "Tier": st.column_config.TextColumn("評級"),
+                "Code": st.column_config.TextColumn("代碼"),
+                "Price": st.column_config.NumberColumn("現價", format="%.2f"),
+                "MA":   st.column_config.TextColumn("MA20>60"),
+                "F":    st.column_config.TextColumn("外資"),
+                "T":    st.column_config.TextColumn("投信"),
+                "Vol":  st.column_config.TextColumn("量比"),
+            },
+            use_container_width=True,
+            hide_index=True,
+        )
 
 
 
@@ -2342,7 +2365,23 @@ with us_tab:
 
         df = pd.DataFrame(rows)
 
-        st.dataframe(df, width='stretch', height=600, hide_index=True)
+st.dataframe(
+            df,
+            column_config={
+                "Score": st.column_config.NumberColumn("評分", format="%.0f", min_value=0, max_value=1000),
+                "Chg%": st.column_config.TextColumn("漲跌%"),
+                "RSI":  st.column_config.TextColumn("RSI"),
+                "Tier": st.column_config.TextColumn("評級"),
+                "Code": st.column_config.TextColumn("代碼"),
+                "Price": st.column_config.NumberColumn("現價", format="%.2f"),
+                "MA":   st.column_config.TextColumn("MA20>60"),
+                "F":    st.column_config.TextColumn("外資"),
+                "T":    st.column_config.TextColumn("投信"),
+                "Vol":  st.column_config.TextColumn("量比"),
+            },
+            use_container_width=True,
+            hide_index=True,
+        )
 
 
 
