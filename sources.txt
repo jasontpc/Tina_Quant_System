@@ -1,0 +1,11 @@
+# Ray System 量化來源列表
+# 策略與學術類
+https://quantpedia.com/blog/
+https://www.quantstart.com/articles/
+# 風控與大師類
+https://alphaarchitect.com/blog/
+https://robotwealth.com/blog/
+# 即時動能類
+https://finviz.com/rss/news.ashx
+# SSRN
+https://www.ssrn.com/
