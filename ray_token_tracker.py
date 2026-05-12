@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 ray_token_tracker.py — 每5小時追蹤 MiniMax Token 用量
-增強版：7天平均 + 每日限額提醒
+修復版：正確計算日均用量 + 每日限額提醒
 """
 import sys, json, time, sqlite3
 from pathlib import Path
@@ -9,59 +9,64 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 API_KEY = "sk-cp-d1DZZxzGpsijgC4bJaTl6_mrDJp376z9iwXyRnXRq8wYZOXBKRqFL2YVSE6nVwJ0yi14yjhh6fPCwvtLT5J53KNdfLMSJgLIjfcCqTHpja08L58oTe0wztg"
 DB = "ray_wisdom.db"
-LOG_DIR = Path("logs")
-LOG_DIR.mkdir(exist_ok=True)
 
 # ============================================================
-# 寫入歷史記錄
+# 寫入歷史
 # ============================================================
-def write_history(model_name, used, total, weekly_used, weekly_total):
+def write_history(model_name, weekly_used, weekly_total):
     conn = sqlite3.connect(DB)
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS token_history
-        (id INTEGER PRIMARY KEY, timestamp TEXT, model TEXT, used INTEGER, total INTEGER,
-         weekly_used INTEGER, weekly_total INTEGER, date TEXT)''')
+        (id INTEGER PRIMARY KEY, timestamp TEXT, model TEXT, weekly_used INTEGER, weekly_total INTEGER, date TEXT)''')
     now = time.strftime("%Y-%m-%d %H:%M:%S")
     today = time.strftime("%Y-%m-%d")
-    c.execute('INSERT INTO token_history (timestamp, model, used, total, weekly_used, weekly_total, date) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        (now, model_name, used, total, weekly_used, weekly_total, today))
+    c.execute('INSERT INTO token_history (timestamp, model, weekly_used, weekly_total, date) VALUES (?, ?, ?, ?, ?)',
+        (now, model_name, weekly_used, weekly_total, today))
     conn.commit()
     conn.close()
 
 # ============================================================
-# 7天平均計算
+# 計算日均用量（從每小時追蹤記錄推估）
 # ============================================================
-def get_7day_avg(model_name):
+def get_daily_avg(model_name):
     conn = sqlite3.connect(DB)
     c = conn.cursor()
-    c.execute('''SELECT date, SUM(used) FROM token_history
-        WHERE model=? AND date >= date('now', '-7 days')
-        GROUP BY date ORDER BY date DESC''',
+
+    # 取得連續两天的 weekly_used 差值作為日用量
+    c.execute('''SELECT date, weekly_used FROM token_history
+        WHERE model=? AND date >= date('now', '-2 days')
+        ORDER BY date DESC, timestamp DESC''',
         (model_name,))
     rows = c.fetchall()
     conn.close()
 
-    if not rows:
-        return None, []
+    if len(rows) < 2:
+        return None, 0
 
-    daily = [(r[0], r[1]) for r in rows]
-    total_used = sum(r[1] for r in daily)
-    avg = total_used / len(daily) if daily else 0
-    return avg, daily
+    # 計算日用量差值
+    daily_usage = rows[0][1]  # 今天
+    # 簡化：用 weekly_used / 已過天數
+    now = time.localtime()
+    day_of_week = now.tm_wday  # 0=Mon
+    days_passed = day_of_week + 1 if day_of_week >= 0 else 1
+
+    daily_avg = daily_usage / days_passed if days_passed > 0 else daily_usage
+    return daily_avg, days_passed
 
 # ============================================================
-# 每日限額提醒
+# 限額提醒
 # ============================================================
-def check_daily_limit(weekly_avg, weekly_total, days_left=7):
-    daily_limit = weekly_total / 7 if weekly_total > 0 else 0
-    projected = weekly_avg * days_left
+def check_limit(weekly_used, weekly_total):
+    days_passed = time.localtime().tm_wday + 1
+    daily_quota = weekly_total / 7
+    daily_usage = weekly_used / days_passed if days_passed > 0 else 0
 
-    if projected > weekly_total * 0.8:
-        return "🔴 警告：按目前用量，本週將超標！", "red"
-    elif projected > weekly_total * 0.6:
-        return "🟡 注意：用量高於平均，建議關注", "yellow"
+    if daily_usage > daily_quota * 1.1:
+        return "🔴 警告：用量超標，本週將耗盡！", "red", daily_usage, daily_quota
+    elif daily_usage > daily_quota * 0.85:
+        return "🟡 注意：用量偏高，建議關注", "yellow", daily_usage, daily_quota
     else:
-        return "🟢 正常：用量在安全範圍內", "green"
+        return "🟢 正常：用量在安全範圍內", "green", daily_usage, daily_quota
 
 # ============================================================
 # 主報告
@@ -77,8 +82,8 @@ def get_token_report():
         data = resp.json()
         items = data.get("model_remains", [])
 
-        lines = ["📊 MiniMax Token 用量（7日平均）\n"]
-        alerts = []
+        lines = ["📊 MiniMax Token 用量（每日限額追蹤）\n"]
+        days_passed = time.localtime().tm_wday + 1
 
         for item in items:
             name = item.get("model_name", "N/A")
@@ -88,31 +93,25 @@ def get_token_report():
             if weekly_total == 0:
                 continue
 
-            used = item.get("current_interval_usage_count", 0)
             pct = (weekly_used / weekly_total) * 100
+            write_history(name, weekly_used, weekly_total)
 
-            # 寫入歷史
-            write_history(name, used, 0, weekly_used, weekly_total)
+            # 日均用量
+            daily_avg, _ = get_daily_avg(name)
+            daily_quota = weekly_total / 7
+            status, color, daily_rate, _ = check_limit(weekly_used, weekly_total)
 
-            # 7天平均
-            avg, daily = get_7day_avg(name)
-
-            # 每日限額檢查
-            days_left = 7 - time.localtime().tm_wday if time.localtime().tm_wday > 0 else 1
-            status, color = check_daily_limit(avg if avg else 0, weekly_total, days_left)
-
-            lines.append(f"┌{'─'*50}")
+            lines.append(f"┌{'─'*52}")
             lines.append(f"│ {name}")
             lines.append(f"│ 本週: {weekly_used:,} / {weekly_total:,} ({pct:.1f}%)")
-            if avg is not None:
-                lines.append(f"│ 7日平均: {avg:,.0f} /天")
+            lines.append(f"│ 日均用量: {daily_rate:,.0f} (配額: {daily_quota:,.0f})")
             lines.append(f"│ 狀態: {status}")
-            lines.append(f"└{'─'*50}")
+            lines.append(f"└{'─'*52}")
 
         return "\n".join(lines)
 
     except Exception as e:
-        return f"❌ Token 追蹤失敗: {str(e)}"
+        return f"❌ 追蹤失敗: {str(e)}"
 
 if __name__ == "__main__":
     print(get_token_report())
