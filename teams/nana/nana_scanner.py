@@ -12,7 +12,7 @@ import sqlite3
 import json
 from datetime import datetime
 
-DB_PATH = 'skills/stock-analyzer/scripts/tina_master.db'
+DB_PATH = 'backup_20260502/tina_master.db'
 
 def inst_score(days):
     if days >= 11: return 20
@@ -32,6 +32,7 @@ def get_rsi(closes):
     return 100 - (100 / (1 + ag / al)) if al != 0 else 50
 
 def get_inst(symbol):
+    import sqlite3
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
     cur.execute('SELECT foreign_net, trust_net FROM MarketData WHERE symbol = ? ORDER BY date DESC LIMIT 10', (symbol,))
