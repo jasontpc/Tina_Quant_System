@@ -1417,7 +1417,7 @@ st.markdown(""""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("[UP] Tina Scanner v3.0 — TW+US Tech Scoring")
+st.title("[UP] Tina Scanner v3.1 — TW+US Tech Scoring")
 _log.info("[UI] Page setup complete")
 
 
@@ -1653,6 +1653,7 @@ with tw_tab:
         m[5].metric("KD+", kd)
 
         st.success(f"{len(results)} stocks | {len(filtered)} after filter")
+        st.toast(f"掃描完成！ {len(results)} 檔 ({len(filtered)} 通過篩選)", icon="✅")
 
 
 
@@ -1765,6 +1766,7 @@ st.dataframe(
                     if ok_all:
 
                         st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
+                        st.toast(f"已發送 {sc} 檔分析到 Telegram", icon="📤")
 
             if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", width='stretch'):
 
@@ -1789,6 +1791,7 @@ st.dataframe(
                     if ok_all:
 
                         st.success(f"Sent {len(grade_filtered)} stocks ({len(chunks)} msgs)")
+                        st.toast(f"已發送 {len(grade_filtered)} 檔到 Telegram", icon="📤")
 
 
 
@@ -2170,6 +2173,7 @@ st.dataframe(
                     else:
                         if ok:
                             st.success("Telegram sent!")
+                            st.toast("已發送單一股票分析到 Telegram", icon="📤")
                         else:
                             st.error(f"Failed: {err}")
 
@@ -2324,6 +2328,7 @@ with us_tab:
         m[6].metric("Avg Score", f"{avg_score:.0f}")
 
         st.success(f"{len(results)} stocks | {len(filtered)} after filter")
+        st.toast(f"掃描完成！ {len(results)} 檔 ({len(filtered)} 通過篩選)", icon="✅")
 
 
 
@@ -2422,6 +2427,7 @@ st.dataframe(
                     if ok_all:
 
                         st.success(f"Sent {sc} stocks ({len(chunks)} msgs)")
+                        st.toast(f"已發送 {sc} 檔分析到 Telegram", icon="📤")
 
             if r2.button(f"Send All ({len(grade_filtered)}) Grade {','.join(grade_filter)}", width='stretch'):
 
@@ -2446,6 +2452,7 @@ st.dataframe(
                     if ok_all:
 
                         st.success(f"Sent {len(grade_filtered)} stocks ({len(chunks)} msgs)")
+                        st.toast(f"已發送 {len(grade_filtered)} 檔到 Telegram", icon="📤")
 
 
 
@@ -2804,6 +2811,7 @@ st.dataframe(
                     else:
                         if ok:
                             st.success("Telegram sent!")
+                            st.toast("已發送單一股票分析到 Telegram", icon="📤")
                         else:
                             st.error(f"Failed: {err}")
 
