@@ -26,31 +26,30 @@ MINIMAX_BASE_URL = "https://api.minimax.chat/v1"
 # 優先順序（根據速度和品質平衡）
 # Layer 1: 快速任務 (4B — 台股/美股實戰時段)
 LOCAL_MODEL_FAST   = "ray-v3.5"        # Qwen 4B — 交易時段主力 (2.7GB VRAM)
-LOCAL_MODEL_ALT_FAST = "ray-v3.5"        # 備用同樣是 4B
+LOCAL_MODEL_ALT_FAST = "ray-v3.5"        # Jo 指定：全指向 ray-v3.5
 
 # Layer 2: 深度任務 (7B — 訓練/蒸餾時段)
-LOCAL_MODEL_DEEP   = "ray-deep-v1"     # Qwen 7B — 14:00-20:00 邏輯進化時段
-LOCAL_MODEL_ALT_DEEP = "ray-commander"   # ray-commander + 大師對齊 System Prompt
-LOCAL_MODEL_COMMANDER = "ray-commander"   # ray-deep-v1 + 大師對齊 System Prompt
+# Jo 指定：所有路由（fast/deep/v3/alt_fast）全部統一使用 ray-v3.5
+LOCAL_MODEL_DEEP     = "ray-v3.5"
+LOCAL_MODEL_ALT_DEEP = "ray-v3.5"
+LOCAL_MODEL_COMMANDER = "ray-v3.5"
 
 
 class LLMRouter:
     """統一 LLM 調度器"""
 
     def __init__(self):
-        self.local_fast    = LOCAL_MODEL_FAST
-        self.local_alt_fast = LOCAL_MODEL_FAST   # Jo 指定：全本地分析走 ray-deep
-        self.local_v3      = LOCAL_MODEL_FAST   # Jo 指定：V3 備用同樣是 ray-deep
-        self.local_deep    = LOCAL_MODEL_DEEP   # Jo 指定：統一走 ray-deep
-        self.local_alt_deep = LOCAL_MODEL_ALT_DEEP
-        self.local_commander = "ray-deep-v1"
+        self.local_fast     = LOCAL_MODEL_FAST
+        self.local_alt_fast = LOCAL_MODEL_FAST   # Jo 指定：全指向 ray-v3.5
+        self.local_v3       = LOCAL_MODEL_FAST   # Jo 指定：V3 統一 ray-v3.5
+        self.local_deep     = LOCAL_MODEL_FAST   # Jo 指定：deep 統一 ray-v3.5
+        self.local_alt_deep = LOCAL_MODEL_FAST   # Jo 指定：alt_deep 統一 ray-v3.5
+        self.local_commander = LOCAL_MODEL_FAST   # Jo 指定：commander 統一 ray-v3.5
         self.minimax_model = "minimax/MiniMax-M2.7"  # MiniMax Remnant
         self._mm_client = None
         self._ollama_fallback_chain = [
-            # Layer 1 fallback chain
+            # Jo 指定：全部統一 ray-v3.5，備用也是同一個
             (LOCAL_MODEL_FAST,     30, 0.1),
-            (LOCAL_MODEL_ALT_FAST, 30, 0.1),
-            (LOCAL_MODEL_DEEP,     300, 0.2),
         ]
 
     # ═══════════════════════════════════════════════════════════
