@@ -1,0 +1,166 @@
+{
+  "axioms": [
+    {
+      "symbol": "GLOBAL",
+      "diagnosis": "The strategy failed due to an incorrect indicator name 'RSI_THRESHOLD' which is not recognized by the system.",
+      "strategy": "BUY_RSI_30",
+      "stop_loss": 0.08,
+      "confidence": 0.95,
+      "tags": "{\"next_backtest_changes\": [\"Use the correct indicator name 'rsi'\", \"Consider adjusting the threshold or other parameters based on historical performance\", \"Increase max hold days if necessary to capture longer-term trends\"]}"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The strategy failed because the RSI_THRESHOLD_30 strategy uses a threshold of 30 for both entry and exit conditions, which is typically incorrect as it does not differentiate between overbought and ov",
+      "strategy": "RSI_BUY_SELL",
+      "stop_loss": 0.08,
+      "confidence": 0.9,
+      "tags": "batch_done"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The strategy failed because the stop loss percentage is too high, potentially leading to significant losses before a profitable trade can be realized.",
+      "strategy": "EMA_CROSS_50_200",
+      "stop_loss": 0.01,
+      "confidence": 0.9,
+      "tags": "batch_done"
+    },
+    {
+      "symbol": "GLOBAL",
+      "diagnosis": "The original strategy failed due to poor risk management and insufficient Sharpe ratio and maximum drawdown (MDD). The momentum indicator with a window of 5 might be too sensitive to noise in the mark",
+      "strategy": "IMPROVED_MOMENTUM_10",
+      "stop_loss": 0.08,
+      "confidence": 0.85,
+      "tags": "{\"backtest_changes\": [\"Increased the momentum window to reduce noise\", \"Raised the entry threshold for more robust signals\", \"Reduced stop loss to better manage risk\"]}"
+    },
+    {
+      "symbol": "WEB_SOURCE",
+      "diagnosis": "[TALEB] Fat-tail risk warning: current market volatility underestimated",
+      "strategy": "UNKNOWN",
+      "stop_loss": null,
+      "confidence": 0.85,
+      "tags": "{\"source\": \"web_learner\", \"type\": \"TALEB\"}"
+    },
+    {
+      "symbol": "GLOBAL",
+      "diagnosis": "The original strategy failed due to its relatively short-term focus indicated by the EMA periods of 9 and 21 days. This setup may be too sensitive to noise in the market, leading to poor performance a",
+      "strategy": "EMA_CROSS_18_54",
+      "stop_loss": 0.06,
+      "confidence": 0.8,
+      "tags": "{\"backtest_changes\": [\"Increase EMA periods to reduce noise sensitivity\", \"Adjust stop loss to a more conservative level\"]}"
+    },
+    {
+      "symbol": "GLOBAL",
+      "diagnosis": "The original strategy failed due to a low Sharpe ratio and Maximum Drawdown (MDD), indicating poor risk-adjusted returns and significant volatility. The EMA crossover with the given parameters might b",
+      "strategy": "EMA_CROSS_12_26_IMPROVED",
+      "stop_loss": 0.05,
+      "confidence": 0.8,
+      "tags": "{\"backtest_changes\": [\"Adjusted EMA fast and slow periods to reduce sensitivity.\", \"Lowered stop loss to manage risk more aggressively.\"]}"
+    },
+    {
+      "symbol": "GLOBAL",
+      "diagnosis": "The original strategy failed due to a low Sharpe ratio and Maximum Drawdown (MDD), indicating insufficient risk-adjusted returns and potential for significant losses.",
+      "strategy": "IMPROVED_MOMENTUM_20",
+      "stop_loss": 0.15,
+      "confidence": 0.8,
+      "tags": "{\"backtest_changes\": [\"Increased the threshold for entry condition to 0.03 to improve risk-adjusted returns.\", \"Adjusted stop loss to 0.15 to better manage potential drawdowns.\"], \"parameters_tuned\": true}"
+    },
+    {
+      "symbol": "GLOBAL",
+      "diagnosis": "The original strategy failed due to insufficient Sharpe ratio and Maximum Drawdown (MDD). The momentum indicator with a 60-day window might be too sensitive to noise or might not capture the true tren",
+      "strategy": "ADAPTIVE_MOMENTUM_30",
+      "stop_loss": 0.1,
+      "confidence": 0.8,
+      "tags": "{\"backtest_changes\": [\"Change the indicator to Adaptive Momentum\", \"Reduce the window size to 30 days for better noise filtering\", \"Lower the entry threshold to increase sensitivity\", \"Decrease stop loss to 10% and max hold days to 45\"]}"
+    },
+    {
+      "symbol": "BND",
+      "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+      "strategy": "MOMENTUM_5",
+      "stop_loss": 0.05,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "BND",
+      "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+      "strategy": "MOMENTUM_20",
+      "stop_loss": 0.05,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "BND",
+      "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+      "strategy": "MOMENTUM_60",
+      "stop_loss": 0.05,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "BND",
+      "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+      "strategy": "VEGAS_144_576",
+      "stop_loss": 0.03,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "BND",
+      "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+      "strategy": "VEGAS_169_676",
+      "stop_loss": 0.03,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The strategy failed because the stop loss is too aggressive for a 9-period EMA and 21-period EMA crossover, which typically requires more room to account for market noise and volatility.",
+      "strategy": "EMA_CROSS_9_21",
+      "stop_loss": 0.03,
+      "confidence": 0.8,
+      "tags": "batch_done"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+      "strategy": "MOMENTUM_5",
+      "stop_loss": 0.03,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+      "strategy": "MOMENTUM_20",
+      "stop_loss": 0.03,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+      "strategy": "MOMENTUM_60",
+      "stop_loss": 0.03,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+      "strategy": "VEGAS_144_576",
+      "stop_loss": 0.02,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    },
+    {
+      "symbol": "UNKNOWN",
+      "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+      "strategy": "VEGAS_169_676",
+      "stop_loss": 0.02,
+      "confidence": 0.8,
+      "tags": "batch_corrected"
+    }
+  ],
+  "total": 20,
+  "generated": "2026-05-13"
+}
