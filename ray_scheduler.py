@@ -11,7 +11,7 @@ ray_scheduler.py — VRAM 動態調度器
 | 05:00 - 08:00    | 模型更新     | CPU 重構 Modelfile          | 低消耗     |
 """
 
-import os, sys, subprocess, logging
+import os, sys, subprocess, logging, time
 from datetime import datetime
 
 _log = logging.getLogger("ray_scheduler")
@@ -66,12 +66,8 @@ def vram_safety_check():
     if gb is None:
         return
     if gb > VRAM_SAFETY_GB:
-        _log.warning(f"[VRAM SAFETY] {gb:.1f}GB > {VRAM_SAFETY_GB}GB — executing ollama stop --all")
-        try:
-            subprocess.run(["ollama", "stop", "--all"],
-                          capture_output=True, timeout=60, check=False)
-        except:
-            pass
+        _log.warning(f"[VRAM SAFETY] {gb:.1f}GB > {VRAM_SAFETY_GB}GB — executing stop_all_with_cooldown()")
+        stop_all_with_cooldown()
     else:
         _log.info(f"[VRAM] Current: {gb:.1f}GB / {VRAM_SAFETY_GB}GB — safe")
 
@@ -80,8 +76,20 @@ def ollama_stop(model):
         subprocess.run(["ollama", "stop", model],
                       capture_output=True, timeout=30, check=False)
         _log.info(f"[VRAM] Stopped: {model}")
+        time.sleep(2)  # 物理釋放 VRAM 緩衝
     except Exception as e:
         _log.warning(f"[VRAM] Stop {model} failed: {e}")
+
+def stop_all_with_cooldown():
+    """停止所有模型 + 60s 強制冷卻期（避免 OOM）"""
+    try:
+        subprocess.run(["ollama", "stop", "--all"],
+                      capture_output=True, timeout=60, check=False)
+        _log.info("[VRAM] All models stopped, cooling down 60s...")
+        time.sleep(60)  # 強制冷卻，讓驅動完全釋放 VRAM
+        _log.info("[VRAM] Cooldown complete, VRAM should be clear")
+    except Exception as e:
+        _log.warning(f"[VRAM] stop_all failed: {e}")
 
 def ollama_list_running():
     try:
@@ -122,6 +130,8 @@ def enforce():
             if m in running:
                 ollama_stop(m)
                 _log.info(f"[TRADING] Stopped 7B {m} to protect VRAM")
+        # 確保 VRAM 完全釋放後再加載 4B
+        vram_safety_check()
         for m in MODELS_4B:
             if m not in running:
                 _log.info(f"[TRADING] {m} not loaded (will load on demand)")
@@ -131,13 +141,12 @@ def enforce():
             if m in running:
                 ollama_stop(m)
                 _log.info(f"[TRAINING] Stopped 4B {m} for 7B training")
+        # 切換到 7B 前執行完整冷卻
+        vram_safety_check()
         _log.info(f"[TRAINING] 7B models available for training")
 
     else:
-        for m in MODELS_7B + MODELS_4B:
-            if m in running:
-                ollama_stop(m)
-        _log.info(f"[IDLE] All models stopped")
+        stop_all_with_cooldown()  # 閒置時段完全停止 + 60s 冷卻
 
 if __name__ == "__main__":
     logging.basicConfig(

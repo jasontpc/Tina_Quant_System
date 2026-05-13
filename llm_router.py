@@ -89,14 +89,47 @@ class LLMRouter:
             prompt=self._build_prompt(prompt, context, mode="deep")
         )
 
-    def web(self, prompt: str, context: str = "") -> str:
-        """Layer 3: 連網學習（走 MiniMax + web）"""
-        return self._minimax_raw(
-            prompt=self._build_prompt(prompt, context, mode="web"),
-            enable_web=True
+        # Layer 3: 連網學習（走 MiniMax + web）
+        # 注意：宏觀任務已移至本地 qwen2.5:7b，大幅節省 MiniMax 配額
+        macro_tasks = {"macro_outlook", "sentiment", "macro_news", "earnings_summary"}
+        if task in macro_tasks:
+            return self._local_7b_call(data)  # 接管 MiniMax Layer 3，節省配額
+        return self._minimax_web_call(data)
+
+    def macro(self, prompt: str, context: str = "") -> str:
+        """
+        宏觀分析（Layer 3 MiniMax 替代者）
+        使用本地 qwen2.5:7b 接管原本昂貴的雲端任務，節省 30%+ 配額。
+        21:00 盤前宏觀自動觸發。
+        """
+        return self._local_7b_raw(
+            model="qwen2.5:7b",
+            prompt=self._build_prompt(prompt, context, mode="macro")
         )
 
-    def v3_commander(self, symbol: str, indicators: Dict[str, Any], task: str = "分析以下標的，輸出交易信號") -> str:
+    def _local_7b_raw(self, model: str, prompt: str, temperature: float = 0.15,
+                      num_predict: int = 350, timeout: int = 90) -> str:
+        """直接呼叫本地 7B（不走 MiniMax）"""
+        return self._ollama_raw(
+            model=model,
+            prompt=prompt,
+            temperature=temperature,
+            num_predict=num_predict,
+            timeout=timeout
+        )
+
+    def _local_7b_call(self, data: Dict) -> Dict:
+        """本地 7B 調用（macro_outlook / sentiment 等）"""
+        try:
+            result = self._ollama_raw(
+                model="qwen2.5:7b",
+                prompt=data.get("prompt", ""),
+                temperature=0.15,
+                timeout=90
+            )
+            return {"ok": True, "layer": 3, "model": "qwen2.5:7b", "result": result}
+        except Exception as e:
+            return {"ok": False, "layer": 3, "model": "qwen2.5:7b", "error": str(e)}
         """
         Layer 3B: ray-v3 Quant Commander（大師對齊模式）
         使用 qwen2.5:7b（ray-deep-v1）實作，避免 qwen3.5:4b Thinking Mode 問題
@@ -138,7 +171,8 @@ class LLMRouter:
         system_map = {
             "fast": "你是一個高效的美股交易策略助手。直接給出結論，不需要廢話。",
             "deep": "你是 Ray-Deep，深度量化分析專家。請完整推理，必要時寫出計算過程。",
-            "web":  "你是 Ray，帶網路搜索能力的交易分析師。先抓取最新數據，再分析。"
+            "web":  "你是 Ray，帶網路搜索能力的交易分析師。先抓取最新數據，再分析。",
+            "macro": "你是 Master Macro Analyst。參考 Dalio 的多樣化與 Simons 的模式識別。將宏觀數據轉化為 4B 指揮官可理解的權重修正因子，輸出簡潔果斷。"
         }
         system = system_map.get(mode, system_map["fast"])
         if context:
