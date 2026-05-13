@@ -1,9 +1,9 @@
 {
   "agent:ray:telegram:direct:1616824689": {
     "sessionId": "127aaf36-a9d2-4e87-a929-c3cc2a22dba5",
-    "updatedAt": 1778640089239,
+    "updatedAt": 1778649090005,
     "sessionStartedAt": 1778624786210,
-    "lastInteractionAt": 1778640083760,
+    "lastInteractionAt": 1778649081208,
     "systemSent": true,
     "abortedLastRun": false,
     "authProfileOverride": "minimax:global",
@@ -62,13 +62,13 @@
       "version": 0
     },
     "status": "running",
-    "startedAt": 1778640089239,
+    "startedAt": 1778649089939,
     "modelProvider": "minimax",
     "model": "MiniMax-M2.7",
     "contextTokens": 204800,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1778639971963,
+      "generatedAt": 1778647273499,
       "sessionId": "127aaf36-a9d2-4e87-a929-c3cc2a22dba5",
       "sessionKey": "agent:ray:telegram:direct:1616824689",
       "provider": "minimax",
@@ -326,8 +326,8 @@
         ]
       }
     },
-    "estimatedCostUsd": 0.16777889999999998,
-    "totalTokens": 22237,
+    "estimatedCostUsd": 0.39586356,
+    "totalTokens": 140749,
     "totalTokensFresh": true,
     "compactionCheckpoints": [
       {
@@ -396,7 +396,14 @@
           "entryId": "12501a6c"
         }
       }
-    ]
+    ],
+    "inputTokens": 27378,
+    "outputTokens": 14869,
+    "cacheRead": 140544,
+    "cacheWrite": 0,
+    "agentHarnessId": "pi",
+    "memoryFlushAt": 1778647846589,
+    "memoryFlushCompactionCount": 3
   },
   "agent:ray:cron:34405d7a-2dae-4eea-84b7-904c9d7079f1": {
     "label": "Cron: Ray Token Tracker 每5小時回報",
@@ -1018,12 +1025,12 @@
   },
   "agent:ray:cron:340fbdce-ef29-4257-9aa6-d827d51b8b06": {
     "label": "Cron: Gateway 每小時監控",
-    "sessionId": "131f4c30-2d12-4c82-af39-c5cdfa974d7f",
-    "updatedAt": 1778640422060,
-    "sessionStartedAt": 1778640421117,
-    "lastInteractionAt": 1778640421117,
+    "sessionId": "21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0",
+    "updatedAt": 1778647622092,
+    "sessionStartedAt": 1778647621139,
+    "lastInteractionAt": 1778647621139,
     "systemSent": true,
-    "sessionFile": "C:\\Users\\USER\\.openclaw\\agents\\ray\\sessions\\131f4c30-2d12-4c82-af39-c5cdfa974d7f.jsonl",
+    "sessionFile": "C:\\Users\\USER\\.openclaw\\agents\\ray\\sessions\\21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0.jsonl",
     "skillsSnapshot": {
       "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>browser-automation</name>\n    <description>Use when controlling web pages with the OpenClaw browser tool, especially multi-step flows, login checks, tab management, or recovery from stale refs/timeouts.</description>\n    <location>~/.openclaw\\plugin-skills\\browser-automation\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Audit and harden hosts running OpenClaw for SSH, firewall, updates, exposure, cron checks, and risk posture.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>node-connect</name>\n    <description>Diagnose OpenClaw Android, iOS, or macOS node pairing, QR/setup code, route, auth, and connection failures.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create, edit, improve, tidy, review, audit, or restructure AgentSkills and SKILL.md files.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow</name>\n    <description>Coordinate multi-step detached tasks as one durable TaskFlow job with owner context, state, waits, and child tasks.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\taskflow\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow-inbox-triage</name>\n    <description>Example TaskFlow pattern for inbox triage, intent routing, waiting on replies, and later summaries.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\taskflow-inbox-triage\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tavily</name>\n    <description>Tavily web search, content extraction, and research tools.</description>\n    <location>~/.openclaw\\plugin-skills\\tavily\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather, rain, temperature, and forecasts for locations or travel planning.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather\\SKILL.md</location>\n  </skill>\n</available_skills>",
       "skills": [
@@ -1060,16 +1067,268 @@
     "model": "MiniMax-M2.7",
     "authProfileOverride": "minimax:global",
     "authProfileOverrideSource": "auto",
-    "authProfileOverrideCompactionCount": 0
+    "authProfileOverrideCompactionCount": 0,
+    "systemPromptReport": {
+      "source": "run",
+      "generatedAt": 1778647626958,
+      "sessionId": "21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0",
+      "sessionKey": "agent:ray:cron:340fbdce-ef29-4257-9aa6-d827d51b8b06:run:21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0",
+      "provider": "minimax",
+      "model": "MiniMax-M2.7",
+      "workspaceDir": "C:\\Users\\USER\\.openclaw\\agents\\ray",
+      "bootstrapMaxChars": 12000,
+      "bootstrapTotalMaxChars": 60000,
+      "bootstrapTruncation": {
+        "warningMode": "once",
+        "warningShown": false,
+        "truncatedFiles": 0,
+        "nearLimitFiles": 0,
+        "totalNearLimit": false
+      },
+      "sandbox": {
+        "mode": "off",
+        "sandboxed": false
+      },
+      "systemPrompt": {
+        "chars": 16345,
+        "projectContextChars": 7477,
+        "nonProjectContextChars": 8868
+      },
+      "injectedWorkspaceFiles": [
+        {
+          "name": "AGENTS.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\AGENTS.md",
+          "missing": false,
+          "rawChars": 2430,
+          "injectedChars": 2430,
+          "truncated": false
+        },
+        {
+          "name": "SOUL.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\SOUL.md",
+          "missing": false,
+          "rawChars": 2143,
+          "injectedChars": 2143,
+          "truncated": false
+        },
+        {
+          "name": "TOOLS.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\TOOLS.md",
+          "missing": false,
+          "rawChars": 910,
+          "injectedChars": 910,
+          "truncated": false
+        },
+        {
+          "name": "IDENTITY.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\IDENTITY.md",
+          "missing": false,
+          "rawChars": 231,
+          "injectedChars": 231,
+          "truncated": false
+        },
+        {
+          "name": "USER.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\USER.md",
+          "missing": false,
+          "rawChars": 534,
+          "injectedChars": 534,
+          "truncated": false
+        }
+      ],
+      "skills": {
+        "promptChars": 2587,
+        "entries": [
+          {
+            "name": "browser-automation",
+            "blockChars": 324
+          },
+          {
+            "name": "healthcheck",
+            "blockChars": 284
+          },
+          {
+            "name": "node-connect",
+            "blockChars": 285
+          },
+          {
+            "name": "skill-creator",
+            "blockChars": 270
+          },
+          {
+            "name": "taskflow",
+            "blockChars": 285
+          },
+          {
+            "name": "taskflow-inbox-triage",
+            "blockChars": 295
+          },
+          {
+            "name": "tavily",
+            "blockChars": 199
+          },
+          {
+            "name": "weather",
+            "blockChars": 255
+          }
+        ]
+      },
+      "tools": {
+        "listChars": 0,
+        "schemaChars": 24288,
+        "entries": [
+          {
+            "name": "read",
+            "summaryChars": 298,
+            "schemaChars": 304,
+            "propertiesCount": 3
+          },
+          {
+            "name": "edit",
+            "summaryChars": 326,
+            "schemaChars": 834,
+            "propertiesCount": 2
+          },
+          {
+            "name": "write",
+            "summaryChars": 127,
+            "schemaChars": 225,
+            "propertiesCount": 2
+          },
+          {
+            "name": "exec",
+            "summaryChars": 698,
+            "schemaChars": 1139,
+            "propertiesCount": 12
+          },
+          {
+            "name": "process",
+            "summaryChars": 322,
+            "schemaChars": 1011,
+            "propertiesCount": 12
+          },
+          {
+            "name": "message",
+            "summaryChars": 131,
+            "schemaChars": 7586,
+            "propertiesCount": 113
+          },
+          {
+            "name": "image_generate",
+            "summaryChars": 600,
+            "schemaChars": 2587,
+            "propertiesCount": 15
+          },
+          {
+            "name": "music_generate",
+            "summaryChars": 150,
+            "schemaChars": 1392,
+            "propertiesCount": 11
+          },
+          {
+            "name": "video_generate",
+            "summaryChars": 225,
+            "schemaChars": 3841,
+            "propertiesCount": 21
+          },
+          {
+            "name": "update_plan",
+            "summaryChars": 251,
+            "schemaChars": 574,
+            "propertiesCount": 2
+          },
+          {
+            "name": "sessions_list",
+            "summaryChars": 225,
+            "schemaChars": 432,
+            "propertiesCount": 9
+          },
+          {
+            "name": "sessions_history",
+            "summaryChars": 180,
+            "schemaChars": 161,
+            "propertiesCount": 3
+          },
+          {
+            "name": "sessions_send",
+            "summaryChars": 314,
+            "schemaChars": 274,
+            "propertiesCount": 5
+          },
+          {
+            "name": "sessions_spawn",
+            "summaryChars": 419,
+            "schemaChars": 1211,
+            "propertiesCount": 16
+          },
+          {
+            "name": "sessions_yield",
+            "summaryChars": 97,
+            "schemaChars": 60,
+            "propertiesCount": 1
+          },
+          {
+            "name": "subagents",
+            "summaryChars": 105,
+            "schemaChars": 191,
+            "propertiesCount": 4
+          },
+          {
+            "name": "session_status",
+            "summaryChars": 456,
+            "schemaChars": 89,
+            "propertiesCount": 2
+          },
+          {
+            "name": "web_search",
+            "summaryChars": 83,
+            "schemaChars": 1209,
+            "propertiesCount": 12
+          },
+          {
+            "name": "web_fetch",
+            "summaryChars": 129,
+            "schemaChars": 374,
+            "propertiesCount": 3
+          },
+          {
+            "name": "image",
+            "summaryChars": 260,
+            "schemaChars": 342,
+            "propertiesCount": 6
+          },
+          {
+            "name": "memory_search",
+            "summaryChars": 605,
+            "schemaChars": 237,
+            "propertiesCount": 4
+          },
+          {
+            "name": "memory_get",
+            "summaryChars": 239,
+            "schemaChars": 215,
+            "propertiesCount": 4
+          }
+        ]
+      }
+    },
+    "contextTokens": 204800,
+    "inputTokens": 12384,
+    "outputTokens": 82,
+    "totalTokens": 13556,
+    "totalTokensFresh": true,
+    "cacheRead": 14656,
+    "cacheWrite": 0,
+    "estimatedCostUsd": 0.00469296
   },
   "agent:ray:cron:7e5fd5b5-a2a0-4841-bc0d-8c8f622edf0d": {
     "label": "Cron: VRAM 動態調度（每小時）",
-    "sessionId": "92809af7-7e8f-4751-b817-1cc1dbb2e08e",
-    "updatedAt": 1778638773034,
-    "sessionStartedAt": 1778638772135,
-    "lastInteractionAt": 1778638772135,
+    "sessionId": "e763ac8c-4d72-4669-8da2-8b57c55b0478",
+    "updatedAt": 1778645973100,
+    "sessionStartedAt": 1778645972159,
+    "lastInteractionAt": 1778645972159,
     "systemSent": true,
-    "sessionFile": "C:\\Users\\USER\\.openclaw\\agents\\ray\\sessions\\92809af7-7e8f-4751-b817-1cc1dbb2e08e.jsonl",
+    "sessionFile": "C:\\Users\\USER\\.openclaw\\agents\\ray\\sessions\\e763ac8c-4d72-4669-8da2-8b57c55b0478.jsonl",
     "skillsSnapshot": {
       "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>browser-automation</name>\n    <description>Use when controlling web pages with the OpenClaw browser tool, especially multi-step flows, login checks, tab management, or recovery from stale refs/timeouts.</description>\n    <location>~/.openclaw\\plugin-skills\\browser-automation\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Audit and harden hosts running OpenClaw for SSH, firewall, updates, exposure, cron checks, and risk posture.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>node-connect</name>\n    <description>Diagnose OpenClaw Android, iOS, or macOS node pairing, QR/setup code, route, auth, and connection failures.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create, edit, improve, tidy, review, audit, or restructure AgentSkills and SKILL.md files.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow</name>\n    <description>Coordinate multi-step detached tasks as one durable TaskFlow job with owner context, state, waits, and child tasks.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\taskflow\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow-inbox-triage</name>\n    <description>Example TaskFlow pattern for inbox triage, intent routing, waiting on replies, and later summaries.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\taskflow-inbox-triage\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tavily</name>\n    <description>Tavily web search, content extraction, and research tools.</description>\n    <location>~/.openclaw\\plugin-skills\\tavily\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather, rain, temperature, and forecasts for locations or travel planning.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather\\SKILL.md</location>\n  </skill>\n</available_skills>",
       "skills": [
@@ -1106,7 +1365,259 @@
     "model": "MiniMax-M2.7",
     "authProfileOverride": "minimax:global",
     "authProfileOverrideSource": "auto",
-    "authProfileOverrideCompactionCount": 0
+    "authProfileOverrideCompactionCount": 0,
+    "systemPromptReport": {
+      "source": "run",
+      "generatedAt": 1778645977887,
+      "sessionId": "e763ac8c-4d72-4669-8da2-8b57c55b0478",
+      "sessionKey": "agent:ray:cron:7e5fd5b5-a2a0-4841-bc0d-8c8f622edf0d:run:e763ac8c-4d72-4669-8da2-8b57c55b0478",
+      "provider": "minimax",
+      "model": "MiniMax-M2.7",
+      "workspaceDir": "C:\\Users\\USER\\.openclaw\\agents\\ray",
+      "bootstrapMaxChars": 12000,
+      "bootstrapTotalMaxChars": 60000,
+      "bootstrapTruncation": {
+        "warningMode": "once",
+        "warningShown": false,
+        "truncatedFiles": 0,
+        "nearLimitFiles": 0,
+        "totalNearLimit": false
+      },
+      "sandbox": {
+        "mode": "off",
+        "sandboxed": false
+      },
+      "systemPrompt": {
+        "chars": 16345,
+        "projectContextChars": 7477,
+        "nonProjectContextChars": 8868
+      },
+      "injectedWorkspaceFiles": [
+        {
+          "name": "AGENTS.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\AGENTS.md",
+          "missing": false,
+          "rawChars": 2430,
+          "injectedChars": 2430,
+          "truncated": false
+        },
+        {
+          "name": "SOUL.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\SOUL.md",
+          "missing": false,
+          "rawChars": 2143,
+          "injectedChars": 2143,
+          "truncated": false
+        },
+        {
+          "name": "TOOLS.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\TOOLS.md",
+          "missing": false,
+          "rawChars": 910,
+          "injectedChars": 910,
+          "truncated": false
+        },
+        {
+          "name": "IDENTITY.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\IDENTITY.md",
+          "missing": false,
+          "rawChars": 231,
+          "injectedChars": 231,
+          "truncated": false
+        },
+        {
+          "name": "USER.md",
+          "path": "C:\\Users\\USER\\.openclaw\\agents\\ray\\USER.md",
+          "missing": false,
+          "rawChars": 534,
+          "injectedChars": 534,
+          "truncated": false
+        }
+      ],
+      "skills": {
+        "promptChars": 2587,
+        "entries": [
+          {
+            "name": "browser-automation",
+            "blockChars": 324
+          },
+          {
+            "name": "healthcheck",
+            "blockChars": 284
+          },
+          {
+            "name": "node-connect",
+            "blockChars": 285
+          },
+          {
+            "name": "skill-creator",
+            "blockChars": 270
+          },
+          {
+            "name": "taskflow",
+            "blockChars": 285
+          },
+          {
+            "name": "taskflow-inbox-triage",
+            "blockChars": 295
+          },
+          {
+            "name": "tavily",
+            "blockChars": 199
+          },
+          {
+            "name": "weather",
+            "blockChars": 255
+          }
+        ]
+      },
+      "tools": {
+        "listChars": 0,
+        "schemaChars": 24288,
+        "entries": [
+          {
+            "name": "read",
+            "summaryChars": 298,
+            "schemaChars": 304,
+            "propertiesCount": 3
+          },
+          {
+            "name": "edit",
+            "summaryChars": 326,
+            "schemaChars": 834,
+            "propertiesCount": 2
+          },
+          {
+            "name": "write",
+            "summaryChars": 127,
+            "schemaChars": 225,
+            "propertiesCount": 2
+          },
+          {
+            "name": "exec",
+            "summaryChars": 698,
+            "schemaChars": 1139,
+            "propertiesCount": 12
+          },
+          {
+            "name": "process",
+            "summaryChars": 322,
+            "schemaChars": 1011,
+            "propertiesCount": 12
+          },
+          {
+            "name": "message",
+            "summaryChars": 131,
+            "schemaChars": 7586,
+            "propertiesCount": 113
+          },
+          {
+            "name": "image_generate",
+            "summaryChars": 600,
+            "schemaChars": 2587,
+            "propertiesCount": 15
+          },
+          {
+            "name": "music_generate",
+            "summaryChars": 150,
+            "schemaChars": 1392,
+            "propertiesCount": 11
+          },
+          {
+            "name": "video_generate",
+            "summaryChars": 225,
+            "schemaChars": 3841,
+            "propertiesCount": 21
+          },
+          {
+            "name": "update_plan",
+            "summaryChars": 251,
+            "schemaChars": 574,
+            "propertiesCount": 2
+          },
+          {
+            "name": "sessions_list",
+            "summaryChars": 225,
+            "schemaChars": 432,
+            "propertiesCount": 9
+          },
+          {
+            "name": "sessions_history",
+            "summaryChars": 180,
+            "schemaChars": 161,
+            "propertiesCount": 3
+          },
+          {
+            "name": "sessions_send",
+            "summaryChars": 314,
+            "schemaChars": 274,
+            "propertiesCount": 5
+          },
+          {
+            "name": "sessions_spawn",
+            "summaryChars": 419,
+            "schemaChars": 1211,
+            "propertiesCount": 16
+          },
+          {
+            "name": "sessions_yield",
+            "summaryChars": 97,
+            "schemaChars": 60,
+            "propertiesCount": 1
+          },
+          {
+            "name": "subagents",
+            "summaryChars": 105,
+            "schemaChars": 191,
+            "propertiesCount": 4
+          },
+          {
+            "name": "session_status",
+            "summaryChars": 456,
+            "schemaChars": 89,
+            "propertiesCount": 2
+          },
+          {
+            "name": "web_search",
+            "summaryChars": 83,
+            "schemaChars": 1209,
+            "propertiesCount": 12
+          },
+          {
+            "name": "web_fetch",
+            "summaryChars": 129,
+            "schemaChars": 374,
+            "propertiesCount": 3
+          },
+          {
+            "name": "image",
+            "summaryChars": 260,
+            "schemaChars": 342,
+            "propertiesCount": 6
+          },
+          {
+            "name": "memory_search",
+            "summaryChars": 605,
+            "schemaChars": 237,
+            "propertiesCount": 4
+          },
+          {
+            "name": "memory_get",
+            "summaryChars": 239,
+            "schemaChars": 215,
+            "propertiesCount": 4
+          }
+        ]
+      }
+    },
+    "contextTokens": 204800,
+    "inputTokens": 12735,
+    "outputTokens": 385,
+    "totalTokens": 13957,
+    "totalTokensFresh": true,
+    "cacheRead": 14880,
+    "cacheWrite": 0,
+    "estimatedCostUsd": 0.0051753
   },
   "agent:ray:cron:d8d3e1a2-966b-46a2-9b85-32e995a6beb7": {
     "sessionId": "902b456e-91c5-4a99-82cb-5df677d4f323",
