@@ -104,6 +104,7 @@ def sj_get_quote(code):
         return None
 
 def sj_get_kbars(code, days=5):
+    from datetime import datetime, timedelta
     try:
         api = _get_shioaji_api()
         if not api:
@@ -945,6 +946,7 @@ def vegas_tunnel(code, market='TW'):
 
 
 def fetch_institutional(code):
+    from datetime import datetime, timedelta
     """Fetch F/T/D from FinMind TaiwanStockInstitutionalInvestorsBuySell (30-min cache)"""
     # ── Check cache first ─────────────────────────────────────────────
     now = time.time()
@@ -1458,7 +1460,8 @@ try:
 
             rs = g / l.replace(0, np.nan)
 
-            twii_rsi = float((100 - (100 / (1 + rs))).iloc[-1])
+            twii_rsi_val = 100 - (100 / (1 + rs))
+            twii_rsi = float(twii_rsi_val.iloc[-1]) if len(twii_rsi_val) > 0 and not twii_rsi_val.iloc[-1] != twii_rsi_val.iloc[-1] else None
 
         # US market (S&P 500)
 
@@ -1480,7 +1483,8 @@ try:
 
             rs2 = g2 / l2.replace(0, np.nan)
 
-            spy_rsi = float((100 - (100 / (1 + rs2))).iloc[-1])
+            spy_rsi_val = 100 - (100 / (1 + rs2))
+            spy_rsi = float(spy_rsi_val.iloc[-1]) if len(spy_rsi_val) > 0 and not spy_rsi_val.iloc[-1] != spy_rsi_val.iloc[-1] else None
 
         rsi_label_tw = "[ERR] 過熱" if twii_rsi and twii_rsi > 70 else ("[Y] 偏多" if twii_rsi and twii_rsi > 50 else "[G] 中性")
 
