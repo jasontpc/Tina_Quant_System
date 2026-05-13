@@ -1122,6 +1122,12 @@ def analyze(code, market='TW'):
 
         kd_golden = bool(k_val > d_val and k_val < 30)
 
+        # KDJ 三位一體：計算當前是否為金叉/死叉（用於共振評分）
+        k_prev = float(k_series.iloc[-2]) if len(k_series) >= 2 else k_val
+        d_prev = float(d_series.iloc[-2]) if len(d_series) >= 2 else d_val
+        kd_cross_up = bool(k_val > d_val and k_prev <= d_prev)   # 黃金交叉
+        kd_cross_down = bool(k_val < d_val and k_prev >= d_prev) # 死亡交叉
+
         bb_ma20 = close.rolling(20).mean()
 
         bb_std = close.rolling(20).std()
@@ -1192,9 +1198,11 @@ def analyze(code, market='TW'):
 
 
 
-        # MACD: 200pts — require STRENGTH, not just >0
-
-        if macd_hist > 2:
+        # MACD: 200pts
+        # Phase 2: 三位一體 — 零軸下方直接歸零（引擎無推力）
+        if macd_hist < 0:
+            macd_s = 0
+        elif macd_hist > 2:
 
             macd_s = 200
 
@@ -1224,9 +1232,11 @@ def analyze(code, market='TW'):
 
 
 
-        # K: 150pts — reward MOMENTUM (40-70 = strongest), low K = weakness
-
-        if 45 <= k_val <= 70:
+        # K: 150pts
+        # Phase 2: 三位一體 — MACD 零軸下方時 K 不給分
+        if macd_hist < 0:
+            k_s = 0
+        elif 45 <= k_val <= 70:
 
             k_s = 150
 
