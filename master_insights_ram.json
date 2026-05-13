@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-05-13 17:13:34",
+  "insights": [
+    {
+      "rule": "If [市場異動] Then 遵循 Taleb 核心原則",
+      "master": "Taleb",
+      "priority": 2,
+      "risk_level": "MEDIUM",
+      "source": "fallback_generic"
+    },
+    {
+      "rule": "If [市場異動] Then 遵循 Thorp 核心原則",
+      "master": "Thorp",
+      "priority": 2,
+      "risk_level": "MEDIUM",
+      "source": "fallback_generic"
+    },
+    {
+      "rule": "If [市場異動] Then 遵循 Simons 核心原則",
+      "master": "Simons",
+      "priority": 2,
+      "risk_level": "MEDIUM",
+      "source": "fallback_generic"
+    },
+    {
+      "rule": "If [市場異動] Then 遵循 Connors 核心原則",
+      "master": "Connors",
+      "priority": 2,
+      "risk_level": "MEDIUM",
+      "source": "fallback_generic"
+    },
+    {
+      "rule": "If [市場異動] Then 遵循 Dalio 核心原則",
+      "master": "Dalio",
+      "priority": 2,
+      "risk_level": "MEDIUM",
+      "source": "fallback_generic"
+    }
+  ],
+  "count": 5
+}

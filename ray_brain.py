@@ -365,6 +365,38 @@ class RayBrain:
     # End-to-End: Scan + Propose
     # ══════════════════════════════════════════════════════════
 
+    def log_performance(self):
+        """寫入 performance_log（每日開盤/收盤叫用）"""
+        if not self.db:
+            return
+        try:
+            import sqlite3
+            from datetime import datetime
+            db_path = os.path.join(os.path.dirname(__file__), "ray_wisdom.db")
+            conn = sqlite3.connect(db_path)
+            c = conn.cursor()
+            # 讀取今日 closed_today, open_positions
+            c.execute("SELECT COUNT(*) FROM positions_log")
+            open_pos = c.fetchone()[0]
+            c.execute("SELECT COUNT(*) FROM trades_log WHERE DATE(timestamp)=DATE('now')")
+            closed_today = c.fetchone()[0]
+            c.execute("SELECT COUNT(*) FROM trades_log")
+            total_trades = c.fetchone()[0]
+            conn.close()
+            # 寫入
+            conn2 = sqlite3.connect(db_path)
+            c2 = conn2.cursor()
+            c2.execute("""INSERT INTO performance_log 
+                (log_date, open_positions, closed_today, total_trades, note)
+                VALUES (?, ?, ?, ?, ?)""",
+                (datetime.now().strftime('%Y-%m-%d'), open_pos, closed_today, total_trades,
+                 'brain_scan triggered'))
+            conn2.commit()
+            conn2.close()
+            print(f"[PERF] logged: open={open_pos} closed={closed_today}")
+        except Exception as e:
+            print(f"[PERF-ERROR] {e}")
+
     def scan_and_propose(self, symbols: List[str]) -> List[Dict]:
         """
         完整流程：
@@ -428,6 +460,8 @@ class RayBrain:
                 "indicators": ind,
             })
 
+        # 寫入 performance_log
+        self.log_performance()
         return results
 
     def _calc_score(self, ind: Dict) -> int:

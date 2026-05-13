@@ -27,6 +27,19 @@ conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
+# 確保 sop_versions 表存在（第一次執行時建立）
+try:
+    c.execute("""CREATE TABLE IF NOT EXISTS sop_versions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        update_date TEXT,
+        version TEXT,
+        content TEXT,
+        changelog TEXT
+    )""")
+    conn.commit()
+except:
+    pass
+
 print("=== Ray Distiller Auto ===")
 print(f"Time: {time.strftime('%Y-%m-%d %H:%M:%S')}")
 print()
@@ -132,6 +145,22 @@ print(f"  中文字數: {chinese_chars} ({chinese_chars/(total_chars+1)*100:.1f}
 print(f"  英文字數: {english_chars}")
 print(f"  專家模組: {len(EXPERT_MODULES)} 個")
 print()
+
+# Step 4b: 建立 sop_versions 快照
+print("[4b] 寫入 sop_versions...")
+from datetime import datetime
+sop_conn = sqlite3.connect(DB_PATH)
+sop_c = sop_conn.cursor()
+sop_c.execute("SELECT COUNT(*) FROM sop_versions")
+prev_ver = sop_c.fetchone()[0] or 0
+new_ver = f"v{prev_ver + 1}.{datetime.now().strftime('%Y%m%d')}"
+sop_c.execute("""INSERT INTO sop_versions (update_date, version, content, changelog)
+                  VALUES (?, ?, ?, ?)""",
+    (datetime.now().strftime('%Y-%m-%d'), new_ver, system_prompt[:1000],
+     f"自動蒸餾 {datetime.now().strftime('%H:%M')} — 高信心修正{len(corrs)}筆 最優策略{len(strategies)}筆"))
+sop_conn.commit()
+sop_conn.close()
+print(f"  新版本: {new_ver}（共 {prev_ver+1} 個版本）")
 
 # Step 5: 寫入 Modelfile
 print("[5] 寫入 Modelfile...")
