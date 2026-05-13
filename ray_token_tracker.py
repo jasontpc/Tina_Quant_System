@@ -7,8 +7,9 @@ import sys, json, time, sqlite3
 from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-API_KEY = "sk-cp-d1DZZxzGpsijgC4bJaTl6_mrDJp376z9iwXyRnXRq8wYZOXBKRqFL2YVSE6nVwJ0yi14yjhh6fPCwvtLT5J53KNdfLMSJgLIjfcCqTHpja08L58oTe0wztg"
+API_KEY = "sk-cp-s-RwpSrtMhHuWDdPPS1dpYW4JvXSdR3W890ibdNp6AGGxs19bAmsahQ955b6OQTe_GGRc6iieHJB163OdegORS3DZX49cR57CdVUjj8pEAvt_EVQ8A5fAvY"
 DB = "ray_wisdom.db"
+ENDPOINT = "https://api.minimax.io/v1/token_plan/remains"
 
 # ============================================================
 # 寫入歷史
@@ -54,11 +55,10 @@ def get_daily_avg(model_name):
     return daily_avg, days_passed
 
 # ============================================================
-# 限額提醒
+# 限額提醒（每日限額，固定總量7等分）
 # ============================================================
-def check_limit(weekly_used, weekly_total):
-    days_passed = time.localtime().tm_wday + 1
-    daily_quota = weekly_total / 7
+def check_limit(weekly_used, weekly_total, days_passed):
+    daily_quota = weekly_total / 7  # 原始每週總量 / 7 = 每日額度
     daily_usage = weekly_used / days_passed if days_passed > 0 else 0
 
     if daily_usage > daily_quota * 1.1:
@@ -69,13 +69,22 @@ def check_limit(weekly_used, weekly_total):
         return "🟢 正常：用量在安全範圍內", "green", daily_usage, daily_quota
 
 # ============================================================
+# 計算天數（固定從週一開始）
+# ============================================================
+def calc_days_passed():
+    now = time.localtime()
+    # 週一=0, 週二=1, ..., 週日=6
+    # 本週已過天數：tm_wday + 1（週一當天=1）
+    return now.tm_wday + 1  # 週三返回3
+
+# ============================================================
 # 主報告
 # ============================================================
 def get_token_report():
     try:
         import requests
         resp = requests.get(
-            "https://www.minimax.io/v1/token_plan/remains",
+            ENDPOINT,
             headers={"Authorization": f"Bearer {API_KEY}"},
             timeout=15
         )
@@ -99,12 +108,15 @@ def get_token_report():
             # 日均用量
             daily_avg, _ = get_daily_avg(name)
             daily_quota = weekly_total / 7
-            status, color, daily_rate, _ = check_limit(weekly_used, weekly_total)
+            days_passed = calc_days_passed()
+            status, color, daily_rate, _ = check_limit(weekly_used, weekly_total, days_passed)
 
             lines.append(f"┌{'─'*52}")
             lines.append(f"│ {name}")
             lines.append(f"│ 本週: {weekly_used:,} / {weekly_total:,} ({pct:.1f}%)")
+            lines.append(f"│ 已過: {days_passed} 天 (日均配額: {daily_quota:,.0f})")
             lines.append(f"│ 日均用量: {daily_rate:,.0f} (配額: {daily_quota:,.0f})")
+            lines.append(f"│ 預測週末: {daily_rate*7:,.0f} / {weekly_total:,}")
             lines.append(f"│ 狀態: {status}")
             lines.append(f"└{'─'*52}")
 
