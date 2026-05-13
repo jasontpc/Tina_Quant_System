@@ -11,27 +11,21 @@ ray_scheduler.py — VRAM 動態調度器
 | 05:00 - 08:00    | 模型更新     | CPU 重構 Modelfile          | 低消耗     |
 """
 
-import os, time, subprocess, logging
+import os, sys, subprocess, logging
 from datetime import datetime
-from pathlib import Path
 
 _log = logging.getLogger("ray_scheduler")
 _log.setLevel(logging.INFO)
 
+RAY_AGENT_DIR = r"C:\Users\USER\.openclaw\agents\ray"
 MODELS_4B = ["ray-v3.5", "qwen3.5-4b-iq4xs"]
 MODELS_7B = ["ray-commander", "ray-deep-v1", "qwen2.5:7b"]
-
-TRADING_TW  = (9, 0,  13, 30)   # 09:00 - 13:30
-TRADING_US  = (21, 30, 4, 0)    # 21:30 - 04:00 (跨日凌晨)
-TRAINING    = (14, 0, 20, 0)    # 14:00 - 20:00
 
 def is_trading_hours():
     now = datetime.now()
     h, m = now.hour, now.minute
-    # TW
     if (9 <= h < 13) or (h == 13 and m == 0):
         return True
-    # US (跨日)
     if h >= 21 or h < 4:
         return True
     return False
@@ -41,8 +35,47 @@ def is_training_hours():
     h = now.hour
     return 14 <= h < 20
 
+def is_preload_time():
+    """08:30 開盤前預載 RAM"""
+    now = datetime.now()
+    return now.hour == 8 and now.minute >= 30
+
+VRAM_SAFETY_GB = 5.5
+MODELS_PHASE2 = {
+    "ray-deep-v1":   "複雜策略分析（Regime Switch / 套利邏輯）",
+    "ray-commander": "情緒指標掃描（恐慌貪婪指數 / 法人流向）",
+}
+
+def get_vram_usage():
+    """嘗試讀取 NVIDIA GPU VRAM 使用量（MB）"""
+    try:
+        result = subprocess.run(
+            ["nvidia-smi", "--query-gpu=memory.used", "--format=csv,noheader,nounits"],
+            capture_output=True, text=True, timeout=10
+        )
+        if result.returncode == 0:
+            mb = int(result.stdout.strip().split('\n')[0])
+            return mb / 1024  # GB
+    except:
+        pass
+    return None
+
+def vram_safety_check():
+    """若 VRAM > 5.5GB，強制停止所有模型直到低於 4GB"""
+    gb = get_vram_usage()
+    if gb is None:
+        return
+    if gb > VRAM_SAFETY_GB:
+        _log.warning(f"[VRAM SAFETY] {gb:.1f}GB > {VRAM_SAFETY_GB}GB — executing ollama stop --all")
+        try:
+            subprocess.run(["ollama", "stop", "--all"],
+                          capture_output=True, timeout=60, check=False)
+        except:
+            pass
+    else:
+        _log.info(f"[VRAM] Current: {gb:.1f}GB / {VRAM_SAFETY_GB}GB — safe")
+
 def ollama_stop(model):
-    """停止指定的 Ollama 模型（釋放 VRAM）"""
     try:
         subprocess.run(["ollama", "stop", model],
                       capture_output=True, timeout=30, check=False)
@@ -51,7 +84,6 @@ def ollama_stop(model):
         _log.warning(f"[VRAM] Stop {model} failed: {e}")
 
 def ollama_list_running():
-    """返回當前加載的模型列表"""
     try:
         result = subprocess.run(["ollama", "list"],
                                capture_output=True, text=True, timeout=10, check=True)
@@ -60,33 +92,48 @@ def ollama_list_running():
     except:
         return []
 
+def preload_master_insights():
+    """08:30 開盤前預載：將 web_auto 最新規則載入 32GB RAM"""
+    try:
+        sys.path.insert(0, RAY_AGENT_DIR)
+        from ray_web_collector import preload_ram_cache
+        result = preload_ram_cache()
+        _log.info(f"[PRELOAD] {result.get('count',0)} insights preloaded for market open")
+        return True
+    except Exception as e:
+        _log.warning(f"[PRELOAD] failed: {e}")
+        return False
+
 def enforce():
-    """根據時間段強制執行 VRAM 調度"""
-    now = datetime.now().strftime("%H:%M")
+    now = datetime.now()
+    now_str = now.strftime("%H:%M")
     running = ollama_list_running()
-    _log.info(f"[{now}] Running models: {running}")
+    _log.info(f"[{now_str}] Running models: {running}")
+
+    # VRAM 安全檢查（任何時段）
+    vram_safety_check()
+
+    if is_preload_time():
+        _log.info(f"[PRELOAD] Running 08:30 market open preload...")
+        preload_master_insights()
 
     if is_trading_hours():
-        # 交易時段：只留 4B，停掉 7B
         for m in MODELS_7B:
             if m in running:
                 ollama_stop(m)
                 _log.info(f"[TRADING] Stopped 7B {m} to protect VRAM")
-        # 確保 4B 可用（延遲加載）
         for m in MODELS_4B:
             if m not in running:
                 _log.info(f"[TRADING] {m} not loaded (will load on demand)")
 
     elif is_training_hours():
-        # 訓練時段：停掉所有 4B
         for m in MODELS_4B:
             if m in running:
                 ollama_stop(m)
                 _log.info(f"[TRAINING] Stopped 4B {m} for 7B training")
-        # 7B 在需要時由外部腳本啟動
+        _log.info(f"[TRAINING] 7B models available for training")
 
     else:
-        # 閒置時段（05:00-08:00）：低功耗
         for m in MODELS_7B + MODELS_4B:
             if m in running:
                 ollama_stop(m)
@@ -98,5 +145,6 @@ if __name__ == "__main__":
         format="%(asctime)s [%(levelname)s] %(message)s",
         datefmt="%H:%M:%S"
     )
-    print(f"[{datetime.now().strftime('%H:%M')}] ray_scheduler started")
+    now_str = datetime.now().strftime("%H:%M")
+    print(f"[{now_str}] ray_scheduler started")
     enforce()
