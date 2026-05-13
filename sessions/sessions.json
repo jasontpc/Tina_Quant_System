@@ -1,9 +1,9 @@
 {
   "agent:ray:telegram:direct:1616824689": {
     "sessionId": "127aaf36-a9d2-4e87-a929-c3cc2a22dba5",
-    "updatedAt": 1778650926026,
+    "updatedAt": 1778651269591,
     "sessionStartedAt": 1778624786210,
-    "lastInteractionAt": 1778650919698,
+    "lastInteractionAt": 1778651261012,
     "systemSent": true,
     "abortedLastRun": false,
     "authProfileOverride": "minimax:global",
@@ -62,13 +62,13 @@
       "version": 0
     },
     "status": "running",
-    "startedAt": 1778650926026,
+    "startedAt": 1778651269312,
     "modelProvider": "minimax",
     "model": "MiniMax-M2.7",
     "contextTokens": 204800,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1778650626361,
+      "generatedAt": 1778650925843,
       "sessionId": "127aaf36-a9d2-4e87-a929-c3cc2a22dba5",
       "sessionKey": "agent:ray:telegram:direct:1616824689",
       "provider": "minimax",
@@ -326,8 +326,8 @@
         ]
       }
     },
-    "estimatedCostUsd": 0.0913251,
-    "totalTokens": 94660,
+    "estimatedCostUsd": 0.08736965999999999,
+    "totalTokens": 101586,
     "totalTokensFresh": true,
     "compactionCheckpoints": [
       {
@@ -422,9 +422,9 @@
     "agentHarnessId": "pi",
     "memoryFlushAt": 1778650060248,
     "memoryFlushCompactionCount": 4,
-    "inputTokens": 25329,
-    "outputTokens": 7548,
-    "cacheRead": 94464,
+    "inputTokens": 16009,
+    "outputTokens": 5241,
+    "cacheRead": 101376,
     "cacheWrite": 0
   },
   "agent:ray:cron:34405d7a-2dae-4eea-84b7-904c9d7079f1": {
@@ -1047,12 +1047,12 @@
   },
   "agent:ray:cron:340fbdce-ef29-4257-9aa6-d827d51b8b06": {
     "label": "Cron: Gateway 每小時監控",
-    "sessionId": "21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0",
-    "updatedAt": 1778647622092,
-    "sessionStartedAt": 1778647621139,
-    "lastInteractionAt": 1778647621139,
+    "sessionId": "5ae11103-1742-4f40-8d80-f7ad8d215145",
+    "updatedAt": 1778651222646,
+    "sessionStartedAt": 1778651221161,
+    "lastInteractionAt": 1778651221161,
     "systemSent": true,
-    "sessionFile": "C:\\Users\\USER\\.openclaw\\agents\\ray\\sessions\\21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0.jsonl",
+    "sessionFile": "C:\\Users\\USER\\.openclaw\\agents\\ray\\sessions\\5ae11103-1742-4f40-8d80-f7ad8d215145.jsonl",
     "skillsSnapshot": {
       "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>browser-automation</name>\n    <description>Use when controlling web pages with the OpenClaw browser tool, especially multi-step flows, login checks, tab management, or recovery from stale refs/timeouts.</description>\n    <location>~/.openclaw\\plugin-skills\\browser-automation\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Audit and harden hosts running OpenClaw for SSH, firewall, updates, exposure, cron checks, and risk posture.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\healthcheck\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>node-connect</name>\n    <description>Diagnose OpenClaw Android, iOS, or macOS node pairing, QR/setup code, route, auth, and connection failures.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\node-connect\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create, edit, improve, tidy, review, audit, or restructure AgentSkills and SKILL.md files.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\skill-creator\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow</name>\n    <description>Coordinate multi-step detached tasks as one durable TaskFlow job with owner context, state, waits, and child tasks.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\taskflow\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow-inbox-triage</name>\n    <description>Example TaskFlow pattern for inbox triage, intent routing, waiting on replies, and later summaries.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\taskflow-inbox-triage\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tavily</name>\n    <description>Tavily web search, content extraction, and research tools.</description>\n    <location>~/.openclaw\\plugin-skills\\tavily\\SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather, rain, temperature, and forecasts for locations or travel planning.</description>\n    <location>~/AppData\\Roaming\\npm\\node_modules\\openclaw\\skills\\weather\\SKILL.md</location>\n  </skill>\n</available_skills>",
       "skills": [
@@ -1092,9 +1092,9 @@
     "authProfileOverrideCompactionCount": 0,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1778647626958,
-      "sessionId": "21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0",
-      "sessionKey": "agent:ray:cron:340fbdce-ef29-4257-9aa6-d827d51b8b06:run:21ff2ce7-ee39-49ca-a8b8-af0a8c9debc0",
+      "generatedAt": 1778651229556,
+      "sessionId": "5ae11103-1742-4f40-8d80-f7ad8d215145",
+      "sessionKey": "agent:ray:cron:340fbdce-ef29-4257-9aa6-d827d51b8b06:run:5ae11103-1742-4f40-8d80-f7ad8d215145",
       "provider": "minimax",
       "model": "MiniMax-M2.7",
       "workspaceDir": "C:\\Users\\USER\\.openclaw\\agents\\ray",
@@ -1335,13 +1335,13 @@
       }
     },
     "contextTokens": 204800,
-    "inputTokens": 12384,
-    "outputTokens": 82,
-    "totalTokens": 13556,
+    "inputTokens": 13841,
+    "outputTokens": 171,
+    "totalTokens": 13898,
     "totalTokensFresh": true,
-    "cacheRead": 14656,
+    "cacheRead": 27392,
     "cacheWrite": 0,
-    "estimatedCostUsd": 0.00469296
+    "estimatedCostUsd": 0.00600102
   },
   "agent:ray:cron:7e5fd5b5-a2a0-4841-bc0d-8c8f622edf0d": {
     "label": "Cron: VRAM 動態調度（每小時）",
