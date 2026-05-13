@@ -1870,8 +1870,8 @@ with tw_tab:
             ma_bull = r['ma20_above_ma60']
             kd_ok   = r['kd_golden']
 
-            pos = (kd_ok*200)+(ma_bull*150)+((35<=rsi_v<=60)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)
-            pct = min(100, max(0, int(pos*100/690)))
+            # Phase 1: Action Bar 直接對齊 1000 分系統（不再用 ad-hoc 690 分）
+            pct = min(100, max(0, int(r['score'] / 1000 * 100)))
             bar = "█"*(pct//10) + "░"*(10-pct//10)
 
             if kd_ok and ma_bull and macd_v>0 and rsi_v<65:
@@ -1880,10 +1880,10 @@ with tw_tab:
                 act,col,trend = "买入","blue","多頭"
             elif score>=400:
                 act,col,trend = "觀望","gray","中性"
-            elif rsi_v>80 or bb_v>90:
-                act,col,trend = "過熱觀望","orange","警覺"
-            else:
+            elif score<200 or rsi_v>80 or bb_v>90:
                 act,col,trend = "減持","red","空頭"
+            else:
+                act,col,trend = "觀望","gray","中性"
 
             st.markdown(
                 f"<big><b>「{r['code']} {r['name'][:8]}」</b></big>"
@@ -2531,8 +2531,8 @@ with us_tab:
             ma_bull = r['ma20_above_ma60']
             kd_ok   = r['kd_golden']
 
-            pos = (kd_ok*200)+(ma_bull*150)+((35<=rsi_v<=60)*100)+((macd_v>0)*140)+((20<=bb_v<=80)*100)
-            pct = min(100, max(0, int(pos*100/690)))
+            # Phase 1: Action Bar 直接對齊 1000 分系統（不再用 ad-hoc 690 分）
+            pct = min(100, max(0, int(r['score'] / 1000 * 100)))
             bar = "█"*(pct//10) + "░"*(10-pct//10)
 
             if kd_ok and ma_bull and macd_v>0 and rsi_v<65:
@@ -2541,10 +2541,10 @@ with us_tab:
                 act,col,trend = "买入","blue","多頭"
             elif score>=400:
                 act,col,trend = "觀望","gray","中性"
-            elif rsi_v>80 or bb_v>90:
-                act,col,trend = "過熱觀望","orange","警覺"
-            else:
+            elif score<200 or rsi_v>80 or bb_v>90:
                 act,col,trend = "減持","red","空頭"
+            else:
+                act,col,trend = "觀望","gray","中性"
 
             st.markdown(
                 f"<big><b>「{us_single_code} {r['name'][:8]}」</b></big>"
