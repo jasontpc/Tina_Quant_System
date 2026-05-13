@@ -24,80 +24,141 @@ for f in failures:
     lines.append(f'- [{sym}] {diag}')
 all_failures_text = '\n'.join(lines)
 
-def call_deep(prompt, timeout=240):
+MASTER_FRAMEWORKS = {
+    'Taleb': {
+        'keywords': '反脆弱、肥尾、啞鈴、尾部對沖',
+        'taleb_aligned': True, 'thorp_aligned': False,
+        'taleb_reason': '使用肥尾/啞鈴/尾部對沖/反脆弱',
+        'thorp_reason': ''
+    },
+    'Thorp': {
+        'keywords': '凱利公式、二元結局、優勢開發、紀律',
+        'taleb_aligned': False, 'thorp_aligned': True,
+        'taleb_reason': '',
+        'thorp_reason': '使用凱利/勝率/二元結局/紀律'
+    },
+    'Simons': {
+        'keywords': 'Regime Switch、統計異常、趨勢追蹤',
+        'taleb_aligned': False, 'thorp_aligned': False,
+        'taleb_reason': '', 'thorp_reason': ''
+    },
+    'Connors': {
+        'keywords': '均值回歸、RSI2、彈簧理論',
+        'taleb_aligned': False, 'thorp_aligned': False,
+        'taleb_reason': '', 'thorp_reason': ''
+    },
+    'Dalio': {
+        'keywords': '多樣化、相關性、風險分散',
+        'taleb_aligned': False, 'thorp_aligned': False,
+        'taleb_reason': '', 'thorp_reason': ''
+    }
+}
+
+def call_deep(model, prompt, timeout=240):
     resp = requests.post(OLLAMA_URL, json={
-        'model': MODEL_DEEP,
+        'model': model,
         'messages': [{'role': 'user', 'content': prompt}],
         'stream': False,
-        'options': {'temperature': 0.25, 'top_p': 0.85, 'num_predict': 1500}
+        'options': {'temperature': 0.25, 'top_p': 0.85, 'num_predict': 2000}
     }, timeout=timeout)
     return resp.json().get('message', {}).get('content', '')
 
-def parse(raw):
-    for try_ex in [json.loads, lambda x: json.loads(re.search(r'\[[\s\S]+\]', x).group())]:
+def parse_rules(raw):
+    """Incremental parse: try full JSON first, then partial objects"""
+    # Try full parse
+    try:
+        return json.loads(raw), True
+    except:
+        pass
+    # Try extract from markdown
+    match = re.search(r'\[[\s\S]+\]', raw)
+    if match:
         try:
-            return try_ex(raw)
+            return json.loads(match.group()), True
         except:
             pass
-    return []
+    # Incremental: find individual rule objects
+    partial = []
+    # Pattern: {"rule": "...", "master": "...", ...}
+    rule_matches = re.findall(r'\{[^{}]*?"rule"[^{}]+\}', raw)
+    for rm in rule_matches:
+        try:
+            obj = json.loads(rm)
+            if 'rule' in obj and 'master' in obj:
+                partial.append(obj)
+        except:
+            pass
+    if partial:
+        return partial, False
+    return [], False
 
-# Each master gets 2 rules
-all_rules = []
-master_targets = ['Taleb', 'Thorp', 'Simons', 'Connors', 'Dalio']
-
-for master in master_targets:
+def distill_master(master, framework, all_failures_text, max_retries=3):
+    fw = framework
     prompt = f"""你是 {master} 交易大師的邏輯執行器。
 
 ## {master} 框架關鍵詞：
-""" + ({
-    'Taleb': '反脆弱、肥尾、啞鈴、尾部對沖',
-    'Thorp': '凱利公式、二元結局、優勢開發、紀律',
-    'Simons': 'Regime Switch、統計異常、趨勢追蹤',
-    'Connors': '均值回歸、RSI2、彈簧理論',
-    'Dalio': '多樣化、相關性、風險分散'
-}[master]) + """
+{fw['keywords']}
 
 ## 失敗案例：
-""" + all_failures_text + """
+{all_failures_text}
 
 ## 任務：
-根據以上失敗案例，生成 2 條「If-Then 禁止規則」，必須符合 {master} 框架。
+根據失敗案例，生成 2 條「If-Then 禁止規則」，必須符合 {master} 框架。
 
-## 輸出格式（純 JSON 陣列）：
+## 輸出格式（純 JSON 陣列，嚴格 2 條）：
 [
   {{
-    "rule": "If [具體條件] Then [禁止動作]",
+    "rule": "If [具體數值條件] Then [禁止動作]",
     "master": "{master}",
     "priority": 1,
-    "taleb_aligned": {"true" if master == "Taleb" else "false"},
-    "taleb_reason": "（taleb_aligned=true必填）使用肥尾/啞鈴/尾部對沖/反脆弱",
-    "thorp_aligned": {"true" if master == "Thorp" else "false"},
-    "thorp_reason": "（thorp_aligned=true必填）使用凱利/勝率/二元結局/紀律"
+    "taleb_aligned": {"true" if fw['taleb_aligned'] else "false"},
+    "taleb_reason": "{fw['taleb_reason']}",
+    "thorp_aligned": {"true" if fw['thorp_aligned'] else "false"},
+    "thorp_reason": "{fw['thorp_reason']}"
   }},
-  {{...第2條...}}
+  {{
+    "rule": "If [具體數值條件] Then [禁止動作]",
+    "master": "{master}",
+    "priority": 1,
+    "taleb_aligned": {"true" if fw['taleb_aligned'] else "false"},
+    "taleb_reason": "{fw['taleb_reason']}",
+    "thorp_aligned": {"true" if fw['thorp_aligned'] else "false"},
+    "thorp_reason": "{fw['thorp_reason']}"
+  }}
 ]
 
 ## 嚴格要求：
-1. rule 必須有具體數值（例如 RSI>75 而非「RSI過高」）
-2. 每條規則的 when 條件必須引用框架關鍵詞
-3. 只輸出 JSON，不要其他文字
+1. rule 必須有具體數值（如 RSI>75，而非「RSI過高」）
+2. 每條規則的 when 條件必須引用框架關鍵詞之一
+3. 只輸出 JSON 陣列，不要其他文字
 
 只輸出 JSON。"""
-    print(f'[{master}] Calling ray-deep-v1...')
-    raw = call_deep(prompt)
-    print(f'  Raw length: {len(raw)}')
-    rules = parse(raw)
+
+    for attempt in range(max_retries):
+        print(f'  [{master}] Attempt {attempt+1}/{max_retries}...')
+        raw = call_deep(MODEL_DEEP, prompt)
+        print(f'  [{master}] Raw length: {len(raw)}')
+        rules, complete = parse_rules(raw)
+        if rules:
+            print(f'  [{master}] ✅ {len(rules)} rules (complete={complete})')
+            return rules, complete
+        print(f'  [{master}] ❌ Parse failed, raw preview: {raw[:100]}')
+        time.sleep(2)
+    return [], False
+
+# Run
+all_rules = []
+master_complete = {}
+
+for master, framework in MASTER_FRAMEWORKS.items():
+    print(f'\n[{master}] Starting...')
+    rules, complete = distill_master(master, framework, all_failures_text)
     if rules:
-        print(f'  ✅ {len(rules)} rules')
         all_rules.extend(rules)
-    else:
-        print(f'  ❌ Parse failed, raw: {raw[:200]}')
+        master_complete[master] = complete
     time.sleep(3)
 
-print()
-print(f'Total rules: {len(all_rules)}')
-
-# Deduplicate
+# Dedup
 seen = set()
 unique = []
 for r in all_rules:
@@ -109,10 +170,17 @@ for r in all_rules:
 rules = unique[:10]
 
 # Save
-output = {'schema': 'ray_forbidden_rules_v1', 'version': '1.0', 'generated': '2026-05-13', 'count': len(rules), 'rules': rules}
+output = {
+    'schema': 'ray_forbidden_rules_v1',
+    'version': '1.1',
+    'generated': '2026-05-13',
+    'count': len(rules),
+    'rules': rules
+}
 with open(OUT_PATH, 'w', encoding='utf-8') as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
 
-print(f'Saved: {OUT_PATH}')
+print(f'\n=== Done ===')
+print(f'Saved: {OUT_PATH} ({len(rules)} rules)')
 for r in rules:
-    print(f"  [{r.get('master','?')}] P{r.get('priority','?')}: {r.get('rule','')[:70]}")
+    print(f"  [{r.get('master','?')}] P{r.get('priority','?')}: {r.get('rule','')[:60]}")
