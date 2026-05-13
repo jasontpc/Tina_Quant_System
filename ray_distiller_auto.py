@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 ray_distiller_auto.py — 自動被動蒸餾腳本
 每日清晨執行（05:00），將所有專家模組蒸餾進 Modelfile
@@ -15,10 +15,10 @@ ray_distiller_auto.py — 自動被動蒸餾腳本
 import json, os, sqlite3, sys, subprocess, requests, time
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-DB_PATH = "ray_wisdom.db"
-MODEL = "ray-v1"
+DB_PATH = os.path.join(os.path.dirname(__file__), "ray_wisdom.db")
+MODEL = "qwen3.5-4b-iq4xs"
 MODELS_DIR = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Programs", "Ollama", "models")
-MODELFLE_PATH = os.path.join(MODELS_DIR, "modelfiles", "ray-v1.Modelfile")
+MODELFLE_PATH = os.path.join(MODELS_DIR, "qwen35-4b-iq4xs", "Modelfile")
 
 # 載入專家模組
 from ray_expert_modules import get_all_experts_prompt, EXPERT_MODULES, get_expert_for_trigger
@@ -137,12 +137,13 @@ print()
 print("[5] 寫入 Modelfile...")
 os.makedirs(os.path.dirname(MODELFLE_PATH), exist_ok=True)
 
-modelfile_content = f"""FROM qwen2.5:1.5b
+modelfile_content = f"""FROM ./Qwen3.5-4B-IQ4_XS.gguf
 SYSTEM \"\"\"{system_prompt}\"\"\"
-PARAMETER temperature 0.1
-PARAMETER num_ctx 4096
-PARAMETER top_p 0.9
-PARAMETER top_k 20
+PARAMETER temperature 0.2
+PARAMETER num_ctx 8192
+PARAMETER num_thread 14
+PARAMETER top_p 0.85
+PARAMETER top_k 40
 """
 
 with open(MODELFLE_PATH, 'w', encoding='utf-8') as f:

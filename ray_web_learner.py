@@ -6,7 +6,20 @@ ray_web_learner.py — 連網自主學習模組
 import sys, os, sqlite3, json, time, logging, re
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
+import os
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+
 BASE_URL = "http://localhost:11434/api/chat"
+
+# ── Router 導入 ──────────────────────────────────────────────
+try:
+    from llm_router import get_router
+    ROUTER = get_router()
+    HAS_ROUTER = True
+except ImportError:
+    ROUTER = None
+    HAS_ROUTER = False
+
 from pathlib import Path
 
 LOG_DIR_PATH = Path("logs")
@@ -21,12 +34,38 @@ if not _log.handlers:
 
 DB_PATH = "ray_wisdom.db"
 
+# ── Tavily API（主要連網搜尋）───
+TAVILY_KEY = "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"
+
+# ── RSS Feeds（備用，已不穩，建議保留過渡）───
+RSS_FEEDS = {
+    "taleb": "https://www.fooledbyrandomness.com/rss.xml",
+    "yahoo_spy": "https://feeds.finance.yahoo.com/rss/headline?s=SPY",
+}
+
+def fetch_tavily_news(query, max_results=5):
+    """Tavily 搜尋（主要資料源）"""
+    try:
+        import requests
+        resp = requests.post(
+            "https://api.tavily.com/search",
+            json={"query": query, "api_key": TAVILY_KEY, "max_results": max_results, "topic": "finance"},
+            timeout=15
+        )
+        if resp.status_code == 200:
+            results = resp.json().get("results", [])
+            return [{"title": r.get("title", ""), "summary": r.get("content", "")[:200], "source": f"Tavily_{query}"} for r in results]
+    except Exception as e:
+        _log.warning(f"Tavily failed: {e}")
+    return []
+
 def fetch_taleb_rss():
+    """Taleb RSS（備用）"""
     try:
         import feedparser
         insights = []
         try:
-            f = feedparser.parse("https://www.fooledbyrandomness.com/rss.xml")
+            f = feedparser.parse(RSS_FEEDS["taleb"])
             for entry in f.entries[:3]:
                 insights.append({"title": entry.title, "summary": entry.summary[:200], "source": "Taleb_RSS"})
         except Exception as e:
@@ -36,11 +75,12 @@ def fetch_taleb_rss():
         return []
 
 def fetch_financial_news():
+    """Yahoo Finance RSS（備用，已不穩）"""
     try:
         import feedparser
         insights = []
         try:
-            f = feedparser.parse("https://feeds.finance.yahoo.com/rss/headline?s=SPY")
+            f = feedparser.parse(RSS_FEEDS["yahoo_spy"])
             for entry in f.entries[:5]:
                 insights.append({"title": entry.title, "summary": entry.summary[:200] if hasattr(entry, 'summary') else "", "source": "Yahoo_Finance"})
         except Exception as e:
@@ -67,11 +107,32 @@ def classify_insight(text):
     return "GENERAL"
 
 def validate_with_7b(insight_text):
+    """
+    驗證外部觀點（走 Router Layer 2 → MiniMax）
+    深度推理，不需要本地 7B
+    """
+    prompt = f'你是 Ray 7B 參謀。請審核以下外部觀點：\n\n"{insight_text}"\n\n輸出 JSON：{{"valid": true/false, "conflict": "none/minor/severe", "action": "具體建議"}}\n'
+
+    if ROUTER and HAS_ROUTER:
+        try:
+            result_text = ROUTER.deep(prompt=prompt)
+            import re
+            m = re.search(r'\{[\s\S]*\}', result_text)
+            if m:
+                try:
+                    return json.loads(m.group())
+                except json.JSONDecodeError as je:
+                    _log.warning(f"Router.deep JSON parse failed: {je} | raw: {result_text[:120]}")
+                    return {"valid": False, "conflict": "unknown", "action": "parse_failed"}
+            else:
+                _log.warning(f"Router.deep no JSON found | raw: {result_text[:120]}")
+                return {"valid": False, "conflict": "unknown", "action": "no_json"}
+        except Exception as e:
+            _log.warning(f"Router.deep failed, falling back: {e}")
+
+    # 降級：直接走 Ollama ray-deep-v1
     try:
         import requests
-        template = '你是 Ray 7B 參謀。請審核以下外部觀點：\n\n"{text}"\n\n輸出 JSON：{{"valid": true/false, "conflict": "none/minor/severe", "action": "具體建議"}}\n'
-        prompt = template.replace("{text}", insight_text)
-
         resp = requests.post(BASE_URL, json={
             "model": "ray-deep-v1",
             "messages": [{"role": "user", "content": prompt}],
@@ -82,8 +143,12 @@ def validate_with_7b(insight_text):
         result = resp.json().get("message", {}).get("content", "")
         m = re.search(r'\{[\s\S]*\}', result)
         if m:
-            return json.loads(m.group())
-        return {"valid": False, "conflict": "unknown", "action": "parse_failed"}
+            try:
+                return json.loads(m.group())
+            except json.JSONDecodeError:
+                _log.warning(f"Ollama JSON parse failed | raw: {result[:120]}")
+                return {"valid": False, "conflict": "unknown", "action": "parse_failed"}
+        return {"valid": False, "conflict": "unknown", "action": "no_json"}
     except Exception as e:
         _log.error(f"7B validation failed: {e}")
         return {"valid": False, "conflict": "error", "action": str(e)}
@@ -116,11 +181,29 @@ def math_gate_check(insight):
 def daily_web_learning():
     _log.info("=== Ray Web Learner 啟動 ===")
     collected = []
+
+    # ── 主要來源：Tavily 搜尋（取代 RSS）───
+    queries = [
+        "quantitative trading strategy Sharpe ratio",
+        "momentum trading RSI mean reversion",
+        "risk management position sizing stop loss",
+        "portfolio optimization fat-tail black swan",
+    ]
+    for q in queries:
+        results = fetch_tavily_news(q, max_results=3)
+        collected.extend(results)
+    _log.info(f"Tavily 抓取 {len(collected)} 筆")
+
+    # ── 備用：RSS feeds───
     taleb = fetch_taleb_rss()
     news = fetch_financial_news()
-    collected.extend(taleb)
-    collected.extend(news)
-    _log.info(f"抓取 {len(collected)} 筆")
+    if taleb or news:
+        collected.extend(taleb)
+        collected.extend(news)
+        _log.info(f"RSS 備用 {len(taleb)+len(news)} 筆（已穩定）")
+
+    total = len(collected)
+    _log.info(f"抓取 {total} 筆")
 
     filtered = [i for i in collected if filter_keywords(i.get("title", "") + i.get("summary", ""))]
     _log.info(f"過濾後 {len(filtered)} 筆")

@@ -8,6 +8,9 @@ from datetime import datetime, timedelta
 from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
+import os
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -24,6 +27,25 @@ if not _log.handlers:
     _log.addHandler(h)
 
 # ============================================================
+# 寫入信號日誌（us_scan_live.py 需要）
+# ============================================================
+def log_signal(symbol, source, score, sharpe, mdd, win_rate, signal_tag, note=''):
+    """寫入 signals_log（自動映射欄位名）"""
+    import sqlite3
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    try:
+        sql = ("INSERT INTO signals_log "
+                "(symbol, source, score, sharpe_30d, mdd_30d, win_rate_30d, signal_tag, note) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+        c.execute(sql, (symbol, source, score, sharpe, mdd, win_rate, signal_tag, note))
+        conn.commit()
+    except Exception as e:
+        _log.error(f"log_signal failed: {e}")
+    finally:
+        conn.close()
+
+# ============================================================
 # 經濟型數據緩存中心
 # ============================================================
 class RayDataCenter:
@@ -31,6 +53,22 @@ class RayDataCenter:
         self.cache = {}  # RAM 快取
         self.cache_ttl = 60  # 60 秒 TTL
         self.last_request_time = {}  # 防止過度請求
+
+    def log_signal(self, symbol, source, score, sharpe, mdd, win_rate, signal_tag, note=''):
+        """寫入 signals_log（作為實例方法）"""
+        import sqlite3
+        conn = sqlite3.connect(DB)
+        c = conn.cursor()
+        try:
+            sql = ("INSERT INTO signals_log "
+                    "(symbol, source, score, sharpe_30d, mdd_30d, win_rate_30d, signal_tag, note) "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+            c.execute(sql, (symbol, source, score, sharpe, mdd, win_rate, signal_tag, note))
+            conn.commit()
+        except Exception as e:
+            _log.error(f"log_signal failed: {e}")
+        finally:
+            conn.close()
 
     def _make_cache_key(self, symbol, interval="1d", period="1y"):
         return f"{symbol}_{interval}_{period}"

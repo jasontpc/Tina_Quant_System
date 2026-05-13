@@ -13,7 +13,20 @@ Token 節約策略：本地預處理 + Markdown 壓縮 + 批量摘要
 import sys, os, sqlite3, json, time, re
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
+import os
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+
 BASE_URL = "http://localhost:11434/api/chat"
+
+# ── Router 導入 ──────────────────────────────────────────────
+try:
+    from llm_router import get_router
+    ROUTER = get_router()
+    HAS_ROUTER = True
+except ImportError:
+    ROUTER = None
+    HAS_ROUTER = False
+
 from pathlib import Path
 
 LOG_DIR = Path("logs")
@@ -66,19 +79,36 @@ def local_nlp_clean(html_text):
         return text[:3000]
 
 def jina_read_convert(url):
-    """
-    使用 Jina Reader 將網頁轉為 Markdown
-    省 40-60% Token
-    """
-    try:
-        jina_url = f"https://r.jina.ai/{url}"
-        import urllib.request
-        req = urllib.request.Request(jina_url, headers={"Accept": "text/markdown"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return resp.read().decode("utf-8", errors="replace")[:4000]
-    except Exception as e:
-        _log.warning(f"Jina Reader failed: {e}")
-        return None
+    """DEPRECATED: Use fetch_tavily_articles instead"""
+    return None
+
+# ── Tavily API（取代 Jina Reader）───
+TAVILY_KEY = "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"
+
+def fetch_tavily_articles(queries, max_results=5):
+    """用 Tavily 搜尋取代 Jina Reader（更穩定）"""
+    articles = []
+    for q in queries:
+        try:
+            import requests
+            resp = requests.post(
+                "https://api.tavily.com/search",
+                json={"query": q, "api_key": TAVILY_KEY, "max_results": max_results, "topic": "finance"},
+                timeout=15
+            )
+            if resp.status_code == 200:
+                results = resp.json().get("results", [])[:3]
+                for r in results:
+                    content = r.get("content", "")[:500]
+                    if is_relevant(content):
+                        articles.append({
+                            "title": r.get("title", "")[:100],
+                            "summary": content,
+                            "url": r.get("url", "")
+                        })
+        except Exception as e:
+            _log.warning(f"Tavily query failed: {e}")
+    return articles
 
 # ============================================================
 # 2. 關鍵詞預選（直接捨棄無關內容）
@@ -163,6 +193,26 @@ def batch_summarize(articles):
 ]
 """
 
+    # ── 走 Router Layer 2（MiniMax）───
+    if ROUTER and HAS_ROUTER:
+        try:
+            result_text = ROUTER.deep(prompt=prompt)
+            import re
+            m = re.search(r'\[[\s\S]*\]', result_text)
+            if m:
+                try:
+                    rules = json.loads(m.group())
+                    return rules if isinstance(rules, list) else []
+                except json.JSONDecodeError as je:
+                    _log.warning(f"Router.deep JSON parse failed: {je} | raw: {result_text[:120]}")
+                    return []
+            else:
+                _log.warning(f"Router.deep no JSON array found | raw: {result_text[:120]}")
+                return []
+        except Exception as e:
+            _log.warning(f"Router.deep failed, falling back: {e}")
+
+    # 降級：直接走 Ollama ray-deep-v1
     try:
         import requests
         resp = requests.post(BASE_URL, json={
@@ -234,16 +284,15 @@ def econ_web_learning():
 
     articles = []
 
-    # 1. Jina Reader 抓取（Markdown 格式）
-    _log.info("Step 1: Jina Reader 抓取...")
-    for url in test_urls:
-        md = jina_read_convert(url)
-        if md and is_relevant(md):
-            title_match = re.search(r"^#\s+(.+)", md)
-            title = title_match.group(1)[:100] if title_match else url
-            articles.append({"title": title, "summary": md[:1000], "url": url})
-            _log.info(f"  OK: {title[:50]}")
-
+    # 1. Tavily 搜尋（取代 Jina Reader）
+    _log.info("Step 1: Tavily 搜尋...")
+    queries = [
+        "quantitative trading strategy Sharpe ratio",
+        "momentum RSI mean reversion trading",
+        "risk management position sizing drawdown",
+        "portfolio optimization fat-tail black swan",
+    ]
+    articles = fetch_tavily_articles(queries, max_results=5)
     _log.info(f"  抓取並通過預選: {len(articles)} 篇")
 
     # 2. 去重複

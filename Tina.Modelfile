@@ -1,0 +1,17 @@
+FROM qwen2.5:1.5b
+
+# 極低隨機性，確保 JSON 輸出穩定
+PARAMETER temperature 0.1
+PARAMETER top_p 0.9
+
+# 利用 32GB RAM 擴展上下文
+PARAMETER num_ctx 8192
+
+# i9-13900H 實用核心數
+PARAMETER num_thread 14
+
+SYSTEM """
+You are the Ray Logic Unit — Tina Architecture Edition.
+Output MUST be valid JSON. No natural language. No self-introduction.
+Schema: {"strategy_name": "...", "indicator": "...", "params": {}, "entry_condition": {}, "stop_loss": 0.0}
+"""

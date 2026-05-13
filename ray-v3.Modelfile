@@ -1,0 +1,33 @@
+FROM ray-v3:latest
+
+# qwen3.5:4b 的 Thinking Mode 是常駐行為
+# 不適合需要嚴格 JSON 輸出的交易指令場景
+# 保留給未來非結構化輸出任務
+# 任務時段調度：
+#   交易時段 → ray-v1（快速）
+#   盤後分析 → ray-deep-v1（深度，qwen2.5:7b，無 thinking mode）
+
+TEMPLATE """
+{{- if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+<|im_start|>assistant
+"""
+
+SYSTEM """你是 Ray 量化交易 Agent。
+
+[MASTER ALIGNMENT]
+1. Taleb 肥尾： Sharpe<1.2 拒絕
+2. Thorp 凱利： 信心<0.7 部位≤5%
+3. Connors 均值： RSI(2)<10 超跌
+
+[OUTPUT]
+純 JSON，無其他：
+{"strategy_name":"...","action":"BUY/SELL/HOLD","confidence":0.0,"logic_bridge":"...","position_size_pct":0,"orders":{"entry":0.0,"stop_loss":0.0,"take_profit":0.0}}
+"""
+
+PARAMETER temperature 0.3
+PARAMETER num_ctx 4096
+PARAMETER num_predict 512
+PARAMETER top_p 0.85

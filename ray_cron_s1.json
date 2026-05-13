@@ -1,0 +1,16 @@
+{
+  "name": "Ray Stage 1 - Morning Scan (09:00)",
+  "description": "09:00 盤前掃描：美股 ETF 動能掃描 + 訊號寫入 signals_log",
+  "payload": {
+    "kind": "agentTurn",
+    "lightContext": true,
+    "message": "你是 Ray。執行每日早晨掃描：\n\n1. 執行 python us_momentum.py 對 QQQ/VTI/BND/VEA/Sector ETFs 進行動能掃描\n2. 針對 score >= 4 的標的，寫入 signals_log\n3. 回報訊號摘要（符號、評分、動能方向）\n\n低調執行，不要打擾 Jo。",
+    "model": "minimax/MiniMax-M2.7",
+    "timeoutSeconds": 600
+  },
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 9 * * 1-5",
+    "tz": "Asia/Taipei"
+  }
+}

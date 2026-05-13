@@ -234,6 +234,67 @@ K線：{l1.get('kline')}
 """
         return prompt
 
+    def get_expert_memory(self, symbol=None, limit=5):
+        """取得專家修正記憶（用於 build_3b_prompt）"""
+        corrections = self.l2.get_relevant_corrections(symbol=symbol, limit=limit)
+        return corrections if corrections else "無相關修正"
+
+    def get_web_wisdom_tag(self, tag="Taleb", limit=3):
+        """取得特定 tag 的連網智慧（從 wisdom_corrections WEB_SOURCE）"""
+        c = self.l2.conn.cursor()
+        c.execute("""
+            SELECT diagnosis, confidence, meta_label
+            FROM wisdom_corrections
+            WHERE symbol='WEB_SOURCE' AND confidence >= 0.7
+            ORDER BY confidence DESC LIMIT ?
+        """, (limit,))
+        rows = c.fetchall()
+        if not rows:
+            return "無相關連網智慧"
+        return "\n".join([f"- [{r[1]:.2f}] {r[0][:80]}" for r in rows])
+
+    def build_3b_prompt(self, symbol, indicators, task="分析以下標的"):
+        """
+        針對 3B 強化：同時注入『大師邏輯』與『歷史教訓』
+        用於 ray-v3 Quant Commander 模式
+        """
+        # 1. 從記憶橋接器獲取上下文
+        memory = self.get_expert_memory(symbol=symbol, limit=5)
+
+        # 2. 抓取大師最新的連網智慧
+        taleb_wisdom = self.get_web_wisdom_tag("Taleb")
+        thorp_wisdom = self.get_web_wisdom_tag("Thorp")
+
+        # 3. 組合 RAG_CONTEXT
+        rag_context = f"""【本地歷史教訓】
+{memory}
+
+【全球大師動態 - Taleb】
+{taleb_wisdom}
+
+【全球大師動態 - Thorp】
+{thorp_wisdom}"""
+
+        # 4. 組合最終 Prompt
+        price_info = f"標的：{symbol}\n"
+        if indicators:
+            price_info += f"現價：{indicators.get('price', 'N/A')}\n"
+            price_info += f"RSI：{indicators.get('rsi', 'N/A')}\n"
+            price_info += f"K線：{indicators.get('kline', 'N/A')}\n"
+
+        prompt = f"""### 市場數據
+{price_info}
+
+### 動態上下文（RAG）
+{rag_context}
+
+### 任務
+{task}
+
+輸出純 JSON："""
+
+        return prompt
+
     def close(self):
         self.l2.close()
 

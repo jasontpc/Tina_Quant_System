@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-12T14:16:43.311Z",
+  "entries": {
+    "memory:memory/2026-05-12.md:1:31": {
+      "key": "memory:memory/2026-05-12.md:1:31",
+      "path": "memory/2026-05-12.md",
+      "startLine": 1,
+      "endLine": 31,
+      "source": "memory",
+      "snippet": "# Memory 2026-05-12 — Ray Agent ## 安裝與設定 ### Qwen 模型 - Ollama 0.23.1 已安裝 ✅ - qwen2.5:1.5b 已下載 ✅ (ray-v1 Modelfile 已創建) - qwen2.5:7b 下載中（約 47%，預計還需 ~1.5 小時） ### 蒸餾框架（今日完成） - ray_distiller.py 已建立（未執行） - 目標：Sharpe > 1.8 的黃金案例 → JSONL → 微調 1.5B ### 數據庫現況 - wisdom_logs: 0 筆（還沒有實際蒸餾數據） - backtest_reports: 還沒有實際執行過 - signals_log: 有一些掃描數據 ### 腳本狀態 - ray_data_center.py ✅（isolation_level=None + 顯式 commit） - ray_engine.py ✅ - ray_nl2code.py ✅（auto_correct=True） - ray_evolution.py ✅ - ray_brain.py ✅ - ray_distiller.py ✅（已建立但未執行） ### 待執行 1. ray_distiller.py → 生成 ray_distill_train.jsonl 2. Qwen 7B 下載完成 → 建立 ray-deep-v1 3. Ray KAL 自學循環測試 4. Unsloth 安裝 + 微調 1.5B",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.533071272075176,
+      "maxScore": 0.5400503486394882,
+      "firstRecalledAt": "2026-05-11T20:04:59.669Z",
+      "lastRecalledAt": "2026-05-12T02:52:18.274Z",
+      "queryHashes": [
+        "6b5c9c170f5b",
+        "1d293eee2f01",
+        "7b5233c35429"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "0.23.1",
+        "qwen2.5",
+        "1.5b",
+        "ray-v1",
+        "1.5",
+        "ray-distiller.py",
+        "1.8",
+        "wisdom-logs"
+      ]
+    },
+    "memory:memory/2026-05-12.md:32:70": {
+      "key": "memory:memory/2026-05-12.md:32:70",
+      "path": "memory/2026-05-12.md",
+      "startLine": 32,
+      "endLine": 70,
+      "source": "memory",
+      "snippet": "### Windows Task Scheduler ✅ 完成 - Ray Tina Daily（平日 08:30） - Ray Tina Evening（平日 17:00） - Ray Tina Weekly（週五 22:00） ### Cron Jobs ⚠️ 待整理 - 目前 14 個 Cron Jobs，過於分散 - 建議精簡到 6 個核心 jobs - 2 個 timeout error（Governor 深夜喚醒、US AI Tech 每日分析） ### LLM 使用比例 ✅ 已優化 - 1.5B（ray-v1）：80% 任務 - 7B（ray-deep-v1）：20% 任務（只做深度歸因/蒸餾/策略進化） ### 蒸餾 Pipeline ⚠️ 未完成 - Step 1 黃金案例挖掘：[DONE] 18筆 Sharpe>0.8 - Step 2 7B 深度修正：[DONE] 144筆 - Step 3 生成 JSONL：[PENDING] 尚未執行 - Step 4 微調訓練：[PENDING] 阻塞（triton 問題） - Step 5 部署 Ollama：[PENDING] ### 慢思考檢討 ✅ 完成 - 7B 冷啟動 35s，快取 27s（CUDA 後仍未改善） - 1.5B 冷啟動 4.8s，快取 2.5s ✅ - Cron jobs 過多導致超載 - 建議：1.5B 分流 80%，7B 只做 20% ## 待辦事項 1. **生成蒸餾資料集**（ray_distill_weekly.jsonl）— 從 backtest_reports +",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.3325213849544526,
+      "maxScore": 0.4782223731279373,
+      "firstRecalledAt": "2026-05-12T05:05:08.419Z",
+      "lastRecalledAt": "2026-05-12T14:16:43.311Z",
+      "queryHashes": [
+        "45a71e4b7e7f",
+        "69e8d9e5632d",
+        "817469874265",
+        "e5e85d510a44",
+        "80d49ce791aa"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "1.5b",
+        "ray-v1",
+        "ray-deep-v1",
+        "只做深度歸因/蒸餾/策略進化",
+        "0.8",
+        "4.8s",
+        "2.5s",
+        "ray-distill-weekly.jsonl"
+      ]
+    },
+    "memory:memory/2026-05-12.md:1:41": {
+      "key": "memory:memory/2026-05-12.md:1:41",
+      "path": "memory/2026-05-12.md",
+      "startLine": 1,
+      "endLine": 41,
+      "source": "memory",
+      "snippet": "# Memory 2026-05-12 — Ray Agent（下午更新） ## 今日進度 ### Qwen 模型 ✅ 完成 - Ollama 0.23.1 + qwen2.5:7b + qwen2.5:1.5b 已下載 - ray-deep-v1（7B）Modelfile 已建立 - ray-v1（1.5B）Modelfile 已建立 - 測試速度：ray-v1 快取 2.5s，ray-deep-v1 快取 27s ### PyTorch CUDA 安裝 ✅ 完成 - 問題：pip install torch → CPU-only（RTX 4050 不被識別） - 解決：pip install torch --index-url https://download.pytorch.org/whl/cu124 - 結果：PyTorch 2.6.0+cu124，CUDA available=True，RTX 4050 正常 - 副作用：torchvision / xformers 不相容（已忽略） - Unsloth：triton 版本衝突（需用 Transformers PEFT 替代） ### 資料庫 ✅ 大幅改善 - wisdom_logs: 360 筆 - wisdom_corrections: 144 筆（7B 深度修正） - backtest_reports: 206 筆（Sharpe>0.8: 18筆，Sharpe>1.5: 1筆） - signals_log: 6 筆 ### 腳本 ✅ 全部就緒 - ray_brain.py（Layer 1-3 路由） -",
+      "recallCount": 5,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2.318741863965988,
+      "maxScore": 0.47937931716442106,
+      "firstRecalledAt": "2026-05-12T05:05:08.419Z",
+      "lastRecalledAt": "2026-05-12T14:16:43.311Z",
+      "queryHashes": [
+        "45a71e4b7e7f",
+        "69e8d9e5632d",
+        "817469874265",
+        "e5e85d510a44",
+        "80d49ce791aa"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "0.23.1",
+        "qwen2.5",
+        "1.5b",
+        "ray-deep-v1",
+        "ray-v1",
+        "2.5s",
+        "cpu-only",
+        "index-url"
+      ]
+    }
+  }
+}

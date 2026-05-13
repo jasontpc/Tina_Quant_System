@@ -140,7 +140,7 @@ def get_enhanced_proposal(symbol, raw_indicators):
     try:
         import requests
         resp = requests.post(BASE_URL, json={
-            "model": "ray-v1",
+            "model": "ray-deep-v1",
             "messages": [
                 {"role": "system", "content": SYSTEM_INSTRUCTION},
                 {"role": "user", "content": f"{data_summary}\n{historical_wisdom}\n\n{ONE_SHOT_EXAMPLE}\n\nNow output JSON:"}

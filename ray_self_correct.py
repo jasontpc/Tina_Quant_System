@@ -2,37 +2,29 @@
 """
 Ray Self-Correction Engine - Dual-Layer LLM Integration
 Layer 1: 1.5B (ray-v1) fast classification + weight decay
-Layer 2: 7B (ray-deep-v1) only for complex cases (confidence < 0.5)
+Layer 2: MiniMax for complex cases (confidence < 0.5)
 
-Strategy: Most failures handled by fast 1.5B, only 20% need expensive 7B.
+Strategy: Most failures handled by fast 1.5B, only 20% need expensive deep reasoning.
+2026-05-12: All LLM calls go through llm_router.py (no direct Ollama)
 """
 
-import json, sqlite3, requests, re, time
+import json, sqlite3, re, time
 from datetime import datetime
 
-BASE_URL  = "http://localhost:11434/api/chat"
-FAST_MODEL = "ray-v1"
-DEEP_MODEL = "ray-deep-v1"
-DB_PATH   = "ray_wisdom.db"
+DB_PATH = "ray_wisdom.db"
 
+# ── Router 導入 ──────────────────────────────────────────────
+try:
+    from llm_router import get_router
+    ROUTER = get_router()
+    HAS_ROUTER = True
+except ImportError:
+    ROUTER = None
+    HAS_ROUTER = False
 
-def call_llm(model: str, system: str, user: str, timeout: int = 60) -> str:
-    payload = {
-        "model": model,
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user",   "content": user}
-        ],
-        "temperature": 0.3 if model == FAST_MODEL else 0.2,
-        "stream": False,
-        "options": {"num_predict": 300 if model == FAST_MODEL else 600}
-    }
-    try:
-        resp = requests.post(BASE_URL, json=payload, timeout=timeout)
-        resp.raise_for_status()
-        return resp.json()["message"]["content"]
-    except Exception as e:
-        return f"ERROR: {e}"
+BASE_URL = "http://localhost:11434/api/chat"
+FAST_MODEL = "ray-deep-v1"  # Jo 指定全本地分析走 ray-deep-v1
+DEEP_MODEL = "ray-deep-v1"  # Jo 指定統一走 ray-deep（備用）
 
 
 def extract_json(text: str) -> dict:
@@ -84,29 +76,29 @@ def get_failed_wisdoms(limit=50):
 
 
 def layer1_fast_classification(fw: dict) -> dict:
-    """Layer 1: 1.5B 快速分類失敗原因 + 決定 weight 衰減"""
+    """Layer 1: 1.5B 快速分類失敗原因 + 決定 weight 衰減（走 Router Layer 1 → ray-v1）"""
     axiom = json.loads(fw["axiom_json"]) if isinstance(fw["axiom_json"], str) else fw["axiom_json"]
 
-    system_prompt = (
-        "You are Ray-Fast (1.5B). Analyze this failed strategy.\n"
-        'Output ONLY JSON: {"diagnosis":"string","decay_factor":float,"needs_deep_analysis":bool,"confidence":float}\n'
-        'diagnosis: Why did it fail? (short)\n'
-        'decay_factor: weight multiplier (0.5=strong sell, 0.8=mild fail, 1.0=no change)\n'
-        'needs_deep_analysis: true only if logic is fundamentally broken (rare)\n'
-        'confidence: how confident are you (0.0-1.0)'
-    )
-
-    user_prompt = (
+    prompt = (
+        f"Analyze this failed strategy.\n"
         f"Failed axiom: {json.dumps(axiom, ensure_ascii=False)}\n"
         f"Reflection: {fw['reflection']}\n"
         f"Symbol: {fw['symbol']}\n\n"
-        "Quick diagnosis + decay decision."
+        'Output ONLY JSON: {"diagnosis":"string","decay_factor":float,"needs_deep_analysis":bool,"confidence":float}'
     )
 
     t0 = time.time()
-    response = call_llm(FAST_MODEL, system_prompt, user_prompt, timeout=30)
-    elapsed = time.time() - t0
-    print(f"    [1.5B] {elapsed:.1f}s: {response[:100]}...")
+
+    if ROUTER and HAS_ROUTER:
+        try:
+            response = ROUTER.fast(prompt=prompt)
+            elapsed = time.time() - t0
+            print(f"    [1.5B/Router] {elapsed:.1f}s: {response[:80]}...")
+        except Exception as e:
+            print(f"    [Router.fast failed: {e}], falling back to Ollama")
+            response = _ollama_fallback(FAST_MODEL, prompt, timeout=30)
+    else:
+        response = _ollama_fallback(FAST_MODEL, prompt, timeout=30)
 
     result = extract_json(response)
     if not result:
@@ -121,32 +113,30 @@ def layer1_fast_classification(fw: dict) -> dict:
 
 
 def layer2_deep_analysis(fw: dict, diagnosis: str) -> dict:
-    """Layer 2: 7B 只處理需要深度重建的複雜案例"""
+    """Layer 2: MiniMax 深度推理（走 Router Layer 2）"""
     axiom = json.loads(fw["axiom_json"]) if isinstance(fw["axiom_json"], str) else fw["axiom_json"]
 
-    system_prompt = (
-        'You are Ray-Deep (Qwen 7B), the Chief Strategist of the Tina Quant System.\n'
-        'Output ONLY valid JSON with this exact schema:\n'
-        '{"diagnosis":"string","corrected_strategy":{"strategy_name":"string","indicator":"string",'
-        '"params":{},"entry_condition":{},"stop_loss":float},"confidence":float,"meta_label":{}}'
-    )
-
-    user_prompt = (
+    prompt = (
         f"Analyze this failed strategy and produce a corrected version.\n\n"
         f"Original axiom: {json.dumps(axiom, ensure_ascii=False)}\n"
         f"Previous diagnosis: {diagnosis}\n"
         f"Failure reflection: {fw['reflection']}\n"
         f"Symbol: {fw['symbol']}\n\n"
-        'Diagnosis: Why did it fail?\n'
-        'Corrected Strategy: Fixed version with better parameters.\n'
-        'Confidence: 0.0-1.0\n'
-        'Meta-Label: What should change in next backtest?'
+        'Output ONLY JSON: {"diagnosis":"string","corrected_strategy":{"strategy_name":"string","indicator":"string","params":{},"entry_condition":{},"stop_loss":float},"confidence":float,"meta_label":{}}'
     )
 
     t0 = time.time()
-    response = call_llm(DEEP_MODEL, system_prompt, user_prompt, timeout=180)
-    elapsed = time.time() - t0
-    print(f"    [7B] {elapsed:.1f}s: {response[:100]}...")
+
+    if ROUTER and HAS_ROUTER:
+        try:
+            response = ROUTER.deep(prompt=prompt)
+            elapsed = time.time() - t0
+            print(f"    [Deep/Router] {elapsed:.1f}s: {response[:80]}...")
+        except Exception as e:
+            print(f"    [Router.deep failed: {e}], falling back to Ollama 7B")
+            response = _ollama_fallback(DEEP_MODEL, prompt, timeout=180)
+    else:
+        response = _ollama_fallback(DEEP_MODEL, prompt, timeout=180)
 
     result = extract_json(response)
     if not result:
@@ -155,9 +145,28 @@ def layer2_deep_analysis(fw: dict, diagnosis: str) -> dict:
     return result
 
 
+def _ollama_fallback(model: str, prompt: str, timeout: int = 60) -> str:
+    """降級：直接走 Ollama（當 Router 不可用時）"""
+    import requests
+    payload = {
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "stream": False,
+        "temperature": 0.3 if model == FAST_MODEL else 0.2,
+        "options": {"num_predict": 300 if model == FAST_MODEL else 600}
+    }
+    try:
+        resp = requests.post(BASE_URL, json=payload, timeout=timeout)
+        resp.raise_for_status()
+        return resp.json().get("message", {}).get("content", "")
+    except Exception as e:
+        return f"ERROR: {e}"
+
+
 def main():
     print("=" * 60)
-    print("Ray Self-Correction — Dual-Layer (1.5B + 7B)")
+    print("Ray Self-Correction — Dual-Layer via llm_router.py")
+    print("  Layer 1: ray-v1 (本地) | Layer 2: MiniMax (雲端)")
     print("=" * 60)
 
     ensure_schema()
@@ -175,11 +184,10 @@ def main():
     for fw in failed:
         print(f"\n[*] axiom_id={fw['id']} ({fw['symbol']}) weight={fw['weight']:.2f}")
 
-        # Layer 1: 1.5B fast classification
+        # Layer 1: fast classification
         layer1 = layer1_fast_classification(fw)
         new_weight = fw['weight'] * layer1['decay_factor']
 
-        # Update weight in DB
         conn = sqlite3.connect(DB_PATH, isolation_level='IMMEDIATE')
         c = conn.cursor()
         c.execute("UPDATE wisdom_logs SET weight = ? WHERE id = ?", (new_weight, fw['id']))
@@ -188,7 +196,6 @@ def main():
         print(f"    [Weight] {fw['weight']:.2f} -> {new_weight:.2f}")
 
         if layer1['needs_deep_analysis'] and layer1['confidence'] < 0.5:
-            # Layer 2: Only for complex cases
             deep_result = layer2_deep_analysis(fw, layer1['diagnosis'])
             corrections.append({
                 "axiom_id": fw['id'],
@@ -197,7 +204,7 @@ def main():
                 "corrected_strategy": deep_result.get("corrected_strategy"),
                 "confidence": deep_result.get("confidence", 0),
                 "meta_label": deep_result.get("meta_label", {}),
-                "model_used": "7B"
+                "model_used": "MiniMax"
             })
             deep_count += 1
         else:
@@ -208,11 +215,10 @@ def main():
                 "corrected_strategy": None,
                 "confidence": layer1['confidence'],
                 "meta_label": {},
-                "model_used": "1.5B"
+                "model_used": "ray-v1"
             })
             fast_count += 1
 
-    # Save all corrections
     conn = sqlite3.connect(DB_PATH, isolation_level='IMMEDIATE')
     c = conn.cursor()
     for corr in corrections:
@@ -229,8 +235,8 @@ def main():
 
     print(f"\n{'='*60}")
     print(f"[*] Self-correction complete!")
-    print(f"    1.5B (fast):   {fast_count}")
-    print(f"    7B (deep):     {deep_count}")
+    print(f"    ray-v1 (fast):   {fast_count}")
+    print(f"    MiniMax (deep):  {deep_count}")
     print(f"    Total processed: {len(corrections)}")
     print(f"[*] Corrections saved to wisdom_corrections table")
 

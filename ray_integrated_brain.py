@@ -15,6 +15,16 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 import numpy as np
 
 DB = 'ray_wisdom.db'
+
+# ── Router 導入 ──────────────────────────────────────────────
+try:
+    from llm_router import get_router
+    ROUTER = get_router()
+    HAS_ROUTER = True
+except ImportError:
+    ROUTER = None
+    HAS_ROUTER = False
+
 OLLAMA_URL = "http://localhost:11434/api/chat"
 
 # ============================================================
@@ -171,13 +181,31 @@ class WisdomHub:
 # ============================================================
 
 class LLMAdvisor:
-    """整合 LLM 給出建議"""
+    """整合 LLM 給出建議（走 Router 分層）"""
 
     def __init__(self):
-        self.model = "ray-v1"  # 1.5B 快速建議
+        self.model_fast = "ray-deep-v1"  # Jo 指定全本地分析走 ray-deep-v1
+        self.model_deep = "ray-deep-v1"  # Jo 指定統一走 ray-deep
 
-    def ask(self, prompt, model="ray-v1"):
-        """詢問 LLM"""
+    def ask(self, prompt, model="ray-deep-v1", layer=1):
+        """
+        詢問 LLM（走 Router）
+        layer=1: 快速（ray-deep-v1 本地）
+        layer=2: 深度（MiniMax）
+        layer=3: 連網（MiniMax + web）
+        """
+        if ROUTER and HAS_ROUTER:
+            try:
+                if layer == 1:
+                    return ROUTER.fast(prompt=prompt)
+                elif layer == 2:
+                    return ROUTER.deep(prompt=prompt)
+                elif layer == 3:
+                    return ROUTER.web(prompt=prompt)
+            except Exception:
+                pass  # 降級到直接 Ollama
+
+        # 降級：直接走 Ollama
         try:
             import requests
             resp = requests.post(OLLAMA_URL, json={
@@ -189,7 +217,13 @@ class LLMAdvisor:
         except Exception as e:
             return f"LLM Error: {str(e)}"
 
-    def propose_signal(self, symbol, indicators, strategies, corrections):
+    def propose_signal(self, symbol, indicators, strategies, corrections, layer=2):
+        """
+        提出交易信號（預設走 Router Layer 2 → MiniMax）
+        layer=1: 快速但淺（ray-v1）
+        layer=2: 深度（MiniMax）
+        layer=3: 連網（MiniMax + web）
+        """
         """提出交易信號"""
         prompt = f"""你是 Ray 量化大腦。分析以下資料並給出交易建議。
 
@@ -201,8 +235,7 @@ class LLMAdvisor:
 輸出 JSON：
 {{"signal": "BUY/SELL/WATCH", "confidence": 0.0-1.0, "reason": "原因", "action": "具體行動"}}
 """
-        result = self.ask(prompt)
-        # 嘗試解析 JSON
+        # 嘗試解析 JSON（保持現有邏輯）
         import re
         m = re.search(r'\{[\s\S]*\}', result)
         if m:
