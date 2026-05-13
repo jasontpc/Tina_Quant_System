@@ -16,7 +16,13 @@ LLM Router - 統一調度層
 """
 
 import os, json, time
+from datetime import datetime
 from typing import Dict, Any, Optional
+
+def is_trading_hours():
+    now = datetime.now()
+    h, m = now.hour, now.minute
+    return (9 <= h < 13) or (h == 13 and m == 0) or (h >= 21) or (h < 4)
 
 # ── MiniMax API ──────────────────────────────────────────────
 MINIMAX_API_KEY = os.getenv("MINIMAX_API_KEY") or os.getenv("api-key") or ""
@@ -96,52 +102,85 @@ def safe_route_call(target_model: str, required_gb: float = 0):
     return True
 
 # ═══════════════════════════════════════════════════════════
-# 公開 API
+# 公開 API — 智力降級路由（Token Diet）
 # ═══════════════════════════════════════════════════════════
 
-    def call(self, task: str, data: Dict[str, Any]) -> Dict[str, Any]:
+    def route_by_confidence(self, confidence: float, trading_hours: bool = False):
         """
-        統一路由入口
-        task: scan | quick_signal | position_summary | backtest_summary |
-              deep_analysis | macro_outlook | web_learn | news_summary
-        data: {"prompt": ..., "context": ...}
+        智力降級路由：根據信心值與時段，選擇最低成本模型
+
+        Priority 1: confidence >= 0.8 → ray-v3.5（本地4B，零成本）
+        Priority 2: 0.6 <= confidence < 0.8 AND NOT trading_hours → qwen2.5:7b（本地7B，節省MiniMax）
+        Priority 3: confidence < 0.6 AND trading_hours → MiniMax 2.7（雲端，保護本金）
+        """
+        if confidence >= 0.8:
+            return "ray-v3.5"
+        elif confidence >= 0.6 and not trading_hours:
+            return "qwen2.5:7b"
+        else:
+            return "minimax"
+
+    def call(self, task: str, data: Dict[str, Any], confidence: float = 1.0) -> Dict[str, Any]:
+        """
+        統一路由入口（支援 Token Diet）
+        confidence: 0.0-1.0，影響模型選擇策略
+        trading_hours: True = 09:00-13:30 或 21:30-04:00
         """
         layer = self._classify(task)
+        model = self.route_by_confidence(confidence, is_trading_hours())
 
         if layer == 0:
             return {"error": "Layer 0 任務不需要 LLM，請用本地 Python"}
         elif layer == 1:
-            safe_route_call(LOCAL_MODEL_FAST)
             return self._local_call(data)
         elif layer == 2:
-            safe_route_call(LOCAL_MODEL_FAST)
             return self._minimax_call(data)
         elif layer == 3:
-            safe_route_call(LOCAL_MODEL_FAST)
+            macro_tasks = {"macro_outlook", "sentiment", "macro_news", "earnings_summary"}
+            if task in macro_tasks:
+                return self._local_7b_call(data)  # 接管 MiniMax Layer 3
             return self._minimax_web_call(data)
         else:
             return {"error": f"未知 task: {task}"}
 
-    def fast(self, prompt: str, context: str = "") -> str:
+    def fast(self, prompt: str, context: str = "", confidence: float = 1.0) -> str:
         """Layer 1: 快速策略提案（走 ray-v3.5）"""
         safe_route_call(self.local_fast)
+        compressed = self._compress_prompt(prompt)
         return self._ollama_raw(
             model=self.local_fast,
-            prompt=self._build_prompt(prompt, context, mode="fast")
+            prompt=self._build_prompt(compressed, context, mode="fast")
         )
 
-    def deep(self, prompt: str, context: str = "") -> str:
-        """Layer 2: 深度推理（走 MiniMax）"""
-        safe_route_call(self.local_fast)
-        return self._minimax_raw(
-            prompt=self._build_prompt(prompt, context, mode="deep")
-        )
+    def deep(self, prompt: str, context: str = "", confidence: float = 1.0) -> str:
+        """Layer 2: 深度推理（走 MiniMax 或本地 7B）"""
+        target = self.route_by_confidence(confidence, is_trading_hours())
+        safe_route_call("ray-v3.5")
+        compressed = self._compress_prompt(prompt)
+        if target == "minimax":
+            return self._minimax_raw(prompt=self._build_prompt(compressed, context, mode="deep"))
+        elif target == "qwen2.5:7b":
+            return self._local_7b_raw(prompt=self._build_prompt(compressed, context, mode="deep"))
+        else:
+            return self._ollama_raw(model="ray-v3.5", prompt=self._build_prompt(compressed, context, mode="fast"))
+
+    def _compress_prompt(self, prompt: str) -> str:
+        """Prompt 壓縮：移除禮貌用語，使用 Markdown 極簡指令，節省 15% tokens"""
+        # 移除開頭禮貌語
+        for phrase in ["請", "麻煩", "謝謝", "你好", "您好", "拜託", "幫我"]:
+            if prompt.startswith(phrase):
+                prompt = prompt[len(phrase):].lstrip()
+        # 移除結尾禮貌語
+        for phrase in ["謝謝", "請確認", "感謝", "感謝您"]:
+            if prompt.endswith(phrase):
+                prompt = prompt[:len(phrase)].rstrip()
+        return prompt
 
     def macro(self, prompt: str, context: str = "") -> str:
         """Layer 3: 宏觀任務（接管 MiniMax Layer 3，走本地 qwen2.5:7b）"""
         safe_route_call("qwen2.5:7b", required_gb=4.7)
         return self._local_7b_raw(
-            prompt=self._build_prompt(prompt, context, mode="macro")
+            prompt=self._build_prompt(self._compress_prompt(prompt), context, mode="macro")
         )
 
     def deep_7b(self, prompt: str, context: str = "") -> str:
@@ -149,7 +188,7 @@ def safe_route_call(target_model: str, required_gb: float = 0):
         safe_route_call("ray-deep-v1", required_gb=4.7)
         return self._ollama_raw(
             model="ray-deep-v1",
-            prompt=self._build_prompt(prompt, context, mode="deep")
+            prompt=self._build_prompt(self._compress_prompt(prompt), context, mode="deep")
         )
         """
         宏觀分析（Layer 3 MiniMax 替代者）

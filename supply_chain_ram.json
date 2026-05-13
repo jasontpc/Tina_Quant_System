@@ -1,0 +1,1011 @@
+{
+  "UNKNOWN": {
+    "confidence": 0.9,
+    "regime": "unknown",
+    "rules": [
+      {
+        "diagnosis": "The strategy failed because the stop loss percentage is too high, potentially leading to significant losses before a profitable trade can be realized.",
+        "confidence": 0.9,
+        "details": {
+          "strategy_name": "EMA_CROSS_50_200",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 50,
+            "slow": 200
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.01
+        }
+      },
+      {
+        "diagnosis": "The strategy failed because the RSI_THRESHOLD_30 strategy uses a threshold of 30 for both entry and exit conditions, which is typically incorrect as it does not differentiate between overbought and ov",
+        "confidence": 0.9,
+        "details": {
+          "strategy_name": "RSI_BUY_SELL",
+          "indicator": "RSI",
+          "params": {
+            "rsi_buy": 70,
+            "rsi_sell": 30
+          },
+          "entry_condition": {
+            "operator": "<",
+            "threshold": 30
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "MOMENTUM_5",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 5
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.03
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "MOMENTUM_20",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 20
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.03
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "MOMENTUM_60",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 60
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.03
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "VEGAS_144_576",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 144,
+            "slow": 576
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.02
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and low Sharpe ratio.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "VEGAS_169_676",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 169,
+            "slow": 676
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.02
+        }
+      },
+      {
+        "diagnosis": "The strategy failed because the stop loss is too aggressive for a 9-period EMA and 21-period EMA crossover, which typically requires more room to account for market noise and volatility.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "EMA_CROSS_9_21",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 9,
+            "slow": 21
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.03
+        }
+      },
+      {
+        "diagnosis": "The strategy failed because the entry condition is too aggressive, potentially leading to frequent false entries and increased risk without a corresponding increase in reward.",
+        "confidence": 0.7,
+        "details": {
+          "strategy_name": "KDJ_CROSS_9",
+          "indicator": "KDJ_CROSS",
+          "params": {
+            "period": 9
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 25
+          }
+        }
+      },
+      {
+        "diagnosis": "The RSI_THRESHOLD_30 strategy is likely to fail due to the use of a static threshold value without considering the current market conditions or volatility.",
+        "confidence": 0.5,
+        "details": {
+          "strategy_name": "RSI_THRESHOLD_30",
+          "indicator": "RSI_THRESHOLD",
+          "params": {
+            "rsi_buy": 30
+          },
+          "entry_condition": {
+            "operator": "<",
+            "threshold": 30
+          },
+          "stop_loss": 0.08,
+          "confidence": 0.0
+        }
+      },
+      {
+        "diagnosis": "The KDJ_CROSS_9 strategy may fail because the threshold value of 20 is too low for a typical overbought/oversold level, which might lead to frequent false entries.",
+        "confidence": 0.5,
+        "details": {
+          "strategy_name": "KDJ_CROSS_9",
+          "indicator": "KDJ_CROSS",
+          "params": {
+            "period": 9
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 20
+          },
+          "stop_loss": 0.1,
+          "confidence": 0.0
+        }
+      },
+      {
+        "diagnosis": "The EMA_CROSS_9_21 strategy might fail due to the use of a static threshold value without considering the current market conditions or volatility.",
+        "confidence": 0.5,
+        "details": {
+          "strategy_name": "EMA_CROSS_9_21",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 9,
+            "slow": 21
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08,
+          "confidence": 0.0
+        }
+      },
+      {
+        "diagnosis": "The EMA_CROSS_12_26 strategy might fail due to the use of a static threshold value without considering the current market conditions or volatility.",
+        "confidence": 0.5,
+        "details": {
+          "strategy_name": "EMA_CROSS_12_26",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 12,
+            "slow": 26
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08,
+          "confidence": 0.0
+        }
+      },
+      {
+        "diagnosis": "The EMA_CROSS_20_60 strategy might fail due to the use of a static threshold value without considering the current market conditions or volatility.",
+        "confidence": 0.5,
+        "details": {
+          "strategy_name": "EMA_CROSS_20_60",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 20,
+            "slow": 60
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.1,
+          "confidence": 0.0
+        }
+      }
+    ],
+    "上下游": [],
+    "最後更新": ""
+  },
+  "DEEP": {
+    "confidence": 0.8,
+    "regime": "unknown",
+    "rules": [
+      {
+        "diagnosis": "The EMA_CROSS_12_26 strategy failed because it may have entered trades too frequently, leading to high transaction costs and potentially low profitability. The 12-day EMA is quite sensitive and can cr",
+        "confidence": 0.8,
+        "details": {
+          "strategy": "EMA_CROSS_12_26",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 15,
+            "slow": 40
+          },
+          "entry": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0.03
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "The strategy failed because the stop loss parameter value of 0.1 might be too high, leading to frequent false positives and potentially significant losses. Additionally, the threshold for the KDJ_CROS",
+        "confidence": 0.8,
+        "details": {
+          "period": 9,
+          "operator": "CROSS_ABOVE",
+          "threshold": 15,
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "The strategy VEGAS_144_576 with the VEGAS_TUNNEL indicator and the given parameters may have failed due to the overly aggressive entry condition ('CROSS_ABOVE' with no threshold) combined with a fixed",
+        "confidence": 0.6,
+        "details": {
+          "strategy_name": "VEGAS_144_576",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 200,
+            "slow": 800
+          },
+          "entry": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.05,
+          "context": "Increase Sharpe Ratio and/or decrease Maximum Drawdown."
+        }
+      }
+    ],
+    "上下游": [],
+    "最後更新": ""
+  },
+  "BND": {
+    "confidence": 0.8,
+    "regime": "unknown",
+    "rules": [
+      {
+        "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "MOMENTUM_5",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 5
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "MOMENTUM_20",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 20
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "MOMENTUM_60",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 60
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "VEGAS_144_576",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 144,
+            "slow": 576
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.03
+        }
+      },
+      {
+        "diagnosis": "The stop loss is too high, which can lead to excessive risk exposure.",
+        "confidence": 0.8,
+        "details": {
+          "strategy_name": "VEGAS_169_676",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 169,
+            "slow": 676
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.03
+        }
+      },
+      {
+        "diagnosis": "The entry condition threshold is set to zero, which might not be a valid threshold for the indicator and could lead to incorrect entries.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_9_21",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 9,
+            "slow": 21
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 50
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The entry condition threshold is set to zero, which might not be a valid threshold for the indicator and could lead to incorrect entries.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_12_26",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 12,
+            "slow": 26
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 50
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The entry condition threshold is set to zero, which might not be a valid threshold for the indicator and could lead to incorrect entries.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_20_60",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 20,
+            "slow": 60
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 50
+          },
+          "stop_loss": 0.1
+        }
+      },
+      {
+        "diagnosis": "The entry condition threshold is set to zero, which might not be a valid threshold for the indicator and could lead to incorrect entries.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_50_200",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 50,
+            "slow": 200
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 50
+          },
+          "stop_loss": 0.12
+        }
+      }
+    ],
+    "上下游": [],
+    "最後更新": ""
+  },
+  "SPY": {
+    "confidence": 0.0,
+    "regime": "unknown",
+    "rules": [
+      {
+        "diagnosis": "Low Sharpe Ratio; The stop loss is too high, which might be causing the strategy to exit trades prematurely.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_20_60",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 20,
+            "slow": 60
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "Low Sharpe Ratio; The stop loss is too high, which might be causing the strategy to exit trades prematurely.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_50_200",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 50,
+            "slow": 200
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "Low Sharpe Ratio; The stop loss is too high, which might be causing the strategy to exit trades prematurely.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_5",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 5
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.06
+        }
+      },
+      {
+        "diagnosis": "Low Sharpe Ratio; The stop loss is too high, which might be causing the strategy to exit trades prematurely.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_20",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 20
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.07
+        }
+      },
+      {
+        "diagnosis": "Low Sharpe Ratio; The stop loss is too high, which might be causing the strategy to exit trades prematurely.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_60",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 60
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.1
+        }
+      },
+      {
+        "diagnosis": "The EMA_CROSS_9_21 strategy is a common setup, but the entry condition might be too simplistic and could benefit from additional filters or parameters.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_9_21",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 9,
+            "slow": 21
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The EMA_CROSS_12_26 strategy is a common setup, but the entry condition might be too simplistic and could benefit from additional filters or parameters.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_12_26",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 12,
+            "slow": 26
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08
+        }
+      }
+    ],
+    "上下游": [],
+    "最後更新": ""
+  },
+  "GLD": {
+    "confidence": 0.0,
+    "regime": "unknown",
+    "rules": [
+      {
+        "diagnosis": "The 'VEGAS_TUNNEL' indicator is not a standard technical analysis tool and may not provide meaningful signals. The entry condition might be too simplistic, leading to frequent false positives.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_9_21",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 9,
+            "slow": 21
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The RSI_THRESHOLD indicator with a buy threshold of 30 is not typical and might be incorrectly configured. The entry condition should likely be for overbought conditions (RSI > 70).",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "RSI_OVERBOUGHT_70",
+          "indicator": "RSI",
+          "params": {
+            "threshold": 70
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 70
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The KDJ_CROSS indicator with a threshold of 20 is not standard for generating buy signals, which are typically above the overbought level (50). The stop loss might be too aggressive.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "KDJ_CROSS_50",
+          "indicator": "KDJ_CROSS",
+          "params": {
+            "period": 9
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 50
+          },
+          "stop_loss": 0.04
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, which can lead to excessive risk exposure and lower Sharpe ratio.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_50_200",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 50,
+            "slow": 200
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, and the threshold might be too low to generate enough trades.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_5",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 5
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, and the threshold might be too low to generate enough trades.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_20",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 20
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, and the threshold might be too low to generate enough trades.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_60",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 60
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.02
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The stop_loss is too high, and the indicator VEGAS_TUNNEL might not be suitable for this strategy.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "VEGAS_144_576",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 144,
+            "slow": 576
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.05
+        }
+      }
+    ],
+    "上下游": [],
+    "最後更新": ""
+  },
+  "VEA": {
+    "confidence": 0.0,
+    "regime": "unknown",
+    "rules": [
+      {
+        "diagnosis": "The entry condition threshold is set too low, which may lead to frequent false entries and poor performance.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "KDJ_CROSS_9",
+          "indicator": "KDJ_CROSS",
+          "params": {
+            "period": 9
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 50
+          },
+          "stop_loss": 0.1
+        }
+      },
+      {
+        "diagnosis": "Low Sharpe Ratio, possibly due to overfitting or incorrect threshold",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_20",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 20
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.015
+          },
+          "stop_loss": 0.1
+        }
+      },
+      {
+        "diagnosis": "Low Sharpe Ratio, possibly due to overfitting or incorrect threshold",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_60",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 60
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.015
+          },
+          "stop_loss": 0.12
+        }
+      },
+      {
+        "diagnosis": "Stop loss too high, may not be aggressive enough",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "VEGAS_144_576",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 144,
+            "slow": 576
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "Stop loss too high, may not be aggressive enough",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "VEGAS_169_676",
+          "indicator": "VEGAS_TUNNEL",
+          "params": {
+            "fast": 169,
+            "slow": 676
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.05
+        }
+      },
+      {
+        "diagnosis": "Low Sharpe Ratio, possibly due to overfitting or incorrect threshold",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "RSI_THRESHOLD_30",
+          "indicator": "RSI_THRESHOLD",
+          "params": {
+            "rsi_buy": 30
+          },
+          "entry_condition": {
+            "operator": "<",
+            "threshold": 25
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The fast EMA (9) is too close to the slow EMA (21), leading to frequent false signals and low Sharpe ratio.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_9_21",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 5,
+            "slow": 20
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The fast EMA (12) and slow EMA (26) are relatively close, which can lead to high volatility and low Sharpe ratio.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_12_26",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 8,
+            "slow": 30
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.08
+        }
+      },
+      {
+        "diagnosis": "The fast EMA (20) and slow EMA (60) are too far apart, leading to infrequent signals and low Sharpe ratio.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_20_60",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 15,
+            "slow": 40
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.1
+        }
+      },
+      {
+        "diagnosis": "The fast EMA (50) and slow EMA (200) are too far apart, leading to infrequent signals and low Sharpe ratio.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "EMA_CROSS_50_200",
+          "indicator": "EMA_CROSS",
+          "params": {
+            "fast": 30,
+            "slow": 150
+          },
+          "entry_condition": {
+            "operator": "CROSS_ABOVE",
+            "threshold": 0
+          },
+          "stop_loss": 0.12
+        }
+      },
+      {
+        "diagnosis": "The Momentum indicator with a window of 5 and threshold of 0.02 is too sensitive, leading to frequent false signals.",
+        "confidence": 0.0,
+        "details": {
+          "strategy_name": "MOMENTUM_5",
+          "indicator": "MOMENTUM",
+          "params": {
+            "window": 10
+          },
+          "entry_condition": {
+            "operator": ">",
+            "threshold": 0.01
+          },
+          "stop_loss": 0.1
+        }
+      }
+    ],
+    "上下游": [],
+    "最後更新": ""
+  },
+  "NVDA": {
+    "confidence": 0.5,
+    "regime": "static",
+    "rules": [],
+    "上下游": {
+      "上游": [
+        "台積電(TSM)",
+        "SK海力士",
+        "美光"
+      ],
+      "下游": [
+        "CUDA生態系",
+        "雲端服務商(Azure/GCP/AWS)"
+      ],
+      "替代": [
+        "AMD GPU"
+      ]
+    },
+    "最後更新": "static"
+  },
+  "TSM": {
+    "confidence": 0.5,
+    "regime": "static",
+    "rules": [],
+    "上下游": {
+      "上游": [
+        "應用材料",
+        "科林研發",
+        "ASML"
+      ],
+      "下游": [
+        "Apple",
+        "NVDA",
+        "AMD",
+        "Qualcomm"
+      ],
+      "替代": [
+        "三星"
+      ]
+    },
+    "最後更新": "static"
+  },
+  "AAPL": {
+    "confidence": 0.5,
+    "regime": "static",
+    "rules": [],
+    "上下游": {
+      "上游": [
+        "台積電(TSM)",
+        "鴻海",
+        "三星顯示"
+      ],
+      "下游": [
+        "消費者",
+        "企業"
+      ],
+      "替代": [
+        "三星",
+        "Google Pixel"
+      ]
+    },
+    "最後更新": "static"
+  },
+  "META": {
+    "confidence": 0.5,
+    "regime": "static",
+    "rules": [],
+    "上下游": {
+      "上游": [
+        "AWS/GCP/Azure"
+      ],
+      "下游": [
+        "廣告主"
+      ],
+      "替代": [
+        "Google Ads",
+        "TikTok"
+      ]
+    },
+    "最後更新": "static"
+  },
+  "MSFT": {
+    "confidence": 0.5,
+    "regime": "static",
+    "rules": [],
+    "上下游": {
+      "上游": [
+        "NVIDIA GPU",
+        "AMD GPU"
+      ],
+      "下游": [
+        "企業SaaS",
+        "Azure客戶"
+      ],
+      "替代": [
+        "Google Cloud",
+        "AWS"
+      ]
+    },
+    "最後更新": "static"
+  }
+}
