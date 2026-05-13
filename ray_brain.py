@@ -1,11 +1,21 @@
 # -*- coding: utf-8 -*-
-"""Ray Brain - Qwen 路由层 + 本地脚本协调器 (v2 增強版)"""
+"""Ray Brain - Qwen 路由层 + 本地脚本协调器 (v3 - Router版)"""
 
 import json, re, sqlite3, time
 from typing import Dict, List, Optional
 
+# ── Router 導入（統一 LLM 調度）────────────────────────────────
+try:
+    from llm_router import get_router
+    ROUTER = get_router()
+    HAS_ROUTER = True
+except ImportError:
+    ROUTER = None
+    HAS_ROUTER = False
+
 BASE_URL = "http://localhost:11434/api/chat"
 
+# ── Ray 核心模組 ──────────────────────────────────────────────
 try:
     from ray_data_center import RayDataCenter
     from ray_engine import RayEngine
@@ -20,13 +30,16 @@ except ImportError:
 
 class RayBrain:
     def __init__(self):
-        self.fast_model = "ray-v1"       # Qwen 1.5B
-        self.deep_model = "ray-deep-v1"  # Qwen 7B
+        self.fast_model = "ray-v3.5"       # 固化後的4B指揮官（含大師天條）
+        self.deep_model = "qwen2.5:7b"          # Jo 指定：7B 負責複雜反思蒸餾
         self.db = RayDataCenter() if HAS_RAY else None
         self.engine = RayEngine() if HAS_RAY else None
         self.validator = NL2CodeValidator(auto_correct=True) if HAS_RAY else None
 
-    # ===== Layer 1: Local Python (no LLM) =====
+    # ══════════════════════════════════════════════════════════
+    # Layer 0: 本地 Python（不需要 LLM）
+    # ══════════════════════════════════════════════════════════
+
     def local_indicators(self, symbol: str) -> Dict:
         """用本地 Python 计算技术指标（不需要 LLM）"""
         if not HAS_RAY:
@@ -101,7 +114,6 @@ class RayBrain:
             macd_bull = mh[-1] > 0
             kdj_bull = kdj_j > 0
 
-            # 動能
             mom_5d = (close[-1] - close[-6]) / close[-6] * 100 if len(close) >= 6 else 0
 
             # Sharpe / MDD / WinRate（30日滾動）
@@ -112,12 +124,10 @@ class RayBrain:
             std_r = (sum((x - avg_r) ** 2 for x in rets) / len(rets)) ** 0.5 if len(rets) > 1 else 0.01
             sharpe_30d = avg_r / std_r * (252 ** 0.5) if std_r > 0 else 0
 
-            # MDD
             cummax = [max(close[:i + 1]) for i in range(len(close))]
             dd = [(cummax[i] - close[i]) / cummax[i] * 100 for i in range(len(close))]
             mdd_30d = min(dd[-window:]) / 100 if dd else 0
 
-            # WinRate
             wins = sum(1 for i in range(1, len(ret)) if ret[i] > 0)
             win_rate_30d = wins / len(ret) if len(ret) > 1 else 0
 
@@ -145,28 +155,66 @@ class RayBrain:
         except Exception as e:
             return {"symbol": symbol, "error": str(e)}
 
-    # ===== Layer 2: Qwen 1.5B - Fast Proposal (Enhanced RAG) =====
-    def fast_propose(self, indicators: Dict, model: str = None) -> Dict:
-        """用 1.5B 对已计算的指标快速输出策略 JSON"""
-        model = model or self.fast_model
+    # ══════════════════════════════════════════════════════════
+    # Memory Injection: 3-layer context for fast_model
+    # Structure: [K-line] + [32GB RAM axioms] + [Today's warning] = JSON
+    # ══════════════════════════════════════════════════════════
+    def _load_memory_context(self) -> str:
+        """Load axioms_v3.5.json (from 32GB RAM store) + web_auto warnings."""
+        parts = []
+
+        # Layer 1: Load axioms_v3.5.json (historical distilled lessons)
+        axioms_path = r"C:\Users\USER\.openclaw\workspace\Tina_Quant_System\stores\long_term\axioms_v3.5.json"
+        try:
+            with open(axioms_path, 'r', encoding='utf-8') as f:
+                axioms = json.load(f)
+            if axioms and isinstance(axioms, list):
+                parts.append("【10條蒸餾交易準則】（歷史教訓，智力灌頂結果）")
+                for a in axioms[:10]:
+                    if isinstance(a, dict):
+                        parts.append(f"  [{a.get('id','?')}] {a.get('axiom','')} ({a.get('type','')})")
+                parts.append("")
+        except Exception:
+            pass
+
+        # Layer 2: Load latest web_auto warnings from wisdom_corrections
+        try:
+            db_path = os.path.join(os.path.dirname(__file__), "ray_wisdom.db")
+            conn = sqlite3.connect(db_path)
+            c = conn.cursor()
+            c.execute('''SELECT web_auto, created_at FROM wisdom_corrections
+                         WHERE web_auto IS NOT NULL
+                         ORDER BY created_at DESC LIMIT 5''')
+            rows = c.fetchall()
+            conn.close()
+            if rows:
+                parts.append("【今日大師警示】（web_auto 實時注入）")
+                for web_auto_json, created in rows:
+                    try:
+                        w = json.loads(web_auto_json)
+                        parts.append(f"  [{w.get('master','?')}] {w.get('risk_level','?')}: {w.get('warning','')} | 門檻: {w.get('threshold','')}")
+                    except:
+                        pass
+                parts.append("")
+        except Exception:
+            pass
+
+        return "\n".join(parts) if parts else ""
+
+    # ══════════════════════════════════════════════════════════
+    # Layer 1: 快速策略提案（走 Router → qwen3.5-4b-iq4xs 本地）
+    # ══════════════════════════════════════════════════════════
+
+    def fast_propose(self, indicators: Dict) -> Dict:
+        """用 1.5B 对已计算的指标快速输出策略 JSON（走 Router Layer 1）"""
         symbol = indicators.get('symbol', 'N/A')
         rsi2 = indicators.get('rsi2', 50)
-        rsi14 = indicators.get('rsi14', 50)
-
         gate = "PASSED" if indicators.get("math_passed") else "FAILED"
 
-        # === Enhanced RAG：根據指標狀態動態檢索大師建議 ===
+        # ── RAG Context（可選）──────────────────────────────────
         rag_context = ""
         if HAS_RETRIEVER:
             try:
-                # 根據 RSI2 判斷策略類型
-                strategy_type = None
-                if rsi2 < 30:
-                    strategy_type = "mean_reversion"
-                elif rsi2 > 70:
-                    strategy_type = "mean_reversion"
-
-                # 建構增強版 RAG Context
                 ctx_obj = build_enhanced_context(
                     symbol=symbol,
                     indicator="RSI2",
@@ -178,72 +226,134 @@ class RayBrain:
             except Exception:
                 rag_context = ""
 
+        # ── 3-Layer Memory Context（32GB RAM axioms + web_auto）──
+        memory_ctx = self._load_memory_context()
+
+        # ── 構建 prompt ─────────────────────────────────────────
         ctx = (
+            f"【當前K線數據】\n"
             f"Symbol: {symbol}\n"
             f"Price: ${indicators.get('price', 'N/A')}\n"
             f"EMA20: {indicators.get('ema20')} | EMA60: {indicators.get('ema60')}\n"
-            f"MACD Hist: {indicators.get('macd_hist')} | RSI14: {indicators.get('rsi14')} | RSI2: {indicators.get('rsi2')}\n"
+            f"MACD Hist: {indicators.get('macd_hist')} | RSI14: {indicators.get('rsi14')} | RSI2: {rsi2}\n"
             f"KDJ J: {indicators.get('kdj_j')} | Mom 5D: {indicators.get('mom_5d')}%\n"
             f"Sharpe: {indicators.get('sharpe_30d')} | MDD: {indicators.get('mdd_30d')} | Win: {indicators.get('win_rate_30d')}\n"
-            f"Math Gate: {gate}"
+            f"Math Gate: {gate}\n"
+            f"{rag_context}"
+            f"{memory_ctx}"
         )
 
-        payload = {
-            "model":      model,
-            "messages": [
-                {"role": "system", "content": "You are Ray Fast Logic Unit. Output ONLY JSON with strategy_name (UPPER_SNAKE), indicator, params, entry_condition, stop_loss. No text outside JSON."},
-                {"role": "user",   "content": f"Data:\n{ctx}{rag_context}\n\nOutput JSON: {{\"strategy_name\":\"...\",\"indicator\":\"...\",\"params\":{{}},\"?entry_condition\":{{}},\"stop_loss\":0.0}}\n"}
-            ],
-            "temperature": 0.1,
-            "stream":     False,
-        }
-
-        try:
+        # ── 走 Router Layer 1（ray-v1 本地）────────────────────
+        if ROUTER and HAS_ROUTER:
+            try:
+                result_text = ROUTER.fast(prompt=ctx)
+                text = self._extract_json(result_text)
+                result = json.loads(text)
+            except Exception as e:
+                return {"error": f"router.fast failed: {str(e)[:100]}"}
+        else:
+            # 降級：直接走 requests（舊相容）
             import requests
+            payload = {
+                "model": self.fast_model,
+                "messages": [
+                    {"role": "system", "content": "You are Ray Fast Logic Unit. Output ONLY JSON with strategy_name (UPPER_SNAKE), indicator, params, entry_condition, stop_loss. No text outside JSON."},
+                    {"role": "user",   "content": f"Data:\n{ctx}\n\nOutput JSON: {{\"strategy_name\":\"...\",\"indicator\":\"...\",\"params\":{{}},\"?entry_condition\":{{}},\"stop_loss\":0.0}}\n"}
+                ],
+                "temperature": 0.1,
+                "stream": False,
+            }
             resp = requests.post(BASE_URL, json=payload, timeout=30)
             resp.raise_for_status()
             text = self._extract_json(resp.json()["message"]["content"])
             result = json.loads(text)
 
-            # NL2Code 二次验证 + 自动修正
-            if self.validator:
-                is_valid, corrected, errs = self.validator.validate(result)
-                if is_valid:
-                    if self.validator.corrections:
-                        result = corrected
+        # ── NL2Code 二次驗證 + 自動修正 ────────────────────────
+        if self.validator:
+            is_valid, corrected, errs = self.validator.validate(result)
+            if is_valid:
+                if self.validator.corrections:
+                    result = corrected
+            else:
+                if corrected:
+                    result = corrected
                 else:
-                    if corrected:
+                    return {"error": f"NL2Code rejected: {errs[0]}", "raw": text[:200]}
+
+        # ── 安全檢查：補全結構 ──────────────────────────────────
+        if "entry_condition" not in result or not result["entry_condition"]:
+            result["entry_condition"] = {"operator": ">", "threshold": 0}
+        if "stop_loss" not in result or not result["stop_loss"]:
+            result["stop_loss"] = 0.08
+        if "params" not in result:
+            result["params"] = {}
+
+        return result
+
+    # ══════════════════════════════════════════════════════════
+    # Layer 1.5: 3B 實戰指揮官（ray-v3 大師對齊模式）
+    # ══════════════════════════════════════════════════════════
+
+    def v3_commander_propose(self, symbol: str, indicators: Dict) -> Dict:
+        """
+        使用 ray-v3 Quant Commander（大師對齊模式）
+        動態注入 RAG 上下文（歷史修正 + 連網智慧）
+        輸出嚴格 JSON Schema
+        """
+        task = f"分析 {symbol}，輸出交易信號 JSON Schema"
+
+        if ROUTER and HAS_ROUTER:
+            try:
+                result_text = ROUTER.v3_commander(
+                    symbol=symbol,
+                    indicators=indicators,
+                    task=task
+                )
+                text = self._extract_json(result_text)
+                result = json.loads(text)
+
+                # NL2Code 安全驗證
+                if self.validator:
+                    is_valid, corrected, errs = self.validator.validate(result)
+                    if is_valid and self.validator.corrections:
                         result = corrected
-                    else:
-                        return {"error": f"NL2Code rejected: {errs[0]}", "raw": text[:200]}
+                    elif not is_valid and corrected:
+                        result = corrected
 
-            # 最终安全检查：补全结构性缺失
-            if "entry_condition" not in result or not result["entry_condition"]:
-                result["entry_condition"] = {"operator": ">", "threshold": 0}
-            if "stop_loss" not in result or not result["stop_loss"]:
-                result["stop_loss"] = 0.08
-            if "params" not in result:
-                result["params"] = {}
+                return result
+            except Exception as e:
+                return {"error": f"v3_commander failed: {str(e)[:100]}"}
 
-            return result
-        except Exception as e:
-            return {"error": f"fast_propose: {str(e)[:100]}"}
+        # 降級到 fast_propose
+        return self.fast_propose(indicators)
 
-    # ===== Layer 3: Qwen 7B - Deep Analysis =====
+    # ══════════════════════════════════════════════════════════
+    # Layer 2: 深度推理（走 Router → MiniMax）
+    # ══════════════════════════════════════════════════════════
+
     def deep_analysis(self, symbol: str, context: str = "") -> Dict:
-        """用 7B 做深度归因分析"""
+        """用 7B 做深度归因分析（走 Router Layer 2 → MiniMax）"""
+        prompt = f"Symbol: {symbol}\n\nContext:\n{context}\n\nTask: Deep analysis"
+
+        if ROUTER and HAS_ROUTER:
+            try:
+                result_text = ROUTER.deep(prompt=prompt)
+                return json.loads(self._extract_json(result_text))
+            except Exception as e:
+                pass  # 降級到本地 7B
+
+        # 降級：直接走 Ollama ray-deep-v1
+        import requests
         payload = {
-            "model":      self.deep_model,
+            "model": self.deep_model,
             "messages": [
                 {"role": "system", "content": "Output JSON with rationale field."},
-                {"role": "user",   "content": f"Symbol: {symbol}\n\nContext:\n{context}\n\nTask: Deep analysis"}
+                {"role": "user",   "content": prompt}
             ],
             "temperature": 0.2,
-            "stream":     False,
+            "stream": False,
         }
-
         try:
-            import requests
             resp = requests.post(BASE_URL, json=payload, timeout=300)
             resp.raise_for_status()
             text = self._extract_json(resp.json()["message"]["content"])
@@ -251,14 +361,17 @@ class RayBrain:
         except Exception as e:
             return {"error": f"deep_analysis: {str(e)[:100]}"}
 
-    # ===== End-to-End: Scan + Propose =====
+    # ══════════════════════════════════════════════════════════
+    # End-to-End: Scan + Propose
+    # ══════════════════════════════════════════════════════════
+
     def scan_and_propose(self, symbols: List[str]) -> List[Dict]:
         """
         完整流程：
-        1. 本地计算指标（Layer 1）
+        1. 本地计算指标（Layer 0）
         2. 数学把关筛选
-        3. Qwen 1.5B 快速策略提案（Enhanced RAG）
-        4. 對抗校準：confidence < 0.7 → 7B 複審
+        3. Router Layer 1 → ray-v1 快速策略提案
+        4. 對抗校準：confidence < 0.7 → Router Layer 2 → MiniMax 複審
         5. 结果写入 SQLite
         """
         results = []
@@ -281,15 +394,13 @@ class RayBrain:
 
             strategy = self.fast_propose(ind)
 
-            # === 對抗校準（Co-Inference Alignment）===
-            # 當 1.5B 信心低，自動觸發 7B 複審（閾值 0.7）
+            # ── 對抗校準（Co-Inference Alignment）────────────
             conf = strategy.get('confidence', 1) if isinstance(strategy, dict) else 1
             if conf < 0.7 and self.deep_model:
                 deep = self.deep_analysis(sym, json.dumps({k: v for k, v in ind.items() if k != 'error'}, ensure_ascii=False))
                 if isinstance(deep, dict) and 'error' not in deep:
                     deep['co_inference'] = True
                     strategy = deep
-                    tag = "BUY"
 
             score = self._calc_score(ind)
             tag = "BUY" if score >= 3 else "WATCH"
