@@ -908,24 +908,24 @@
     "最後更新": ""
   },
   "NVDA": {
-    "confidence": 0.5,
-    "regime": "static",
-    "rules": [],
-    "上下游": {
-      "上游": [
-        "台積電(TSM)",
-        "SK海力士",
-        "美光"
-      ],
-      "下游": [
-        "CUDA生態系",
-        "雲端服務商(Azure/GCP/AWS)"
-      ],
-      "替代": [
-        "AMD GPU"
-      ]
-    },
-    "最後更新": "static"
+    "upstream": [
+      "台積電(TSM)",
+      "SK海力士",
+      "美光"
+    ],
+    "downstream": [
+      "微軟Azure",
+      "亞馬遜AWS",
+      "Google Cloud"
+    ],
+    "competitors": [
+      "AMD",
+      "Intel"
+    ],
+    "notes": "今日漲幅 +0.61%",
+    "price": 220.77999877929688,
+    "day_pct": 0.61,
+    "last_scan": "2026-05-13 13:46"
   },
   "TSM": {
     "confidence": 0.5,
@@ -950,62 +950,75 @@
     "最後更新": "static"
   },
   "AAPL": {
-    "confidence": 0.5,
-    "regime": "static",
-    "rules": [],
-    "上下游": {
-      "上游": [
-        "台積電(TSM)",
-        "鴻海",
-        "三星顯示"
-      ],
-      "下游": [
-        "消費者",
-        "企業"
-      ],
-      "替代": [
-        "三星",
-        "Google Pixel"
-      ]
-    },
-    "最後更新": "static"
+    "upstream": [
+      "台積電(TSM)",
+      "鴻海",
+      "三星顯示"
+    ],
+    "downstream": [
+      "消費者",
+      "企業"
+    ],
+    "competitors": [
+      "三星",
+      "Google Pixel"
+    ],
+    "notes": "今日漲幅 +0.72%",
+    "price": 294.79998779296875,
+    "day_pct": 0.72,
+    "last_scan": "2026-05-13 13:46"
   },
   "META": {
-    "confidence": 0.5,
-    "regime": "static",
-    "rules": [],
-    "上下游": {
-      "上游": [
-        "AWS/GCP/Azure"
-      ],
-      "下游": [
-        "廣告主"
-      ],
-      "替代": [
-        "Google Ads",
-        "TikTok"
-      ]
-    },
-    "最後更新": "static"
+    "upstream": [
+      "AWS/Azure/GCP"
+    ],
+    "downstream": [
+      "廣告主",
+      "用戶"
+    ],
+    "competitors": [
+      "TikTok(ByteDance)",
+      "Google"
+    ],
+    "notes": "今日漲幅 +0.69%",
+    "price": 603.0,
+    "day_pct": 0.69,
+    "last_scan": "2026-05-13 13:46"
   },
   "MSFT": {
-    "confidence": 0.5,
-    "regime": "static",
-    "rules": [],
-    "上下游": {
-      "上游": [
-        "NVIDIA GPU",
-        "AMD GPU"
-      ],
-      "下游": [
-        "企業SaaS",
-        "Azure客戶"
-      ],
-      "替代": [
-        "Google Cloud",
-        "AWS"
-      ]
-    },
-    "最後更新": "static"
+    "upstream": [
+      "NVIDIA GPU",
+      "AMD GPU"
+    ],
+    "downstream": [
+      "企業SaaS",
+      "Azure客戶"
+    ],
+    "competitors": [
+      "Google Cloud",
+      "AWS"
+    ],
+    "notes": "今日漲幅 -1.18%",
+    "price": 407.7699890136719,
+    "day_pct": -1.18,
+    "last_scan": "2026-05-13 13:46"
+  },
+  "AMZN": {
+    "upstream": [
+      "NVIDIA GPU",
+      "AMD GPU"
+    ],
+    "downstream": [
+      "電商消費者",
+      "AWS客戶"
+    ],
+    "competitors": [
+      "Google Cloud",
+      "Azure"
+    ],
+    "notes": "今日漲幅 -1.18%",
+    "price": 265.82000732421875,
+    "day_pct": -1.18,
+    "last_scan": "2026-05-13 13:46"
   }
 }

@@ -1,9 +1,9 @@
 {
   "agent:ray:telegram:direct:1616824689": {
     "sessionId": "127aaf36-a9d2-4e87-a929-c3cc2a22dba5",
-    "updatedAt": 1778650626524,
+    "updatedAt": 1778650926026,
     "sessionStartedAt": 1778624786210,
-    "lastInteractionAt": 1778650620698,
+    "lastInteractionAt": 1778650919698,
     "systemSent": true,
     "abortedLastRun": false,
     "authProfileOverride": "minimax:global",
@@ -62,13 +62,13 @@
       "version": 0
     },
     "status": "running",
-    "startedAt": 1778650626524,
+    "startedAt": 1778650926026,
     "modelProvider": "minimax",
     "model": "MiniMax-M2.7",
     "contextTokens": 204800,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1778650156133,
+      "generatedAt": 1778650626361,
       "sessionId": "127aaf36-a9d2-4e87-a929-c3cc2a22dba5",
       "sessionKey": "agent:ray:telegram:direct:1616824689",
       "provider": "minimax",
@@ -326,8 +326,8 @@
         ]
       }
     },
-    "estimatedCostUsd": 0.15988841999999998,
-    "totalTokens": 84602,
+    "estimatedCostUsd": 0.0913251,
+    "totalTokens": 94660,
     "totalTokensFresh": true,
     "compactionCheckpoints": [
       {
@@ -422,9 +422,9 @@
     "agentHarnessId": "pi",
     "memoryFlushAt": 1778650060248,
     "memoryFlushCompactionCount": 4,
-    "inputTokens": 23407,
-    "outputTokens": 10387,
-    "cacheRead": 84288,
+    "inputTokens": 25329,
+    "outputTokens": 7548,
+    "cacheRead": 94464,
     "cacheWrite": 0
   },
   "agent:ray:cron:34405d7a-2dae-4eea-84b7-904c9d7079f1": {
