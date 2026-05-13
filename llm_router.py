@@ -52,9 +52,52 @@ class LLMRouter:
             (LOCAL_MODEL_FAST,     30, 0.1),
         ]
 
-    # ═══════════════════════════════════════════════════════════
-    # 公開 API
-    # ═══════════════════════════════════════════════════════════
+# ─── 單模型 VRAM 鎖定 ──────────────────────────────────────
+def get_vram_gb():
+    """讀取 NVIDIA GPU VRAM 使用量（GB）"""
+    try:
+        import subprocess
+        r = subprocess.run(["nvidia-smi", "--query-gpu=memory.used",
+                           "--format=csv,noheader,nounits"],
+                          capture_output=True, text=True, timeout=10)
+        if r.returncode == 0:
+            return int(r.stdout.strip().split('\n')[0]) / 1024
+    except:
+        pass
+    return None
+
+def clear_all_vram():
+    """強制清理所有模型 VRAM（物理清理）"""
+    try:
+        import subprocess
+        subprocess.run(["ollama", "stop", "--all"],
+                       capture_output=True, timeout=60, check=False)
+        import time; time.sleep(60)
+    except:
+        pass
+
+def safe_route_call(target_model: str, required_gb: float = 0):
+    """
+    在路由轉發前，確保 VRAM 乾淨（單模型協議）
+    1. 檢查 VRAM 殘留
+    2. 若被佔用且 needed>available，執行 clear_all_vram()
+    3. 返回是否安全執行
+    """
+    vram = get_vram_gb()
+    if vram is None:
+        return True  # 無法檢測，放行
+
+    # 如果當前 VRAM > 5.5GB，說明有殘留模型未釋放
+    if vram > 5.5:
+        print(f"[VRAM LOCK] {vram:.1f}GB > 5.5GB（可能7B殘留）→ 執行清理")
+        clear_all_vram()
+        return True
+
+    return True
+
+# ═══════════════════════════════════════════════════════════
+# 公開 API
+# ═══════════════════════════════════════════════════════════
 
     def call(self, task: str, data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -68,16 +111,20 @@ class LLMRouter:
         if layer == 0:
             return {"error": "Layer 0 任務不需要 LLM，請用本地 Python"}
         elif layer == 1:
+            safe_route_call(LOCAL_MODEL_FAST)
             return self._local_call(data)
         elif layer == 2:
+            safe_route_call(LOCAL_MODEL_FAST)
             return self._minimax_call(data)
         elif layer == 3:
+            safe_route_call(LOCAL_MODEL_FAST)
             return self._minimax_web_call(data)
         else:
             return {"error": f"未知 task: {task}"}
 
     def fast(self, prompt: str, context: str = "") -> str:
-        """Layer 1: 快速策略提案（走 ray-v1）"""
+        """Layer 1: 快速策略提案（走 ray-v3.5）"""
+        safe_route_call(self.local_fast)
         return self._ollama_raw(
             model=self.local_fast,
             prompt=self._build_prompt(prompt, context, mode="fast")
@@ -85,18 +132,25 @@ class LLMRouter:
 
     def deep(self, prompt: str, context: str = "") -> str:
         """Layer 2: 深度推理（走 MiniMax）"""
+        safe_route_call(self.local_fast)
         return self._minimax_raw(
             prompt=self._build_prompt(prompt, context, mode="deep")
         )
 
-        # Layer 3: 連網學習（走 MiniMax + web）
-        # 注意：宏觀任務已移至本地 qwen2.5:7b，大幅節省 MiniMax 配額
-        macro_tasks = {"macro_outlook", "sentiment", "macro_news", "earnings_summary"}
-        if task in macro_tasks:
-            return self._local_7b_call(data)  # 接管 MiniMax Layer 3，節省配額
-        return self._minimax_web_call(data)
-
     def macro(self, prompt: str, context: str = "") -> str:
+        """Layer 3: 宏觀任務（接管 MiniMax Layer 3，走本地 qwen2.5:7b）"""
+        safe_route_call("qwen2.5:7b", required_gb=4.7)
+        return self._local_7b_raw(
+            prompt=self._build_prompt(prompt, context, mode="macro")
+        )
+
+    def deep_7b(self, prompt: str, context: str = "") -> str:
+        """深度任務（走 ray-deep-v1，蒸餾/歸因時段專用）"""
+        safe_route_call("ray-deep-v1", required_gb=4.7)
+        return self._ollama_raw(
+            model="ray-deep-v1",
+            prompt=self._build_prompt(prompt, context, mode="deep")
+        )
         """
         宏觀分析（Layer 3 MiniMax 替代者）
         使用本地 qwen2.5:7b 接管原本昂貴的雲端任務，節省 30%+ 配額。

@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-ray_scheduler.py — VRAM 動態調度器
-24小時 作戰/訓練 自動切換
+ray_scheduler.py — VRAM 單模型調度器 v2
+單模型運行協議：物理清理 + 互斥鎖 + 冷卻期
 
-| 時間段 (台北)      | 市場狀態     | 系統動作                    | VRAM 分配  |
-|-------------------|-------------|----------------------------|-----------|
-| 09:00 - 13:30    | 台股實戰     | 4B 執行掃描，嚴禁 7B 啟動   | 4B (2.8GB)|
-| 14:00 - 20:00    | 邏輯進化     | 7B 反思+蒸餾大師觀點        | 7B (4.5GB)|
-| 21:30 - 04:00    | 美股實戰     | 4B 執行決策，嚴禁 7B 啟動   | 4B (2.8GB)|
-| 05:00 - 08:00    | 模型更新     | CPU 重構 Modelfile          | 低消耗     |
+核心原則：在啟動任何模型前，先執行物理清理，並在切換間加入冷卻期。
+
+| 時段 (台北)      | 運行模型  | 互斥機制                    |
+|----------------|-----------|---------------------------|
+| 05:00-08:00   | 4B        | 固化重構                   |
+| 09:00-13:30   | 4B        | 禁7B，走MiniMax            |
+| 14:00-21:00   | 7B        | 蒸餾/歸因/策略/宏觀接管     |
+| 21:30-04:00   | 4B        | 美股實戰                   |
 """
 
 import os, sys, subprocess, logging, time
@@ -20,134 +22,118 @@ _log.setLevel(logging.INFO)
 RAY_AGENT_DIR = r"C:\Users\USER\.openclaw\agents\ray"
 MODELS_4B = ["ray-v3.5", "qwen3.5-4b-iq4xs"]
 MODELS_7B = ["ray-commander", "ray-deep-v1", "qwen2.5:7b"]
-
-def is_trading_hours():
-    now = datetime.now()
-    h, m = now.hour, now.minute
-    if (9 <= h < 13) or (h == 13 and m == 0):
-        return True
-    if h >= 21 or h < 4:
-        return True
-    return False
-
-def is_training_hours():
-    now = datetime.now()
-    h = now.hour
-    return 14 <= h < 20
-
-def is_preload_time():
-    """08:30 開盤前預載 RAM"""
-    now = datetime.now()
-    return now.hour == 8 and now.minute >= 30
+ALL_MODELS = MODELS_4B + MODELS_7B + ["qwen3.5-4b-instruct-q4_K_S"]
 
 VRAM_SAFETY_GB = 5.5
-MODELS_PHASE2 = {
-    "ray-deep-v1":   "複雜策略分析（Regime Switch / 套利邏輯）",
-    "ray-commander": "情緒指標掃描（恐慌貪婪指數 / 法人流向）",
-}
+COOLDOWN_SECONDS = 5   # clear_vram() 的物理冷卻
 
-def get_vram_usage():
-    """嘗試讀取 NVIDIA GPU VRAM 使用量（MB）"""
+# ─── 核心清理函數 ────────────────────────────────────────────
+def clear_vram():
+    """強制卸載所有模型，釋放 VRAM（物理清理）"""
+    _log.info("[VRAM] ███ 執行 VRAM 物理清理 ███")
+    for model in ALL_MODELS:
+        try:
+            r = subprocess.run(["ollama", "stop", model],
+                               capture_output=True, text=True, timeout=30, check=False)
+            if r.returncode == 0:
+                _log.info(f"  ✓ stopped {model}")
+        except Exception as e:
+            pass
+    _log.info(f"[VRAM] 冷卻期 {COOLDOWN_SECONDS}s（讓驅動回收）...")
+    time.sleep(COOLDOWN_SECONDS)
+
+def clear_vram_full():
+    """完整清理：ollama stop --all + 60s 冷卻（切換模型前用）"""
+    _log.info("[VRAM] ███ 執行完整 VRAM 清理 + 60s 冷卻 ███")
+    try:
+        subprocess.run(["ollama", "stop", "--all"],
+                       capture_output=True, timeout=60, check=False)
+    except:
+        pass
+    _log.info("[VRAM] 60s 冷卻中...")
+    time.sleep(60)
+    _log.info("[VRAM] ✅ VRAM 已清空")
+
+# ─── 查詢 ────────────────────────────────────────────────────
+def get_vram_usage_gb():
     try:
         result = subprocess.run(
             ["nvidia-smi", "--query-gpu=memory.used", "--format=csv,noheader,nounits"],
             capture_output=True, text=True, timeout=10
         )
         if result.returncode == 0:
-            mb = int(result.stdout.strip().split('\n')[0])
-            return mb / 1024  # GB
+            return int(result.stdout.strip().split('\n')[0]) / 1024
     except:
         pass
     return None
 
-def vram_safety_check():
-    """若 VRAM > 5.5GB，強制停止所有模型直到低於 4GB"""
-    gb = get_vram_usage()
-    if gb is None:
-        return
-    if gb > VRAM_SAFETY_GB:
-        _log.warning(f"[VRAM SAFETY] {gb:.1f}GB > {VRAM_SAFETY_GB}GB — executing stop_all_with_cooldown()")
-        stop_all_with_cooldown()
-    else:
-        _log.info(f"[VRAM] Current: {gb:.1f}GB / {VRAM_SAFETY_GB}GB — safe")
-
-def ollama_stop(model):
-    try:
-        subprocess.run(["ollama", "stop", model],
-                      capture_output=True, timeout=30, check=False)
-        _log.info(f"[VRAM] Stopped: {model}")
-        time.sleep(2)  # 物理釋放 VRAM 緩衝
-    except Exception as e:
-        _log.warning(f"[VRAM] Stop {model} failed: {e}")
-
-def stop_all_with_cooldown():
-    """停止所有模型 + 60s 強制冷卻期（避免 OOM）"""
-    try:
-        subprocess.run(["ollama", "stop", "--all"],
-                      capture_output=True, timeout=60, check=False)
-        _log.info("[VRAM] All models stopped, cooling down 60s...")
-        time.sleep(60)  # 強制冷卻，讓驅動完全釋放 VRAM
-        _log.info("[VRAM] Cooldown complete, VRAM should be clear")
-    except Exception as e:
-        _log.warning(f"[VRAM] stop_all failed: {e}")
-
-def ollama_list_running():
+def get_running_models():
     try:
         result = subprocess.run(["ollama", "list"],
-                               capture_output=True, text=True, timeout=10, check=True)
+                                capture_output=True, text=True, timeout=10, check=True)
         lines = result.stdout.strip().split('\n')[1:]
-        return [l.split()[0] for l in lines if l.strip()]
+        return [l.split()[0] for l in lines if l.strip() and not l.startswith("NAME")]
     except:
         return []
 
-def preload_master_insights():
-    """08:30 開盤前預載：將 web_auto 最新規則載入 32GB RAM"""
-    try:
-        sys.path.insert(0, RAY_AGENT_DIR)
-        from ray_web_collector import preload_ram_cache
-        result = preload_ram_cache()
-        _log.info(f"[PRELOAD] {result.get('count',0)} insights preloaded for market open")
-        return True
-    except Exception as e:
-        _log.warning(f"[PRELOAD] failed: {e}")
-        return False
-
-def enforce():
+# ─── 單模型調度 ─────────────────────────────────────────────
+def schedule_vram():
     now = datetime.now()
+    h, m = now.hour, now.minute
     now_str = now.strftime("%H:%M")
-    running = ollama_list_running()
-    _log.info(f"[{now_str}] Running models: {running}")
+    running = get_running_models()
 
-    # VRAM 安全檢查（任何時段）
-    vram_safety_check()
+    vram_gb = get_vram_usage_gb()
+    vram_info = f"VRAM={vram_gb:.1f}GB" if vram_gb else "VRAM=?"
+    _log.info(f"[{now_str}] {vram_info} | Running: {running}")
 
-    if is_preload_time():
-        _log.info(f"[PRELOAD] Running 08:30 market open preload...")
-        preload_master_insights()
+    # ─── 09:00-13:30 台股實戰：只允許 4B ────────────────────
+    if (9 <= h < 13) or (h == 13 and m == 0):
+        blocked = [m for m in MODELS_7B if m in running]
+        if blocked:
+            _log.warning(f"[TRADING] 禁止 7B 運行中: {blocked} → 執行清理")
+            clear_vram_full()
+        elif vram_gb and vram_gb > VRAM_SAFETY_GB:
+            _log.warning(f"[TRADING] VRAM {vram_gb:.1f}GB > {VRAM_SAFETY_GB}GB → 清理")
+            clear_vram_full()
+        else:
+            _log.info(f"[TRADING] ✅ 單模型 4B 環境正常")
+        return
 
-    if is_trading_hours():
-        for m in MODELS_7B:
-            if m in running:
-                ollama_stop(m)
-                _log.info(f"[TRADING] Stopped 7B {m} to protect VRAM")
-        # 確保 VRAM 完全釋放後再加載 4B
-        vram_safety_check()
-        for m in MODELS_4B:
-            if m not in running:
-                _log.info(f"[TRADING] {m} not loaded (will load on demand)")
+    # ─── 14:00-21:00 邏輯進化：只允許 7B ───────────────────
+    if 14 <= h < 21:
+        blocked = [m for m in MODELS_4B if m in running]
+        if blocked:
+            _log.warning(f"[TRAINING] 禁止 4B 運行中: {blocked} → 執行清理")
+            clear_vram_full()
+        elif vram_gb and vram_gb > VRAM_SAFETY_GB:
+            _log.warning(f"[TRAINING] VRAM {vram_gb:.1f}GB > {VRAM_SAFETY_GB}GB → 清理")
+            clear_vram_full()
+        else:
+            _log.info(f"[TRAINING] ✅ 單模型 7B 環境正常")
+        return
 
-    elif is_training_hours():
-        for m in MODELS_4B:
-            if m in running:
-                ollama_stop(m)
-                _log.info(f"[TRAINING] Stopped 4B {m} for 7B training")
-        # 切換到 7B 前執行完整冷卻
-        vram_safety_check()
-        _log.info(f"[TRAINING] 7B models available for training")
+    # ─── 21:30-04:00 美股實戰：只允許 4B ──────────────────
+    if h >= 21 or h < 4:
+        blocked = [m for m in MODELS_7B if m in running]
+        if blocked:
+            _log.warning(f"[US_MARKET] 禁止 7B 運行中: {blocked} → 執行清理")
+            clear_vram_full()
+        elif vram_gb and vram_gb > VRAM_SAFETY_GB:
+            _log.warning(f"[US_MARKET] VRAM {vram_gb:.1f}GB > {VRAM_SAFETY_GB}GB → 清理")
+            clear_vram_full()
+        else:
+            _log.info(f"[US_MARKET] ✅ 單模型 4B 環境正常")
+        return
 
+    # ─── 其他時段：完全停止 ─────────────────────────────────
+    if running:
+        _log.info(f"[IDLE] 閒置時段 → 執行完整清理")
+        clear_vram_full()
     else:
-        stop_all_with_cooldown()  # 閒置時段完全停止 + 60s 冷卻
+        _log.info(f"[IDLE] ✅ 無模型運行，VRAM 空閒")
 
+# ─── 入口 ────────────────────────────────────────────────────
 if __name__ == "__main__":
     logging.basicConfig(
         level=logging.INFO,
@@ -155,5 +141,5 @@ if __name__ == "__main__":
         datefmt="%H:%M:%S"
     )
     now_str = datetime.now().strftime("%H:%M")
-    print(f"[{now_str}] ray_scheduler started")
-    enforce()
+    print(f"[{now_str}] ray_scheduler v2 started — 單模型協議")
+    schedule_vram()

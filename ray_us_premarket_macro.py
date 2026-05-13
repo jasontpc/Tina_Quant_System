@@ -12,6 +12,28 @@ OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL = "qwen2.5:7b"
 RAM_CACHE = os.path.join(AGENTS_DIR, "master_insights_ram.json")
 
+# ── VRAM 單模型清理 ────────────────────────────────────────
+def clear_all_vram():
+    """強制清理所有模型（單模型協議前置）"""
+    import subprocess, time
+    try:
+        subprocess.run(["ollama", "stop", "--all"],
+                       capture_output=True, timeout=60, check=False)
+        print("[VRAM] ███ 清理中，60s 冷卻... ███")
+        time.sleep(60)
+        print("[VRAM] ✅ VRAM 清空")
+    except Exception as e:
+        print(f"[VRAM] 清理失敗: {e}")
+
+def stop_model(model):
+    """任務結束後卸載模型"""
+    import subprocess
+    try:
+        subprocess.run(["ollama", "stop", model],
+                       capture_output=True, timeout=30, check=False)
+    except:
+        pass
+
 # ── Helper ──────────────────────────────────────────────────
 def ollama_raw(model, prompt, temperature=0.15, num_predict=350, timeout=90):
     try:
@@ -89,6 +111,10 @@ def main():
     print(f"[*] {time.strftime('%H:%M:%S')} 接管 MiniMax — 執行盤前宏觀分析 (qwen2.5:7b)")
     print("=" * 60)
 
+    # 前置清理：確保 VRAM 乾淨（單模型協議）
+    print("[VRAM] 執行任務前清理...")
+    clear_all_vram()
+
     web_auto_rules = load_web_auto()
     macro = get_macro_data()
     macro_str = json.dumps(macro, indent=2, ensure_ascii=False)
@@ -124,6 +150,10 @@ def main():
         print("[+] 盤前分析完成，MiniMax 配額節省成功")
     else:
         print(f"[-] 分析失敗: {result}")
+
+    # 任務結束：卸載模型釋放 VRAM
+    print("[VRAM] 任務結束，卸載 qwen2.5:7b...")
+    stop_model(MODEL)
 
     print("=" * 60)
 
