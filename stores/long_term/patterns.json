@@ -1,3 +1,47 @@
 {
-  "patterns": []
+  "patterns": [
+    {
+      "id": 1,
+      "type": "stock_pattern",
+      "pattern_name": "LEO_HOLD_2330",
+      "description": "2330 在 Leo RSI 策略下勝率 62.9%，平均 14871 筆驗證交易",
+      "symbol": "2330",
+      "win_rate": 62.9,
+      "n_observations": 900,
+      "avg_score": 6.9,
+      "first_observed": "2026-05-14",
+      "hit_rate": 0.63,
+      "confidence": 0.68,
+      "thorp_aligned": false
+    },
+    {
+      "id": 2,
+      "type": "stock_pattern",
+      "pattern_name": "LEO_HOLD_2379",
+      "description": "2379 在 Leo RSI 策略下勝率 60.0%，平均 19416 筆驗證交易",
+      "symbol": "2379",
+      "win_rate": 60.0,
+      "n_observations": 900,
+      "avg_score": 20.3,
+      "first_observed": "2026-05-14",
+      "hit_rate": 0.6,
+      "confidence": 0.65,
+      "thorp_aligned": false
+    },
+    {
+      "id": 3,
+      "type": "stock_pattern",
+      "pattern_name": "LEO_HOLD_3665",
+      "description": "3665 在 Leo RSI 策略下勝率 74.9%，平均 9504 筆驗證交易",
+      "symbol": "3665",
+      "win_rate": 74.9,
+      "n_observations": 792,
+      "avg_score": -135.9,
+      "first_observed": "2026-05-14",
+      "hit_rate": 0.75,
+      "confidence": 0.8,
+      "thorp_aligned": true
+    }
+  ],
+  "last_updated": "2026-05-14 15:41:55"
 }

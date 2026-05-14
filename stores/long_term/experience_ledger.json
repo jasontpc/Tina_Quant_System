@@ -93,5 +93,20 @@
     ]
   },
   "created_at": "2026-05-13T21:15:00",
-  "updated_at": "2026-05-13T21:28:00"
+  "updated_at": "2026-05-13T21:28:00",
+  "records": [
+    {
+      "symbol": "3034",
+      "name": "緯穎",
+      "entry_date": "2026-04-25",
+      "entry_price": 442,
+      "exit_date": "2026-05-07",
+      "exit_price": 453,
+      "return_pct": 10.1,
+      "n_days": 12,
+      "verdict": "WIN",
+      "strategy": "leo",
+      "notes": "Leo 波段操作，目標價到，+10.1% 結案"
+    }
+  ]
 }
