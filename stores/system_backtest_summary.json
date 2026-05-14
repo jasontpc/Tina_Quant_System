@@ -1,0 +1,182 @@
+{
+  "date": "2026-05-14",
+  "summary": {
+    "total_reports": 13,
+    "valid_reports": 6,
+    "good_reports": 0,
+    "low_reports": 4,
+    "empty_missing": 7,
+    "total_trades": 1304
+  },
+  "reports": [
+    {
+      "team": "Tina V3 Alpha",
+      "desc": "美股/ETF 主資料庫",
+      "status": "LOW",
+      "total": 20,
+      "wr": 0.0,
+      "avg": 0.0,
+      "path": "stores/backtest_report.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Leo 台股波段",
+      "desc": "290筆模擬交易",
+      "status": "OK",
+      "total": 290,
+      "wr": 47.2,
+      "avg": -0.109,
+      "path": "teams/leo/reports/leo_backtest_report_v2.json",
+      "period": "2025-01-01~2026-04-25",
+      "tickers": [
+        "2317",
+        "2330",
+        "2376",
+        "2379",
+        "2382",
+        "2454",
+        "3034"
+      ]
+    },
+    {
+      "team": "Nana 波段",
+      "desc": "台股百大",
+      "status": "LOW",
+      "total": 605,
+      "wr": 0,
+      "avg": 0,
+      "path": "teams/nana/reports/nana_backtest_report.json",
+      "period": "2022-01-01 ~ 2026-04-26",
+      "tickers": []
+    },
+    {
+      "team": "Ray 美股",
+      "desc": "美股報告",
+      "status": "ZERO",
+      "total": 0,
+      "wr": 0,
+      "avg": 0,
+      "path": "teams/ray/reports/backtest_report.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Maggy 美股",
+      "desc": "完整回測",
+      "status": "ZERO",
+      "total": 0,
+      "wr": 0,
+      "avg": 0,
+      "path": "teams/maggy/reports/full_backtest.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Tina data",
+      "desc": "主DB",
+      "status": "ZERO",
+      "total": 0,
+      "wr": 0,
+      "avg": 0,
+      "path": "data/backtest_results.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Tina data",
+      "desc": "完整結果",
+      "status": "ZERO",
+      "total": 0,
+      "wr": 0,
+      "avg": 0,
+      "path": "data/full_backtest_results.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Tina data",
+      "desc": "團隊結果",
+      "status": "LOW",
+      "total": 25,
+      "wr": 0.0,
+      "avg": 0.0,
+      "path": "data/full_team_backtest_results.json",
+      "period": "N/A",
+      "tickers": [
+        "1101.TW",
+        "1519.TW",
+        "2317.TW",
+        "2345.TW",
+        "2359.TW",
+        "2360.TW",
+        "2382.TW",
+        "2383.TW"
+      ]
+    },
+    {
+      "team": "Nana data",
+      "desc": "Nana結果",
+      "status": "ZERO",
+      "total": 0,
+      "wr": 0,
+      "avg": 0,
+      "path": "data/nana_backtest_results.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Tina quick",
+      "desc": "快速回測",
+      "status": "LOW",
+      "total": 12,
+      "wr": 0.0,
+      "avg": 0.0,
+      "path": "data/quick_backtest.json",
+      "period": "N/A",
+      "tickers": [
+        "2308.TW",
+        "2317.TW",
+        "2330.TW",
+        "2359.TW",
+        "2382.TW",
+        "2454.TW",
+        "3016.TW",
+        "3231.TW"
+      ]
+    },
+    {
+      "team": "Nana archive",
+      "desc": "擴展回測",
+      "status": "OK",
+      "total": 352,
+      "wr": 56.8,
+      "avg": 0.93,
+      "path": "teams/nana/archive_json/expanded_backtest.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Nana archive",
+      "desc": "最終回測",
+      "status": "ZERO",
+      "total": 0,
+      "wr": 0,
+      "avg": 0,
+      "path": "teams/nana/archive_json/backtest_final.json",
+      "period": "N/A",
+      "tickers": []
+    },
+    {
+      "team": "Automation",
+      "desc": "自動化優化",
+      "status": "ZERO",
+      "total": 0,
+      "wr": 0,
+      "avg": 0,
+      "path": "automation/backtest_results/full_backtest_optimization.json",
+      "period": "N/A",
+      "tickers": []
+    }
+  ]
+}
