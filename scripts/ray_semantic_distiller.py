@@ -102,14 +102,14 @@ def distill_semantic(fault_text: str) -> list:
 
 只輸出 JSON，無其他文字。"""
 
-    # 直接用本地 7B（已移除 MiniMax API call，避免 key 問題）
+    # 直接用本地 7B（已移除 MiniMax API call）
     try:
         import urllib.request
         payload = {
             "model": "qwen2.5:7b",
             "messages": [{"role": "user", "content": prompt}],
             "stream": False,
-            "options": {"temperature": 0.1, "num_predict": 400}
+            "options": {"temperature": 0.1, "num_predict": 500}
         }
         req = urllib.request.Request(
             OLLAMA_URL,
@@ -121,9 +121,18 @@ def distill_semantic(fault_text: str) -> list:
             raw = json.loads(resp.read().decode("utf-8"))
         content = raw.get("message", {}).get("content", "").strip()
         import re
-        m = re.search(r'\[[\s\S]*\]', content)
+        m = re.search(r'\[\s*[\s\S]*?\]', content)
         if m:
-            return json.loads(m.group())
+            try:
+                return json.loads(m.group())
+            except json.JSONDecodeError as je:
+                print(f"[JSON parse error] {je} — char {je.pos}")
+                # 嘗試修復常見的 JSON 錯誤
+                fixed = m.group().replace(' ', ' ').replace('\n', '')
+                try:
+                    return json.loads(fixed)
+                except:
+                    pass
     except Exception as e:
         print(f"[Local 7B] ERROR: {e}")
 
