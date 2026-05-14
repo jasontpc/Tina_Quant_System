@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-05-14 13:45:07",
+  "log_file": "C:\\Users\\USER\\.openclaw\\logs\\gateway-restart.log",
+  "events": [
+    {
+      "date": "2026/05/04  6:09:47.27",
+      "source": "unknown",
+      "type": "unknown"
+    },
+    {
+      "date": "2026/05/04  6:09:47.27",
+      "source": "windows",
+      "type": "attempt"
+    },
+    {
+      "date": "2026/05/04  6:09:47.42",
+      "source": "windows",
+      "type": "fallback"
+    },
+    {
+      "date": "2026/05/04  6:09:47.43",
+      "source": "windows",
+      "type": "finished"
+    },
+    {
+      "date": "2026/05/13 19:12:00.23",
+      "source": "unknown",
+      "type": "unknown"
+    },
+    {
+      "date": "2026/05/13 19:12:00.24",
+      "source": "windows",
+      "type": "attempt"
+    },
+    {
+      "date": "2026/05/13 19:12:01.30",
+      "source": "windows",
+      "type": "finished"
+    }
+  ],
+  "classification": {
+    "total_events": 7,
+    "summary": {
+      "normal_restart": 1,
+      "windows_task_handoff": 1,
+      "unknown_crash": 0
+    }
+  },
+  "new_rules_added": [
+    "SYS_001"
+  ]
+}

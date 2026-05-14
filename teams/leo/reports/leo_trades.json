@@ -1,5 +1,76 @@
 {
-  "trades": [],
+  "trades": [
+    {
+      "symbol": "2330",
+      "name": "台積電",
+      "entry_price": 2220.0,
+      "shares": 45,
+      "amount": 99900.0,
+      "entry_rsi": 62.1,
+      "entry_pos_ma20": 2.2,
+      "timestamp": "2026-05-14 09:05",
+      "target_price": 2664.0,
+      "stop_loss": 2042.4,
+      "status": "open",
+      "trade_id": "LEO_2330_20260514090523"
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "entry_price": 552.0,
+      "shares": 181,
+      "amount": 99912.0,
+      "entry_rsi": 46.2,
+      "entry_pos_ma20": 0.7,
+      "timestamp": "2026-05-14 09:05",
+      "target_price": 662.4,
+      "stop_loss": 507.84,
+      "status": "open",
+      "trade_id": "LEO_2379_20260514090523"
+    },
+    {
+      "symbol": "2376",
+      "name": "技嘉",
+      "entry_price": 313.5,
+      "shares": 318,
+      "amount": 99693.0,
+      "entry_rsi": 64.9,
+      "entry_pos_ma20": 8.0,
+      "timestamp": "2026-05-14 09:05",
+      "target_price": 376.2,
+      "stop_loss": 288.42,
+      "status": "open",
+      "trade_id": "LEO_2376_20260514090523"
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "entry_price": 340.5,
+      "shares": 293,
+      "amount": 99766.5,
+      "entry_rsi": 53.5,
+      "entry_pos_ma20": 3.6,
+      "timestamp": "2026-05-14 09:05",
+      "target_price": 408.6,
+      "stop_loss": 313.26,
+      "status": "open",
+      "trade_id": "LEO_2382_20260514090523"
+    },
+    {
+      "symbol": "3665",
+      "name": "穎崴",
+      "entry_price": 2500.0,
+      "shares": 40,
+      "amount": 100000.0,
+      "entry_rsi": 48.2,
+      "entry_pos_ma20": -5.9,
+      "timestamp": "2026-05-14 09:05",
+      "target_price": 3000.0,
+      "stop_loss": 2300.0,
+      "status": "open",
+      "trade_id": "LEO_3665_20260514090523"
+    }
+  ],
   "open_positions": [],
   "stats": {
     "total_trades": 0,

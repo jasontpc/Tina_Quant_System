@@ -493,5 +493,68 @@
     "pending_jobs": 0,
     "cpu": 1.4,
     "memory_percent": 49.5
+  },
+  {
+    "timestamp": "2026-05-14T08:04:48.982644",
+    "activity_score": 80,
+    "window_mode": "normal",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 8.1,
+    "memory_percent": 47.4
+  },
+  {
+    "timestamp": "2026-05-14T09:10:16.444167",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 1.5,
+    "memory_percent": 48.1
+  },
+  {
+    "timestamp": "2026-05-14T10:04:51.469077",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 7.4,
+    "memory_percent": 48.3
+  },
+  {
+    "timestamp": "2026-05-14T11:04:46.166842",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 3.4,
+    "memory_percent": 47.4
+  },
+  {
+    "timestamp": "2026-05-14T12:04:46.394022",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 8.0,
+    "memory_percent": 46.9
+  },
+  {
+    "timestamp": "2026-05-14T13:04:55.888925",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 6.5,
+    "memory_percent": 47.2
+  },
+  {
+    "timestamp": "2026-05-14T14:09:57.238182",
+    "activity_score": 79,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 8.6,
+    "memory_percent": 50.1
   }
 ]

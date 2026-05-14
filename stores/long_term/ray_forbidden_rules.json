@@ -93,6 +93,17 @@
       "taleb_reason": "",
       "thorp_aligned": false,
       "thorp_reason": ""
+    },
+    {
+      "id": "SYS_001",
+      "rule": "WINDOWS_TASK_HANDOFF detected — system restart triggered externally by Windows task scheduler",
+      "action": "LOG_ONLY",
+      "master": "SYSTEM",
+      "tags": [
+        "[SYSTEM_FRAGILE_ZONE]"
+      ],
+      "priority": 1,
+      "note": "Gateway 被 Windows 任務重啟，非策略錯誤，僅記錄"
     }
   ]
 }

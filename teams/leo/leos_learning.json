@@ -1,0 +1,17 @@
+{
+  "date": "2026-04-26 16:44",
+  "total_trades_analyzed": 0,
+  "error_analysis": {
+    "total_errors": 0,
+    "patterns": [],
+    "suggestions": []
+  },
+  "best_params": {
+    "rsi_threshold": 50,
+    "win_rate": 50.0,
+    "avg_return": 0.6214228682372804,
+    "total_trades": 160,
+    "score": 21.23213430235592
+  },
+  "opportunities": []
+}

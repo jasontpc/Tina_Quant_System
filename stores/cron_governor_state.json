@@ -1,19 +1,19 @@
 {
   "last_action": null,
   "last_score": 80,
-  "activity_score": 80,
-  "window_mode": "normal",
-  "last_check": "2026-05-14T07:04:42.446951",
+  "activity_score": 79,
+  "window_mode": "market_hours",
+  "last_check": "2026-05-14T14:09:57.238182",
   "allow_new_jobs": false,
   "max_concurrent": 1,
   "suppress_low_priority": true,
   "metrics": {
-    "cpu_percent": 1.7,
-    "memory_percent": 49.5,
+    "cpu_percent": 4.9,
+    "memory_percent": 50.1,
     "event_loop_delay_ms": 0,
     "cron_queue_depth": 0,
     "active_jobs": 0,
-    "timestamp": "2026-05-14T07:04:41.405459",
+    "timestamp": "2026-05-14T14:09:56.141515",
     "gateway_ok": false
   }
 }

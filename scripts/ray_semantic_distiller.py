@@ -56,12 +56,30 @@ SEMANTIC_TAGS = [
 
 # ── MiniMax 蒸餾（優先）→ 本地 7B 備用 ──────────────────────
 def distill_semantic(fault_text: str) -> list:
+    tags_pool = """  - [OVERHEATED]
+  - [OVERSOLD]
+  - [VOL_PRICE_DIVERGENCE]
+  - [LEADER_CATCH_UP]
+  - [BLACK_SWAN_RISK]
+  - [TRAP]
+  - [ANTIFRAGILE]
+  - [MOMENTUM_DRY]
+  - [REGIME_SHIFT]
+  - [TREND_INTACT]
+  - [HIGH_CONF]
+  - [LOW_CONF]
+  - [RSI_EXTREME]
+  - [BB_BREAK]
+  - [KDJ_CROSS]
+  - [TREND_BROKEN]
+  - [PULLBACK]
+  - [BREAKOUT_CONFIRMED]"""
     prompt = f"""你是 Ray 全語意蒸餾師。
 
 目標：將以下失敗案例轉化為「語意標籤規則」（純邏輯，無數字）。
 
 [語意標籤池]：
-{OUTPUT_FORMAT}
+{tags_pool}
 
 [失敗日誌]：
 {fault_text}

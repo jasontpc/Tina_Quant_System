@@ -58,5 +58,20 @@
     "level": "daily",
     "short_term_count": 5,
     "note": "lightweight - cleanup delegated to weekly"
+  },
+  {
+    "started": "2026-05-14 14:08:29",
+    "steps": [
+      {
+        "step": "load_faults",
+        "chars": 3000
+      },
+      {
+        "step": "distill",
+        "rules": 0
+      }
+    ],
+    "new_rules": 0,
+    "completed": "2026-05-14 14:08:45"
   }
 ]

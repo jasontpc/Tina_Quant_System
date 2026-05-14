@@ -1,0 +1,80 @@
+{
+  "generated": "2026-05-14",
+  "total_rows": 7056,
+  "symbols": {
+    "2317": {
+      "tested": 900,
+      "total_val_trades": 20772,
+      "total_train_trades": 35497,
+      "avg_val_wr": 42.6,
+      "max_val_wr": 60.0,
+      "avg_score": -79.7
+    },
+    "2330": {
+      "tested": 900,
+      "total_val_trades": 14871,
+      "total_train_trades": 35709,
+      "avg_val_wr": 62.9,
+      "max_val_wr": 100.0,
+      "avg_score": 6.9
+    },
+    "2376": {
+      "tested": 900,
+      "total_val_trades": 23652,
+      "total_train_trades": 34019,
+      "avg_val_wr": 50.1,
+      "max_val_wr": 66.7,
+      "avg_score": -32.8
+    },
+    "2379": {
+      "tested": 900,
+      "total_val_trades": 19416,
+      "total_train_trades": 35511,
+      "avg_val_wr": 60.0,
+      "max_val_wr": 100.0,
+      "avg_score": 20.3
+    },
+    "2382": {
+      "tested": 864,
+      "total_val_trades": 20556,
+      "total_train_trades": 24480,
+      "avg_val_wr": 53.1,
+      "max_val_wr": 73.7,
+      "avg_score": -6.0
+    },
+    "2454": {
+      "tested": 900,
+      "total_val_trades": 16951,
+      "total_train_trades": 31047,
+      "avg_val_wr": 54.8,
+      "max_val_wr": 77.8,
+      "avg_score": 6.9
+    },
+    "3034": {
+      "tested": 900,
+      "total_val_trades": 25848,
+      "total_train_trades": 34543,
+      "avg_val_wr": 42.2,
+      "max_val_wr": 57.1,
+      "avg_score": -106.4
+    },
+    "3665": {
+      "tested": 792,
+      "total_val_trades": 9504,
+      "total_train_trades": 42556,
+      "avg_val_wr": 74.9,
+      "max_val_wr": 100.0,
+      "avg_score": -135.9
+    }
+  },
+  "overall": {
+    "total_configs": 7056,
+    "total_val_trades": 151570,
+    "total_train_trades": 273362,
+    "avg_val_wr": 54.8,
+    "avg_score": -39.5,
+    "configs_gt_80": 9,
+    "configs_gt_50": 3908,
+    "configs_lt_50": 2586
+  }
+}

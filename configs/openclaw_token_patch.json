@@ -1,0 +1,11 @@
+{
+  "channels": {
+    "telegram": {
+      "accounts": {
+        "default": {
+          "botToken": "8720549244:AAGajB7mD6m7fsq4NK9uXnNqzhJFnSyNPp4"
+        }
+      }
+    }
+  }
+}
