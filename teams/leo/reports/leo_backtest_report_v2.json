@@ -1,0 +1,89 @@
+{
+  "date": "2026-05-14",
+  "backtest_period": "2025-01-01~2026-04-25",
+  "performance": {
+    "total_trades": 290,
+    "wins": 137,
+    "losses": 153,
+    "win_rate": 47.24,
+    "avg_return": -0.109,
+    "avg_win": 4.984,
+    "avg_loss": -4.669
+  },
+  "params": {
+    "RSI_Period": 14,
+    "RSI_Entry_Min": 30,
+    "RSI_Entry_Max": 60,
+    "Hold_Days": 3,
+    "Take_Profit_ATR": 2.0,
+    "Stop_Loss_ATR": 2.0,
+    "Trailing_ATR": 1.5,
+    "Score_Min": 30,
+    "ADX_Threshold": 15
+  },
+  "by_stock": [
+    {
+      "ticker": "2330",
+      "total_trades": 38,
+      "wins": 23,
+      "losses": 15,
+      "win_rate": 60.5,
+      "avg_return": 1.785,
+      "total_return": 67.85
+    },
+    {
+      "ticker": "2379",
+      "total_trades": 45,
+      "wins": 25,
+      "losses": 20,
+      "win_rate": 55.6,
+      "avg_return": -0.037,
+      "total_return": -1.67
+    },
+    {
+      "ticker": "3034",
+      "total_trades": 51,
+      "wins": 24,
+      "losses": 27,
+      "win_rate": 47.1,
+      "avg_return": -0.579,
+      "total_return": -29.52
+    },
+    {
+      "ticker": "2382",
+      "total_trades": 40,
+      "wins": 18,
+      "losses": 22,
+      "win_rate": 45.0,
+      "avg_return": -0.325,
+      "total_return": -12.98
+    },
+    {
+      "ticker": "2317",
+      "total_trades": 37,
+      "wins": 16,
+      "losses": 21,
+      "win_rate": 43.2,
+      "avg_return": 0.334,
+      "total_return": 12.35
+    },
+    {
+      "ticker": "2454",
+      "total_trades": 38,
+      "wins": 15,
+      "losses": 23,
+      "win_rate": 39.5,
+      "avg_return": -0.91,
+      "total_return": -34.58
+    },
+    {
+      "ticker": "2376",
+      "total_trades": 41,
+      "wins": 16,
+      "losses": 25,
+      "win_rate": 39.0,
+      "avg_return": -0.804,
+      "total_return": -32.95
+    }
+  ]
+}
