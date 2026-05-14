@@ -60,9 +60,12 @@ _SJ_READY = False
 
 import threading as _threading
 _SJ_LOGIN_LOCK = _threading.Lock()
+_SJ_CONN_COUNT = 0   # 並連計數
+_SJ_CONN_LIMIT = 3  # 最多3個並發連線
+_SJ_CONN_LOCK = _threading.Lock()
 
 def _get_shioaji_api():
-    global _SJ_API, _SJ_READY
+    global _SJ_API, _SJ_READY, _SJ_CONN_COUNT
     if not _SHIOAJI_AVAILABLE:
         return None
     if _SJ_READY:
@@ -89,6 +92,12 @@ def _get_shioaji_api():
         return _SJ_API
 
 def sj_get_quote(code):
+    global _SJ_CONN_COUNT
+    with _SJ_CONN_LOCK:
+        if _SJ_CONN_COUNT >= _SJ_CONN_LIMIT:
+            _log.debug(f"[Shioaji] conn limit reached ({_SJ_CONN_LIMIT}), skipping quote {code}")
+            return None
+        _SJ_CONN_COUNT += 1
     try:
         api = _get_shioaji_api()
         if not api:
@@ -102,6 +111,9 @@ def sj_get_quote(code):
     except Exception as e:
         _log.debug(f"[Shioaji] quote error {code}: {e}")
         return None
+    finally:
+        with _SJ_CONN_LOCK:
+            _SJ_CONN_COUNT = max(0, _SJ_CONN_COUNT - 1)
 
 def sj_get_kbars(code, days=5):
     from datetime import datetime, timedelta
@@ -976,7 +988,7 @@ def fetch_institutional(code):
 
         }
 
-        url = 'https://api.finmindtrade.com/api/v4/data?' + '&'.join(f'{k}={v}' for k, v in params.items())
+        url = 'https://api.finmindtrade.com/api/v4/data?' + '&'.join(f'{k}={urllib.parse.quote(str(v))}' for k, v in params.items())
 
         with urllib.request.urlopen(url, timeout=8) as resp:
 
