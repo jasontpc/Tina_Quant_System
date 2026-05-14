@@ -127,12 +127,37 @@ def get_macro_tags() -> dict:
     return result
 
 # ── 2. 產業鏈動態（新聞）─────────────────────────────────────
+def _get_news_title(n):
+    """Extract title from yfinance news structure (handles nested content)."""
+    if isinstance(n, dict):
+        if n.get('title'):
+            return n['title']
+        if n.get('content') and isinstance(n['content'], dict):
+            return n['content'].get('title', '')
+    return ''
+
 def fetch_supply_chain_news(symbols: list) -> list:
     """
-    抓取台股相關新聞（已移除 yfinance.news，避免hang）。
-    結果寫入 news_pool.txt，fast 模式讀取 pool。
+    抓取台股相關新聞（已修復 nested content結构）。
     """
-    return []
+    news_items = []
+    try:
+        import yfinance as yf
+        for sym in symbols[:5]:
+            ticker = yf.Ticker(sym)
+            news = ticker.news or []
+            for n in news[:2]:
+                title = _get_news_title(n)
+                if title:
+                    news_items.append({
+                        "symbol": sym,
+                        "title": title,
+                        "link": "",
+                        "time": "",
+                    })
+    except Exception as e:
+        print(f"  [supply_chain] ERROR: {e}")
+    return news_items
 
 def tag_news(news_items: list) -> list:
     """
@@ -244,7 +269,7 @@ def fast_news_fetch():
                 t = yf.Ticker(sym)
                 news = t.news or []
                 for n in news[:1]:
-                    title = n.get("title", "")
+                    title = _get_news_title(n)
                     if title and title not in pool:
                         pool.append(title)
                         new_count += 1
