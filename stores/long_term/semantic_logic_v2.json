@@ -1,92 +1,267 @@
 {
   "schema": "semantic_logic_v2",
-  "generated": "2026-05-14",
-  "version": "2.0",
-  "count": 12,
+  "generated": "2026-05-14 15:54:00",
+  "version": "2.1",
+  "count": 20,
+  "engine": "rule-based",
   "rules": [
     {
-      "if_tags": ["[OVERHEATED]", "[BB_BREAK]"],
+      "if_tags": [
+        "[MOMENTUM_DRY]",
+        "[HIGH_CONF]"
+      ],
       "then_action": "ACT",
       "logic_id": "SEM_001",
-      "master_align": "Taleb",
-      "priority": 1
+      "master_align": "Thorp",
+      "priority": 9,
+      "thorp_calculus": {
+        "formula": "f* = (b×p - q) / b",
+        "variables": {
+          "p": "win_rate (勝率)",
+          "b": "win_loss_ratio (赔率)",
+          "q": "1 - p (失敗率)",
+          "f*": "kelly_fraction (凱利倉位 fraction)"
+        },
+        "example": "p=0.62, b=2.5 → f* = (2.5×0.62 - 0.38) / 2.5 = 0.424 → 取 min(f*, 0.15) = 0.15",
+        "constraint": "f* < 0 → SKIP（負期望，禁止下注）",
+        "max_fraction": 0.15,
+        "p_threshold": 0.5
+      }
     },
     {
-      "if_tags": ["[OVERSOLD]", "[TREND_INTACT]"],
+      "if_tags": [
+        "[EX_OVERSOLD]",
+        "[RSI_DIVERGENCE]"
+      ],
       "then_action": "ACT",
       "logic_id": "SEM_002",
       "master_align": "Thorp",
-      "priority": 1
+      "priority": 8,
+      "thorp_calculus": {
+        "formula": "target_price = close × (1 + 2×ATR_14 / close)",
+        "entry_trigger": "p > 0.55 AND b > 1.8 AND f* > 0.1",
+        "stop_trigger": "price < close - 1.5×ATR_14",
+        "p_threshold": 0.55,
+        "b_min": 1.8
+      }
     },
     {
-      "if_tags": ["[VOL_PRICE_DIVERGENCE]"],
-      "then_action": "SKIP",
-      "logic_id": "SEM_003",
-      "master_align": "Simons",
-      "priority": 1
-    },
-    {
-      "if_tags": ["[BLACK_SWAN_RISK]"],
-      "then_action": "SKIP",
-      "logic_id": "SEM_004",
-      "master_align": "Taleb",
-      "priority": 1
-    },
-    {
-      "if_tags": ["[ANTIFRAGILE]"],
+      "if_tags": [
+        "[DYNAMIC_OVERHEATED]",
+        "[VOL_PRICE_DIVERGENCE]"
+      ],
       "then_action": "ACT",
-      "logic_id": "SEM_005",
-      "master_align": "Taleb",
-      "priority": 1
+      "logic_id": "SEM_003",
+      "master_align": "Thorp",
+      "priority": 9,
+      "thorp_calculus": {
+        "formula": "if loss_triggered AND no_new_signal → assume p_drop ≥ 0.1 → f* ≤ 0 → FULL EXIT",
+        "stop_formula": "exit_price = entry_price - 1.5×ATR_14",
+        "constraint": "任何position在DYNAMIC_OVERHEATED状态下不得新建倉位"
+      }
     },
     {
-      "if_tags": ["[OVERHEATED]", "[KDJ_CROSS]"],
+      "if_tags": [
+        "[ANTIFRAGILE]",
+        "[TREND_INTACT]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_004",
+      "master_align": "Thorp",
+      "priority": 8,
+      "thorp_calculus": {
+        "entry_trigger": "p > 0.65 AND b > 1.5 AND f* > 0.08",
+        "exit_trigger": "MA20 < close OR stop_triggered",
+        "trailing_stop": "highest_close - 2×ATR_14",
+        "p_threshold": 0.65,
+        "b_min": 1.5
+      }
+    },
+    {
+      "if_tags": [
+        "[RSI_STALE]",
+        "[REGIME_SHIFT]"
+      ],
+      "then_action": "SKIP",
+      "logic_id": "SEM_005",
+      "master_align": "Thorp",
+      "priority": 9,
+      "thorp_calculus": {
+        "formula": "if REGIME_SHIFT detected → require N ≥ 20 new trades to recompute p",
+        "p_recompute": "p = wins / last_20_trades",
+        "b_recompute": "b = avg_win / avg_loss (last 20 trades)",
+        "fallback": "if N < 20 → f* = 0 → SKIP",
+        "stale_threshold": 30
+      }
+    },
+    {
+      "if_tags": [
+        "[HIGH_CONFIDENCE]",
+        "[AI_LEADERSHIP]"
+      ],
       "then_action": "ACT",
       "logic_id": "SEM_006",
-      "master_align": "Dalio",
-      "priority": 1
+      "master_align": "Thorp",
+      "priority": 8,
+      "thorp_calculus": {
+        "formula": "f* = min((b×p - q) / b, 0.15)",
+        "p_threshold": 0.7,
+        "b_min": 2.0,
+        "example": "p=0.72, b=2.5 → f* = (2.5×0.72 - 0.28) / 2.5 = 0.608 → 0.15",
+        "max_fraction": 0.15,
+        "hard_cap": true
+      }
     },
     {
-      "if_tags": ["[OVERSOLD]", "[MOMENTUM_DRY]"],
+      "if_tags": [
+        "[UNKNOWN]"
+      ],
       "then_action": "ACT",
       "logic_id": "SEM_007",
       "master_align": "Thorp",
-      "priority": 1
+      "priority": 8,
+      "thorp_calculus": {
+        "formula": "if hold_days > 20 AND RSI > 50 → assess if new_catalyst_exists",
+        "no_catalyst_action": "reduce_position_to 50%",
+        "catalyst_required_for_full_hold": true,
+        "max_hold_days": 20,
+        "rsi_danger_zone": 50
+      }
     },
     {
-      "if_tags": ["[REGIME_SHIFT]"],
+      "if_tags": [
+        "[BLACK_SWAN_RISK]"
+      ],
       "then_action": "SKIP",
       "logic_id": "SEM_008",
-      "master_align": "Dalio",
-      "priority": 1
+      "master_align": "Thorp",
+      "priority": 9,
+      "thorp_calculus": {
+        "formula": "if VIX > 30 OR [BLACK_SWAN_RISK] → f* = 0 → EXIT ALL",
+        "vix_threshold": 30,
+        "p_override": 0.45,
+        "new_positions_blocked": true
+      }
     },
     {
-      "if_tags": ["[TRAP]", "[BB_BREAK]"],
-      "then_action": "SKIP",
+      "if_tags": [
+        "[HIGH_CONF]"
+      ],
+      "then_action": "ACT",
       "logic_id": "SEM_009",
-      "master_align": "Simons",
-      "priority": 1
+      "master_align": "Thorp",
+      "priority": 7,
+      "source": "lesson:3665"
     },
     {
-      "if_tags": ["[HIGH_CONF]", "[TREND_INTACT]"],
+      "if_tags": [
+        "[LEO_BEST_CONFIG]"
+      ],
       "then_action": "ACT",
       "logic_id": "SEM_010",
       "master_align": "Thorp",
-      "priority": 1
+      "priority": 9,
+      "source": "lesson:"
     },
     {
-      "if_tags": ["[LOW_CONF]", "[RSI_EXTREME]"],
-      "then_action": "SKIP",
+      "if_tags": [
+        "[HIGH_CONF]"
+      ],
+      "then_action": "ACT",
       "logic_id": "SEM_011",
-      "master_align": "Taleb",
-      "priority": 1
+      "master_align": "Thorp",
+      "priority": 7,
+      "source": "lesson:3665"
     },
     {
-      "if_tags": ["[LEADER_CATCH_UP]", "[ANTIFRAGILE]"],
+      "if_tags": [
+        "[LEO_BEST_CONFIG]"
+      ],
       "then_action": "ACT",
       "logic_id": "SEM_012",
-      "master_align": "Dalio",
-      "priority": 1
+      "master_align": "Thorp",
+      "priority": 9,
+      "source": "lesson:"
+    },
+    {
+      "if_tags": [
+        "[HIGH_CONF]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_013",
+      "master_align": "Thorp",
+      "priority": 7,
+      "source": "lesson:3665"
+    },
+    {
+      "if_tags": [
+        "[LEO_BEST_CONFIG]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_014",
+      "master_align": "Thorp",
+      "priority": 9,
+      "source": "lesson:"
+    },
+    {
+      "if_tags": [
+        "[LEO_HOLD_2330]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_015",
+      "master_align": "Taleb",
+      "priority": 6,
+      "source": "pattern:LEO_HOLD_2330"
+    },
+    {
+      "if_tags": [
+        "[LEO_HOLD_2379]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_016",
+      "master_align": "Taleb",
+      "priority": 6,
+      "source": "pattern:LEO_HOLD_2379"
+    },
+    {
+      "if_tags": [
+        "[LEO_HOLD_3665]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_017",
+      "master_align": "Taleb",
+      "priority": 8,
+      "source": "pattern:LEO_HOLD_3665"
+    },
+    {
+      "if_tags": [
+        "[LEO_HOLD_2330]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_018",
+      "master_align": "Taleb",
+      "priority": 6,
+      "source": "pattern:LEO_HOLD_2330"
+    },
+    {
+      "if_tags": [
+        "[LEO_HOLD_2379]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_019",
+      "master_align": "Taleb",
+      "priority": 6,
+      "source": "pattern:LEO_HOLD_2379"
+    },
+    {
+      "if_tags": [
+        "[LEO_HOLD_3665]"
+      ],
+      "then_action": "ACT",
+      "logic_id": "SEM_020",
+      "master_align": "Taleb",
+      "priority": 8,
+      "source": "pattern:LEO_HOLD_3665"
     }
   ]
 }
