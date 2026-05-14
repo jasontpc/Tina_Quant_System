@@ -269,7 +269,407 @@
       "first_observed": "2026-05-14",
       "n_observations": 0,
       "hit_rate": 0.48
+    },
+    {
+      "id": 21,
+      "type": "cross_pattern",
+      "pattern_name": "VOL_AI_BREAK",
+      "description": "量價突破+AI領導動能",
+      "tags": [
+        "[VOL_BREAKOUT]",
+        "[AI_LEADERSHIP]"
+      ],
+      "win_rate": 72.0,
+      "expectation": 1.16,
+      "thorp_pass": true,
+      "master_align": "Simons",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.85,
+      "thorp_aligned": true,
+      "loupe_matches": 4
+    },
+    {
+      "id": 22,
+      "type": "cross_pattern",
+      "pattern_name": "OVERSOLD_REBOUND",
+      "description": "超賣+RSI底部背離",
+      "tags": [
+        "[EX_OVERSOLD]",
+        "[RSI_DIVERGENCE]"
+      ],
+      "win_rate": 68.0,
+      "expectation": 1.04,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.77,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 23,
+      "type": "cross_pattern",
+      "pattern_name": "OVERHEATED_DIVERGE",
+      "description": "過熱+量價背離",
+      "tags": [
+        "[DYNAMIC_OVERHEATED]",
+        "[VOL_PRICE_DIVERGENCE]"
+      ],
+      "win_rate": 35.0,
+      "expectation": -0.13,
+      "thorp_pass": false,
+      "master_align": "Taleb",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.44,
+      "thorp_aligned": false,
+      "loupe_matches": 2
+    },
+    {
+      "id": 24,
+      "type": "cross_pattern",
+      "pattern_name": "ANTIFRAGILE_TREND",
+      "description": "反脆弱+趨勢完整",
+      "tags": [
+        "[ANTIFRAGILE]",
+        "[TREND_INTACT]"
+      ],
+      "win_rate": 70.0,
+      "expectation": 1.1,
+      "thorp_pass": true,
+      "master_align": "Taleb",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.97,
+      "thorp_aligned": true,
+      "loupe_matches": 11
+    },
+    {
+      "id": 25,
+      "type": "cross_pattern",
+      "pattern_name": "HIGH_CONF_AI",
+      "description": "高信心+AI領導",
+      "tags": [
+        "[HIGH_CONF]",
+        "[AI_LEADERSHIP]"
+      ],
+      "win_rate": 75.0,
+      "expectation": 1.25,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.96,
+      "thorp_aligned": true,
+      "loupe_matches": 8
+    },
+    {
+      "id": 26,
+      "type": "cross_pattern",
+      "pattern_name": "TSMC_OVERSOLD",
+      "description": "TSMC超賣形態",
+      "tags": [
+        "[LEO_HOLD_2330]",
+        "[EX_OVERSOLD]"
+      ],
+      "win_rate": 68.0,
+      "expectation": 1.04,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.77,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 27,
+      "type": "cross_pattern",
+      "pattern_name": "YINGWEI_BREAK",
+      "description": "穎崴突破形態",
+      "tags": [
+        "[LEO_HOLD_3665]",
+        "[BREAKOUT_CONFIRMED]"
+      ],
+      "win_rate": 78.0,
+      "expectation": 1.34,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.87,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 28,
+      "type": "cross_pattern",
+      "pattern_name": "REALTEK_INST",
+      "description": "瑞昱法人支持形態",
+      "tags": [
+        "[LEO_HOLD_2379]",
+        "[INSTITUTIONAL_SUPPORT]"
+      ],
+      "win_rate": 65.0,
+      "expectation": 0.95,
+      "thorp_pass": true,
+      "master_align": "Dalio",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.74,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 29,
+      "type": "cross_pattern",
+      "pattern_name": "MOM_DRY_HIGH",
+      "description": "動能枯竭+高信心",
+      "tags": [
+        "[MOMENTUM_DRY]",
+        "[HIGH_CONF]"
+      ],
+      "win_rate": 70.0,
+      "expectation": 1.1,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.87,
+      "thorp_aligned": true,
+      "loupe_matches": 6
+    },
+    {
+      "id": 30,
+      "type": "cross_pattern",
+      "pattern_name": "REGIME_UNCERTAIN",
+      "description": "體制轉換+低信心",
+      "tags": [
+        "[REGIME_SHIFT]",
+        "[LOW_CONF]"
+      ],
+      "win_rate": 40.0,
+      "expectation": 0.0,
+      "thorp_pass": false,
+      "master_align": "Taleb",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.49,
+      "thorp_aligned": false,
+      "loupe_matches": 2
+    },
+    {
+      "id": 31,
+      "type": "cross_pattern",
+      "pattern_name": "BLACK_SWAN_HOT",
+      "description": "黑天鵝+市場過熱",
+      "tags": [
+        "[BLACK_SWAN_RISK]",
+        "[DYNAMIC_OVERHEATED]"
+      ],
+      "win_rate": 30.0,
+      "expectation": -0.25,
+      "thorp_pass": false,
+      "master_align": "Taleb",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.39,
+      "thorp_aligned": false,
+      "loupe_matches": 2
+    },
+    {
+      "id": 32,
+      "type": "cross_pattern",
+      "pattern_name": "VOL_INST_BREAK",
+      "description": "機構支持+量能突破",
+      "tags": [
+        "[VOL_BREAKOUT]",
+        "[INSTITUTIONAL_SUPPORT]"
+      ],
+      "win_rate": 72.0,
+      "expectation": 1.16,
+      "thorp_pass": true,
+      "master_align": "Simons",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.81,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 33,
+      "type": "cross_pattern",
+      "pattern_name": "PULLBACK_OVERSOLD",
+      "description": "回檔+超賣佈局",
+      "tags": [
+        "[PULLBACK_CANDIDATE]",
+        "[EX_OVERSOLD]"
+      ],
+      "win_rate": 65.0,
+      "expectation": 0.95,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.74,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 34,
+      "type": "cross_pattern",
+      "pattern_name": "TSMI_VIX_DEF",
+      "description": "高波動+TSMC防禦形態",
+      "tags": [
+        "[HIGH_VIX]",
+        "[LEO_HOLD_2330]"
+      ],
+      "win_rate": 50.0,
+      "expectation": 0.5,
+      "thorp_pass": true,
+      "master_align": "Taleb",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.59,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 35,
+      "type": "cross_pattern",
+      "pattern_name": "BEAR_HOT",
+      "description": "空頭壓力+過熱市場",
+      "tags": [
+        "[MACRO_BEAR_PRESSURE]",
+        "[DYNAMIC_OVERHEATED]"
+      ],
+      "win_rate": 32.0,
+      "expectation": -0.2,
+      "thorp_pass": false,
+      "master_align": "Taleb",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.41,
+      "thorp_aligned": false,
+      "loupe_matches": 2
+    },
+    {
+      "id": 36,
+      "type": "cross_pattern",
+      "pattern_name": "TREND_CONFIRM",
+      "description": "趨勢完整+確認突破",
+      "tags": [
+        "[TREND_INTACT]",
+        "[BREAKOUT_CONFIRMED]"
+      ],
+      "win_rate": 68.0,
+      "expectation": 1.04,
+      "thorp_pass": true,
+      "master_align": "Simons",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.89,
+      "thorp_aligned": true,
+      "loupe_matches": 8
+    },
+    {
+      "id": 37,
+      "type": "cross_pattern",
+      "pattern_name": "AI_CHIP_leader",
+      "description": "AI領導+晶片領頭",
+      "tags": [
+        "[AI_LEADERSHIP]",
+        "[LEO_HOLD_3665]"
+      ],
+      "win_rate": 76.0,
+      "expectation": 1.28,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.89,
+      "thorp_aligned": true,
+      "loupe_matches": 4
+    },
+    {
+      "id": 38,
+      "type": "cross_pattern",
+      "pattern_name": "STALE_REGIME",
+      "description": "RSI鈍化+體制不清",
+      "tags": [
+        "[RSI_STALE]",
+        "[REGIME_SHIFT]"
+      ],
+      "win_rate": 42.0,
+      "expectation": 0.05,
+      "thorp_pass": false,
+      "master_align": "Taleb",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.51,
+      "thorp_aligned": false,
+      "loupe_matches": 2
+    },
+    {
+      "id": 39,
+      "type": "cross_pattern",
+      "pattern_name": "LOW_BASE_OVERSOLD",
+      "description": "低檔+超賣啟動",
+      "tags": [
+        "[LOW_BASE_START]",
+        "[EX_OVERSOLD]"
+      ],
+      "win_rate": 66.0,
+      "expectation": 0.98,
+      "thorp_pass": true,
+      "master_align": "Thorp",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.75,
+      "thorp_aligned": true,
+      "loupe_matches": 2
+    },
+    {
+      "id": 40,
+      "type": "cross_pattern",
+      "pattern_name": "CAUTIOUS_ANTI",
+      "description": "謹慎情緒+反脆弱選舉",
+      "tags": [
+        "[RETAIL_CAUTIOUS]",
+        "[ANTIFRAGILE]"
+      ],
+      "win_rate": 68.0,
+      "expectation": 1.04,
+      "thorp_pass": true,
+      "master_align": "Dalio",
+      "n_observations": 0,
+      "first_observed": "2026-05-14",
+      "hit_rate": null,
+      "confidence": 0.83,
+      "thorp_aligned": true,
+      "loupe_matches": 5
     }
   ],
-  "last_updated": "2026-05-14 16:25:38"
+  "last_updated": "2026-05-14 16:29:17"
 }
