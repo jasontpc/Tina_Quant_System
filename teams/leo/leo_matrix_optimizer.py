@@ -17,7 +17,7 @@ from datetime import datetime
 sys.stdout.reconfigure(encoding='utf-8')
 
 # ===== Leo 科技股池 =====
-LEO_STOCKS = ['2330', '2454', '2317', '2379', '2376', '2382', '3665', '3034']
+LEO_STOCKS = ['2330', '2454', '2379', '2376', '2382', '3665']
 
 # ===== 參數矩陣 =====
 RSI_PERIODS = [10, 12, 14, 16, 18]
