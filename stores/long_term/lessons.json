@@ -63,11 +63,63 @@
       ],
       "status": "archived",
       "importance": 7.609999999999999
+    },
+    {
+      "id": 3,
+      "type": "macro",
+      "tag": "[AI_LEADERSHIP]",
+      "date": "2026-05-14",
+      "confidence": 0.75,
+      "context": {
+        "macro": {
+          "timestamp": "2026-05-14 14:43:18",
+          "tags": [
+            "[AI_LEADERSHIP]"
+          ],
+          "signals": {
+            "NVDA_chg": 2.29,
+            "VIX": 17.87
+          }
+        },
+        "sentiment": {
+          "sentiment_tag": "[RETAIL_CAUTIOUS]",
+          "hot_count": 0,
+          "cold_count": 0,
+          "pool_size": 0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "macro",
+      "tag": "[AI_LEADERSHIP]",
+      "context": {
+        "macro": {
+          "timestamp": "2026-05-14 14:55:50",
+          "tags": [
+            "[AI_LEADERSHIP]"
+          ],
+          "signals": {
+            "NVDA_chg": 2.29,
+            "VIX": 17.87
+          }
+        },
+        "sentiment": {
+          "sentiment_tag": "[RETAIL_CAUTIOUS]",
+          "hot_count": 0,
+          "cold_count": 0,
+          "pool_size": 0
+        },
+        "news_count": 0,
+        "timestamp": "2026-05-14 14:55:50"
+      },
+      "date": "2026-05-14",
+      "confidence": 0.75
     }
   ],
   "metadata": {
     "last_updated": "2026-05-09T07:05:05.416423",
     "total": 1
   },
-  "last_updated": "2026-05-09 12:19"
+  "last_updated": "2026-05-14 14:55:50"
 }
