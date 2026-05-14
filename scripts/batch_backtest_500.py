@@ -78,13 +78,17 @@ def rsi_signals(closes, entry=35, exit=65):
 # ── 爬蟲：台股500檔 ──────────────────────────────────────────────────────────
 
 def fetch_tw_symbols(max_count=500):
-    """從 TwseCode 抓取台股代碼"""
+    """從 TwseCode/yfinance 抓取台股代碼"""
     print(f"[TW] 抓取台股代碼... (目標 {max_count} 檔)")
     try:
-        import urllib.request
+        import urllib.request, ssl
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
         # 上市公司
         url_tse = "https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date=&response=json&type=ALLBUT0999&co=01"
-        resp = urllib.request.urlopen(url_tse, timeout=10)
+        req = urllib.request.Request(url_tse, headers={'User-Agent': 'Mozilla/5.0'})
+        resp = urllib.request.urlopen(req, timeout=10, context=ctx)
         data_tse = json.loads(resp.read())
         tse_codes = []
         if 'data1' in data_tse:
@@ -95,7 +99,8 @@ def fetch_tw_symbols(max_count=500):
                         tse_codes.append(code + ".TW")
         # 上櫃
         url_otc = "https://www.tpex.com.tw/rwd/zh/afterTrading/MI_INDEX?date=&response=json&type=ALLBUT0999&co=09"
-        resp2 = urllib.request.urlopen(url_otc, timeout=10)
+        req2 = urllib.request.Request(url_otc, headers={'User-Agent': 'Mozilla/5.0'})
+        resp2 = urllib.request.urlopen(req2, timeout=10, context=ctx)
         data_otc = json.loads(resp2.read())
         otc_codes = []
         if 'data1' in data_otc:
@@ -109,37 +114,63 @@ def fetch_tw_symbols(max_count=500):
         return all_codes
     except Exception as e:
         print(f"[TW] 抓取失敗: {e}")
-        # Fallback: read from existing DB
-        return []
+        # Fallback: use known TW stock universe from yfinance
+        fallback = ['2330', '2454', '2317', '2379', '2376', '2382', '3665', '3034', '2303', '3008', '2458', '2449', '2377', '2492', '2308', '2382', '4958', '2408', '2357', '3006',
+                    '2324', '2345', '2362', '2376', '2395', '2401', '2408', '2420', '2428', '2441', '2449', '2451', '2453', '2454', '2455', '2456', '2458', '2460', '2464', '2474',
+                    '2327', '2344', '2357', '2379', '2395', '2401', '2408', '2428', '2449', '2458', '2474', '3006', '3014', '3022', '3034', '3044', '3189', '3231', '3419', '3532',
+                    '3579', '3581', '3583', '3593', '3596', '3607', '3665', '3673', '3686', '3693', '3701', '3702', '3704', '3705', '3711', '3712', '3713', '4722', '4766',
+                    '4891', '4904', '4919', '4938', '4958', '4968', '4977', '4980', '4999', '5234', '5269', '5347', '5371', '5426', '5443', '5452', '5469', '5471', '5483',
+                    '6136', '6176', '6183', '6199', '6201', '6202', '6213', '6224', '6239', '6269', '6281', '6285', '6415', '6441', '6449', '6451', '6457', '6471', '6488',
+                    '6504', '6505', '6531', '6552', '6558', '6568', '6573', '6579', '6585', '6589', '6592', '6594', '6603', '6629', '6640', '6641', '6649', '6652', '6670',
+                    '6671', '6672', '8016', '8028', '8033', '8046', '8050', '8069', '8081', '8097', '8104', '8107', '8112', '8125', '8131', '8150', '8171', '8234', '8249',
+                    '8261', '8271', '8299', '8341', '8367', '8399', '8401', '8416', '8422', '8446', '8454', '8464', '8478', '8489', '8499', '8504', '8512', '8514', '8522',
+                    '8526', '8532', '8558', '8577', '8583', '8708', '8938', '8941', '8999', '9945']
+        result = [f'{c}.TW' for c in fallback] + [f'{c}.TWO' for c in fallback[:100]]
+        result = list(set(result))[:max_count]
+        print(f"[TW] Fallback: 使用 {len(result)} 檔已知股票")
+        return result
 
 # ── 爬蟲：美股500檔 ──────────────────────────────────────────────────────────
 
 def fetch_us_symbols(max_count=500):
-    """從 NASDAQ 抓取美股代碼"""
+    """從 yfinance/sp500/nasdaq100 抓取美股代碼"""
     print(f"[US] 抓取美股代碼... (目標 {max_count} 檔)")
+    # Use yfinance to get S&P500 + tech giants + ETFs
     try:
-        import urllib.request
-        # NASDAQ listed
-        url = "https://api.nasdaq.com/api/screener/stocks?tableonly=true&limit=25&offset=0&download=true"
-        headers = {'Accept': 'application/json, text/plain, */*',
-                   'User-Agent': 'Mozilla/5.0'}
-        req = urllib.request.Request(url, headers=headers)
-        resp = urllib.request.urlopen(req, timeout=15)
-        data = json.loads(resp.read())
-        rows = data.get('data', {}).get('rows', [])
-        symbols = list(set(r['symbol'] for r in rows if r.get('symbol') and r.get('marketCap') and float(r.get('marketCap',0)) > 0))
-        # If insufficient, try NYSE
-        if len(symbols) < max_count // 2:
-            url2 = "https://api.nasdaq.com/api/screener/stocks?tableonly=true&limit=25&offset=0&download=true&marketcap=mid,big,large&exchange=NASDAQ"
-            req2 = urllib.request.Request(url2, headers=headers)
-            resp2 = urllib.request.urlopen(req2, timeout=15)
-            data2 = json.loads(resp2.read())
-            rows2 = data2.get('data', {}).get('rows', [])
-            symbols2 = list(set(r['symbol'] for r in rows2 if r.get('symbol')))
-            symbols = list(set(symbols + symbols2))
-        symbols = [s for s in symbols if s.isalpha() and len(s) <= 4 and s not in ('CEO', 'PBS', 'AAPL', 'GOOG')]  # filter garbage
-        symbols = symbols[:max_count]
-        print(f"[US] 抓到 {len(symbols)} 檔股票")
+        sp500 = list(yf.Ticker("SPY").history(period='1d').index)  # just to test connection
+        # Known major US stocks universe
+        known_us = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'NVDA', 'TSLA', 'AVGO', 'ORCL', 'CRM',
+                    'AMD', 'INTC', 'QCOM', 'TXN', 'MU', 'AMAT', 'LRCX', 'KLAC', 'ASML', 'SNPS',
+                    'CDNS', 'PANW', 'CRWD', 'ZS', 'NET', 'DDOG', 'SNOW', 'PLTR', 'UBER', 'LYFT',
+                    'COIN', 'MSTR', 'RIVN', 'LCID', 'F', 'GM', 'TM', 'HMC', 'RACE', 'PSTH',
+                    'JPM', 'BAC', 'WFC', 'C', 'GS', 'MS', 'AXP', 'V', 'MA', 'PYPL',
+                    'DIS', 'NFLX', 'CMCSA', 'T', 'VZ', 'TMUS', 'DISH', 'CHTR', 'EA', 'TTWO',
+                    'UBI', 'RBLX', 'PARA', 'WBD', 'FOX', 'NWS', 'SONY', 'AMXM', 'CMCSA',
+                    'ABNB', 'MAR', 'HLT', 'RCL', 'CCL', 'NCLH', 'MGM', 'WYNN', 'LVS', 'CZR',
+                    'BA', 'LMT', 'RTX', 'NOC', 'GD', 'LHX', 'SAIC', 'TXT', 'HII',
+                    'CAT', 'DE', 'KUBOTA', 'AGCO', 'CMI', 'CMG', 'DPZ', 'MCD', 'SBUX', 'KO',
+                    'PEP', 'PG', 'WMT', 'COST', 'HD', 'LOW', 'TGT', 'DG', 'DLTR', 'ROST',
+                    'XOM', 'CVX', 'COP', 'SLB', 'HAL', 'BKR', 'OXY', 'MRO', 'VLO', 'PSX',
+                    'JCI', 'FAST', 'MSCI', 'SPGI', 'MCO', 'BLK', 'BK', 'STT', 'TFC', 'AFL',
+                    'PRU', 'MET', 'AIG', 'TRV', 'CB', 'WRB', 'PGR', 'ALL', 'SCHW', 'RJF',
+                    'NDAQ', 'CBOE', 'ICE', 'CME', 'LCH', 'NTRS', 'FIS', 'FISV', 'GPN', 'PYPL',
+                    'FI', 'G', 'W', 'COIN', 'HOOD', 'AMTD', 'SCHD', 'VYM', 'SPHD', 'HDV',
+                    'VIG', 'SCHG', 'SPYG', 'VOT', 'VO', 'VB', 'VEA', 'VWO', 'IEMG', 'EEM',
+                    'SPY', 'QQQ', 'DIA', 'IWM', 'VTI', 'ITOT', 'SPMD', 'VBR', 'VIOV', 'VT',
+                    'AAPL', 'MSFT', 'GOOG', 'AMZN', 'NVDA', 'TSLA', 'META', 'AVGO']
+        # Get all S&P500 tickers
+        try:
+            import pandas as pd
+            url = 'https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/constituents.csv'
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            resp = urllib.request.urlopen(req, timeout=10)
+            df = pd.read_csv(resp)
+            sp_tickers = df['Symbol'].tolist()
+            known_us.extend(sp_tickers)
+        except Exception as e2:
+            print(f"[US] S&P500 fetch failed: {e2}")
+        symbols = list(set([s for s in known_us if s.isalpha() and len(s) <= 5]))[:max_count]
+        print(f"[US] 使用 {len(symbols)} 檔股票")
         return symbols
     except Exception as e:
         print(f"[US] 抓取失敗: {e}")
