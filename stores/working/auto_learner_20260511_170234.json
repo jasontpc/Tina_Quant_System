@@ -1,0 +1,21 @@
+{
+  "execution_id": "20260511_170234",
+  "timestamp": "2026-05-11T17:02:34.805449",
+  "job_name": "auto_learner",
+  "universe": "MULTI",
+  "success": true,
+  "signals": [],
+  "metrics": {
+    "candidates_pending": 0,
+    "learned": 11,
+    "rejected": 0,
+    "new_additions": 0
+  },
+  "health": {
+    "status": "running",
+    "errors": [],
+    "warnings": [],
+    "duration_ms": 0,
+    "last_success": null
+  }
+}

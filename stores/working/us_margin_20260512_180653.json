@@ -1,0 +1,111 @@
+{
+  "execution_id": "20260512_180653",
+  "timestamp": "2026-05-12T18:06:53.693955",
+  "job_name": "us_margin",
+  "universe": "US",
+  "success": true,
+  "signals": [
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "price": 129.44000244140625,
+      "rsi_14": 88.95190481301825,
+      "short_ratio": 1.04,
+      "days_to_cover": 0.0,
+      "change_pct": 3.6183191952564364
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "ProShares 3x Long",
+      "price": 76.95999908447266,
+      "rsi_14": 86.79458582683222,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 0.8914529576006494
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Nasdaq 100",
+      "price": 713.2899780273438,
+      "rsi_14": 86.71988445573425,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 0.28963874065545836
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "price": 388.6400146484375,
+      "rsi_14": 82.15224385930637,
+      "short_ratio": 2.7,
+      "days_to_cover": 0.0,
+      "change_pct": -3.0339255276655406
+    },
+    {
+      "symbol": "SPY",
+      "name": "S&P 500 ETF",
+      "price": 739.2999877929688,
+      "rsi_14": 80.51993111589708,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 0.22775855954316224
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "price": 458.7900085449219,
+      "rsi_14": 80.32780687356863,
+      "short_ratio": 0.9,
+      "days_to_cover": 0.0,
+      "change_pct": 0.7908798708686559
+    },
+    {
+      "symbol": "SPXL",
+      "name": "3x Long S&P 500",
+      "price": 267.2699890136719,
+      "rsi_14": 79.4382947556516,
+      "short_ratio": 0.0,
+      "days_to_cover": 0.0,
+      "change_pct": 0.6439190656720912
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "price": 292.67999267578125,
+      "rsi_14": 78.48869137638242,
+      "short_ratio": 3.11,
+      "days_to_cover": 0.0,
+      "change_pct": -0.12626705737772947
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "price": 445.0,
+      "rsi_14": 78.11477213042578,
+      "short_ratio": 1.13,
+      "days_to_cover": 0.0,
+      "change_pct": 3.8870068073398643
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "price": 268.989990234375,
+      "rsi_14": 72.06294088793373,
+      "short_ratio": 1.84,
+      "days_to_cover": 0.0,
+      "change_pct": -1.3532354923427379
+    }
+  ],
+  "metrics": {
+    "high_risk_count": 10,
+    "alerts_count": 6,
+    "squeeze_count": 0
+  },
+  "health": {
+    "status": "running",
+    "errors": [],
+    "warnings": [],
+    "duration_ms": 0,
+    "last_success": null
+  }
+}

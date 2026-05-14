@@ -1,0 +1,512 @@
+{
+  "execution_id": "20260511_170015",
+  "timestamp": "2026-05-11T17:00:15.075230",
+  "job_name": "leo_v65",
+  "universe": "TW",
+  "success": true,
+  "signals": [
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "market": "TW",
+      "price": 584.0,
+      "prev": 592.0,
+      "rsi": 55.2,
+      "rsi_label": "",
+      "mom5": 10.61,
+      "mom20": 14.96,
+      "rel_momentum": 10.16,
+      "rel_strength": 50,
+      "pos_ma20": 7.1,
+      "pos_ma60": 16.6,
+      "ma20": 545.3,
+      "ma60": 501.0,
+      "vol_ratio": 1.7,
+      "score": 53,
+      "signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20",
+        "high_volume"
+      ],
+      "target": 671.6,
+      "stop": 525.6,
+      "max_position": 100000,
+      "position_scale": 1.0,
+      "entry_ratio": "20%+20%",
+      "shares": 171,
+      "fee_estimate": 399.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:18",
+      "lessons_warning": "  [LESSONS] 失敗案例：\n    • **2379 虧損止血** — excess_positions_reduced\n\n- 進場：$544.00 → 出場：$539.00\n- 持有：0天，虧損：$-915（-0.92%）\n- 止損原因：excess_positions_reduced\n- 日期：2026-05-07\n\n**犯錯根源：*...\n    • **2379 虧損止血** — excess_positions_reduced\n\n- 進場：$539.00 → 出場：$539.00\n- 持有：10天，虧損：N/A（N/A）\n- 止損原因：excess_positions_reduced\n- 日期：2026-05-07\n\n**犯錯根源：** 部位...\n  ⚠️ 2379 有 2 筆失敗紀錄，進場需格外謹慎",
+      "lessons_query": {
+        "losses": [
+          "**2379 虧損止血** — excess_positions_reduced\n\n- 進場：$544.00 → 出場：$539.00\n- 持有：0天，虧損：$-915（-0.92%）\n- 止損原因：excess_positions_reduced\n- 日期：2026-05-07\n\n**犯錯根源：** 部位過於集中，系統自動減倉\n**改善：** 同股票最多3口，避免過度集中\n\n---\n_Auto-written by Tina Brain 2026-05-07_\n",
+          "**2379 虧損止血** — excess_positions_reduced\n\n- 進場：$539.00 → 出場：$539.00\n- 持有：10天，虧損：N/A（N/A）\n- 止損原因：excess_positions_reduced\n- 日期：2026-05-07\n\n**犯錯根源：** 部位過於集中，系統自動減倉\n**改善：** 同股票最多3口，避免過度集中\n\n---\n_Auto-written by Tina Brain 2026-05-07_\n"
+        ],
+        "wins": [
+          "**2379 獲利了結** — excess_positions_reduced\n\n- 進場：$537.00 → 出場：$539.00\n- 持有：6天，損益：$372（+0.37%）\n- 平倉原因：excess_positions_reduced\n- 日期：2026-05-07\n\n**勝利關鍵：** 嚴守紀律，excess_positions_reduced 及時了結\n\n\n---\n_Auto-written by Tina Brain 2026-05-07_\n"
+        ],
+        "ledger_entries": [
+          {
+            "date": "2026-04-27",
+            "symbol": "2379",
+            "team": "LEO",
+            "lesson": "Leo波段系統，27筆交易",
+            "total_trades": 27,
+            "wins": 14,
+            "losses": 12,
+            "win_rate": 51.9,
+            "total_pnl": -16505.0,
+            "avg_holding_days": 5.4,
+            "avg_entry": 542.44,
+            "avg_exit": 539.0,
+            "exit_reasons": [
+              "excess_positions_reduced"
+            ],
+            "tags": [
+              "leo_bandwave",
+              "backfill_20260507"
+            ],
+            "source": "leo_trades_backfill"
+          }
+        ],
+        "warnings": [
+          "⚠️ 2379 有 2 筆失敗紀錄，進場需格外謹慎"
+        ]
+      }
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "market": "US",
+      "price": 415.12,
+      "prev": 420.77,
+      "rsi": 38.4,
+      "rsi_label": "OS",
+      "mom5": 0.16,
+      "mom20": 11.93,
+      "rel_momentum": -0.66,
+      "rel_strength": 50,
+      "pos_ma20": -0.2,
+      "pos_ma60": 4.3,
+      "ma20": 416.14,
+      "ma60": 397.91,
+      "vol_ratio": 1.1,
+      "score": 53,
+      "signals": [
+        "deep_oversold",
+        "near_ma20_pullback"
+      ],
+      "target": 477.39,
+      "stop": 373.61,
+      "max_position": 2000,
+      "position_scale": 1.0,
+      "entry_ratio": "1 unit (~$2000)",
+      "shares": 4,
+      "fee_estimate": 7.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:27",
+      "lessons_warning": "  ⚠️ MSFT 歷史勝率 0%，三思而後行",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [
+          {
+            "date": "2026-05-03",
+            "symbol": "MSFT",
+            "team": "MAGGY",
+            "score": 45,
+            "win_rate": 0.28600000000000003,
+            "trades": 21,
+            "source": "hunter_v2",
+            "pf": 2.49,
+            "atr_pct": 3.0,
+            "status": "ready",
+            "rsi": 54.5,
+            "ma_bull": true
+          }
+        ],
+        "warnings": [
+          "⚠️ MSFT 歷史勝率 0%，三思而後行"
+        ]
+      }
+    },
+    {
+      "symbol": "2382",
+      "name": "廣達",
+      "market": "TW",
+      "price": 343.5,
+      "prev": 340.5,
+      "rsi": 55.7,
+      "rsi_label": "",
+      "mom5": 8.02,
+      "mom20": 6.84,
+      "rel_momentum": 7.57,
+      "rel_strength": 50,
+      "pos_ma20": 5.1,
+      "pos_ma60": 14.2,
+      "ma20": 326.77,
+      "ma60": 300.7,
+      "vol_ratio": 0.7,
+      "score": 48,
+      "signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "target": 395.02,
+      "stop": 309.15,
+      "max_position": 100000,
+      "position_scale": 1.0,
+      "entry_ratio": "20%+20%",
+      "shares": 291,
+      "fee_estimate": 400.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:17",
+      "lessons_warning": "  [LESSONS] 失敗案例：\n    • # 廣達(2382) 止損 Lesson — lessons/losses/\n\n**日期：** 2026-05-08  \n**標的：** 2382 廣達  \n**動作：** 止損賣出  \n**結果：** -0.16%（小虧）\n\n---\n\n## 📊 交易記錄\n\n| 項目 | 內容 |\n|:-----|...\n    • **2382 虧損止血** — manual_sold\n\n- 進場：$346.50 → 出場：$344.00\n- 持有：0天，虧損：$-961（-1.01%）\n- 止損原因：manual_sold\n- 日期：2026-05-07\n\n**犯錯根源：** 持有時間過長，市場風向改變\n**改善：** 持有...\n  ⚠️ 2382 有 2 筆失敗紀錄，進場需格外謹慎",
+      "lessons_query": {
+        "losses": [
+          "# 廣達(2382) 止損 Lesson — lessons/losses/\n\n**日期：** 2026-05-08  \n**標的：** 2382 廣達  \n**動作：** 止損賣出  \n**結果：** -0.16%（小虧）\n\n---\n\n## 📊 交易記錄\n\n| 項目 | 內容 |\n|:-----|:-----|\n| 買入日期 | 2026-04-30 |\n| 買入價格 | $319.50 |\n| 賣出日期 | 2026-05-08 |\n| 賣出價格 | ~$319 |\n| 持有天數 | 8 天 |\n| 損益 | -0.16%（小虧）|\n| 總損益 | 約 -$166（300股）|\n\n---\n",
+          "**2382 虧損止血** — manual_sold\n\n- 進場：$346.50 → 出場：$344.00\n- 持有：0天，虧損：$-961（-1.01%）\n- 止損原因：manual_sold\n- 日期：2026-05-07\n\n**犯錯根源：** 持有時間過長，市場風向改變\n**改善：** 持有 > 20天 + RSI > 50 = 危險信號，強制複檢\n\n---\n_Auto-written by Tina Brain 2026-05-07_\n"
+        ],
+        "wins": [
+          "**2382 獲利了結** — excess_positions_reduced\n\n- 進場：$323.00 → 出場：$342.00\n- 持有：10天，損益：$5,871（+5.88%）\n- 平倉原因：excess_positions_reduced\n- 日期：2026-05-07\n\n**勝利關鍵：** 嚴守紀律，excess_positions_reduced 及時了結\n\n\n---\n_Auto-written by Tina Brain 2026-05-07_\n"
+        ],
+        "ledger_entries": [
+          {
+            "date": "2026-05-07",
+            "symbol": "2382.TW",
+            "team": "LEO",
+            "lesson": "持有過長+ RSI>50 = 危險組合",
+            "total_trades": 19,
+            "total_pnl": -1878,
+            "avg_holding_days": 7,
+            "exit_reason": "excess_positions_reduced + manual_sold",
+            "tags": [
+              "持有>30天危險",
+              "RSI>50",
+              "excess_positions",
+              "手動止損"
+            ],
+            "source": "leo_paper_trade_closed"
+          },
+          {
+            "date": "2026-05-04",
+            "symbol": "2382",
+            "team": "NANA",
+            "lesson": "Nana closed：2382 廣達 已平倉 RSI=49",
+            "rsi": 49.5,
+            "current_price": 318.0,
+            "ma20": 317.77,
+            "ma60": 296.18,
+            "atr_pct": 3.56,
+            "ma_bull": true,
+            "signal": "closed",
+            "updated": "2026-05-04 20:06",
+            "tags": [
+              "nana_bandwave",
+              "closed",
+              "rsi_49",
+              "ma_bull"
+            ],
+            "source": "nana_stock_tracking"
+          }
+        ],
+        "warnings": [
+          "⚠️ 2382 有 2 筆失敗紀錄，進場需格外謹慎"
+        ]
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "market": "US",
+      "price": 215.2,
+      "prev": 211.5,
+      "rsi": 60.8,
+      "rsi_label": "",
+      "mom5": 8.44,
+      "mom20": 14.09,
+      "rel_momentum": 7.61,
+      "rel_strength": 50,
+      "pos_ma20": 5.9,
+      "pos_ma60": 14.1,
+      "ma20": 203.18,
+      "ma60": 188.63,
+      "vol_ratio": 0.9,
+      "score": 48,
+      "signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "target": 247.48,
+      "stop": 193.68,
+      "max_position": 2000,
+      "position_scale": 1.0,
+      "entry_ratio": "1 unit (~$2000)",
+      "shares": 9,
+      "fee_estimate": 8.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:24",
+      "lessons_warning": "  [LESSONS] NVDA 無不良紀錄，系統信心進場",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [],
+        "warnings": []
+      }
+    },
+    {
+      "symbol": "COHR",
+      "name": "Coherent",
+      "market": "US",
+      "price": 335.26,
+      "prev": 319.19,
+      "rsi": 44.1,
+      "rsi_label": "OS",
+      "mom5": 1.75,
+      "mom20": 9.03,
+      "rel_momentum": 0.92,
+      "rel_strength": 50,
+      "pos_ma20": 2.2,
+      "pos_ma60": 20.4,
+      "ma20": 328.12,
+      "ma60": 278.42,
+      "vol_ratio": 0.9,
+      "score": 48,
+      "signals": [
+        "oversold",
+        "above_ma20"
+      ],
+      "target": 385.55,
+      "stop": 301.73,
+      "max_position": 2000,
+      "position_scale": 1.0,
+      "entry_ratio": "1 unit (~$2000)",
+      "shares": 5,
+      "fee_estimate": 7.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:26",
+      "lessons_warning": "  [LESSONS] COHR 無不良紀錄，系統信心進場",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [],
+        "warnings": []
+      }
+    },
+    {
+      "symbol": "AMAT",
+      "name": "Applied Mat",
+      "market": "US",
+      "price": 435.44,
+      "prev": 410.64,
+      "rsi": 60.6,
+      "rsi_label": "",
+      "mom5": 11.92,
+      "mom20": 9.0,
+      "rel_momentum": 11.09,
+      "rel_strength": 50,
+      "pos_ma20": 8.7,
+      "pos_ma60": 17.0,
+      "ma20": 400.59,
+      "ma60": 372.15,
+      "vol_ratio": 1.2,
+      "score": 48,
+      "signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "target": 459.31,
+      "stop": 391.9,
+      "max_position": 2000,
+      "position_scale": 1.0,
+      "entry_ratio": "1 unit (~$2000)",
+      "shares": 4,
+      "fee_estimate": 7.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:28",
+      "lessons_warning": "  [LESSONS] AMAT 無不良紀錄，系統信心進場",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [],
+        "warnings": []
+      }
+    },
+    {
+      "symbol": "KLAC",
+      "name": "KLA",
+      "market": "US",
+      "price": 1869.19,
+      "prev": 1763.25,
+      "rsi": 54.6,
+      "rsi_label": "",
+      "mom5": 8.28,
+      "mom20": 7.59,
+      "rel_momentum": 7.45,
+      "rel_strength": 50,
+      "pos_ma20": 4.2,
+      "pos_ma60": 17.1,
+      "ma20": 1794.45,
+      "ma60": 1595.89,
+      "vol_ratio": 1.1,
+      "score": 48,
+      "signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "target": 107.0,
+      "stop": 1682.27,
+      "max_position": 2000,
+      "position_scale": 1.0,
+      "entry_ratio": "1 unit (~$2000)",
+      "shares": 1,
+      "fee_estimate": 7.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:28",
+      "lessons_warning": "  [LESSONS] KLAC 無不良紀錄，系統信心進場",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [],
+        "warnings": []
+      }
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML",
+      "market": "US",
+      "price": 1592.02,
+      "prev": 1516.6,
+      "rsi": 65.0,
+      "rsi_label": "",
+      "mom5": 11.56,
+      "mom20": 7.93,
+      "rel_momentum": 10.74,
+      "rel_strength": 50,
+      "pos_ma20": 9.2,
+      "pos_ma60": 13.0,
+      "ma20": 1457.66,
+      "ma60": 1409.43,
+      "vol_ratio": 1.2,
+      "score": 48,
+      "signals": [
+        "neutral",
+        "strong_momentum",
+        "above_ma20"
+      ],
+      "target": 125.63,
+      "stop": 1432.82,
+      "max_position": 2000,
+      "position_scale": 1.0,
+      "entry_ratio": "1 unit (~$2000)",
+      "shares": 1,
+      "fee_estimate": 6.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:28",
+      "lessons_warning": "  [LESSONS] ASML 無不良紀錄，系統信心進場",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [],
+        "warnings": []
+      }
+    },
+    {
+      "symbol": "2371",
+      "name": "華星光",
+      "market": "TW",
+      "price": 30.55,
+      "prev": 30.55,
+      "rsi": 40.0,
+      "rsi_label": "OS",
+      "mom5": 0.16,
+      "mom20": -4.23,
+      "rel_momentum": -0.28,
+      "rel_strength": 50,
+      "pos_ma20": -1.9,
+      "pos_ma60": -6.8,
+      "ma20": 31.13,
+      "ma60": 32.77,
+      "vol_ratio": 0.8,
+      "score": 45,
+      "signals": [
+        "deep_oversold",
+        "near_ma20_pullback"
+      ],
+      "target": 35.13,
+      "stop": 27.49,
+      "max_position": 100000,
+      "position_scale": 1.0,
+      "entry_ratio": "20%+20%",
+      "shares": 3273,
+      "fee_estimate": 400.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:21",
+      "lessons_warning": "  [LESSONS] 2371 無不良紀錄，系統信心進場",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [],
+        "warnings": []
+      }
+    },
+    {
+      "symbol": "SNPS",
+      "name": "Synopsys",
+      "market": "US",
+      "price": 516.48,
+      "prev": 505.19,
+      "rsi": 66.4,
+      "rsi_label": "",
+      "mom5": 5.62,
+      "mom20": 31.67,
+      "rel_momentum": 4.79,
+      "rel_strength": 50,
+      "pos_ma20": 8.8,
+      "pos_ma60": 17.9,
+      "ma20": 474.53,
+      "ma60": 438.17,
+      "vol_ratio": 1.0,
+      "score": 43,
+      "signals": [
+        "neutral",
+        "above_ma20"
+      ],
+      "target": 387.24,
+      "stop": 464.83,
+      "max_position": 2000,
+      "position_scale": 1.0,
+      "entry_ratio": "1 unit (~$2000)",
+      "shares": 3,
+      "fee_estimate": 6.0,
+      "twii_rsi": 81.1,
+      "timestamp": "2026-05-11 17:00:28",
+      "lessons_warning": "  [LESSONS] SNPS 無不良紀錄，系統信心進場",
+      "lessons_query": {
+        "losses": [],
+        "wins": [],
+        "ledger_entries": [],
+        "warnings": []
+      }
+    }
+  ],
+  "metrics": {
+    "total_trades": 183,
+    "open_positions": 40,
+    "entries": 34,
+    "exits": 0
+  },
+  "health": {
+    "status": "running",
+    "errors": [],
+    "warnings": [],
+    "duration_ms": 0,
+    "last_success": null
+  }
+}
