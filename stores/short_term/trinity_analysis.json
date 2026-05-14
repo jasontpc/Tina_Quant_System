@@ -1,0 +1,84 @@
+{
+  "TWII": {
+    "price": 41898.3,
+    "rsi": 77.5
+  },
+  "positions": {
+    "2376.TW": {
+      "name": "技嘉",
+      "price": 313.5,
+      "cost": 301,
+      "shares": 664,
+      "pnl_pct": 4.15,
+      "rsi": 68.2,
+      "ma20": 290.2,
+      "ma60": null,
+      "macd_hist": 2.72,
+      "kdj": {
+        "K": 75.0,
+        "D": 71.3,
+        "J": 82.6,
+        "signal": "FLAT"
+      },
+      "三位一體": {
+        "MA_OK": false,
+        "MACD_OK": true,
+        "KDJ_OK": false
+      },
+      "score": 1,
+      "action": "TAKE_PROFIT",
+      "updated": "2026-05-14 09:17"
+    },
+    "3034.TW": {
+      "name": "緯穎",
+      "price": 486.5,
+      "cost": 442,
+      "shares": 336,
+      "pnl_pct": 10.07,
+      "rsi": 73.6,
+      "ma20": 433.2,
+      "ma60": null,
+      "macd_hist": 7.36,
+      "kdj": {
+        "K": 83.6,
+        "D": 77.1,
+        "J": 96.7,
+        "signal": "FLAT"
+      },
+      "三位一體": {
+        "MA_OK": false,
+        "MACD_OK": true,
+        "KDJ_OK": false
+      },
+      "score": 1,
+      "action": "TAKE_PROFIT",
+      "updated": "2026-05-14 09:17"
+    },
+    "2379.TW": {
+      "name": "環球晶",
+      "price": 552.0,
+      "cost": 543,
+      "shares": 367,
+      "pnl_pct": 1.66,
+      "rsi": 54.4,
+      "ma20": 548.2,
+      "ma60": null,
+      "macd_hist": -0.32,
+      "kdj": {
+        "K": 44.1,
+        "D": 47.7,
+        "J": 36.9,
+        "signal": "DEAD_CROSS"
+      },
+      "三位一體": {
+        "MA_OK": false,
+        "MACD_OK": false,
+        "KDJ_OK": false
+      },
+      "score": 1,
+      "action": "HOLD",
+      "updated": "2026-05-14 09:17"
+    }
+  },
+  "generated": "2026-05-14 09:17"
+}

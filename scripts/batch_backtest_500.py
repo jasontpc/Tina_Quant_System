@@ -47,11 +47,12 @@ except ImportError:
     print("[ERROR] vectorbt/yfinance not installed")
     sys.exit(1)
 
-# ── 策略參數 ────────────────────────────────────────────────────────────────
+# ── 策略參數（真實勝率版）───────────────────────────────────────────────
 RSI_PERIOD = 14
-RSI_ENTRY = 35
+RSI_ENTRY = 30       # 從 35 調緊到 30（真正超賣）
 RSI_EXIT = 65
-MAX_HOLD = 20  # 最大持有天數
+MAX_HOLD = 7         # 從 20 → 7 天（防止假勝利）
+STOP_LOSS = -3.0      # 新增：-3% 強制停損
 
 # ── 工具函式 ─────────────────────────────────────────────────────────────────
 
@@ -178,8 +179,8 @@ def fetch_us_symbols(max_count=500):
 
 # ── 單檔回測函式 ──────────────────────────────────────────────────────────────
 
-def backtest_single(symbol, period="5y", rsi_entry=35, rsi_exit=65):
-    """對單一股票進行 RSI 策略回測"""
+def backtest_single(symbol, period="5y", rsi_entry=RSI_ENTRY, rsi_exit=RSI_EXIT):
+    """對單一股票進行 RSI 策略回測（真實勝率版）"""
     try:
         df = yf.Ticker(symbol).history(period=period, interval="1d", auto_adjust=True, timeout=10)
         if df is None or len(df) < 200:
@@ -190,23 +191,30 @@ def backtest_single(symbol, period="5y", rsi_entry=35, rsi_exit=65):
         entries, exits, rsi = rsi_signals(closes.values, rsi_entry, rsi_exit)
         if entries.sum() < 3:
             return None
-        # 向量化計算
+        # 向量化計算（加入停損）
         pnl = []
         in_pos = False
         entry_price = 0
         entry_idx = 0
         for i in range(len(closes)):
-            if not in_pos and entries.iloc[i] if hasattr(entries, 'iloc') else entries[i]:
+            if not in_pos and (entries.iloc[i] if hasattr(entries, 'iloc') else entries[i]):
                 in_pos = True
                 entry_price = closes.iloc[i] if hasattr(closes, 'iloc') else closes[i]
                 entry_idx = i
             elif in_pos:
                 days_held = i - entry_idx
                 current_price = closes.iloc[i] if hasattr(closes, 'iloc') else closes[i]
-                exit_cond = (exits.iloc[i] if hasattr(exits, 'iloc') else exits[i]) or days_held >= MAX_HOLD
-                if exit_cond or i == len(closes) - 1:
-                    ret = (current_price - entry_price) / entry_price * 100
-                    pnl.append(ret)
+                ret_pct = (current_price - entry_price) / entry_price * 100
+                # 停損檢查（-3% 強制出場）
+                stopped = ret_pct <= STOP_LOSS
+                # 到期檢查（MAX_HOLD 天）
+                expired = days_held >= MAX_HOLD
+                # 正常出场（RSI>65）
+                exit_ok = (exits.iloc[i] if hasattr(exits, 'iloc') else exits[i])
+                if exit_ok or expired or stopped or i == len(closes) - 1:
+                    if stopped:
+                        ret_pct = STOP_LOSS  # 強制停損
+                    pnl.append(ret_pct)
                     in_pos = False
         if not pnl:
             return None
@@ -223,6 +231,7 @@ def backtest_single(symbol, period="5y", rsi_entry=35, rsi_exit=65):
             'avg_loss': sum(losses) / len(losses) if losses else 0,
             'max_gain': max(pnl) if pnl else 0,
             'max_loss': min(pnl) if pnl else 0,
+            'stopped_out': sum(1 for p in pnl if p == STOP_LOSS),
         }
     except Exception as e:
         return None
@@ -274,6 +283,13 @@ def generate_report(results, market_label, output_file):
     report = {
         'date': datetime.now().strftime('%Y-%m-%d %H:%M'),
         'market': market_label,
+        'params': {
+            'RSI_Period': RSI_PERIOD,
+            'RSI_Entry': RSI_ENTRY,
+            'RSI_Exit': RSI_EXIT,
+            'MAX_HOLD': MAX_HOLD,
+            'STOP_LOSS': STOP_LOSS,
+        },
         'stocks_tested': len(results),
         'total_trades': total_t,
         'overall_metrics': {
@@ -282,6 +298,7 @@ def generate_report(results, market_label, output_file):
         },
         'results': results,
         'failed_count': len(results),
+        'total_attempted': len(results),
     }
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
