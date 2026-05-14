@@ -1,0 +1,166 @@
+[
+  {
+    "id": 1,
+    "when": "[MOMENTUM_DRY] + [HIGH_CONF]",
+       "then": "計算凱利倉位，若 f* < 0.15 則降低部位",
+    "axiom": "動能耗盡時紀律取勝",
+    "type": "risk",
+    "source": "wisdom|backtest|thorp",
+    "confidence": 0.92,
+    "reasoning": "MOMENTUM_DRY 表示動能耗盡，HISTORY 顯示此標籤組合在 20 筆近跡中 Sharpe > 1.0。依凱利公式：f* = (b×p - q) / b，當 p=0.62, b=2.5 時，f* = (2.5×0.62 - 0.38) / 2.5 = 0.424，超過 0.15 上限，取 0.15。",
+    "taleb_aligned": true,
+    "taleb_reason": "當系統處於劣勢時（f* < 0），拒絕下注是反脆弱的核心原則",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "formula": "f* = (b×p - q) / b",
+      "variables": {
+        "p": "win_rate (勝率)",
+        "b": "win_loss_ratio (赔率)",
+        "q": "1 - p (失敗率)",
+        "f*": "kelly_fraction (凱利倉位 fraction)"
+      },
+      "example": "p=0.62, b=2.5 → f* = (2.5×0.62 - 0.38) / 2.5 = 0.424 → 取 min(f*, 0.15) = 0.15",
+      "constraint": "f* < 0 → SKIP（負期望，禁止下注）",
+      "max_fraction": 0.15,
+      "p_threshold": 0.50
+    }
+  },
+  {
+    "id": 2,
+    "when": "[EX_OVERSOLD] + [RSI_DIVERGENCE]",
+    "then": "計算反彈目標價：收盤價 × (1 + 2×ATR_14 / close)",
+    "axiom": "超賣修復紀律",
+    "type": "position",
+    "source": "wisdom|backtest|thorp",
+    "confidence": 0.89,
+    "reasoning": "EX_OVERSOLD（RSI < 35）結合 RSI_DIVERGENCE（價格新低但 RSI 未新低）顯示強烈見底信號。依 Thorp 凱利框架：當 p > 0.55, b > 1.8 時，f* > 0.1 可執行。目標價 = close × (1 + 2×ATR / close)。",
+    "taleb_aligned": true,
+    "taleb_reason": "當失敗成本已知且有限時（止損 ATR 1.5x），允許有限暴露",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "formula": "target_price = close × (1 + 2×ATR_14 / close)",
+      "entry_trigger": "p > 0.55 AND b > 1.8 AND f* > 0.1",
+      "stop_trigger": "price < close - 1.5×ATR_14",
+      "p_threshold": 0.55,
+      "b_min": 1.8
+    }
+  },
+  {
+    "id": 3,
+    "when": "[DYNAMIC_OVERHEATED] + [VOL_PRICE_DIVERGENCE]",
+    "then": "立即止損，嚴禁加倉",
+    "axiom": "過熱時拒絕貪心",
+    "type": "risk",
+    "source": "wisdom|backtest|thorp",
+    "confidence": 0.95,
+    "reasoning": "DYNAMIC_OVERHEATED（RSI > 70 或 ATR 突破）結合 VOL_PRICE_DIVERGENCE 表示量價背離。依 Thorp：第一筆虧損後，若無新信息支援 p 上升，應默認 p 下降。止損觸發時，假設 p < 0.5，f* < 0。",
+    "taleb_aligned": true,
+    "taleb_reason": "當系統暴露於已知的肥尾右側風險時，獲利了結是強制紀律",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "formula": "if loss_triggered AND no_new_signal → assume p_drop ≥ 0.1 → f* ≤ 0 → FULL EXIT",
+      "stop_formula": "exit_price = entry_price - 1.5×ATR_14",
+      "constraint": "任何position在DYNAMIC_OVERHEATED状态下不得新建倉位"
+    }
+  },
+  {
+    "id": 4,
+    "when": "[ANTIFRAGILE] + [TREND_INTACT]",
+    "then": "持有至 MA20 跌破，移動停損",
+    "axiom": "趨勢是我的朋友",
+    "type": "position",
+    "source": "wisdom|backtest|thorp",
+    "confidence": 0.87,
+    "reasoning": "ANTIFRAGILE 勝利率 > 70%（≥5筆），TREND_INTACT 表示 MA20 > MA60 多頭排列。依 Thorp：當趨勢確認時，持有至觸發止損（MA20 跌破）而非固定時間。移動停損保護已有獲利。",
+    "taleb_aligned": true,
+    "taleb_reason": "讓獲利奔跑，趨勢延續時擴大曝險，觸發止損時果斷離場",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "entry_trigger": "p > 0.65 AND b > 1.5 AND f* > 0.08",
+      "exit_trigger": "MA20 < close OR stop_triggered",
+      "trailing_stop": "highest_close - 2×ATR_14",
+      "p_threshold": 0.65,
+      "b_min": 1.5
+    }
+  },
+  {
+    "id": 5,
+    "when": "[RSI_STALE] + [REGIME_SHIFT]",
+    "then": "重新評估 p 和 b，否則 SKIP",
+    "axiom": "結構轉變時停止依賴舊規則",
+    "type": "risk",
+    "source": "wisdom|backtest|thorp",
+    "confidence": 0.91,
+    "reasoning": "REGIME_SHIFT（市场结构转变）发生时，過去的胜率 p 和赔率 b 已失效。依 Thorp：在新 regime 下，必须用最近 20 笔交易重新计算 p 和 b，否则默认 f* < 0（SKIP）。",
+    "taleb_aligned": true,
+    "taleb_reason": "当系统进入未知领域时，拒绝曝险是反脆弱的第一反应",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "formula": "if REGIME_SHIFT detected → require N ≥ 20 new trades to recompute p",
+      "p_recompute": "p = wins / last_20_trades",
+      "b_recompute": "b = avg_win / avg_loss (last 20 trades)",
+      "fallback": "if N < 20 → f* = 0 → SKIP",
+      "stale_threshold": 30
+    }
+  },
+  {
+    "id": 6,
+    "when": "[HIGH_CONFIDENCE] + [AI_LEADERSHIP]",
+    "then": "凱利倉位 15%（最大上限）",
+    "axiom": "高信心組合紀律加倉",
+    "type": "position",
+    "source": "wisdom|backtest|thorp",
+    "confidence": 0.88,
+    "reasoning": "[AI_LEADERSHIP] NVDA 創 52w high 且 SOX +1.5%，宏观向上。HIGH_CONFIDENCE（胜率 > 70%，≥ 5 笔）显示高信心。Thorp 框架下：p > 0.70, b > 2.0 → f* = (2.0×0.70 - 0.30) / 2.0 = 0.65，取 min(f*, 0.15) = 0.15。",
+    "taleb_aligned": true,
+    "taleb_reason": "當有利事件已發生（NVDA 破歷史高），系統曝險於已知正面黑天鵝",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "formula": "f* = min((b×p - q) / b, 0.15)",
+      "p_threshold": 0.70,
+      "b_min": 2.0,
+      "example": "p=0.72, b=2.5 → f* = (2.5×0.72 - 0.28) / 2.5 = 0.608 → 0.15",
+      "max_fraction": 0.15,
+      "hard_cap": true
+    }
+  },
+  {
+    "id": 7,
+    "when": "持有天數 > 20 AND RSI > 50",
+    "then": "立即評估是否減倉",
+    "axiom": "時間是我的敵人",
+    "type": "position",
+    "source": "wisdom|backtest",
+    "confidence": 0.86,
+    "reasoning": "持有超過 20 天且 RSI > 50 表示已進入危險區（時間是我的敵人）。依 Leo 失敗數據庫：持有 >30天 + RSI>50 是最危險組合（失敗率 67%）。立即評估，若無新催化劑則減倉。",
+    "taleb_aligned": true,
+    "taleb_reason": "隨時間經過系統曝險於未知尾部風險，減倉是紀律而非恐懼",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "formula": "if hold_days > 20 AND RSI > 50 → assess if new_catalyst_exists",
+      "no_catalyst_action": "reduce_position_to 50%",
+      "catalyst_required_for_full_hold": true,
+      "max_hold_days": 20,
+      "rsi_danger_zone": 50
+    }
+  },
+  {
+    "id": 8,
+    "when": "[BLACK_SWAN_RISK] OR VIX > 30",
+    "then": "全數離場，嚴禁新建倉位",
+    "axiom": "肥尾風險時紀律清倉",
+    "type": "risk",
+    "source": "wisdom|backtest|taleb",
+    "confidence": 0.97,
+    "reasoning": "VIX > 30 或 [BLACK_SWAN_RISK] 標籤觸發時，肥尾風險加劇。依 Taleb：當系統曝險於已知的不可預測極端事件時，清倉是唯一理性選擇。Thorp 框架下：VIX > 30 → 默认市场 p < 0.45，f* < 0。",
+    "taleb_aligned": true,
+    "taleb_reason": "黑天鵝無法預防但可以逃避，當已知風險與肥尾重合時，清倉是強制紀律",
+    "thorp_aligned": true,
+    "thorp_calculus": {
+      "formula": "if VIX > 30 OR [BLACK_SWAN_RISK] → f* = 0 → EXIT ALL",
+      "vix_threshold": 30,
+      "p_override": 0.45,
+      "new_positions_blocked": true
+    }
+  }
+]
