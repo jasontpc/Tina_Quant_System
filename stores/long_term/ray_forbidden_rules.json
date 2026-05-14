@@ -1,0 +1,98 @@
+{
+  "schema": "ray_forbidden_rules_v1",
+  "version": "1.1",
+  "generated": "2026-05-13",
+  "count": 10,
+  "rules": [
+    {
+      "rule": "If EMA(9) and EMA(21) distance < 5 Then Do not trade",
+      "master": "Taleb",
+      "priority": 1,
+      "taleb_aligned": true,
+      "taleb_reason": "使用肥尾/反脆弱，避免頻繁假信號",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    },
+    {
+      "rule": "If EMA(50) and EMA(200) distance > 100 Then Do not trade",
+      "master": "Taleb",
+      "priority": 1,
+      "taleb_aligned": true,
+      "taleb_reason": "使用肥尾/反脆弱，避免稀疏信號",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    },
+    {
+      "rule": "If EMA(9) and EMA(21) distance < 5 Then do not enter trade",
+      "master": "Thorp",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": true,
+      "thorp_reason": "使用凱利/勝率/二元結局/紀律"
+    },
+    {
+      "rule": "If stop_loss > 2% Then do not enter trade",
+      "master": "Thorp",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": true,
+      "thorp_reason": "使用凱利/勝率/二元結局/紀律"
+    },
+    {
+      "rule": "If fast EMA and slow EMA distance < 10 Then do not generate trade signals",
+      "master": "Simons",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    },
+    {
+      "rule": "If stop_loss > 2% Then do not generate trade signals",
+      "master": "Simons",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    },
+    {
+      "rule": "If RSI2 > 75 Then Do not generate trade signals",
+      "master": "Connors",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    },
+    {
+      "rule": "If EMA distance > 40 Then Do not generate trade signals",
+      "master": "Connors",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    },
+    {
+      "rule": "If fast EMA and slow EMA are closer than 5 days Then do not use this combination",
+      "master": "Dalio",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    },
+    {
+      "rule": "If stop_loss is higher than 3% Then do not use this threshold",
+      "master": "Dalio",
+      "priority": 1,
+      "taleb_aligned": false,
+      "taleb_reason": "",
+      "thorp_aligned": false,
+      "thorp_reason": ""
+    }
+  ]
+}

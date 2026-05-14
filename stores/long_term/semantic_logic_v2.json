@@ -1,0 +1,92 @@
+{
+  "schema": "semantic_logic_v2",
+  "generated": "2026-05-14",
+  "version": "2.0",
+  "count": 12,
+  "rules": [
+    {
+      "if_tags": ["[OVERHEATED]", "[BB_BREAK]"],
+      "then_action": "ACT",
+      "logic_id": "SEM_001",
+      "master_align": "Taleb",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[OVERSOLD]", "[TREND_INTACT]"],
+      "then_action": "ACT",
+      "logic_id": "SEM_002",
+      "master_align": "Thorp",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[VOL_PRICE_DIVERGENCE]"],
+      "then_action": "SKIP",
+      "logic_id": "SEM_003",
+      "master_align": "Simons",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[BLACK_SWAN_RISK]"],
+      "then_action": "SKIP",
+      "logic_id": "SEM_004",
+      "master_align": "Taleb",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[ANTIFRAGILE]"],
+      "then_action": "ACT",
+      "logic_id": "SEM_005",
+      "master_align": "Taleb",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[OVERHEATED]", "[KDJ_CROSS]"],
+      "then_action": "ACT",
+      "logic_id": "SEM_006",
+      "master_align": "Dalio",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[OVERSOLD]", "[MOMENTUM_DRY]"],
+      "then_action": "ACT",
+      "logic_id": "SEM_007",
+      "master_align": "Thorp",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[REGIME_SHIFT]"],
+      "then_action": "SKIP",
+      "logic_id": "SEM_008",
+      "master_align": "Dalio",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[TRAP]", "[BB_BREAK]"],
+      "then_action": "SKIP",
+      "logic_id": "SEM_009",
+      "master_align": "Simons",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[HIGH_CONF]", "[TREND_INTACT]"],
+      "then_action": "ACT",
+      "logic_id": "SEM_010",
+      "master_align": "Thorp",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[LOW_CONF]", "[RSI_EXTREME]"],
+      "then_action": "SKIP",
+      "logic_id": "SEM_011",
+      "master_align": "Taleb",
+      "priority": 1
+    },
+    {
+      "if_tags": ["[LEADER_CATCH_UP]", "[ANTIFRAGILE]"],
+      "then_action": "ACT",
+      "logic_id": "SEM_012",
+      "master_align": "Dalio",
+      "priority": 1
+    }
+  ]
+}
