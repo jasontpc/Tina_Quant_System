@@ -1,0 +1,118 @@
+{
+  "scan_time": "2026-05-14 10:34",
+  "etfs": [
+    "0050",
+    "0056",
+    "00713",
+    "00646",
+    "00662",
+    "00757",
+    "00927",
+    "00878",
+    "00929",
+    "00891",
+    "00892"
+  ],
+  "best_params": {
+    "entry_rsi": 55,
+    "exit_rsi": 75,
+    "max_hold": 60,
+    "stop_loss": -5,
+    "etfs_tested": 11,
+    "total_trades": 271,
+    "win_rate": 52.8,
+    "avg_pnl": 2.5
+  },
+  "all_results": [
+    {
+      "entry_rsi": 55,
+      "exit_rsi": 75,
+      "max_hold": 60,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 271,
+      "win_rate": 52.8,
+      "avg_pnl": 2.5
+    },
+    {
+      "entry_rsi": 50,
+      "exit_rsi": 70,
+      "max_hold": 30,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 338,
+      "win_rate": 55.6,
+      "avg_pnl": 1.35
+    },
+    {
+      "entry_rsi": 55,
+      "exit_rsi": 70,
+      "max_hold": 60,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 297,
+      "win_rate": 55.9,
+      "avg_pnl": 1.7
+    },
+    {
+      "entry_rsi": 50,
+      "exit_rsi": 65,
+      "max_hold": 30,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 351,
+      "win_rate": 56.4,
+      "avg_pnl": 0.93
+    },
+    {
+      "entry_rsi": 55,
+      "exit_rsi": 80,
+      "max_hold": 30,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 372,
+      "win_rate": 56.7,
+      "avg_pnl": 1.68
+    },
+    {
+      "entry_rsi": 55,
+      "exit_rsi": 70,
+      "max_hold": 30,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 386,
+      "win_rate": 58.0,
+      "avg_pnl": 1.25
+    },
+    {
+      "entry_rsi": 60,
+      "exit_rsi": 80,
+      "max_hold": 30,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 418,
+      "win_rate": 59.1,
+      "avg_pnl": 1.86
+    },
+    {
+      "entry_rsi": 60,
+      "exit_rsi": 70,
+      "max_hold": 60,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 348,
+      "win_rate": 59.8,
+      "avg_pnl": 1.74
+    },
+    {
+      "entry_rsi": 60,
+      "exit_rsi": 75,
+      "max_hold": 30,
+      "stop_loss": -5,
+      "etfs_tested": 11,
+      "total_trades": 428,
+      "win_rate": 59.8,
+      "avg_pnl": 1.71
+    }
+  ]
+}
