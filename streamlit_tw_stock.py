@@ -231,7 +231,7 @@ def _validate_token(raw):
 
 # Known working values (hard-coded as final fallback)
 _KNOWN_CHAT_ID = '1616824689'
-_KNOWN_BOT_TOKEN = '8614615741:AAHEMV6daIzF6J_MFUAm8KkhJYtOGVOM14Q'
+_KNOWN_BOT_TOKEN = '8720549244:AAGajB7mD6m7fsq4NK9uXnNqzhJFnSyNPp4'
 
 def _try_get_chat_id():
     """Try to get chat_id from st.secrets, return known fallback on any failure."""
@@ -1749,7 +1749,7 @@ with tw_tab:
                 "T":    st.column_config.TextColumn("投信"),
                 "Vol":  st.column_config.TextColumn("量比"),
             },
-            use_container_width=True,
+            width='stretch',
             hide_index=True,
         )
 
@@ -2410,7 +2410,7 @@ with us_tab:
                 "T":    st.column_config.TextColumn("投信"),
                 "Vol":  st.column_config.TextColumn("量比"),
             },
-            use_container_width=True,
+            width='stretch',
             hide_index=True,
         )
 
