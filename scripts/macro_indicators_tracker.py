@@ -5,11 +5,21 @@ Macro Indicators Tracker
 import requests
 import sqlite3
 import os
+import sys
 import json
 import time
 import logging
 from datetime import datetime
 from pathlib import Path
+
+# VRAM Guard
+BASE_DIR = Path(r"C:\\Users\\USER\\.openclaw\\workspace\\Tina_Quant_System")
+sys.path.insert(0, str(BASE_DIR / "scripts" / "utils"))
+try:
+    from ray_guard import ray_singleton
+except ImportError:
+    def ray_singleton(func):
+        return func
 
 DB_PATH = "./data/macro_institutional.db"
 CONFIG_PATH = "./configs/macro_config.json"
@@ -94,25 +104,20 @@ def fetch_us2y():
 def fetch_ted_spread():
     """TED Spread（美元資金壓力指標）"""
     # TED = 3M LIBOR - 3M T-Bill
-    # yfinance 無法直接取得，改用替代指標
-    val, _ = get_yfinance_value("TED spread")
-    if val is not None:
-        save_macro(datetime.now().strftime("%Y-%m-%d"), "TED_SPREAD", val, 0, "yfinance")
-        return val
+    # yfinance 無法直接取得，改用 2Y-10Y Yield Spread 作為宏觀壓力指標替代
+    # TED SPREAD / TEDETF 已下市（2026-05-02確認），不再嘗試抓取
     
-    # 嘗試用利率差計算
-    # 透過 yfinance 抓取相關利率
+    # 替代：使用 2Y-10Y 殖利率利差作為資金壓力指標
     try:
         import yfinance as yf
-        # 嘗試抓取 ETF proxy
-        spread_etf = yf.Ticker("TEDETF")
-        hist = spread_etf.history(period="5d", auto_adjust=True)
-        if not hist.empty:
-            val = hist["Close"].iloc[-1]
-            save_macro(datetime.now().strftime("%Y-%m-%d"), "TED_SPREAD", val, 0, "yfinance_proxy")
+        tnx = yf.Ticker("^TNX").history(period="5d", auto_adjust=True)
+        tyx = yf.Ticker("^TYX").history(period="5d", auto_adjust=True)
+        if not tnx.empty and not tyx.empty:
+            val = (tyx["Close"].iloc[-1] - tnx["Close"].iloc[-1]) / 100  # 轉為小數
+            save_macro(datetime.now().strftime("%Y-%m-%d"), "TED_SPREAD", val, 0, "yield_spread_proxy")
             return val
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"TED Spread proxy failed: {e}")
     return None
 
 def fetch_all_macro():

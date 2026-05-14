@@ -6,14 +6,14 @@ db = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\data\vogel_indicators
 conn = sqlite3.connect(db)
 cur = conn.cursor()
 
-print('=== ä»Šæ—¥?¶ç›¤?†æ?ï¼?3:50ï¼?===\n')
+print('=== ä»Šæ—¥?ç›¤???3:50?===\n')
 
 # TX from indicators DB
 cur.execute('SELECT date, close, bb_upper, bb_middle, bb_lower, rsi_14, atr_14, zone FROM daily ORDER BY date DESC LIMIT 1')
 row = cur.fetchone()
 if row:
-    print(f'TX?Ÿè²¨ï¼ˆ{row[0]}ï¼?')
-    print(f'  ?¶ç›¤: {row[1]:.0f}')
+    print(f'TX?è²¨ï¼ˆ{row[0]}?')
+    print(f'  ?ç›¤: {row[1]:.0f}')
     print(f'  BB Upper: {row[2]:.0f} | Middle: {row[3]:.0f} | Lower: {row[4]:.0f}')
     print(f'  RSI(14): {row[5]:.1f}')
     print(f'  ATR(14): {row[6]:.0f}')
@@ -26,20 +26,20 @@ if row:
     atr = row[6]
     
     # Signal
-    print(f'\nè¨Šè?è©•ä¼°:')
+    print(f'\nè¨Š?è©•ä¼°:')
     if close >= bb_u:
-        print(f'  SHORT: BB Upperçªç ´ï¼ˆclose {close:.0f} >= {bb_u:.0f}ï¼?)
+        print(f'  SHORT: BB Upperçªç ´ï¼ˆclose {close:.0f} >= {bb_u:.0f}?)
     elif close <= bb_l:
-        print(f'  LONG: BB Lowerè§¸ç¢°ï¼ˆclose {close:.0f} <= {bb_l:.0f}ï¼?)
+        print(f'  LONG: BB Lowerè§¸ç¢°ï¼ˆclose {close:.0f} <= {bb_l:.0f}?)
     else:
-        print(f'  NO_SIGNAL: BB?€?“å…§ï¼ˆé?çªç ´ {bb_u:.0f} ?–å?èª?{bb_l:.0f}ï¼?)
-        print(f'  SHORT?€: +{bb_u - close:.0f}é»?| LONG?€: -{close - bb_l:.0f}é»?)
+        print(f'  NO_SIGNAL: BB??å…§ï¼ˆ?çªç ´ {bb_u:.0f} ???{bb_l:.0f}?)
+        print(f'  SHORT?: +{bb_u - close:.0f}?| LONG?: -{close - bb_l:.0f}?)
 
 conn.close()
 
 # Get TWII close
 try:
-    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
+    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjJ9.1LHB4yKHeZFoXStyjK2W9F6X3nZLMA1IfPWpDVlv6K0'
     r = requests.get('https://api.finmindtrade.com/api/v4/data', params={
         'dataset': 'TaiwanFuturesDaily', 'data_id': 'TX',
         'start_date': '2026-04-28', 'end_date': '2026-04-28', 'token': token
@@ -56,28 +56,28 @@ print('\n')
 
 # Stock prices
 stocks = [
-    ('2330', '?°ç???, 2215, -3.5),
-    ('2454', '?¯ç™¼ç§?, 2615, +6.7),
-    ('2303', '?¯é›»', 75, +3.6),
+    ('2330', '????, 2215, -3.5),
+    ('2454', '?ç™¼?, 2615, +6.7),
+    ('2303', '?é›»', 75, +3.6),
     ('2317', 'é´»æµ·', 226, -1.1),
-    ('3034', 'ç·¯ç?', 412, -0.7),
-    ('2382', 'å»??', 321, -1.7),
+    ('3034', 'ç·¯?', 412, -0.7),
+    ('2382', '??', 321, -1.7),
     ('3665', 'ç©å´´', 2630, -3.0),
 ]
 
-print('=== Nana ?™é¸?¡æ”¶?¤è?å¯?===')
-print(f'{"ä»??":<6} {"?ç¨±":<8} {"?¶ç›¤":>8} {"æ¼²è?":>8} {"è§€å¯Ÿç???}')
+print('=== Nana ?é¸?æ”¶???===')
+print(f'{"??":<6} {"?ç¨±":<8} {"?ç›¤":>8} {"æ¼²?":>8} {"è§€å¯Ÿ???}')
 print('-' * 60)
 
 for code, name, price, chg in stocks:
     if abs(chg) > 3:
-        note = '? ï? æ³¢å?å¤?
+        note = '?? æ³¢??
     elif code == '2454' and chg > 5:
-        note = '?’¹ ?•èƒ½å¾ˆå¼·ä½†é???
+        note = '? ?èƒ½å¾ˆå¼·ä½†???
     elif chg > 0:
-        note = '~ ä¸­æ€§å?å¤?
+        note = '~ ä¸­æ€§??
     else:
-        note = '~ ä¸­æ€?
+        note = '~ ä¸­?
     
     sig = '+' if chg > 0 else ''
     print(f'{code:<6} {name:<8} {price:>8.0f} {sig}{chg:>7.1f}%  {note}')
@@ -86,29 +86,29 @@ print('\n')
 
 # ETF DCA
 etfs = [
-    ('0050', '?ƒå¤§?°ç£50', 92.00, -1.2, 77),
+    ('0050', '?å¤§?ç£50', 92.00, -1.2, 77),
     ('00646', 'å¯Œé‚¦S&P500', 70.95, +0.6, 66),
     ('00662', 'å¯Œé‚¦NASDAQ100', 110.30, +0.0, 100),
-    ('00757', 'çµ±ä?å¤§FANG+', 121.55, +1.0, 110),
-    ('00713', '?ƒå¤§é«˜æ¯ä½æ³¢', 53.00, -0.1, 51),
-    ('0056', '?ƒå¤§é«˜è‚¡??, 41.11, +0.5, 38),
-    ('00927', 'çµ±ä??‹å‰µ?ªä?', 29.90, +1.6, 25),
+    ('00757', 'çµ±?å¤§FANG+', 121.55, +1.0, 110),
+    ('00713', '?å¤§é«˜æ¯ä½æ³¢', 53.00, -0.1, 51),
+    ('0056', '?å¤§é«˜è‚¡??, 41.11, +0.5, 38),
+    ('00927', 'çµ±??å‰µ??', 29.90, +1.6, 25),
 ]
 
-print('=== Ray ETF DCA è§€å¯?===')
-print(f'{"ä»?¢¼":<6} {"?ç¨±":<12} {"?¶ç›¤":>8} {"?é›¢":>8} {"è§€å¯Ÿç???}')
+print('=== Ray ETF DCA è§€?===')
+print(f'{"?":<6} {"?ç¨±":<12} {"?ç›¤":>8} {"?é›¢":>8} {"è§€å¯Ÿ???}')
 print('-' * 60)
 
 for code, name, price, chg, ideal in etfs:
     diff = ((price - ideal) / ideal) * 100
     if diff < 0:
-        note = f'???˜æ‰£ {diff:.0f}%'
+        note = f'???æ‰£ {diff:.0f}%'
     elif diff < 5:
-        note = f'è¼•å¾®?é? {diff:.0f}%'
+        note = f'è¼•å¾®?? {diff:.0f}%'
     elif diff < 15:
-        note = f'?é? {diff:.0f}%'
+        note = f'?? {diff:.0f}%'
     else:
-        note = f'? ï? ?è²´ {diff:.0f}%'
+        note = f'?? ?è²´ {diff:.0f}%'
     
     sig = '+' if chg > 0 else ''
     print(f'{code:<6} {name:<12} {price:>8.2f} {diff:>+7.0f}%  {note}')

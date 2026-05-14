@@ -1,6 +1,6 @@
 """
-Tina 10æ­¥æ ¸å¿ƒè‡ª?•å?å¾ªç’°å¼•æ?
-æ¯??†é??·è?ä¸€æ¬¡ï?ç¢ºä?ç³»çµ±æ°¸ä??·ç’°
+Tina 10æ­¥æ ¸å¿ƒè‡ª??å¾ªç’°å¼•?
+?????ä¸€æ¬¡?ç¢º?ç³»çµ±æ°¸??ç’°
 """
 
 import os
@@ -10,7 +10,7 @@ import datetime
 import subprocess
 from pathlib import Path
 
-# ===== è·¯å?è¨­å? =====
+# ===== è·¯?è¨­? =====
 WORKSPACE = Path("C:/Users/USER/.openclaw/workspace")
 MEMORY = WORKSPACE / "memory"
 TINA_ROOT = WORKSPACE / "Tina_Quant_System"
@@ -20,16 +20,16 @@ NANA_TEAMS = TINA_ROOT / "teams/nana"
 RAY_TEAMS = TINA_ROOT / "teams/ray"
 
 # FinMind API Token
-FINMIND_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM"
+FINMIND_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjJ9.1LHB4yKHeZFoXStyjK2W9F6X3nZLMA1IfPWpDVlv6K0"
 
-# ===== å·¥å…·?½æ•¸ =====
+# ===== å·¥å…·?æ•¸ =====
 def log(msg):
-    """?°å‡ºå¸¶æ??“æˆ³?„æ—¥èª?""
+    """?å‡ºå¸¶??æˆ³?æ—¥?""
     ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{ts}] {msg}")
 
 def read_json(path, default=None):
-    """è®€??JSON æª”æ?"""
+    """è®€??JSON æª”?"""
     if default is None:
         default = {}
     try:
@@ -39,12 +39,12 @@ def read_json(path, default=None):
         return default
 
 def write_json(path, data):
-    """å¯«å…¥ JSON æª”æ?"""
+    """å¯«å…¥ JSON æª”?"""
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 def run_python(script_path, args=None):
-    """?·è? Python ?³æœ¬"""
+    """?? Python ?æœ¬"""
     cmd = ["python", str(script_path)]
     if args:
         cmd.extend(args)
@@ -54,10 +54,10 @@ def run_python(script_path, args=None):
     except Exception as e:
         return False, "", str(e)
 
-# ===== Step 1: ?†æ?å¤±æ??Ÿå?ä¸¦ä¿®æ­?=====
+# ===== Step 1: ??å¤±???ä¸¦ä¿®?=====
 def step1_analyze_failures():
-    """?†æ??¨æ—¥å¤±æ??„äº¤??""
-    log("Step 1: ?†æ?å¤±æ??Ÿå?ä¸¦ä¿®æ­?)
+    """???æ—¥å¤±??äº¤??""
+    log("Step 1: ??å¤±???ä¸¦ä¿®?)
     failures = []
     trades_dir = MEMORY / "trades"
     
@@ -81,24 +81,24 @@ def step1_analyze_failures():
         for fa in failures:
             lines.append(f"- [{fa['symbol']}] {fa['reason']} (file: {fa['file']})\n")
     else:
-        lines.append("- ?¡å¤±?—è??„\n")
+        lines.append("- ?å¤±???\n")
     
     with open(failure_md, "w", encoding="utf-8") as f:
         f.writelines(lines)
     
-    log(f"  ???¼ç¾ {len(failures)} ?‹å¤±?—è???)
+    log(f"  ???ç¾ {len(failures)} ?å¤±????)
     return len(failures)
 
-# ===== Step 2: å®‰è?ç¼ºå??€??=====
+# ===== Step 2: å®‰?ç¼º????=====
 def step2_install_missing():
-    """æª¢æŸ¥ä¸¦å»ºç«‹ç¼ºå°‘ç??¸å??³æœ¬"""
-    log("Step 2: å®‰è?ç¼ºå??„æ???)
+    """æª¢æŸ¥ä¸¦å»ºç«‹ç¼ºå°‘????æœ¬"""
+    log("Step 2: å®‰?ç¼º?????)
     
     required_scripts = {
-        "stock_names.py": "# Stock Names Database\n# ?¡ç¥¨ä»?¢¼?‡å?ç¨±å??‰è¡¨\n\nSTOCK_NAMES = {\n    '2330': '?°ç???,\n    '2317': 'é´»æµ·',\n}",
-        "dynamic_exit.py": "# Dynamic Exit Strategy\n# ?•æ??œåˆ©/?œæ?ç­–ç•¥\n\ndef calculate_dynamic_exit(price, atr, market_state):\n    multipliers = {\n        'OVERBOUGHT': 2.0,\n        'BULL': 2.5,\n        'NEUTRAL': 2.5,\n        'BEAR': 3.0\n    }\n    mult = multipliers.get(market_state, 2.5)\n    return price - atr * mult\n",
-        "finmind_institutional.py": "# FinMind Institutional Data\n# æ³•äººè³‡æ??–å?\n\nimport requests\n\nFINMIND_TOKEN = \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM\"\n\ndef get_institutional(stock_id):\n    url = \"https://api.finmindtrade.com/api/v4/data\"\n    params = {\n        \"token\": FINMIND_TOKEN,\n        \"data_id\": stock_id,\n        \"start_date\": \"2026-04-01\"\n    }\n    resp = requests.get(url, params=params)\n    return resp.json() if resp.status_code == 200 else None\n",
-        "etf_health_monitor.py": "# ETF Health Monitor\n# ETF ?¥åº·åº¦ç›£?§\n\ndef check_etf_health(symbol):\n    return {\n        \"symbol\": symbol,\n        \"health\": \"OK\",\n        \"liquidity\": \"OK\"\n    }\n"
+        "stock_names.py": "# Stock Names Database\n# ?ç¥¨???ç¨±??è¡¨\n\nSTOCK_NAMES = {\n    '2330': '????,\n    '2317': 'é´»æµ·',\n}",
+        "dynamic_exit.py": "# Dynamic Exit Strategy\n# ???åˆ©/??ç­–ç•¥\n\ndef calculate_dynamic_exit(price, atr, market_state):\n    multipliers = {\n        'OVERBOUGHT': 2.0,\n        'BULL': 2.5,\n        'NEUTRAL': 2.5,\n        'BEAR': 3.0\n    }\n    mult = multipliers.get(market_state, 2.5)\n    return price - atr * mult\n",
+        "finmind_institutional.py": "# FinMind Institutional Data\n# æ³•äººè³‡???\n\nimport requests\n\nFINMIND_TOKEN = \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjJ9.1LHB4yKHeZFoXStyjK2W9F6X3nZLMA1IfPWpDVlv6K0\"\n\ndef get_institutional(stock_id):\n    url = \"https://api.finmindtrade.com/api/v4/data\"\n    params = {\n        \"token\": FINMIND_TOKEN,\n        \"data_id\": stock_id,\n        \"start_date\": \"2026-04-01\"\n    }\n    resp = requests.get(url, params=params)\n    return resp.json() if resp.status_code == 200 else None\n",
+        "etf_health_monitor.py": "# ETF Health Monitor\n# ETF ?åº·åº¦ç›£?\n\ndef check_etf_health(symbol):\n    return {\n        \"symbol\": symbol,\n        \"health\": \"OK\",\n        \"liquidity\": \"OK\"\n    }\n"
     }
     
     skills_dir = WORKSPACE / "skills/stock-analyzer"
@@ -111,18 +111,18 @@ def step2_install_missing():
                 f.write(content)
             created.append(name)
     
-    log(f"  ??å»ºç? {len(created)} ?‹ç¼ºå°‘ç??³æœ¬: {created}")
+    log(f"  ??å»º? {len(created)} ?ç¼ºå°‘??æœ¬: {created}")
     return created
 
-# ===== Step 3: ?´å?è³‡æ? =====
+# ===== Step 3: ??è³‡? =====
 def step3_expand_data():
-    """?“å?5æª”æ–°?¡ç¥¨?„æ?äººè???""
-    log("Step 3: ?´å?è³‡æ?")
+    """??5æª”æ–°?ç¥¨??äºº???""
+    log("Step 3: ??è³‡?")
     
-    # è®€?–ç¾?‰æ???    inst_path = MEMORY / "institutional_stocks.json"
+    # è®€?ç¾????    inst_path = MEMORY / "institutional_stocks.json"
     inst_data = read_json(inst_path, {"stocks": [], "last_updated": ""})
     
-    # ?è¨­?¡ç¥¨æ± ï?è¼ªæ??“å?ï¼?    default_pool = [
+    # ?è¨­?ç¥¨æ± ?è¼ª????    default_pool = [
         "2330", "2317", "2303", "2454", "2308", "2377", "2395", "3034", "2002", "2891",
         "2880", "2881", "2882", "2892", "5880", "0050", "0056", "00881", "00733", "00919",
         "2603", "2609", "2615", "1101", "1102", "1216", "1301", "1303", "1326", "1402",
@@ -141,24 +141,24 @@ def step3_expand_data():
     inst_data["last_updated"] = datetime.datetime.now().isoformat()
     write_json(inst_path, inst_data)
     
-    log(f"  ??å·²è???{len(inst_data['stocks'])} æª”è‚¡ç¥?)
+    log(f"  ??å·²???{len(inst_data['stocks'])} æª”è‚¡?)
     return inst_data["stocks"]
 
-# ===== Step 4: ?ªå?è©•å? =====
+# ===== Step 4: ??è©•? =====
 def step4_optimize_scoring():
-    """å¾®èª¿è©•å?æ¬Šé?"""
-    log("Step 4: ?ªå?è©•å?")
+    """å¾®èª¿è©•?æ¬Š?"""
+    log("Step 4: ??è©•?")
     
     adjustments = {
         "institutional_weight": 0.30,
         "technical_weight": 0.40,
         "trend_weight": 0.30,
-        "note": "?¹æ?å¸‚å ´?€?‹å??‹èª¿??
+        "note": "??å¸‚å ´????èª¿??
     }
     
     score_path = MEMORY / "score_adjustments.md"
     with open(score_path, "w", encoding="utf-8") as f:
-        f.write(f"# è©•å?æ¬Šé?èª¿æ•´\n\n")
+        f.write(f"# è©•?æ¬Š?èª¿æ•´\n\n")
         f.write(f"## {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n")
         for k, v in adjustments.items():
             if k != "note":
@@ -166,41 +166,41 @@ def step4_optimize_scoring():
             else:
                 f.write(f"- {k}: {v}\n")
     
-    log("  ??è©•å?æ¬Šé?å·²æ›´??)
+    log("  ??è©•?æ¬Š?å·²æ›´??)
     return adjustments
 
-# ===== Step 5: ?æ¸¬?¡ç¥¨æ±?=====
+# ===== Step 5: ?æ¸¬?ç¥¨?=====
 def step5_backtest():
-    """?·è?ç°¡å–®?•é??æ¸¬"""
-    log("Step 5: ?æ¸¬?¡ç¥¨æ±?)
+    """??ç°¡å–®???æ¸¬"""
+    log("Step 5: ?æ¸¬?ç¥¨?)
     
     bt_script = WORKSPACE / "skills/stock-analyzer/scripts/simple_momentum_backtest.py"
     if bt_script.exists():
         success, stdout, stderr = run_python(bt_script)
-        log(f"  ???æ¸¬?·è?çµæ?: {'?å?' if success else 'å¤±æ?'}")
+        log(f"  ???æ¸¬??çµ?: {'??' if success else 'å¤±?'}")
         if stderr:
-            log(f"  ???¯èª¤: {stderr[:200]}")
+            log(f"  ???èª¤: {stderr[:200]}")
     else:
-        log("  ???æ¸¬?³æœ¬ä¸å??¨ï?è·³é?")
+        log("  ???æ¸¬?æœ¬ä¸???è·³?")
     
-    # è¼¸å‡ºçµæ?
+    # è¼¸å‡ºçµ?
     bt_result = {
         "timestamp": datetime.datetime.now().isoformat(),
         "tier1_return": 0.0,
         "tier2_return": 0.0,
         "tier3_return": 0.0,
-        "note": "å¾?Nana Tier cron ?ä??¸æ?"
+        "note": "?Nana Tier cron ????"
     }
     
     bt_path = MEMORY / "backtest_latest.json"
     write_json(bt_path, bt_result)
-    log(f"  ???æ¸¬çµæ?å·²å¯«??{bt_path}")
+    log(f"  ???æ¸¬çµ?å·²å¯«??{bt_path}")
     return bt_result
 
-# ===== Step 6: ?†ç?ç­–ç•¥ =====
+# ===== Step 6: ??ç­–ç•¥ =====
 def step6_tier_strategy():
-    """æª¢æŸ¥ä¸¦æ›´??Tier ?†é?"""
-    log("Step 6: ?†ç?ç­–ç•¥")
+    """æª¢æŸ¥ä¸¦æ›´??Tier ??"""
+    log("Step 6: ??ç­–ç•¥")
     
     tiers_updated = []
     for tier in ["tier1", "tier2", "tier3"]:
@@ -223,13 +223,13 @@ def step6_tier_strategy():
     log(f"  ??å·²æ›´??{len(tiers_updated)} ??Tier: {tiers_updated}")
     return tiers_updated
 
-# ===== Step 7: ?•æ?èª¿æ•´ =====
+# ===== Step 7: ??èª¿æ•´ =====
 def step7_dynamic_adjustments():
-    """?¹æ?å¸‚å ´?€?‹èª¿?´å???""
-    log("Step 7: ?•æ?èª¿æ•´")
+    """??å¸‚å ´??èª¿????""
+    log("Step 7: ??èª¿æ•´")
     
-    # ç°¡å–®å¸‚å ´?€?‹æª¢?¥ï??¯æ“´?…ï?
-    market_state = "NEUTRAL"  # ?è¨­
+    # ç°¡å–®å¸‚å ´??æª¢???æ“´??
+    market_state = "NEUTRAL"  # ?è¨­
     
     params = {
         "atr_multiplier_OVERBOUGHT": 2.0,
@@ -246,39 +246,39 @@ def step7_dynamic_adjustments():
     dyn_path = MEMORY / "dynamic_params.json"
     write_json(dyn_path, params)
     
-    log(f"  ??ATR ?æ•¸: {params['atr_multiplier_' + market_state]}x, ?æ???Tier1: {params['hold_period_tier1']}å¤?)
+    log(f"  ??ATR ?æ•¸: {params['atr_multiplier_' + market_state]}x, ????Tier1: {params['hold_period_tier1']}?)
     return params
 
-# ===== Step 8: æ¬Šé??ªå? =====
+# ===== Step 8: æ¬Š??? =====
 def step8_allocation():
-    """è³‡é??†é?å»ºè­°"""
-    log("Step 8: æ¬Šé??ªå?")
+    """è³‡???å»ºè­°"""
+    log("Step 8: æ¬Š???")
     
     allocation = {
-        "total_capital": 2500000,  # 200-300?¬å???        "nana_allocation": 1500000,  # 60%
+        "total_capital": 2500000,  # 200-300????        "nana_allocation": 1500000,  # 60%
         "ray_allocation": 750000,   # 30%
         "reserve": 250000,          # 10%
-        "note": "?¹æ?é¢¨éšª?å¥½èª¿æ•´",
+        "note": "??é¢¨éšª?å¥½èª¿æ•´",
         "updated": datetime.datetime.now().isoformat()
     }
     
     alloc_path = MEMORY / "allocation.md"
     with open(alloc_path, "w", encoding="utf-8") as f:
-        f.write("# è³‡é??†é?å»ºè­°\n\n")
+        f.write("# è³‡???å»ºè­°\n\n")
         f.write(f"## {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n")
-        f.write(f"- ç¸½è??? {allocation['total_capital']:,} ?ƒ\n")
+        f.write(f"- ç¸½??? {allocation['total_capital']:,} ?\n")
         f.write(f"- Nana: {allocation['nana_allocation']:,} ??({allocation['nana_allocation']/allocation['total_capital']*100:.0f}%)\n")
         f.write(f"- Ray: {allocation['ray_allocation']:,} ??({allocation['ray_allocation']/allocation['total_capital']*100:.0f}%)\n")
-        f.write(f"- æº–å??? {allocation['reserve']:,} ??({allocation['reserve']/allocation['total_capital']*100:.0f}%)\n")
-        f.write(f"- ?™è¨»: {allocation['note']}\n")
+        f.write(f"- æº–??? {allocation['reserve']:,} ??({allocation['reserve']/allocation['total_capital']*100:.0f}%)\n")
+        f.write(f"- ?è¨»: {allocation['note']}\n")
     
-    log(f"  ???†é?å»ºè­°å·²å¯«??{alloc_path}")
+    log(f"  ????å»ºè­°å·²å¯«??{alloc_path}")
     return allocation
 
-# ===== Step 9: ç³»çµ±æª¢è? =====
+# ===== Step 9: ç³»çµ±æª¢? =====
 def step9_system_review():
-    """æª¢æŸ¥?€??Cron ?€??""
-    log("Step 9: ç³»çµ±æª¢è?")
+    """æª¢æŸ¥???Cron ???""
+    log("Step 9: ç³»çµ±æª¢?")
     
     health = {
         "timestamp": datetime.datetime.now().isoformat(),
@@ -290,7 +290,7 @@ def step9_system_review():
         "issues": []
     }
     
-    # æª¢æŸ¥ API token ?‰æ??§ï?ç°¡å–®æ¸¬è©¦ï¼?    try:
+    # æª¢æŸ¥ API token ????ç°¡å–®æ¸¬è©¦?    try:
         import requests
         resp = requests.get(
             "https://api.finmindtrade.com/api/v4/data",
@@ -298,62 +298,62 @@ def step9_system_review():
             timeout=10
         )
         if resp.status_code != 200:
-            health["issues"].append("FinMind API ?æ??°å¸¸")
+            health["issues"].append("FinMind API ???å¸¸")
     except Exception as e:
-        health["issues"].append(f"FinMind API ?¯èª¤: {str(e)[:50]}")
+        health["issues"].append(f"FinMind API ?èª¤: {str(e)[:50]}")
     
     health_path = MEMORY / "system_health.md"
     with open(health_path, "w", encoding="utf-8") as f:
-        f.write("# ç³»çµ±?¥åº·æª¢æŸ¥\n\n")
+        f.write("# ç³»çµ±?åº·æª¢æŸ¥\n\n")
         f.write(f"## {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n")
-        f.write(f"- Cron ?€?? {health['cron_status']}\n")
+        f.write(f"- Cron ??? {health['cron_status']}\n")
         f.write(f"- API Token: {health['api_tokens']['finmind']}\n")
-        f.write(f"- è¨˜æ†¶é«? {health['memory_usage']}\n")
+        f.write(f"- è¨˜æ†¶? {health['memory_usage']}\n")
         if health["issues"]:
-            f.write(f"\n## ?é?\n")
+            f.write(f"\n## ??\n")
             for issue in health["issues"]:
                 f.write(f"- {issue}\n")
         else:
-            f.write(f"\n- ?¡å?é¡Œç™¼?¾\n")
+            f.write(f"\n- ??é¡Œç™¼?\n")
     
-    log(f"  ??ç³»çµ±?€?? {'æ­?¸¸' if not health['issues'] else '?? + str(len(health['issues'])) + '?‹å?é¡?}")
+    log(f"  ??ç³»çµ±??? {'?' if not health['issues'] else '?? + str(len(health['issues'])) + '???}")
     return health
 
-# ===== Step 10: ?°å?å»ºè­°ä¸¦åŸ·è¡?=====
+# ===== Step 10: ??å»ºè­°ä¸¦åŸ·?=====
 def step10_recommendations():
-    """?¹æ??†æ??å‡ºå»ºè­°ä¸¦åŸ·è¡?""
-    log("Step 10: ?°å?å»ºè­°ä¸¦åŸ·è¡?)
+    """?????å‡ºå»ºè­°ä¸¦åŸ·?""
+    log("Step 10: ??å»ºè­°ä¸¦åŸ·?)
     
     recommendations = []
     
-    # ?¹æ??é¢?„æ­¥é©Ÿç??œç??å»ºè­?    dyn_path = MEMORY / "dynamic_params.json"
+    # ???é¢?æ­¥é©Ÿ????å»º?    dyn_path = MEMORY / "dynamic_params.json"
     dyn_data = read_json(dyn_path, {})
     market_state = dyn_data.get("market_state", "NEUTRAL")
     
-    recommendations.append(f"å¸‚å ´?€?? {market_state} ??ATR ?œæ? {dyn_data.get('atr_multiplier_' + market_state, 2.5)}x")
-    recommendations.append("ç¹¼ç???§ Nana Tier cron è¼¸å‡º")
-    recommendations.append("æ¯è¼ªå¾ªç’°?ªå??·è?ï¼Œç³»çµ±æ°¸ä¸æ–·??)
+    recommendations.append(f"å¸‚å ´??? {market_state} ??ATR ?? {dyn_data.get('atr_multiplier_' + market_state, 2.5)}x")
+    recommendations.append("ç¹¼??? Nana Tier cron è¼¸å‡º")
+    recommendations.append("æ¯è¼ªå¾ªç’°????ï¼Œç³»çµ±æ°¸ä¸æ–·??)
     
-    summary = f"""# Tina 10æ­¥å¾ª?°æ?è¦?
+    summary = f"""# Tina 10æ­¥å¾ª???
 ## {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}
 
 {' | '.join(recommendations)}
 
 ---
-Tina ?å?ç³»çµ± v3.12 ??10æ­¥æ ¸å¿ƒå???"""
+Tina ??ç³»çµ± v3.12 ??10æ­¥æ ¸å¿ƒ???"""
     
     summary_path = MEMORY / "automation_summary.md"
     with open(summary_path, "w", encoding="utf-8") as f:
         f.write(summary)
     
-    log(f"  ???˜è?å·²å¯«??)
+    log(f"  ????å·²å¯«??)
     return summary
 
 # ===== ä¸»å¾ª??=====
 def run_loop():
-    """?·è?å®Œæ•´??0æ­¥å¾ª??""
+    """??å®Œæ•´??0æ­¥å¾ª??""
     log("=" * 50)
-    log("Tina 10æ­¥æ ¸å¿ƒå??????‹å??·è?")
+    log("Tina 10æ­¥æ ¸å¿ƒ?????????")
     log("=" * 50)
     
     start_time = datetime.datetime.now()
@@ -372,12 +372,12 @@ def run_loop():
         
         elapsed = (datetime.datetime.now() - start_time).total_seconds()
         log("=" * 50)
-        log(f"Tina 10æ­¥å¾ª????å®Œæ? (?—æ? {elapsed:.1f}ç§?")
+        log(f"Tina 10æ­¥å¾ª????å®Œ? (?? {elapsed:.1f}?")
         log("=" * 50)
         
         return True
     except Exception as e:
-        log(f"å¾ªç’°?·è??¯èª¤: {e}")
+        log(f"å¾ªç’°???èª¤: {e}")
         import traceback
         traceback.print_exc()
         return False

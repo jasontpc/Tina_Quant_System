@@ -4,10 +4,10 @@ import sys, sqlite3, requests, time
 sys.stdout.reconfigure(encoding='utf-8')
 
 DB = r'C:\Users\USER\.openclaw\workspace\Tina_Quant_System\data\vogel_indicators.db'
-TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
+TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjJ9.1LHB4yKHeZFoXStyjK2W9F6X3nZLMA1IfPWpDVlv6K0'
 BASE = 'https://api.finmindtrade.com/api/v4/data'
 
-print('=== ?¥Êñ∞ Vogel TX ?áÊ?Ë≥áÊ?Â∫?===\n')
+print('=== ?Êñ∞ Vogel TX ??Ë≥á??===\n')
 
 # Get today's data from FinMind
 params = {
@@ -110,11 +110,11 @@ if r.status_code == 200:
             exists = cur2.fetchone()
             
             if exists:
-                print(f'{date} Â∑≤Â??®Ô??¥Êñ∞‰∏?..')
+                print(f'{date} Â∑≤????Êñ∞?..')
                 cur2.execute('''UPDATE daily SET open=?, high=?, low=?, close=?, bb_upper=?, bb_middle=?, bb_lower=?, rsi_14=?, atr_14=?, zone=? WHERE date=?''',
                     (open_p, high, low, close, bb_upper, bb_middle, bb_lower, rsi, atr, zone, date))
             else:
-                print(f'{date} ‰∏çÂ??®Ô?ÂØ´ÂÖ•‰∏?..')
+                print(f'{date} ‰∏ç???ÂØ´ÂÖ•?..')
                 cur2.execute('''INSERT INTO daily (date, futures_id, contract_date, open, high, low, close, sma_20, sma_60, ema_12, ema_26, bb_upper, bb_middle, bb_lower, rsi_14, atr_14, zone)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
                     (date, 'TX', '202606', open_p, high, low, close, sma20, sma60, ema12, ema26, bb_upper, bb_middle, bb_lower, rsi, atr, zone))
@@ -122,7 +122,7 @@ if r.status_code == 200:
             conn2.commit()
             cur2.execute('SELECT COUNT(*) FROM daily')
             cnt = cur2.fetchone()[0]
-            print(f'DB?¥Êñ∞ÂÆåÊ?: {cnt}Á≠?)
+            print(f'DB?Êñ∞ÂÆå?: {cnt}?)
             conn2.close()
     else:
         print(f'No data: {d}')

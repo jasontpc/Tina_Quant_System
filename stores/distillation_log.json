@@ -14,5 +14,49 @@
     "pattern_promotions": 0,
     "lesson_promotions": 0,
     "cleaned": 0
+  },
+  {
+    "timestamp": "2026-05-13T07:03:11.282510",
+    "level": "daily",
+    "short_term_count": 5,
+    "note": "lightweight - cleanup delegated to weekly"
+  },
+  {
+    "timestamp": "2026-05-13T21:59:14.015463",
+    "level": "weekly",
+    "short_term_count": 8,
+    "pattern_promotions": 0,
+    "lesson_promotions": 0,
+    "cleaned": 0
+  },
+  {
+    "started": "2026-05-14 05:05:55",
+    "steps": [
+      {
+        "step": "load_semantic",
+        "count": 12
+      },
+      {
+        "step": "build_modelfile",
+        "size": 2309
+      },
+      {
+        "step": "ollama_create",
+        "status": "error",
+        "msg": "unknown"
+      },
+      {
+        "step": "verify",
+        "status": "skipped"
+      }
+    ],
+    "completed": "2026-05-14 05:06:26",
+    "rules_loaded": 12
+  },
+  {
+    "timestamp": "2026-05-14T07:00:09.310767",
+    "level": "daily",
+    "short_term_count": 5,
+    "note": "lightweight - cleanup delegated to weekly"
   }
 ]

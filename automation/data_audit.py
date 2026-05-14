@@ -25,7 +25,7 @@ NANA_SECTORS_DIR = os.path.join(WORKSPACE, 'Tina_Quant_System', 'teams', 'nana',
 NANA_TIERS_DIR = os.path.join(WORKSPACE, 'Tina_Quant_System', 'teams', 'nana', 'tiers')
 RAY_ALERT_FILE = os.path.join(WORKSPACE, 'Tina_Quant_System', 'teams', 'ray', 'ray_alert_agent.py')
 
-FINMIND_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSJ9.oCdQO1qNRUCYxHZSVuRQCqlF7X2DbQ77wury5ARCKzM'
+FINMIND_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiSm9qbzg4OCIsImVtYWlsIjoiYnJpYW4wMjYwQGdtYWlsLmNvbSIsInRva2VuX3ZlcnNpb24iOjJ9.1LHB4yKHeZFoXStyjK2W9F6X3nZLMA1IfPWpDVlv6K0'
 FINMIND_URL = 'https://api.finmindtrade.com/api/v4/data'
 
 os.makedirs(os.path.join(WORKSPACE, 'memory'), exist_ok=True)

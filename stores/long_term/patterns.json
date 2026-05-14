@@ -1,20 +1,3 @@
 {
-  "patterns": [
-    {
-      "date": "2026-05-09",
-      "pattern": "系統腳本定期整頓 — Archive 而非刪除",
-      "category": "system",
-      "description": "清理腳本時，用 archive 目錄保留版本而非直接刪除，確保可還原",
-      "evidence": "P3 將 91 個腳本移至 archive/ 目錄，節省 3650 行代碼，主系統更乾淨",
-      "confidence": 0.85,
-      "lessons": [
-        "直接刪除有風險，archive 兼顧安全與整潔"
-      ]
-    }
-  ],
-  "metadata": {
-    "last_updated": "2026-05-09T07:05:05.415437",
-    "total": 0
-  },
-  "last_updated": "2026-05-09 12:19"
+  "patterns": []
 }

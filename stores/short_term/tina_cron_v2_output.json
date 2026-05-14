@@ -1,61 +1,79 @@
 {
-  "timestamp": "2026-05-09T18:55:45.999643",
+  "timestamp": "2026-05-13T15:29:03.095032",
   "layer1_target": {
     "current_allocation_pct": 30,
     "target_allocation_pct": 40,
     "monthly_return_pct": 0
   },
   "layer2_risk": {
-    "twii_rsi": 83.5,
-    "risk_level": "🟠 危險",
+    "twii_rsi": 75.3,
+    "risk_level": "🟡 YELLOW",
     "actions": [
-      "⚠️ 降 25% 部位（TWII RSI > 80）"
+      "🟡 YELLOW ZONE → 謹慎操作，觀望"
     ],
-    "vix": 17.19
+    "vix": 17.99,
+    "us_macro": {
+      "SPX": 7400.96,
+      "SPX_RSI": 74.5,
+      "NDX": 26088.2,
+      "TNX": 4.463,
+      "WTI": 100.83
+    },
+    "zone_factors": {
+      "TWII_RSI": true,
+      "VIX": true,
+      "WTI": false,
+      "STOCK_RSI": true
+    },
+    "zone_desc": "1因子警告"
   },
   "layer3_positions": [
     {
       "symbol": "00713",
       "holding_days": 8,
-      "current_rsi": 38.426515134378555,
-      "pnl_pct": 2.59,
-      "dist_to_stop": 9.689378995650827,
-      "dist_to_target": 2.193597452289854,
-      "alert": ""
+      "current_rsi": 72.97293117580044,
+      "pnl_pct": 2.87,
+      "dist_to_stop": 6.8493150684931505,
+      "dist_to_target": 1.36986301369863,
+      "alert": "",
+      "forbidden_violation": ""
     },
     {
       "symbol": "META",
       "holding_days": 8,
-      "current_rsi": 38.426515134378555,
-      "pnl_pct": 2.59,
-      "dist_to_stop": 9.689378995650827,
-      "dist_to_target": 2.193597452289854,
-      "alert": ""
+      "current_rsi": 18.54855473767809,
+      "pnl_pct": 1.78,
+      "dist_to_stop": 7.589046870186921,
+      "dist_to_target": 3.759666672070825,
+      "alert": "",
+      "forbidden_violation": ""
     },
     {
       "symbol": "MSFT",
       "holding_days": 8,
-      "current_rsi": 38.426515134378555,
+      "current_rsi": 35.52653446400251,
       "pnl_pct": 2.59,
       "dist_to_stop": 9.689378995650827,
       "dist_to_target": 2.193597452289854,
-      "alert": ""
+      "alert": "",
+      "forbidden_violation": ""
     }
   ],
   "layer4_market": {
-    "twii_rsi": 83.5,
+    "twii_rsi": 75.3,
     "twii_ma_signal": "bullish",
-    "vix": 17.19,
+    "vix": 17.99,
     "institutional_flow": null,
-    "market_sentiment": 25
+    "market_sentiment": 35
   },
   "layer5_action": {
     "label": "WATCH",
-    "stars": 1,
+    "stars": 2,
     "reasons": [
-      "TWII RSI=83.5 (過熱)",
+      "TWII RSI=75.3 (過熱)",
       "MA20>MA60 多頭排列",
-      "法人中立"
+      "法人中立",
+      "Wisdom 充足 (30 高信心 + 1 深度)"
     ]
   },
   "final_recommendation": "HOLD"

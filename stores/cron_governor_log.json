@@ -241,5 +241,257 @@
     "pending_jobs": 0,
     "cpu": 0.5,
     "memory_percent": 38.6
+  },
+  {
+    "timestamp": "2026-05-13T00:05:02.687400",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 15.5,
+    "memory_percent": 45.6
+  },
+  {
+    "timestamp": "2026-05-13T01:04:43.818893",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 2.1,
+    "memory_percent": 40.5
+  },
+  {
+    "timestamp": "2026-05-13T02:04:46.441082",
+    "activity_score": 80,
+    "window_mode": "deep_sleep",
+    "action": "allow=True|max=5|suppress=False",
+    "pending_jobs": 0,
+    "cpu": 1.3,
+    "memory_percent": 36.7
+  },
+  {
+    "timestamp": "2026-05-13T03:04:41.027902",
+    "activity_score": 80,
+    "window_mode": "deep_sleep",
+    "action": "allow=True|max=5|suppress=False",
+    "pending_jobs": 0,
+    "cpu": 3.7,
+    "memory_percent": 37.4
+  },
+  {
+    "timestamp": "2026-05-13T04:04:41.036502",
+    "activity_score": 80,
+    "window_mode": "deep_sleep",
+    "action": "allow=True|max=5|suppress=False",
+    "pending_jobs": 0,
+    "cpu": 4.0,
+    "memory_percent": 41.3
+  },
+  {
+    "timestamp": "2026-05-13T07:04:44.475017",
+    "activity_score": 80,
+    "window_mode": "normal",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 0.5,
+    "memory_percent": 41.2
+  },
+  {
+    "timestamp": "2026-05-13T08:04:50.106343",
+    "activity_score": 80,
+    "window_mode": "normal",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 0.5,
+    "memory_percent": 40.8
+  },
+  {
+    "timestamp": "2026-05-13T09:06:12.673026",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 0.6,
+    "memory_percent": 43.3
+  },
+  {
+    "timestamp": "2026-05-13T10:04:45.483403",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 6.2,
+    "memory_percent": 42.2
+  },
+  {
+    "timestamp": "2026-05-13T12:04:46.275352",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 9.4,
+    "memory_percent": 42.9
+  },
+  {
+    "timestamp": "2026-05-13T14:07:17.637132",
+    "activity_score": 73,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 15.1,
+    "memory_percent": 62.2
+  },
+  {
+    "timestamp": "2026-05-13T15:04:48.439502",
+    "activity_score": 80,
+    "window_mode": "market_hours",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 18.8,
+    "memory_percent": 43.8
+  },
+  {
+    "timestamp": "2026-05-13T17:02:38.741219",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 9.1,
+    "memory_percent": 41.8
+  },
+  {
+    "timestamp": "2026-05-13T17:12:58.263434",
+    "activity_score": 74,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 5.3,
+    "memory_percent": 59.3
+  },
+  {
+    "timestamp": "2026-05-13T18:05:26.129201",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 12.2,
+    "memory_percent": 43.0
+  },
+  {
+    "timestamp": "2026-05-13T19:04:45.923321",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 8.0,
+    "memory_percent": 48.3
+  },
+  {
+    "timestamp": "2026-05-13T20:04:51.996729",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 3.9,
+    "memory_percent": 48.7
+  },
+  {
+    "timestamp": "2026-05-13T21:07:57.310061",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 1.7,
+    "memory_percent": 45.2
+  },
+  {
+    "timestamp": "2026-05-13T22:13:12.314707",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 6.1,
+    "memory_percent": 46.6
+  },
+  {
+    "timestamp": "2026-05-13T23:04:46.277119",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 3.4,
+    "memory_percent": 42.9
+  },
+  {
+    "timestamp": "2026-05-14T00:04:47.174499",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 0.2,
+    "memory_percent": 44.1
+  },
+  {
+    "timestamp": "2026-05-14T01:04:45.967870",
+    "activity_score": 80,
+    "window_mode": "evening",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 4.9,
+    "memory_percent": 45.3
+  },
+  {
+    "timestamp": "2026-05-14T02:04:58.874048",
+    "activity_score": 80,
+    "window_mode": "deep_sleep",
+    "action": "allow=True|max=5|suppress=False",
+    "pending_jobs": 0,
+    "cpu": 9.6,
+    "memory_percent": 45.2
+  },
+  {
+    "timestamp": "2026-05-14T03:04:46.528576",
+    "activity_score": 80,
+    "window_mode": "deep_sleep",
+    "action": "allow=True|max=5|suppress=False",
+    "pending_jobs": 0,
+    "cpu": 5.9,
+    "memory_percent": 46.1
+  },
+  {
+    "timestamp": "2026-05-14T04:04:42.687882",
+    "activity_score": 80,
+    "window_mode": "deep_sleep",
+    "action": "allow=True|max=5|suppress=False",
+    "pending_jobs": 0,
+    "cpu": 4.8,
+    "memory_percent": 47.0
+  },
+  {
+    "timestamp": "2026-05-14T05:10:32.264891",
+    "activity_score": 79,
+    "window_mode": "deep_sleep",
+    "action": "allow=True|max=5|suppress=False",
+    "pending_jobs": 0,
+    "cpu": 16.0,
+    "memory_percent": 50.6
+  },
+  {
+    "timestamp": "2026-05-14T06:04:45.926946",
+    "activity_score": 80,
+    "window_mode": "normal",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 10.5,
+    "memory_percent": 47.2
+  },
+  {
+    "timestamp": "2026-05-14T07:04:42.455265",
+    "activity_score": 80,
+    "window_mode": "normal",
+    "action": "allow=False|max=1|suppress=True",
+    "pending_jobs": 0,
+    "cpu": 1.4,
+    "memory_percent": 49.5
   }
 ]

@@ -207,6 +207,47 @@ def log_decision(score, window_mode, action, pending):
         log = log[-100:]
     save_json(LOG_FILE, log)
 
+def log_fault_to_db(script, error_type, traceback):
+    """寫入 system_fault_logs（供 ray_self_fixer.py 讀取）"""
+    DB_PATH = r'C:\Users\USER\.openclaw\agents\ray\ray_wisdom.db'
+    if not os.path.exists(DB_PATH):
+        return
+    try:
+        import sqlite3
+        conn = sqlite3.connect(DB_PATH)
+        c = conn.cursor()
+        c.execute("""INSERT INTO system_fault_logs (script_name, error_type, traceback, fixed)
+                      VALUES (?, ?, ?, 0)""", (script, error_type, traceback[:500]))
+        conn.commit()
+        conn.close()
+        print(f"[FAULT] {script}: {error_type}")
+    except Exception as e:
+        print(f"[FAULT-LOG-ERROR] {e}")
+
+def scan_gateway_logs_for_errors():
+    """掃描 Gateway 日誌，發現錯誤時寫入 system_fault_logs"""
+    try:
+        log_path = Path(os.environ.get('LOCALAPPDATA', '')) / 'Temp' / 'openclaw' / 'openclaw-2026-05-13.log'
+        if not log_path.exists():
+            log_path = Path(os.environ.get('TEMP', '/tmp')) / 'openclaw' / 'openclaw-2026-05-13.log'
+        if not log_path.exists():
+            return []
+        lines = log_path.read_text(encoding='utf-8', errors='ignore').splitlines()
+        errors = []
+        for line in reversed(lines[-500:]):
+            try:
+                entry = json.loads(line)
+                msg = str(entry.get('message', ''))
+                lvl = entry.get('level', '')
+                if lvl in ('error', 'warn') and 'cron' in msg.lower():
+                    errors.append(msg[:200])
+            except:
+                pass
+        return errors
+    except Exception as e:
+        print(f"[SCAN-ERROR] {e}")
+        return []
+
 # ─── Main ──────────────────────────────────────────────────────────────────
 
 def main():
@@ -215,6 +256,14 @@ def main():
     # 1. 抓取指標
     metrics = get_system_metrics()
     print(f'Metrics: CPU={metrics["cpu_percent"]:.1f}% MEM={metrics["memory_percent"]:.1f}% EL={metrics["event_loop_delay_ms"]}ms GW={metrics["gateway_ok"]}')
+    
+    # 1b. 掃描錯誤並寫入 system_fault_logs
+    print('[FAULT] 掃描 Gateway 日誌錯誤...')
+    errors = scan_gateway_logs_for_errors()
+    for err in errors[:3]:
+        log_fault_to_db('cron_governor', 'gateway_cron_error', err)
+    if not errors:
+        print('[FAULT] 無新錯誤')
     
     # 2. 計算分數
     score = calc_activity_score(metrics)
