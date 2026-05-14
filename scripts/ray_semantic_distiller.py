@@ -54,7 +54,7 @@ SEMANTIC_TAGS = [
     "[TREND_BROKEN]", "[PULLBACK]", "[BREAKOUT_CONFIRMED]"
 ]
 
-# ── MiniMax 蒸餾（優先）→ 本地 7B 備用 ──────────────────────
+# ── MiniMax 蒸餾（已停用，改用本地 7B）──────────────────────
 def distill_semantic(fault_text: str) -> list:
     tags_pool = """  - [OVERHEATED]
   - [OVERSOLD]
@@ -102,34 +102,7 @@ def distill_semantic(fault_text: str) -> list:
 
 只輸出 JSON，無其他文字。"""
 
-    # MiniMax 優先
-    try:
-        import urllib.request
-        api_key = os.getenv("MINIMAX_API_KEY") or os.getenv("api-key") or ""
-        if api_key:
-            payload = {
-                "model": "minimax/MiniMax-M2.7",
-                "messages": [{"role": "user", "content": prompt}],
-                "temperature": 0.1,
-                "max_tokens": 2000
-            }
-            req = urllib.request.Request(
-                "https://api.minimax.chat/v1/chat/completions",
-                data=json.dumps(payload).encode("utf-8"),
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                method="POST"
-            )
-            with urllib.request.urlopen(req, timeout=60) as resp:
-                raw = json.loads(resp.read().decode("utf-8"))
-            result = raw["choices"][0]["message"]["content"].strip()
-            import re
-            m = re.search(r'\[[\s\S]*\]', result)
-            if m:
-                return json.loads(m.group())
-    except Exception as e:
-        print(f"[MiniMax fallback] {e}")
-
-    # 本地 7B 備用
+    # 直接用本地 7B（已移除 MiniMax API call，避免 key 問題）
     try:
         import urllib.request
         payload = {
@@ -144,7 +117,7 @@ def distill_semantic(fault_text: str) -> list:
             headers={"Content-Type": "application/json"},
             method="POST"
         )
-        with urllib.request.urlopen(req, timeout=90) as resp:
+        with urllib.request.urlopen(req, timeout=60) as resp:
             raw = json.loads(resp.read().decode("utf-8"))
         content = raw.get("message", {}).get("content", "").strip()
         import re
@@ -152,7 +125,7 @@ def distill_semantic(fault_text: str) -> list:
         if m:
             return json.loads(m.group())
     except Exception as e:
-        print(f"[Local 7B fallback] {e}")
+        print(f"[Local 7B] ERROR: {e}")
 
     return []
 
