@@ -257,11 +257,82 @@
       "date": "2026-05-14",
       "confidence": 0.92,
       "lesson": "Leo 最佳配置 RSI=18/threshold=45/hold=10d/tp=15%/sl=10%，適用於 2379/2330，val_wr 77.8%，Sharpe 13.8"
+    },
+    {
+      "id": 13,
+      "type": "backtest",
+      "tag": "[TREND_INTACT]",
+      "source": "leo_matrix",
+      "symbol": "2330",
+      "win_rate": 62.9,
+      "max_wr": 100.0,
+      "n_trades": 14871,
+      "avg_score": 6.9,
+      "date": "2026-05-14",
+      "confidence": 0.63,
+      "lesson": "2330 在 Leo 策略下勝率 62.9%，基於 14871 筆驗證交易，avg_score=6.9",
+      "thorp_aligned": false,
+      "taleb_aligned": true
+    },
+    {
+      "id": 14,
+      "type": "backtest",
+      "tag": "[TREND_INTACT]",
+      "source": "leo_matrix",
+      "symbol": "2379",
+      "win_rate": 60.0,
+      "max_wr": 100.0,
+      "n_trades": 19416,
+      "avg_score": 20.3,
+      "date": "2026-05-14",
+      "confidence": 0.6,
+      "lesson": "2379 在 Leo 策略下勝率 60.0%，基於 19416 筆驗證交易，avg_score=20.3",
+      "thorp_aligned": false,
+      "taleb_aligned": true
+    },
+    {
+      "id": 15,
+      "type": "backtest",
+      "tag": "[HIGH_CONF]",
+      "source": "leo_matrix",
+      "symbol": "3665",
+      "win_rate": 74.9,
+      "max_wr": 100.0,
+      "n_trades": 9504,
+      "avg_score": -135.9,
+      "date": "2026-05-14",
+      "confidence": 0.75,
+      "lesson": "3665 在 Leo 策略下勝率 74.9%，基於 9504 筆驗證交易，avg_score=-135.9",
+      "thorp_aligned": true,
+      "taleb_aligned": false
+    },
+    {
+      "id": 16,
+      "type": "best_config",
+      "tag": "[LEO_BEST_CONFIG]",
+      "source": "leo_matrix",
+      "best_params": {
+        "rsi_period": 18,
+        "rsi_threshold": 45,
+        "hold_days": 10,
+        "tp_pct": 15,
+        "sl_pct": 10
+      },
+      "symbols": [
+        "2379",
+        "2330"
+      ],
+      "train_wr": 75.0,
+      "val_wr": 77.8,
+      "val_sharpe": 13.8,
+      "date": "2026-05-14",
+      "confidence": 0.92,
+      "lesson": "Leo 最佳配置 RSI=18/threshold=45/hold=10d/tp=15%/sl=10%，適用於 2379/2330，val_wr 77.8%，Sharpe 13.8"
     }
   ],
   "metadata": {
     "last_updated": "2026-05-09T07:05:05.416423",
     "total": 1
   },
-  "last_updated": "2026-05-14 15:41:55"
+  "last_updated": "2026-05-14 15:45:36"
 }
